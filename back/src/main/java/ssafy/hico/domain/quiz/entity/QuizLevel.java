@@ -1,4 +1,32 @@
 package ssafy.hico.domain.quiz.entity;
 
-public class QuizLevel {
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import ssafy.hico.global.entity.BaseTimeEntity;
+import ssafy.hico.global.entity.Country;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static jakarta.persistence.FetchType.LAZY;
+
+@Getter
+@Entity
+@NoArgsConstructor
+public class QuizLevel extends BaseTimeEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long quizLevelId;
+    private String quizLevel;
+    private double quizPrice;
+
+    @OneToMany(mappedBy = "quizLevel")
+    private List<Quiz> quizzes = new ArrayList<>();
+
+    @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "country_id")
+    private Country country;
+
 }
