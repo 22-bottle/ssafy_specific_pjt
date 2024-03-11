@@ -1,13 +1,12 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-const mainparent = () => {
+const stage= () => {
     
     return (
-    <div>
+        <div>
         <Outlet/>
     </div>
-    
     );
 };
 
-export default mainparent;
+export default stage;

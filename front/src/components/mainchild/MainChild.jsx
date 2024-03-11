@@ -1,10 +1,10 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
-const mainchild = () => {
+
+const mainchild= () => {
     
     return (
         <div>
-        <Outlet/>
+        this is mainchild page
     </div>
     );
 };
