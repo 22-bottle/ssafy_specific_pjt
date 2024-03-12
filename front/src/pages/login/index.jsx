@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styles from './login.module.css';
 
 function Login() {
   const [username, setUsername] = useState('');
@@ -12,30 +13,75 @@ function Login() {
   };
 
   return (
-    <div>
-      <h2>로그인</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="username">사용자 이름:</label>
-          <input
+      <div className={ styles.materialContainer }>
+
+
+        <div className={ styles.box }>
+
+          <div className={ styles.title }>로그인</div>
+
+          <div className={ styles.input }>
+              <label htmlFor="username">이메일</label>
+              <input
             id="username"
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
-        </div>
-        <div>
-          <label htmlFor="password">비밀번호:</label>
-          <input
+              <span className={ styles.spin } ></span>
+          </div>
+
+          <div className={ styles.input }>
+              <label htmlFor="password">비밀번호</label>
+              <input
             id="password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+              <span className={ styles.spin }></span>
+          </div>
+
+          <div className={`${styles.button} ${styles.login}`}>
+              <button type="submit"><span>로그인</span> <i class="fa fa-check"></i></button>
+          </div>
+
+          <a href="" className={ styles.passforgot }>비밀번호를 잊으셨나요?</a>
+
         </div>
-        <button type="submit">로그인</button>
-      </form>
-    </div>
+
+        <div className={ styles.overbox }>
+          {/* */}
+          <div className={`${styles.materialbutton} ${styles.alt2}`}><span className={ styles.shape }></span></div>
+
+          <div className={ styles.title }>회원가입</div>
+
+          <div className={ styles.input }>
+              <label>Username</label>
+              <input type="text" />
+              <span className={ styles.spin }></span>
+          </div>
+
+          <div className={ styles.input }>
+              <label>Password</label>
+              <input type="password" />
+              <span className={ styles.spin }></span>
+          </div>
+
+          <div className={ styles.input }>
+              <label>Repeat Password</label>
+              <input type="password" />
+              <span className={ styles.spin }></span>
+          </div>
+
+          <div className={ styles.button }>
+              <button type="submit"><span>완료</span></button>
+          </div>
+
+
+        </div>
+
+      </div>
   );
 }
 
