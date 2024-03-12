@@ -12,7 +12,9 @@ import java.time.LocalDateTime;
 @Entity
 @NoArgsConstructor
 @Table(name = "member")
-public class Member extends BaseTimeEntity {
+@Inheritance(strategy = InheritanceType.JOINED)	// 상속 전략
+@DiscriminatorColumn(name="type") // 구분 하는 칼럼
+public abstract class Member extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
