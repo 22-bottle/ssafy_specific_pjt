@@ -17,6 +17,10 @@ const routes = [
     element: React.lazy(() => import("@/components/signup/SignupComplete")),
   },
   {
+    path: "/signup/account", // '/signup/complete' 경로를 독립적으로 추가
+    element: React.lazy(() => import("@/components/signup/SignupAccount")),
+  },
+  {
     path: "/mainparent",
     element: React.lazy(() => import("@/pages/mainparent")),
     children: [
