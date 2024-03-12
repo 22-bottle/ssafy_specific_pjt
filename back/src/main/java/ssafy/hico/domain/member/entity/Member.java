@@ -34,14 +34,24 @@ public abstract class Member extends BaseTimeEntity {
     private String name;
 
     @Column(name = "gender")
-    private String gender;
+    private Gender gender;
 
     @Column(name = "birth_date")
     private LocalDate birthDate;
 
     @Column(name = "role")
-    private String role;
+    private Role role;
 
     @Column(name = "refresh_token")
     private String refreshToken;
+
+    @Builder
+    public Member(String email, String password, String name, Gender gender, LocalDate birthDate, Role role){
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.gender = gender;
+        this.birthDate = birthDate;
+        this.role = role;
+    }
 }
