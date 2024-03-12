@@ -14,6 +14,11 @@ import java.util.List;
 @Table(name = "child")
 @DiscriminatorValue("child")
 public class Child extends Member {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "child_id")
+    private Long id;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
     private Parent parentId;
