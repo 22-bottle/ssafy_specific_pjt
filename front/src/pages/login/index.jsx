@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from './login.module.css';
 
 function Login() {
+  
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -47,37 +48,6 @@ function Login() {
           </div>
 
           <a href="" className={ styles.passforgot }>비밀번호를 잊으셨나요?</a>
-
-        </div>
-
-        <div className={ styles.overbox }>
-          {/* */}
-          <div className={`${styles.materialbutton} ${styles.alt2}`}><span className={ styles.shape }></span></div>
-
-          <div className={ styles.title }>회원가입</div>
-
-          <div className={ styles.input }>
-              <label>Username</label>
-              <input type="text" />
-              <span className={ styles.spin }></span>
-          </div>
-
-          <div className={ styles.input }>
-              <label>Password</label>
-              <input type="password" />
-              <span className={ styles.spin }></span>
-          </div>
-
-          <div className={ styles.input }>
-              <label>Repeat Password</label>
-              <input type="password" />
-              <span className={ styles.spin }></span>
-          </div>
-
-          <div className={ styles.button }>
-              <button type="submit"><span>완료</span></button>
-          </div>
-
 
         </div>
 
