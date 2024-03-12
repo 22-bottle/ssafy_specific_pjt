@@ -13,12 +13,12 @@ const Mypoint= () => {
 
   const currencyButton = () => {
     navigate('/currency/detail')
-  } 
+  };
 
   const divBorder = {
     border: "1px solid black",       
     margin: "10px"
-}
+  };
     
   return (
     <div style={ divBorder }>
