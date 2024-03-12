@@ -1,12 +1,14 @@
 import React from "react";
-
-const mainparent= () => {
+import ChildStatus from './ChildStatus.jsx'
+const Mainparent= () => {
     
     return (
         <div>
-        this is main page for parent
-    </div>
+            <ChildStatus/>
+        </div>
+        
+        
     );
 };
 
-export default mainparent;
+export default Mainparent;

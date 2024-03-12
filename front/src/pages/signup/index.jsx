@@ -1,11 +1,13 @@
 import React from "react";
+import { Outlet } from "react-router-dom";
+
+
 const signup= () => {
     
     return (
         <div>
-        this is signup page
-        <h1>회원가입</h1>
-    </div>
+            <Outlet/>
+        </div>
     );
 };
 
