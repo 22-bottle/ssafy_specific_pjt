@@ -4,7 +4,7 @@ const childwallet = () => {
     
     return (
         <div>
-        this is childwallet
+        {/* this is childwallet */}
         <Outlet/>
     </div>
     );
