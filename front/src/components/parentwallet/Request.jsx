@@ -1,12 +1,12 @@
 import React from "react";
 
-const request= () => {
+const Request= () => {
     
     return (
         <div>
-        this is request page
-    </div>
+        <p>마이 지갑</p>
+        </div>
     );
 };
 
-export default request;
+export default Request;
