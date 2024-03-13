@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styles from './login.module.css';
-import { motion } from "framer-motion";
 
 function Login() {
   
