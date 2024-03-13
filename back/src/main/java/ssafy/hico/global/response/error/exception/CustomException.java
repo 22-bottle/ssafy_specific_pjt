@@ -1,8 +1,8 @@
-package ssafy.hico.global.error.exception;
+package ssafy.hico.global.response.error.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import ssafy.hico.global.error.ErrorCode;
+import ssafy.hico.global.response.error.ErrorCode;
 
 @AllArgsConstructor
 @Getter

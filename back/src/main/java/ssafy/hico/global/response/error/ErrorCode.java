@@ -1,4 +1,4 @@
-package ssafy.hico.global.error;
+package ssafy.hico.global.response.error;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

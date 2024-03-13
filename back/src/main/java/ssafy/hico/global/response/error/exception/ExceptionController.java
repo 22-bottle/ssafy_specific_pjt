@@ -1,9 +1,9 @@
-package ssafy.hico.global.error.exception;
+package ssafy.hico.global.response.error.exception;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import ssafy.hico.global.error.ErrorResponseEntity;
+import ssafy.hico.global.response.error.ErrorResponseEntity;
 
 
 @RestControllerAdvice
