@@ -1,6 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom'; 
 
 const Sending = () => {
+    const navigate = useNavigate();
+    const handleButtonClick = () => {
+          navigate('/parentwallet/complete');
+        
+      };
     const styleObj = {
         border: '1px solid black', 
         padding: '10px', 
@@ -49,6 +55,7 @@ const Sending = () => {
           )
         )}
       </div>
+      <button onClick={handleButtonClick}>송금하기</button>
     </div>
   );
 };

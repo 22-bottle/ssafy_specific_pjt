@@ -1,6 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom'; 
 
 const Request= () => {
+  const navigate = useNavigate();
+  const handleButtonClick = () => {
+        navigate('/parentwallet/send');
+        // 아이인지 부모인지 판별해서 메인페이지로 보내기
+    };
     const styleObj = {
         border: '1px solid black', 
         padding: '10px', 
@@ -55,6 +61,7 @@ const Request= () => {
             <li key={index}>
               <span>{transaction.category}</span>
               <span>{transaction.amount}</span>
+              <button onClick={handleButtonClick}>송금하기</button>
             </li>
           ))}
         </ul>
