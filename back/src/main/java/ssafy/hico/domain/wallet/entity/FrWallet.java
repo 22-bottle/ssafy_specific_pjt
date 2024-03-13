@@ -3,7 +3,7 @@ package ssafy.hico.domain.wallet.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import ssafy.hico.domain.member.entity.Child;
+import ssafy.hico.domain.member.entity.Member;
 import ssafy.hico.domain.point.entity.FrPoint;
 import ssafy.hico.domain.transaction.entity.FrTransaction;
 import ssafy.hico.global.entity.BaseTimeEntity;
@@ -23,8 +23,8 @@ public class FrWallet extends BaseTimeEntity {
     private long frWalletId;
 
     @OneToOne(fetch = LAZY)
-    @JoinColumn(name = "child_id")
-    private Child child;
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     private int cnt;
     private String password;

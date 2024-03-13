@@ -23,6 +23,7 @@ public class MemberController {
 
     @PostMapping("/join")
     public ResponseEntity<?> memberSignUp(@RequestBody MemberSignUpRequest request){
+        memberService.memberSignUp(request);
         return getResponseEntity(SuccessCode.CREATED);
     }
 

@@ -49,7 +49,6 @@ public class MemberService {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        
         String encryptPassword = bCryptPasswordEncoder.encode(request.getPassword());
 
 

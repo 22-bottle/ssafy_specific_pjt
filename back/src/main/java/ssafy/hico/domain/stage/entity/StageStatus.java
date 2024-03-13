@@ -3,7 +3,7 @@ package ssafy.hico.domain.stage.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import ssafy.hico.domain.member.entity.Child;
+import ssafy.hico.domain.member.entity.Member;
 import ssafy.hico.global.entity.BaseTimeEntity;
 
 import static jakarta.persistence.FetchType.LAZY;
@@ -23,7 +23,7 @@ public class StageStatus extends BaseTimeEntity {
     private Stage stage;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "child_id")
-    private Child child;
+    @JoinColumn(name = "member_id")
+    private Member member;
 
 }

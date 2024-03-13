@@ -3,7 +3,7 @@ package ssafy.hico.domain.quiz.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import ssafy.hico.domain.member.entity.Child;
+import ssafy.hico.domain.member.entity.Member;
 import ssafy.hico.global.entity.BaseTimeEntity;
 
 import static jakarta.persistence.FetchType.LAZY;
@@ -18,8 +18,8 @@ public class QuizStatus extends BaseTimeEntity {
     private long quizStatusId;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "child_id")
-    private Child child;
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "quiz_id")

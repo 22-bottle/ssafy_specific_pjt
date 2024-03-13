@@ -3,7 +3,6 @@ package ssafy.hico.domain.account.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import ssafy.hico.domain.member.entity.Member;
-import ssafy.hico.domain.member.entity.Parent;
 
 @Getter
 @Entity
