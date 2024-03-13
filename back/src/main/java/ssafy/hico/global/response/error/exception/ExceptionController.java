@@ -10,6 +10,10 @@ import ssafy.hico.global.response.error.ErrorResponseEntity;
 public class ExceptionController {
     @ExceptionHandler(CustomException.class)
     public ResponseEntity<ErrorResponseEntity> ExceptionHandler(CustomException e) {
-        return ErrorResponseEntity.toResponseEntity(e.getErrorCode());
+        if (e.getErrorCode() != null) {
+            return ErrorResponseEntity.toResponseEntity(e.getErrorCode());
+        } else {
+            return ErrorResponseEntity.toResponseEntity(e.getCode(), e.getMessage());
+        }
     }
 }
