@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import styles from './login.module.css';
+import { motion } from "framer-motion";
 
 function Login() {
   
+  // 로그인 로직
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
