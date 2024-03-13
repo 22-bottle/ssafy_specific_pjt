@@ -12,8 +12,8 @@ import ssafy.hico.domain.member.dto.response.MemberSignUpResponse;
 import ssafy.hico.domain.member.repository.MemberRepository;
 import ssafy.hico.global.bank.BankApi;
 import ssafy.hico.global.bank.BankProperties;
-import ssafy.hico.global.error.ErrorCode;
-import ssafy.hico.global.error.exception.CustomException;
+import ssafy.hico.global.response.error.ErrorCode;
+import ssafy.hico.global.response.error.exception.CustomException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.reactive.function.client.WebClient;
 

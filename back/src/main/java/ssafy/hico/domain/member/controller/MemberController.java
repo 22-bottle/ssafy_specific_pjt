@@ -2,7 +2,6 @@ package ssafy.hico.domain.member.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ssafy.hico.domain.member.dto.request.MemberSignUpRequest;
 import ssafy.hico.domain.member.service.MemberService;
+import ssafy.hico.global.response.success.SuccessCode;
+
+import static ssafy.hico.global.response.success.CommonResponseEntity.getResponseEntity;
 
 @Slf4j
 @RestController
@@ -21,7 +23,7 @@ public class MemberController {
 
     @PostMapping("/join")
     public ResponseEntity<?> memberSignUp(@RequestBody MemberSignUpRequest request){
-        return new ResponseEntity(memberService.memberSignUp(request), HttpStatus.OK);
+        return getResponseEntity(SuccessCode.CREATED);
     }
 
 
