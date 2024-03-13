@@ -1,12 +1,13 @@
 import React from "react";
+import Request from './Request.jsx';
 
-const parentwallet= () => {
+const Parentwallet= () => {
     
     return (
         <div>
-        this is parentwallet page
+        <Request/>
     </div>
     );
 };
 
-export default parentwallet;
+export default Parentwallet;
