@@ -8,6 +8,9 @@ import ssafy.hico.domain.member.dto.request.BankMemberSearchRequest;
 import ssafy.hico.domain.member.dto.request.MemberSignUpRequest;
 import ssafy.hico.domain.member.dto.response.BankMemberSearchResponse;
 import ssafy.hico.domain.member.dto.response.MemberSignUpResponse;
+import ssafy.hico.domain.member.entity.Gender;
+import ssafy.hico.domain.member.entity.Member;
+import ssafy.hico.domain.member.entity.Role;
 import ssafy.hico.domain.member.repository.MemberRepository;
 import ssafy.hico.global.bank.BankApi;
 import ssafy.hico.global.bank.BankApiClient;
@@ -17,6 +20,9 @@ import ssafy.hico.global.response.error.exception.CustomException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.Optional;
+import java.util.Random;
+
 @Service
 @RequiredArgsConstructor
 public class MemberService {
@@ -25,13 +31,12 @@ public class MemberService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final BankApiClient bankApiClient;
 
-    public MemberSignUpResponse memberSignUp(MemberSignUpRequest request) {
+    public void memberSignUp(MemberSignUpRequest request) {
         if(memberRepository.findByEmail(request.getEmail()).isPresent()){
             throw new CustomException(ErrorCode.DUPLICATE_EMAIL);
         }
 
         String memberSearchUrl = BankApi.MEMBER_SEARCH.getUrl();
-        WebClient webClient = WebClient.create(memberSearchUrl);
         BankMemberSearchRequest requestBody = new BankMemberSearchRequest(request.getEmail(), bankProperties.getApiKey());
         String response = bankApiClient.getResponse(memberSearchUrl, requestBody);
 
@@ -43,8 +48,37 @@ public class MemberService {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
+
         String encryptPassword = bCryptPasswordEncoder.encode(request.getPassword());
 
-        return MemberSignUpResponse.builder().name(request.getName()).build();
+        Member.MemberBuilder builder = Member.builder()
+                .email(request.getEmail())
+                .password(encryptPassword)
+                .gender(request.getGender())
+                .name(request.getName())
+                .role(request.getRole())
+                .birthDate(request.getBirthDate())
+                .userKey(memberSearchResponse.getPayload().getUserKey());
+
+        if(request.getRole() == Role.CHILD) {
+            Member parent = memberRepository.findByInvitationCode(request.getCode())
+                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_CODE));
+            builder.parent(parent);
+        } else if(request.getRole() == Role.PARENT) {
+            builder.invitationCode(makeRandomCode());
+        }
+
+        memberRepository.save(builder.build());
+    }
+
+
+    public String makeRandomCode(){
+        Random random = new Random();
+        StringBuilder code = new StringBuilder();
+        for (int i = 0; i < 6; i++) {
+            int digit = random.nextInt(10); // 0부터 9까지의 숫자 생성
+            code.append(digit); // 생성된 숫자를 문자열에 추가
+        }
+        return code.toString();
     }
 }

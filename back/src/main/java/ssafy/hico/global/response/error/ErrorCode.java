@@ -11,7 +11,8 @@ public enum ErrorCode {
     TEST_NOT_FOUND(HttpStatus.NOT_FOUND, "전달할 메시지"),
 
     //회원 관련 예외
-    DUPLICATE_EMAIL(HttpStatus.CONFLICT, "이미 존재하는 이메일입니다.");
+    DUPLICATE_EMAIL(HttpStatus.CONFLICT, "이미 존재하는 이메일입니다."),
+    NOT_FOUND_CODE(HttpStatus.NOT_FOUND, "존재하는 초대 코드가 없습니다.");
 
     private final HttpStatus httpStatus;
     private final String message;
