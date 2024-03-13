@@ -2,17 +2,17 @@ package ssafy.hico.domain.member.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
+import lombok.experimental.SuperBuilder;
 import ssafy.hico.global.entity.BaseTimeEntity;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Getter
 @Entity
-@NoArgsConstructor
 @Table(name = "member")
+@SuperBuilder
 @Inheritance(strategy = InheritanceType.JOINED)	// 상속 전략
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @DiscriminatorColumn(name="type") // 구분 하는 칼럼
 public abstract class Member extends BaseTimeEntity {
 
@@ -33,25 +33,18 @@ public abstract class Member extends BaseTimeEntity {
     @Column(name = "name")
     private String name;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "gender")
     private Gender gender;
 
     @Column(name = "birth_date")
     private LocalDate birthDate;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "role")
     private Role role;
 
     @Column(name = "refresh_token")
     private String refreshToken;
 
-    @Builder
-    public Member(String email, String password, String name, Gender gender, LocalDate birthDate, Role role){
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.gender = gender;
-        this.birthDate = birthDate;
-        this.role = role;
-    }
 }
