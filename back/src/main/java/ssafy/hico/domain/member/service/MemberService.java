@@ -89,6 +89,18 @@ public class MemberService {
         }
     }
 
+    public TokenResponse recreateToken(String bearerToken) {
+        String refreshToken = jwtTokenProvider.getToken(bearerToken);
+        jwtTokenProvider.validateToken(refreshToken);
+
+        Long memberId = jwtTokenProvider.getMemberIdFromToken(refreshToken);
+        Member member = memberRepository.findById(memberId).orElseThrow(()-> new CustomException(ErrorCode.NOT_FOUND_USER));
+
+        TokenResponse tokenResponse = jwtTokenProvider.createToken(memberId, member.getRole());
+        memberRepository.updateRefreshToken(memberId, tokenResponse.getRefreshToken());
+
+        return tokenResponse;
+    }
 
 
     public String makeRandomCode(){

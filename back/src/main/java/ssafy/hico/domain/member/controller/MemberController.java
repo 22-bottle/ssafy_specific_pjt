@@ -1,12 +1,10 @@
 package ssafy.hico.domain.member.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ssafy.hico.domain.member.dto.request.MemberLoginRequest;
 import ssafy.hico.domain.member.dto.request.MemberSignUpRequest;
 import ssafy.hico.domain.member.service.MemberService;
@@ -32,4 +30,11 @@ public class MemberController {
     public ResponseEntity<?> login(@RequestBody MemberLoginRequest request){
         return getResponseEntity(SuccessCode.OK, memberService.login(request));
     }
+
+    @PostMapping("token")
+    public ResponseEntity<?> recreateToken(@RequestHeader(value = "Authorization", required = false) String bearerToken){
+        return getResponseEntity(SuccessCode.OK, memberService.recreateToken(bearerToken));
+    }
+
+
 }
