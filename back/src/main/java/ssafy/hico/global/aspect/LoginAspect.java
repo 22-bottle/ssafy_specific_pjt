@@ -11,18 +11,17 @@ import ssafy.hico.global.annotation.LoginOnly;
 import ssafy.hico.global.response.error.ErrorCode;
 import ssafy.hico.global.response.error.exception.CustomException;
 
-import javax.naming.AuthenticationException;
-import java.io.IOException;
 
 @Aspect
 @Component
 public class LoginAspect {
     @Before("@annotation(loginOnly)")
-    public void LoginOnly(LoginOnly loginOnly) throws IOException, AuthenticationException {
+    public void LoginOnly(LoginOnly loginOnly){
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
                 .getRequest();
 
         Role role = (Role)request.getAttribute("role");
+        if(role == null) throw new CustomException(ErrorCode.NON_MEMBER_ACCESS);
 
         switch(loginOnly.level()){
             case PARENT:

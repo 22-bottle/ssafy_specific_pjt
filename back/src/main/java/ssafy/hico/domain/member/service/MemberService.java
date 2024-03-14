@@ -2,25 +2,25 @@ package ssafy.hico.domain.member.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ssafy.hico.domain.member.dto.request.BankMemberSearchRequest;
+import ssafy.hico.domain.member.dto.request.MemberLoginRequest;
 import ssafy.hico.domain.member.dto.request.MemberSignUpRequest;
 import ssafy.hico.domain.member.dto.response.BankMemberSearchResponse;
-import ssafy.hico.domain.member.dto.response.MemberSignUpResponse;
-import ssafy.hico.domain.member.entity.Gender;
 import ssafy.hico.domain.member.entity.Member;
 import ssafy.hico.domain.member.entity.Role;
 import ssafy.hico.domain.member.repository.MemberRepository;
 import ssafy.hico.global.bank.BankApi;
 import ssafy.hico.global.bank.BankApiClient;
 import ssafy.hico.global.bank.BankProperties;
+import ssafy.hico.global.jwt.JwtTokenProvider;
+import ssafy.hico.global.jwt.TokenResponse;
 import ssafy.hico.global.response.error.ErrorCode;
 import ssafy.hico.global.response.error.exception.CustomException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.reactive.function.client.WebClient;
 
-import java.util.Optional;
 import java.util.Random;
 
 @Service
@@ -30,6 +30,7 @@ public class MemberService {
     private final BankProperties bankProperties;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final BankApiClient bankApiClient;
+    private final JwtTokenProvider jwtTokenProvider;
 
     public void memberSignUp(MemberSignUpRequest request) {
         if(memberRepository.findByEmail(request.getEmail()).isPresent()){
@@ -72,6 +73,36 @@ public class MemberService {
     }
 
 
+    @Transactional
+    public TokenResponse login(MemberLoginRequest request) {
+        Member member = memberRepository.findByEmail(request.getEmail())
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+        if(encoder.matches(request.getPassword(), member.getPassword())) {
+            TokenResponse tokenResponse = jwtTokenProvider.createToken(member.getId(), member.getRole());
+            memberRepository.updateRefreshToken(member.getId(), tokenResponse.getRefreshToken());
+            return tokenResponse;
+        } else {
+            throw new CustomException(ErrorCode.INVALID_PASSWORD);
+        }
+    }
+
+    public TokenResponse recreateToken(String bearerToken) {
+        String refreshToken = jwtTokenProvider.getToken(bearerToken);
+        jwtTokenProvider.validateToken(refreshToken);
+
+        Long memberId = jwtTokenProvider.getMemberIdFromToken(refreshToken);
+        Member member = memberRepository.findById(memberId).orElseThrow(()-> new CustomException(ErrorCode.NOT_FOUND_USER));
+
+        TokenResponse tokenResponse = jwtTokenProvider.createToken(memberId, member.getRole());
+        memberRepository.updateRefreshToken(memberId, tokenResponse.getRefreshToken());
+
+        return tokenResponse;
+    }
+
+
     public String makeRandomCode(){
         Random random = new Random();
         StringBuilder code = new StringBuilder();
@@ -99,4 +130,5 @@ public class MemberService {
         }
         return new String(characters);
     }
+
 }

@@ -95,4 +95,17 @@ public class JwtTokenProvider {
             return e.getClaims();
         }
     }
+
+    public Long getMemberIdFromToken(String token) {
+        Claims claims = parseClaims(token);
+        return Long.parseLong(claims.getSubject());
+    }
+
+
+    public String getToken(String bearerToken) {
+        String token = null;
+        if (bearerToken.startsWith("Bearer"))
+            token = bearerToken.substring(7);
+        return token;
+    }
 }
