@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
+
 import ssafy.hico.domain.exchangerate.dto.response.ExchangeRateApiResponse;
 import ssafy.hico.domain.exchangerate.dto.response.ExchangeRateFindResponse;
 import ssafy.hico.domain.exchangerate.entity.ExchangeRate;
@@ -64,7 +65,7 @@ public class ExchangeRateService {
                 if (amount > 0) todayExchangeRate = dto.createExchangeRate(country, Variation.INCREASE, amount);
                 else if (amount < 0) todayExchangeRate = dto.createExchangeRate(country, Variation.DECREASE, -amount);
                 else todayExchangeRate = dto.createExchangeRate(country, Variation.EQUAL, amount);
-            } catch (CustomException e) {
+            } catch (NullPointerException e) {
                 todayExchangeRate = dto.createExchangeRate(country, null, 0);
             } finally {
                 exchangeRateRepository.save(todayExchangeRate);
