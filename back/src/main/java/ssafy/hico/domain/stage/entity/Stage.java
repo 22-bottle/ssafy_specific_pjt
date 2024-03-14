@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import ssafy.hico.domain.book.entity.BookPage;
 import ssafy.hico.domain.quiz.entity.Quiz;
 import ssafy.hico.global.entity.BaseTimeEntity;
-import ssafy.hico.global.entity.Country;
+import ssafy.hico.domain.country.entity.Country;
 
 import java.util.ArrayList;
 import java.util.List;

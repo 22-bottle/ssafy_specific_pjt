@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import ssafy.hico.domain.wallet.entity.FrWallet;
 import ssafy.hico.global.entity.BaseTimeEntity;
-import ssafy.hico.global.entity.Country;
+import ssafy.hico.domain.country.entity.Country;
 
 import static jakarta.persistence.FetchType.LAZY;
 
