@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import ssafy.hico.global.entity.BaseTimeEntity;
-import ssafy.hico.global.entity.Country;
+import ssafy.hico.domain.country.entity.Country;
 
 import java.util.ArrayList;
 import java.util.List;
