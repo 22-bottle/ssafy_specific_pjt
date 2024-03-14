@@ -1,9 +1,8 @@
-package ssafy.hico.domain.exchangerate.dto;
+package ssafy.hico.domain.exchangerate.dto.response;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Getter;
-import lombok.ToString;
 import ssafy.hico.domain.country.entity.Country;
 import ssafy.hico.domain.exchangerate.entity.ExchangeRate;
 import ssafy.hico.domain.exchangerate.entity.Variation;
@@ -12,7 +11,7 @@ import java.time.LocalDate;
 
 @Getter
 @JsonNaming(value = PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class ExchangeRateApiResponseDto {
+public class ExchangeRateApiResponse {
 
     private int result;
     private String curUnit;

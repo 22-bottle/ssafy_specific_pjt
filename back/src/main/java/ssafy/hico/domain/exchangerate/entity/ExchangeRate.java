@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import ssafy.hico.global.entity.BaseTimeEntity;
 import ssafy.hico.domain.country.entity.Country;
 
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 import static jakarta.persistence.FetchType.LAZY;
 
 @Getter
+@Setter
 @Entity
 @NoArgsConstructor
 public class ExchangeRate extends BaseTimeEntity {
