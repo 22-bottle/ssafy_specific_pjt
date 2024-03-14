@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ssafy.hico.domain.member.dto.request.MemberSignUpRequest;
 import ssafy.hico.domain.member.service.MemberService;
+import ssafy.hico.global.annotation.LoginOnly;
 import ssafy.hico.global.response.success.SuccessCode;
 
 import static ssafy.hico.global.response.success.CommonResponseEntity.getResponseEntity;
@@ -26,6 +27,4 @@ public class MemberController {
         memberService.memberSignUp(request);
         return getResponseEntity(SuccessCode.CREATED);
     }
-
-
 }
