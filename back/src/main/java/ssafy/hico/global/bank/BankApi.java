@@ -41,6 +41,6 @@ public enum BankApi {
     INQUIRE_TRANSACTION_HISTORY_DETAIL("inquireTransactionHistoryDetail",
             "https://finapi.p.ssafy.io/ssafy/api/v1/edu/account/inquireTransactionHistoryDetail");
 
-    private final String apiServiceCode;
+    private final String apiName;
     private final String url;
 }
