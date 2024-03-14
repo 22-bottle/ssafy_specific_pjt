@@ -10,6 +10,9 @@ public enum BankApi {
     //계정 조회
     MEMBER_SEARCH("search", "https://finapi.p.ssafy.io/ssafy/api/v1/member/search"),
 
+    //계좌 생성
+    OPEN_ACCOUNT("openAccount", "https://finapi.p.ssafy.io/ssafy/api/v1/edu/account/openAccount"),
+
     //계좌 목록 조회
     INQUIRE_ACCOUNT_LIST("inquireAccountList",
             "https://finapi.p.ssafy.io/ssafy/api/v1/edu/account/inquireAccountList"),
