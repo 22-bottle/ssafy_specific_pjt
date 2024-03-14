@@ -16,6 +16,8 @@ public enum ErrorCode {
     ONLY_ACCESS_PARENT(HttpStatus.BAD_REQUEST, "부모님만 접근할 수 있는 페이지입니다."),
     ONLY_ACCESS_CHILD(HttpStatus.BAD_REQUEST, "아이만 접근할 수 있는 페이지입니다."),
     NON_MEMBER_ACCESS(HttpStatus.UNAUTHORIZED, "로그인 후 이용 가능합니다."),
+    NOT_FOUND_USER(HttpStatus.NOT_FOUND, "해당 이메일로 가입한 유저가 없습니다."),
+    INVALID_PASSWORD(HttpStatus.CONFLICT, "비밀번호가 일치하지 않습니다."),
 
     //JWT 관련 예외
     EXPIRED_AUTH_TOKEN(HttpStatus.UNAUTHORIZED, "토큰이 만료되었습니다."),

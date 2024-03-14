@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ssafy.hico.domain.member.dto.request.MemberLoginRequest;
 import ssafy.hico.domain.member.dto.request.MemberSignUpRequest;
 import ssafy.hico.domain.member.service.MemberService;
-import ssafy.hico.global.annotation.LoginOnly;
 import ssafy.hico.global.response.success.SuccessCode;
 
 import static ssafy.hico.global.response.success.CommonResponseEntity.getResponseEntity;
@@ -26,5 +26,10 @@ public class MemberController {
     public ResponseEntity<?> memberSignUp(@RequestBody MemberSignUpRequest request){
         memberService.memberSignUp(request);
         return getResponseEntity(SuccessCode.CREATED);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody MemberLoginRequest request){
+        return getResponseEntity(SuccessCode.OK, memberService.login(request));
     }
 }
