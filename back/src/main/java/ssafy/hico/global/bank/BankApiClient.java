@@ -5,7 +5,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
-import ssafy.hico.global.response.error.exception.CustomException;
+import ssafy.hico.global.response.error.exception.BankException;
 
 import java.io.IOException;
 
@@ -26,7 +26,7 @@ public class BankApiClient {
             ObjectMapper objectMapper = new ObjectMapper();
             try {
                 BankErrorResponse errorResponse = objectMapper.readValue(responseBody, BankErrorResponse.class);
-                throw new CustomException(errorResponse.getResponseCode(), errorResponse.getResponseMessage());
+                throw new BankException(errorResponse.getResponseCode(), errorResponse.getResponseMessage());
             } catch (IOException e) {
                 e.printStackTrace(); // JSON 파싱 실패 처리
             }

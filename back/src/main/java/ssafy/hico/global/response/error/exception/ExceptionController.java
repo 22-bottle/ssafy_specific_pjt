@@ -10,10 +10,11 @@ import ssafy.hico.global.response.error.ErrorResponseEntity;
 public class ExceptionController {
     @ExceptionHandler(CustomException.class)
     public ResponseEntity<ErrorResponseEntity> ExceptionHandler(CustomException e) {
-        if (e.getErrorCode() != null) {
-            return ErrorResponseEntity.toResponseEntity(e.getErrorCode());
-        } else {
-            return ErrorResponseEntity.toResponseEntity(e.getCode(), e.getMessage());
-        }
+        return ErrorResponseEntity.toResponseEntity(e.getErrorCode());
+    }
+
+    @ExceptionHandler(BankException.class)
+    public ResponseEntity<ErrorResponseEntity> ExceptionHandler(BankException e) {
+        return ErrorResponseEntity.toResponseEntity(e.getCode(), e.getMessage());
     }
 }
