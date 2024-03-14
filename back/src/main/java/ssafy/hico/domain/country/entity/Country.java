@@ -1,4 +1,4 @@
-package ssafy.hico.global.entity;
+package ssafy.hico.domain.country.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -7,6 +7,7 @@ import ssafy.hico.domain.exchangerate.entity.ExchangeRate;
 import ssafy.hico.domain.point.entity.FrPoint;
 import ssafy.hico.domain.quiz.entity.QuizLevel;
 import ssafy.hico.domain.stage.entity.Stage;
+import ssafy.hico.global.entity.BaseTimeEntity;
 
 import java.util.ArrayList;
 import java.util.List;
