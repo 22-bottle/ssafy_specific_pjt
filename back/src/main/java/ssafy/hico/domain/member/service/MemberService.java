@@ -75,10 +75,28 @@ public class MemberService {
     public String makeRandomCode(){
         Random random = new Random();
         StringBuilder code = new StringBuilder();
-        for (int i = 0; i < 6; i++) {
-            int digit = random.nextInt(10); // 0부터 9까지의 숫자 생성
-            code.append(digit); // 생성된 숫자를 문자열에 추가
+        // 문자를 위한 문자열
+        String letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        // 숫자 3개 추가
+        for (int i = 0; i < 3; i++) {
+            int digit = random.nextInt(10);
+            code.append(digit);
         }
-        return code.toString();
+
+        // 문자 3개 추가
+        for (int i = 0; i < 3; i++) {
+            int index = random.nextInt(letters.length());
+            code.append(letters.charAt(index));
+        }
+
+        char[] characters = code.toString().toCharArray();
+        for (int i = 0; i < characters.length; i++) {
+            int randomIndex = random.nextInt(characters.length);
+            char temp = characters[i];
+            characters[i] = characters[randomIndex];
+            characters[randomIndex] = temp;
+        }
+        return new String(characters);
     }
 }
