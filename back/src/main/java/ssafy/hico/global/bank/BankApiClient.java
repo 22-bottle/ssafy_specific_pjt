@@ -1,16 +1,26 @@
 package ssafy.hico.global.bank;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
+import ssafy.hico.global.bank.dto.request.HeaderRequest;
 import ssafy.hico.global.response.error.exception.BankException;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Component
+@RequiredArgsConstructor
 public class BankApiClient {
+
+    private final BankProperties properties;
+
     public String getResponse(String url, Object requestBody) {
         String response = null;
         WebClient webClient = WebClient.create(url);
@@ -32,5 +42,32 @@ public class BankApiClient {
             }
         }
         return response;
+    }
+
+    public HeaderRequest makeHeader(String apiName, String userKey){
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmmss");
+        String today = LocalDate.now().format(dateFormatter);
+        String now = LocalTime.now().format(timeFormatter);
+
+        int randomNumber = ThreadLocalRandom.current().nextInt(100000, 1000000);
+        String uniqueNumber = today + now + String.format("%06d", randomNumber);
+
+        HeaderRequest.HeaderRequestBuilder builder = HeaderRequest.builder()
+                .apiName(apiName)
+                .transmissionDate(today)
+                .transmissionTime(now)
+                .institutionCode(properties.getInstitutionCode())
+                .fintechAppNo(properties.getFintechAppNo())
+                .apiServiceCode(apiName)
+                .institutionTransactionUniqueNo(uniqueNumber)
+                .apiKey(properties.getApiKey())
+                .userKey(userKey);
+
+        if(userKey != null){
+            builder.userKey(userKey);
+        }
+
+        return builder.build();
     }
 }
