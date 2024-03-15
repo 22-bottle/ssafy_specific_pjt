@@ -1,9 +1,14 @@
-import React from "react";
-// import { EventSourcePolyfill, NativeEventSource } from "event-source-polyfill";
+import React, { FC } from "react";
 import { Route, Routes } from "react-router-dom";
 
+// RouteType 인터페이스 수정
+interface RouteType {
+  path: string;
+  element?: React.LazyExoticComponent<React.ComponentType<any>>; // element를 선택적 프로퍼티로 변경
+  children?: RouteType[]; // Omit 사용 대신 직접 RouteType 배열을 지정
+}
 
-const routes = [
+const routes: RouteType[] = [
   {
     path: "/",
     element: React.lazy(() => import("@/pages/login")),
@@ -11,32 +16,40 @@ const routes = [
   {
     path: "/signup",
     element: React.lazy(() => import("@/pages/signup")),
+    children: [
+      {
+        path: "", // '/signup/complete' 경로를 독립적으로 추가
+        element: React.lazy(() => import("@/components/signup/Signup")),
+      },
+      {
+        path: "complete", // '/signup/complete' 경로를 독립적으로 추가
+        element: React.lazy(() => import("@/components/signup/SignupComplete")),
+      },
+      {
+        path: "account", // '/signup/complete' 경로를 독립적으로 추가
+        element: React.lazy(() => import("@/components/signup/SignupAccount")),
+      }
+    ]
   },
-  {
-    path: "/signup/complete", // '/signup/complete' 경로를 독립적으로 추가
-    element: React.lazy(() => import("@/components/signup/SignupComplete")),
-  },
-  
-  
   {
     path: "/mainparent",
     element: React.lazy(() => import("@/pages/mainparent")),
     children: [
       {
         path: "", 
-        element: React.lazy(() => import("@/components/mainparent/MainParent.jsx")),
+        element: React.lazy(() => import("@/components/mainparent/MainParent")),
       },
       {
         path: "nochild", 
-        element: React.lazy(() => import("@/components/mainparent/NoChild.jsx")), 
+        element: React.lazy(() => import("@/components/mainparent/NoChild")), 
       },
       {
         path: "childadd", 
-        element: React.lazy(() => import("@/components/mainparent/ChildAdd.jsx")), 
+        element: React.lazy(() => import("@/components/mainparent/ChildAdd")), 
       },
       {
         path: "childstatus", 
-        element: React.lazy(() => import("@/components/mainparent/ChildStatus.jsx")), 
+        element: React.lazy(() => import("@/components/mainparent/ChildStatus")), 
       }
     ],
   },
@@ -46,51 +59,51 @@ const routes = [
     children: [
       {
         path: "", 
-        element: React.lazy(() => import("@/components/mainchild/MainChild.jsx")),
+        element: React.lazy(() => import("@/components/mainchild/MainChild")),
       },
       {
         path: "loading", 
-        element: React.lazy(() => import("@/components/mainchild/Loading.jsx")),
+        element: React.lazy(() => import("@/components/mainchild/Loading")),
       },
       {
         path: "story", 
-        element: React.lazy(() => import("@/components/mainchild/Story.jsx")),
+        element: React.lazy(() => import("@/components/mainchild/Story")),
       },
       {
         path: "worldmap", 
-        element: React.lazy(() => import("@/components/mainchild/WorldMap.jsx")),
+        element: React.lazy(() => import("@/components/mainchild/WorldMap")),
       },
       {
         path: "usa", 
-        element: React.lazy(() => import("@/components/mainchild/USA.jsx")),
+        element: React.lazy(() => import("@/components/mainchild/USA")),
       },
       {
         path: "china", 
-        element: React.lazy(() => import("@/components/mainchild/China.jsx")),
+        element: React.lazy(() => import("@/components/mainchild/China")),
       },
       {
         path: "japan", 
-        element: React.lazy(() => import("@/components/mainchild/Japan.jsx")),
+        element: React.lazy(() => import("@/components/mainchild/Japan")),
       },
       {
         path: "italy", 
-        element: React.lazy(() => import("@/components/mainchild/Italy.jsx")),
+        element: React.lazy(() => import("@/components/mainchild/Italy")),
       },
       {
         path: "stage", 
-        element: React.lazy(() => import("@/components/mainchild/Stage.jsx")),
+        element: React.lazy(() => import("@/components/mainchild/Stage")),
       },
       {
         path: "stage/cartoon", 
-        element: React.lazy(() => import("@/components/mainchild/Cartoon.jsx")),
+        element: React.lazy(() => import("@/components/mainchild/Cartoon")),
       },
       {
         path: "stage/quiz", 
-        element: React.lazy(() => import("@/components/mainchild/Quiz.jsx")),
+        element: React.lazy(() => import("@/components/mainchild/Quiz")),
       },
       {
         path: "stage/result", 
-        element: React.lazy(() => import("@/components/mainchild/Result.jsx")),
+        element: React.lazy(() => import("@/components/mainchild/Result")),
       },
         ],
   },
@@ -100,19 +113,19 @@ const routes = [
     children: [
       {
         path:"",
-        element:React.lazy(() => import("@/components/parentwallet/ParentWallet.jsx")),
+        element:React.lazy(() => import("@/components/parentwallet/ParentWallet")),
       },
       {
         path:"request",
-        element:React.lazy(() => import("@/components/parentwallet/Request.jsx")),
+        element:React.lazy(() => import("@/components/parentwallet/Request")),
       },
       {
         path:"send",
-        element:React.lazy(() => import("@/components/parentwallet/Sending.jsx")),
+        element:React.lazy(() => import("@/components/parentwallet/Sending")),
       },
       {
         path:"complete",
-        element:React.lazy(() => import("@/components/parentwallet/SendingComplete.jsx")),
+        element:React.lazy(() => import("@/components/parentwallet/SendingComplete")),
       },
     ],
   },
@@ -122,27 +135,27 @@ const routes = [
     children : [
       {
         path:"",
-        element:React.lazy(() => import("@/components/childwallet/ChildWallet.jsx")),
+        element:React.lazy(() => import("@/components/childwallet/ChildWallet")),
       },
       {
         path:"status",
-        element:React.lazy(() => import("@/components/childwallet/MyStatus.jsx")),
+        element:React.lazy(() => import("@/components/childwallet/MyStatus")),
       },
       {
         path:"point",
-        element:React.lazy(() => import("@/components/childwallet/MyPoint.jsx")),
+        element:React.lazy(() => import("@/components/childwallet/MyPoint")),
       },
       {
         path:"ask",
-        element:React.lazy(() => import("@/components/childwallet/AskWon.jsx")),
+        element:React.lazy(() => import("@/components/childwallet/AskWon")),
       },
       {
         path:"askcomplete",
-        element:React.lazy(() => import("@/components/childwallet/AskComplete.jsx")),
+        element:React.lazy(() => import("@/components/childwallet/AskComplete")),
       },
       {
         path:"account",
-        element:React.lazy(() => import("@/components/childwallet/MyAccount.jsx")),
+        element:React.lazy(() => import("@/components/childwallet/MyAccount")),
       },
     ],
   },
@@ -152,27 +165,32 @@ const routes = [
   },
   {
     path: "/currency",
-    element: React.lazy(() => import("@/components/parentcurrency/Currency.jsx")),
+    element: React.lazy(() => import("@/components/parentcurrency/Currency")),
   },
   {
     path: "/currency/detail",
-    element: React.lazy(() => import("@/components/parentcurrency/CurrencyDetail.jsx")),
+    element: React.lazy(() => import("@/components/parentcurrency/CurrencyDetail")),
   },
 ];
 
-const RenderRoutes = () => {
+const RenderRoutes: FC = () => {
+  const renderRoute = (route: RouteType) => {
+    const Element = route.element; // For readability and to ensure we don't directly call React.lazy
+    return (
+      <Route
+        key={route.path}
+        path={route.path}
+        element={Element ? <Element /> : undefined}
+      >
+        {route.children?.map((childRoute) => renderRoute(childRoute))}
+      </Route>
+    );
+  };
+
   return (
-    <React.Suspense fallback={<div>Loading...</div>}>
-      <Routes>
-        {routes.map((route, i) => (
-          <Route key={i} path={route.path} element={<route.element />}>
-            {route.children?.map((child, index) => (
-              <Route key={index} path={child.path} element={<child.element />} />
-            ))}
-          </Route>
-        ))}
-      </Routes>
-    </React.Suspense>
+    <Routes>
+      {routes.map((route) => renderRoute(route))}
+    </Routes>
   );
 };
 
