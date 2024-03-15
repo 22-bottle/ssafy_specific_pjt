@@ -26,9 +26,10 @@ const Signup= () => {
         row
         aria-labelledby="demo-row-radio-buttons-group-label"
         name="row-radio-buttons-group"
+        defaultValue="female"
       >
-        <FormControlLabel value="female" control={<Radio />} label="Female" />
-        <FormControlLabel value="male" control={<Radio />} label="Male" />
+        <FormControlLabel value="female" control={<Radio />} label="아이" />
+        <FormControlLabel value="male" control={<Radio />} label="엄마" />
       </RadioGroup>
     </FormControl>
     // <div style={ divBorder }>
