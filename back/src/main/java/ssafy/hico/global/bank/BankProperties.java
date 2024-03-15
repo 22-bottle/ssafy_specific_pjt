@@ -12,4 +12,8 @@ import org.springframework.stereotype.Component;
 public class BankProperties {
     private String managerId;
     private String apiKey;
+    private String accountTypeUniqueNo;
+    private String institutionCode;
+    private String fintechAppNo;
+    private String bankName;
 }

@@ -36,8 +36,8 @@ public class JwtTokenProvider {
         String id = memberId.toString();
         // Access Token 생성
         String accessToken = Jwts.builder()
-                .setSubject(id)
-                .setClaims(claims)
+                .setSubject(id) // 여기서 id를 subject로 설정
+                .claim("role", role) // 추가 정보는 claim 메서드를 사용하여 설정
                 .setExpiration(accessTokenExpiredAt)
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
@@ -60,7 +60,7 @@ public class JwtTokenProvider {
                 .getBody();
 
         String id = claims.getSubject();
-        Role role =  Role.valueOf((String)claims.get(claims.get("role", String.class)));
+        Role role = Role.valueOf(claims.get("role", String.class));
 
         // AuthInfo 객체 생성 및 반환
         AuthInfo authInfo = new AuthInfo(Long.parseLong(id), role);
