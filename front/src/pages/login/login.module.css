@@ -1,9 +1,17 @@
+.inputmargin {
+  margin-top: 60px !important;
+}
+
+.inputinput {
+  margin-top: 50px !important;
+}
+
 .box {
     position: relative;
     top: 0;
     opacity: 1;
     float: left;
-    padding: 60px 50px 40px 50px;
+    padding: 50px 60px 40px 50px;
     width: 100%;
     background: #fff;
     border-radius: 10px;
@@ -49,7 +57,7 @@
     width: 100%;
     float: left;
     line-height: 46px;
-    font-size: 34px;
+    font-size: 40px;
     font-weight: 700;
     letter-spacing: 2px;
     color: #0064FF;
@@ -57,58 +65,15 @@
   
     &:before {
       content: "";
-      width: 5px;
-      height: 100%;
+      width: 7px;
+      height: 130%;
       position: absolute;
-      top: 0;
+      top: -10px;
       left: -50px;
       background: #0064FF;
     }
   }
   
-  .input {
-    transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    -webkit-transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    -ms-transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-  
-    label, input, .spin {
-      transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-      -webkit-transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-      -ms-transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    }
-  }
-  
-  .button {
-    transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    -webkit-transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    -ms-transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-  
-    button .button.login button i.fa {
-      transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-      -webkit-transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-      -ms-transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    }
-  }
-  
-  .materialbutton .shape {
-    &:before, &:after {
-      transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-      -webkit-transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-      -ms-transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    }
-  }
-  
-  .button.login button {
-    transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    -webkit-transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    -ms-transition: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  
-  .materialbutton, .alt2, .materialbutton .shape, .alt2 .shape, .box {
-    transition: 400ms cubic-bezier(0.4, 0, 0.2, 1);
-    -webkit-transition: 400ms cubic-bezier(0.4, 0, 0.2, 1);
-    -ms-transition: 400ms cubic-bezier(0.4, 0, 0.2, 1);
-  }
   
   .input {
     width: 100%;
@@ -157,14 +122,14 @@
       top: 10px;
       border: none;
       background: transparent;
-      font-family: 'Roboto', sans-serif;
+      /* font-family: 'Roboto', sans-serif; */
       font-size: 24px;
       color: rgba(0, 0, 0, 0.8);
       font-weight: 300;
     }
   
     label {
-      font-family: 'Roboto', sans-serif;
+      /* font-family: 'Roboto', sans-serif; */
       font-size: 24px;
       color: rgba(0, 0, 0, 0.8);
       font-weight: 300;
@@ -172,7 +137,7 @@
   }
   
   .button button {
-    font-family: 'Roboto', sans-serif;
+    /* font-family: 'Roboto', sans-serif; */
     font-size: 24px;
     color: rgba(0, 0, 0, 0.8);
     font-weight: 300;
@@ -221,12 +186,12 @@
   
   .button {
     &.login {
-      width: 60%;
-      left: 20%;
+      width: 52%;
+      left: 25%;
   
       button {
         width: 100%;
-        line-height: 64px;
+        line-height: 59px;
         left: 0%;
         background-color: transparent;
         border: 3px solid rgba(0, 0, 0, 0.1);
@@ -248,7 +213,8 @@
     }
   
     &.login {
-      margin-top: 30px;
+      margin-top: 40px;
+      margin-bottom: 35px;
     }
   
     margin-top: 20px;
@@ -312,11 +278,12 @@
     width: 100%;
     float: left;
     text-align: center;
-    color: rgba(0, 0, 0, 0.4);
-    font-size: 18px;
+    color: #868692;
+    font-size: 15px;
+    font-weight: bold;
   }
   
-  .click-efect {
+  .click-effect {
     position: absolute;
     top: 0;
     left: 0;
@@ -324,43 +291,6 @@
     border-radius: 50%;
   }
   
-  .overbox {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    overflow: inherit;
-    border-radius: 10px;
-    padding: 60px 50px 40px 50px;
-  
-    .title, .button, .input {
-      z-index: 111;
-      position: relative;
-      color: #fff !important;
-      display: none;
-    }
-  
-    .title {
-      width: 80%;
-    }
-  
-    .input {
-      margin-top: 20px;
-  
-      input, label {
-        color: #fff;
-      }
-    }
-  
-    .materialbutton, .alt2 {
-      display: block;
-  
-      .shape {
-        display: block;
-      }
-    }
-  }
   
   .materialbutton, .alt2 {
     width: 140px;
@@ -384,12 +314,16 @@
     width: 100%;
     height: 100%;
   }
-  
+  .materialbutton .textshape {
+    position: absolute;
+    top: 60%;
+    left: 23%;
+  }
   .materialbutton .shape:before, .alt2 .shape:before, .materialbutton .shape:after, .alt2 .shape:after {
     content: "";
     background: #fff;
     position: absolute;
-    top: 50%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(360deg);
     -webkit-transform: translate(-50%, -50%) rotate(360deg);
@@ -397,13 +331,19 @@
   }
   
   .materialbutton .shape:before, .alt2 .shape:before {
-    width: 25px;
+    width: 30px;
     height: 4px;
   }
   
   .materialbutton .shape:after, .alt2 .shape:after {
-    height: 25px;
+    height: 30px;
     width: 4px;
+  }
+
+  .materialbutton .textshape{
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
   }
   
   .materialbutton.active, .alt2.active {
@@ -420,7 +360,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     min-height: 100vh;
-    font-family: 'Roboto', sans-serif;
+    /* font-family: 'Roboto', sans-serif; */
     overflow: hidden;
   }
   
@@ -432,7 +372,7 @@
     width: 100%;
     max-width: 460px;
     position: absolute;
-    top: 50%;
+    top: 54%;
     left: 50%;
     transform: translate(-50%, -50%);
     -webkit-transform: translate(-50%, -50%);
