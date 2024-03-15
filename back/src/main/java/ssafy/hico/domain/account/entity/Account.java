@@ -18,7 +18,7 @@ public class Account {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
-    private Member memberId;
+    private Member member;
 
     @Column(name = "account")
     private String accountNo;
@@ -34,7 +34,7 @@ public class Account {
 
     @Builder
     public Account(Member member, String accountNo, String password, String bankCode, String bankName){
-        this.memberId = member;
+        this.member = member;
         this.accountNo = accountNo;
         this.password = password;
         this.bankCode = bankCode;

@@ -5,10 +5,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ssafy.hico.domain.account.repository.AccountRepository;
 import ssafy.hico.domain.member.dto.request.BankMemberSearchRequest;
 import ssafy.hico.domain.member.dto.request.MemberLoginRequest;
 import ssafy.hico.domain.member.dto.request.MemberSignUpRequest;
 import ssafy.hico.domain.member.dto.response.BankMemberSearchResponse;
+import ssafy.hico.domain.member.dto.response.LoginResponse;
 import ssafy.hico.domain.member.entity.Member;
 import ssafy.hico.domain.member.entity.Role;
 import ssafy.hico.domain.member.repository.MemberRepository;
@@ -27,6 +29,7 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class MemberService {
     private final MemberRepository memberRepository;
+    private final AccountRepository accountRepository;
     private final BankProperties bankProperties;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final BankApiClient bankApiClient;
@@ -74,7 +77,7 @@ public class MemberService {
 
 
     @Transactional
-    public TokenResponse login(MemberLoginRequest request) {
+    public LoginResponse login(MemberLoginRequest request) {
         Member member = memberRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
@@ -83,7 +86,12 @@ public class MemberService {
         if(encoder.matches(request.getPassword(), member.getPassword())) {
             TokenResponse tokenResponse = jwtTokenProvider.createToken(member.getId(), member.getRole());
             memberRepository.updateRefreshToken(member.getId(), tokenResponse.getRefreshToken());
-            return tokenResponse;
+
+            Boolean isAccount = accountRepository.findByMember(member).isPresent() ? true : false;
+            return LoginResponse.builder()
+                    .tokenResponse(tokenResponse)
+                    .isAccount(isAccount)
+                    .build();
         } else {
             throw new CustomException(ErrorCode.INVALID_PASSWORD);
         }
