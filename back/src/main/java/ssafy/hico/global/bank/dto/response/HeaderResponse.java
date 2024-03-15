@@ -1,4 +1,4 @@
-package ssafy.hico.global.bank.dto.request;
+package ssafy.hico.global.bank.dto.response;
 
 import lombok.Data;
 

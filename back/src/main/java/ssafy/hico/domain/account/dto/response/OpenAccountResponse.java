@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ssafy.hico.global.bank.dto.request.HeaderResponse;
+import ssafy.hico.global.bank.dto.response.HeaderResponse;
 
 @Data
 @NoArgsConstructor
