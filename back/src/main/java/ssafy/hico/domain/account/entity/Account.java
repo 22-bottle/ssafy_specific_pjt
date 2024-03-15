@@ -1,12 +1,15 @@
 package ssafy.hico.domain.account.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import ssafy.hico.domain.member.entity.Member;
 
 @Getter
 @Entity
 @Table(name = "account")
+@NoArgsConstructor
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +21,7 @@ public class Account {
     private Member memberId;
 
     @Column(name = "account")
-    private String account;
+    private String accountNo;
 
     @Column(name = "password")
     private String password;
@@ -28,4 +31,14 @@ public class Account {
 
     @Column(name = "bank_name")
     private String bankName;
+
+    @Builder
+    public Account(Member member, String accountNo, String password, String bankCode, String bankName){
+        this.memberId = member;
+        this.accountNo = accountNo;
+        this.password = password;
+        this.bankCode = bankCode;
+        this.bankName = bankName;
+    }
+
 }
