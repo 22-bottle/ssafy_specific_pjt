@@ -10,7 +10,7 @@ const routes = [
   },
   {
     path: "/signup",
-    element: React.lazy(() => import("@/pages/signup")),
+    element: React.lazy(() => import("@/components/signup/Signup.jsx")),
   },
   {
     path: "/signup/complete", // '/signup/complete' 경로를 독립적으로 추가
