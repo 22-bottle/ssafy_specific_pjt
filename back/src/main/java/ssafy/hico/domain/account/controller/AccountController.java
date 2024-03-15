@@ -3,10 +3,7 @@ package ssafy.hico.domain.account.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ssafy.hico.domain.account.dto.request.MakeAccountRequest;
 import ssafy.hico.domain.account.service.AccountService;
 import ssafy.hico.global.annotation.LoginOnly;
@@ -26,5 +23,12 @@ public class AccountController {
         Long memberId = (Long)httpServletRequest.getAttribute("memberId");
         accountService.makeAccount(memberId, request);
         return getResponseEntity(SuccessCode.CREATED);
+    }
+
+    @GetMapping
+    @LoginOnly(level = LoginOnly.Level.ALL)
+    public ResponseEntity<?> getAccountList(HttpServletRequest httpServletRequest){
+        Long memberId = (Long)httpServletRequest.getAttribute("memberId");
+        return getResponseEntity(SuccessCode.CREATED, accountService.getAccountList(memberId));
     }
 }

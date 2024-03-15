@@ -6,7 +6,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
-import ssafy.hico.global.bank.dto.request.HeaderRequest;
+import ssafy.hico.global.bank.dto.request.Header;
 import ssafy.hico.global.response.error.exception.BankException;
 
 import java.io.IOException;
@@ -44,7 +44,7 @@ public class BankApiClient {
         return response;
     }
 
-    public HeaderRequest makeHeader(String apiName, String userKey){
+    public Header makeHeader(String apiName, String userKey){
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
         DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HHmmss");
         String today = LocalDate.now().format(dateFormatter);
@@ -53,7 +53,7 @@ public class BankApiClient {
         int randomNumber = ThreadLocalRandom.current().nextInt(100000, 1000000);
         String uniqueNumber = today + now + String.format("%06d", randomNumber);
 
-        HeaderRequest.HeaderRequestBuilder builder = HeaderRequest.builder()
+        Header.HeaderBuilder builder = Header.builder()
                 .apiName(apiName)
                 .transmissionDate(today)
                 .transmissionTime(now)

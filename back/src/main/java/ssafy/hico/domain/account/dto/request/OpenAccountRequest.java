@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import ssafy.hico.global.bank.dto.request.HeaderRequest;
 
 @Getter
 @Setter
@@ -13,6 +12,6 @@ import ssafy.hico.global.bank.dto.request.HeaderRequest;
 @ToString
 public class OpenAccountRequest {
     @JsonProperty("Header")
-    private HeaderRequest Header;
+    private ssafy.hico.global.bank.dto.request.Header Header;
     private String accountTypeUniqueNo;
 }
