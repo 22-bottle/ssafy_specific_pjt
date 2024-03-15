@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ssafy.hico.domain.account.dto.request.MakeAccountRequest;
 import ssafy.hico.domain.account.dto.request.OpenAccountRequest;
+import ssafy.hico.domain.account.dto.request.RegistrationAccountRequest;
 import ssafy.hico.domain.account.dto.response.AccountListResponse;
 import ssafy.hico.domain.account.dto.response.OpenAccountResponse;
 import ssafy.hico.domain.account.entity.Account;
@@ -74,5 +75,19 @@ public class AccountService {
             throw new RuntimeException(e);
         }
 
+    }
+
+    public void registrationAccount(Long memberId, RegistrationAccountRequest request) {
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+
+        Account account = Account.builder()
+                .member(member)
+                .accountNo(request.getAccountNo())
+                .bankName(request.getBankName())
+                .bankCode(request.getBankCode())
+                .password(request.getPassword())
+                .build();
+
+        accountRepository.save(account);
     }
 }

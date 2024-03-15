@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ssafy.hico.domain.account.dto.request.MakeAccountRequest;
+import ssafy.hico.domain.account.dto.request.RegistrationAccountRequest;
 import ssafy.hico.domain.account.service.AccountService;
 import ssafy.hico.global.annotation.LoginOnly;
 import ssafy.hico.global.response.success.SuccessCode;
@@ -29,6 +30,14 @@ public class AccountController {
     @LoginOnly(level = LoginOnly.Level.ALL)
     public ResponseEntity<?> getAccountList(HttpServletRequest httpServletRequest){
         Long memberId = (Long)httpServletRequest.getAttribute("memberId");
-        return getResponseEntity(SuccessCode.CREATED, accountService.getAccountList(memberId));
+        return getResponseEntity(SuccessCode.OK, accountService.getAccountList(memberId));
+    }
+
+    @PostMapping
+    @LoginOnly(level = LoginOnly.Level.ALL)
+    public ResponseEntity<?> registrationAccount(HttpServletRequest httpServletRequest, @RequestBody RegistrationAccountRequest request){
+        Long memberId = (Long)httpServletRequest.getAttribute("memberId");
+        accountService.registrationAccount(memberId, request);
+        return getResponseEntity(SuccessCode.OK);
     }
 }
