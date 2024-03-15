@@ -1,30 +1,14 @@
 package ssafy.hico.global.bank.dto.request;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-
-@Getter
-@Setter
-@ToString
-@Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class HeaderRequest {
-    private String apiName;
-    private String transmissionDate;
-    private String transmissionTime;
-    private String institutionCode;
-    private String fintechAppNo;
-    private String apiServiceCode;
-    private String institutionTransactionUniqueNo;
-    private String apiKey;
-
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String userKey;
-
+    @JsonProperty("Header")
+    private Header header;
 }
