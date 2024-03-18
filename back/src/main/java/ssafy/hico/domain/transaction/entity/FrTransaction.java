@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import ssafy.hico.domain.wallet.entity.FrWallet;
 import ssafy.hico.global.entity.BaseTimeEntity;
 
-import java.time.LocalDateTime;
 
 import static jakarta.persistence.FetchType.LAZY;
 
@@ -24,6 +23,6 @@ public class FrTransaction extends BaseTimeEntity {
     private FrWallet frWallet;
 
     private int balance;
-    private String isTransacted;
+    private Boolean isTransacted;
 
 }

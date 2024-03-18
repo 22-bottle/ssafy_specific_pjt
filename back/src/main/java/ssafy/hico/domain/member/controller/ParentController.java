@@ -4,10 +4,7 @@ import com.sun.net.httpserver.Authenticator;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ssafy.hico.domain.member.service.ParentService;
 import ssafy.hico.global.annotation.LoginOnly;
 import ssafy.hico.global.response.success.SuccessCode;
@@ -23,11 +20,23 @@ public class ParentController {
 
     @GetMapping("/wallet")
     @LoginOnly(level = LoginOnly.Level.PARENT)
-    public ResponseEntity<?> getParentAccount(HttpServletRequest httpServletRequest){
+    public ResponseEntity<?> orderParentAccountInfo(HttpServletRequest httpServletRequest){
         Long memberId = (Long) httpServletRequest.getAttribute("memberId");
-        return getResponseEntity(SuccessCode.OK, parentService.getParentAccount(memberId));
+        return getResponseEntity(SuccessCode.OK, parentService.findParentAccount(memberId));
     }
 
 
-//    @GetMapping("/wallet/")
+    @GetMapping("/wallet/tran")
+    public ResponseEntity<?> orderChildExchangeRequestList(HttpServletRequest httpServletRequest){
+        Long memberId = (Long) httpServletRequest.getAttribute("memberId");
+        return getResponseEntity(SuccessCode.OK, parentService.findChildExchangeRequestList(memberId));
+    }
+
+    @PostMapping("/wallet/tran")
+    public ResponseEntity<?> sendExchangeRequests(HttpServletRequest httpServletRequest){
+        Long memberId = (Long) httpServletRequest.getAttribute("memberId");
+        return getResponseEntity(SuccessCode.OK, parentService.findChildExchangeRequestList(memberId));
+    }
+
+
 }

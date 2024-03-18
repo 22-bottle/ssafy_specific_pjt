@@ -1,6 +1,7 @@
 package ssafy.hico.domain.member.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import ssafy.hico.domain.account.entity.Account;
 import ssafy.hico.domain.account.repository.AccountRepository;
@@ -30,7 +31,7 @@ public class ParentService {
     private final AccountRepository accountRepository;
     private final BankApiClient bankApiClient;
 
-    public ParentFrTranAndAccountResponse getParentAccount(Long memberId) {
+    public ParentFrTranAndAccountResponse findParentAccount(Long memberId) {
         Member member = memberService.findById(memberId);
         Account account = accountRepository.findByMember(member).get();
 
@@ -41,7 +42,6 @@ public class ParentService {
         AccountBalanceResponse accountBalanceResponse = bankApiClient.getDtoFromResponse(response, AccountBalanceResponse.class);
 
         List<Long> childIds = memberRepository.findIdsByParentId(memberId);
-
         List<FrTransaction> transactions = frTransactionRepository.findByChildMemberIds(childIds);
 
         List<ChildFrTranResponse> list = transactions.stream()
@@ -59,6 +59,21 @@ public class ParentService {
                 .accountNo(account.getAccountNo())
                 .balance(accountBalanceResponse.getREC().getAccountBalance())
                 .frTranList(list).build();
+    }
 
+    public List<ChildFrTranResponse> findChildExchangeRequestList(Long memberId) {
+        List<Long> childIds = memberRepository.findIdsByParentId(memberId);
+        List<FrTransaction> transactions = frTransactionRepository.findByChildMemberIdsAndNotTransacted(childIds, PageRequest.of(0, 5));
+
+        return transactions.stream()
+                .map(transaction -> new ChildFrTranResponse(
+                        transaction.getId(),
+                        transaction.getBalance(),
+                        transaction.getCreateTime(),
+                        transaction.getIsTransacted(),
+                        transaction.getFrWallet().getMember().getId(),
+                        transaction.getFrWallet().getMember().getName()
+                ))
+                .collect(Collectors.toList());
     }
 }

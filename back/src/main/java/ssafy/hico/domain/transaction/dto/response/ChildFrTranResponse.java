@@ -11,7 +11,7 @@ public class ChildFrTranResponse {
     private Long frTranId;
     private int balance;
     private LocalDateTime createTime;
-    private String isTransacted;
+    private boolean isTransacted;
     private Long memberId;
     private String name;
 }
