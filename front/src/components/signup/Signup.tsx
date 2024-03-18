@@ -128,23 +128,21 @@ function Signup() {
             label="비밀번호"
             type="password"
             variant="standard"
-            // Assuming tossmain is defined in your theme
-            color="primary" // Adjust based on your theme
+            color="primary" 
             inputProps={{ style: { fontSize: 25 } }}
             InputLabelProps={{ style: { fontSize: 22 } }}
           />
         </div>
 
-        {/* 비밀번호 */}
+        {/* 비밀번호 확인 */}
         <div>
           <TextField
             fullWidth
-            id="password"
+            id="confirm"
             label="비밀번호"
-            type="password"
+            type="confirm"
             variant="standard"
-            // Assuming tossmain is defined in your theme
-            color="primary" // Adjust based on your theme
+            color="primary"
             inputProps={{ style: { fontSize: 25 } }}
             InputLabelProps={{ style: { fontSize: 22 } }}
           />
@@ -153,95 +151,11 @@ function Signup() {
         {/* 회원가입 완료 버튼 */}
         <div>
           <button type="submit">
-            <span>로그인</span>
+            <span>회원가입</span>
           </button>
         </div>
       </div>
     </div>
-
-
-    // <div style={ divBorder }>
-    //   <div style={ divBorder }>
-    //     <h1>회원가입<button>닫기</button></h1>
-    //   </div>
-      
-    //   {/* 아이 또는 부모 선택 */}
-    //   <div style={ divBorder }>
-    //     <label>
-    //       <input type="checkbox" name="" id="" />
-    //       아이
-    //     </label>
-    //     <label>
-    //       <input type="checkbox" name="" id="" />
-    //       부모
-    //     </label>       
-    //   </div>
-
-    //   {/* 부모 초대코드 입력 */}
-    //   <div style={ divBorder }>
-    //     <input 
-    //       type="text"
-    //       placeholder="초대코드를 입력해주세요." />
-    //   </div>
-
-    //   {/* 성별 선택 */}
-    //   <div style={ divBorder }>
-    //     <select>
-    //       <option disabled selected>여성</option>
-    //       <option value="male">남성</option>
-    //     </select>
-    //   </div>
-
-    //   {/* 생년월일 선택 */}
-    //   <div style={ divBorder }>
-    //     <select>
-    //       <option value="year">출생 연도</option>
-    //     </select>
-    //     <select>
-    //       <option value="month">월</option>
-    //     </select>
-    //     <select>
-    //       <option value="day">일</option>
-    //     </select>
-    //   </div>
-
-    //   {/* 이름 입력 */}
-    //   <div style={ divBorder }>
-    //     <input 
-    //       type="text"
-    //       placeholder="이름" />
-    //   </div>
-
-    //   {/* 이메일 입력 */}
-    //   <div style={ divBorder }>
-    //     <input 
-    //       type="text"
-    //       placeholder="이메일" />
-    //   </div>
-
-    //   {/* 비밀번호 입력 */}
-    //   <div style={ divBorder }>
-    //     <input 
-    //       type="text"
-    //       placeholder="비밀번호" />
-    //   </div>
-
-    //   {/* 비밀번호 확인 */}
-    //   <div style={ divBorder }>
-    //     <input 
-    //       type="text"
-    //       placeholder="비밀번호 확인" />
-    //   </div>
-
-    //   {/* 회원가입 완료 버튼 */}
-    //   <div style={ divBorder }>
-    //     <button onClick={ completeClick }>완료</button>
-    //   </div>
-
-
-      
-
-    // </div>
   );
 };
 
