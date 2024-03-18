@@ -1,6 +1,5 @@
 package ssafy.hico.domain.member.controller;
 
-import com.sun.net.httpserver.Authenticator;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +27,7 @@ public class ParentController {
 
 
     @GetMapping("/wallet/tran")
-    public ResponseEntity<?> orderChildExchangeRequestList(HttpServletRequest httpServletRequest){
+    public ResponseEntity<?> getChildExchangeRequestList(HttpServletRequest httpServletRequest){
         Long memberId = (Long) httpServletRequest.getAttribute("memberId");
         return getResponseEntity(SuccessCode.OK, parentService.findChildExchangeRequestList(memberId));
     }
