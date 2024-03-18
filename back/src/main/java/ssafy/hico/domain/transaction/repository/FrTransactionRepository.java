@@ -20,4 +20,7 @@ public interface FrTransactionRepository extends JpaRepository<FrTransaction, Lo
     @EntityGraph(attributePaths = {"frWallet", "frWallet.member"})
     @Query("SELECT ft FROM FrTransaction ft JOIN ft.frWallet w JOIN w.member m WHERE m.id IN :childIds AND ft.isTransacted = false ORDER BY ft.createTime DESC")
     List<FrTransaction> findByChildMemberIdsAndNotTransacted(@Param("childIds") List<Long> childIds, Pageable pageable);
+
+    @Query("UPDATE FrTransaction SET isTransacted = true where id=:frTranId")
+    void updateIsTransacted(@Param("frTranId") Long frTranId);
 }

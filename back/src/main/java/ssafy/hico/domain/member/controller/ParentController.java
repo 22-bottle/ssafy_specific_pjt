@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ssafy.hico.domain.member.dto.request.ParentSendMoneyRequest;
 import ssafy.hico.domain.member.service.ParentService;
 import ssafy.hico.global.annotation.LoginOnly;
 import ssafy.hico.global.response.success.SuccessCode;
@@ -33,10 +34,9 @@ public class ParentController {
     }
 
     @PostMapping("/wallet/tran")
-    public ResponseEntity<?> sendExchangeRequests(HttpServletRequest httpServletRequest){
+    public ResponseEntity<?> confirmAndSendExchangeToChild(HttpServletRequest httpServletRequest, @RequestBody ParentSendMoneyRequest request){
         Long memberId = (Long) httpServletRequest.getAttribute("memberId");
-        return getResponseEntity(SuccessCode.OK, parentService.findChildExchangeRequestList(memberId));
+        parentService.confirmAndSendExchangeToChild(memberId, request);
+        return getResponseEntity(SuccessCode.OK);
     }
-
-
 }

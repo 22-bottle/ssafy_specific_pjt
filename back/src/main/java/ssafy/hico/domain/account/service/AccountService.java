@@ -64,12 +64,13 @@ public class AccountService {
     public void registrationAccount(Long memberId, RegistrationAccountRequest request) {
         Member member = memberService.findById(memberId);
 
+        String encryptPassword = bCryptPasswordEncoder.encode(request.getPassword());
         Account account = Account.builder()
                 .member(member)
                 .accountNo(request.getAccountNo())
                 .bankName(request.getBankName())
                 .bankCode(request.getBankCode())
-                .password(request.getPassword())
+                .password(encryptPassword)
                 .build();
 
         accountRepository.save(account);
