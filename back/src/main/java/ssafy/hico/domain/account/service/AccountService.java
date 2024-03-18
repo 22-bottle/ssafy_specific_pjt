@@ -1,7 +1,5 @@
 package ssafy.hico.domain.account.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -40,15 +38,10 @@ public class AccountService {
                 .accountTypeUniqueNo(bankProperties.getAccountTypeUniqueNo())
                 .build();
 
-        ObjectMapper objectMapper = new ObjectMapper();
         String response = bankApiClient.getResponse(BankApi.OPEN_ACCOUNT.getUrl(), openAccountRequest);
 
-        OpenAccountResponse openAccountResponse = null;
-        try {
-            openAccountResponse = objectMapper.readValue(response, OpenAccountResponse.class);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+        OpenAccountResponse openAccountResponse = bankApiClient.getDtoFromResponse(response, OpenAccountResponse.class);
+
         String encryptPassword = bCryptPasswordEncoder.encode(request.getPassword());
         Account account = Account.builder().member(member)
                 .accountNo(openAccountResponse.getREC().getAccountNo())
@@ -63,16 +56,9 @@ public class AccountService {
     public AccountListResponse getAccountList(Long memberId) {
         Member member = memberService.findById(memberId);
         Header header = bankApiClient.makeHeader(BankApi.INQUIRE_ACCOUNT_LIST.getApiName(), member.getUserKey());
-
-        ObjectMapper objectMapper = new ObjectMapper();
         String response = bankApiClient.getResponse(BankApi.INQUIRE_ACCOUNT_LIST.getUrl(), new HeaderRequest(header));
 
-        try {
-            return objectMapper.readValue(response, AccountListResponse.class);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-
+        return bankApiClient.getDtoFromResponse(response, AccountListResponse.class);
     }
 
     public void registrationAccount(Long memberId, RegistrationAccountRequest request) {

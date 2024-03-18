@@ -1,5 +1,6 @@
 package ssafy.hico.global.bank;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -69,5 +70,14 @@ public class BankApiClient {
         }
 
         return builder.build();
+    }
+
+    public <T> T getDtoFromResponse(String response, Class<T> objectClass) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            return objectMapper.readValue(response, objectClass);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

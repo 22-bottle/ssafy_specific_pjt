@@ -1,7 +1,5 @@
 package ssafy.hico.domain.member.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -44,14 +42,7 @@ public class MemberService {
         BankMemberSearchRequest requestBody = new BankMemberSearchRequest(request.getEmail(), bankProperties.getApiKey());
         String response = bankApiClient.getResponse(memberSearchUrl, requestBody);
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        BankMemberSearchResponse memberSearchResponse = null;
-        try {
-            memberSearchResponse = objectMapper.readValue(response, BankMemberSearchResponse.class);
-
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
+        BankMemberSearchResponse memberSearchResponse = bankApiClient.getDtoFromResponse(response, BankMemberSearchResponse.class);
 
         String encryptPassword = bCryptPasswordEncoder.encode(request.getPassword());
 
