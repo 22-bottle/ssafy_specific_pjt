@@ -18,6 +18,7 @@ function Login() {
       <div className={styles.box}>
         <div className={styles.title}>로그인</div>
 
+        {/* 이메일 */}
         <div>
           <TextField
             fullWidth
@@ -25,14 +26,14 @@ function Login() {
             label="이메일"
             type="text"
             variant="standard"
-            // Assuming tossmain is defined in your theme
-            color="primary" // You might need to adjust this based on how tossmain is implemented
+            color="primary"
             inputProps={{ style: { fontSize: 25 } }}
             InputLabelProps={{ style: { fontSize: 22 } }}
             className={styles.inputmargin}
           />
         </div>
 
+        {/* 비밀번호 */}
         <div>
           <TextField
             fullWidth
@@ -40,14 +41,14 @@ function Login() {
             label="비밀번호"
             type="password"
             variant="standard"
-            // Assuming tossmain is defined in your theme
-            color="primary" // Adjust based on your theme
+            color="primary"
             inputProps={{ style: { fontSize: 25 } }}
             InputLabelProps={{ style: { fontSize: 22 } }}
             className={styles.inputinput}
           />
         </div>
 
+        {/* 로그인 완료 버튼 */}
         <div className={`${styles.button} ${styles.login}`}>
           <button type="submit">
             <span>로그인</span>
