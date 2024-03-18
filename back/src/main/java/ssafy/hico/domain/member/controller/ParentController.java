@@ -27,12 +27,14 @@ public class ParentController {
 
 
     @GetMapping("/wallet/tran")
+    @LoginOnly(level = LoginOnly.Level.PARENT)
     public ResponseEntity<?> getChildExchangeRequestList(HttpServletRequest httpServletRequest){
         Long memberId = (Long) httpServletRequest.getAttribute("memberId");
         return getResponseEntity(SuccessCode.OK, parentService.findChildExchangeRequestList(memberId));
     }
 
     @PostMapping("/wallet/tran")
+    @LoginOnly(level = LoginOnly.Level.PARENT)
     public ResponseEntity<?> confirmAndSendExchangeToChild(HttpServletRequest httpServletRequest, @RequestBody ParentSendMoneyRequest request){
         Long memberId = (Long) httpServletRequest.getAttribute("memberId");
         parentService.confirmAndSendExchangeToChild(memberId, request);
@@ -40,6 +42,7 @@ public class ParentController {
     }
 
     @GetMapping("/main/code")
+    @LoginOnly(level = LoginOnly.Level.PARENT)
     public ResponseEntity<?> getInvitationCode(HttpServletRequest httpServletRequest){
         Long memberId = (Long) httpServletRequest.getAttribute("memberId");
         return getResponseEntity(SuccessCode.OK, parentService.findInvitationCode(memberId));
