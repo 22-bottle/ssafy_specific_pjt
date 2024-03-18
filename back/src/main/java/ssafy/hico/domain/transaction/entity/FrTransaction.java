@@ -17,14 +17,13 @@ public class FrTransaction extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long frTransactionId;
+    private long id;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "fr_wallet_id")
     private FrWallet frWallet;
 
     private int balance;
-    private LocalDateTime tranTime;
     private String isTransacted;
 
 }
