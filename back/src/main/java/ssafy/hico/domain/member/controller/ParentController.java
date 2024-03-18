@@ -39,4 +39,10 @@ public class ParentController {
         parentService.confirmAndSendExchangeToChild(memberId, request);
         return getResponseEntity(SuccessCode.OK);
     }
+
+    @GetMapping("/main/code")
+    public ResponseEntity<?> getInvitationCode(HttpServletRequest httpServletRequest){
+        Long memberId = (Long) httpServletRequest.getAttribute("memberId");
+        return getResponseEntity(SuccessCode.OK, parentService.findInvitationCode(memberId));
+    }
 }

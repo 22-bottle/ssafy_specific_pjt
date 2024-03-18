@@ -108,4 +108,8 @@ public class ParentService {
         frTransactionRepository.updateIsTransacted(request.getFrTranId());
 
     }
+
+    public String findInvitationCode(Long memberId) {
+        return memberService.findById(memberId).getInvitationCode();
+    }
 }
