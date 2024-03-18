@@ -1,5 +1,8 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom'; 
+import styles from './signupcomplete.module.css';
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
+import Button from '@mui/material/Button';
 
 const SignupComplete:React.FC = () => { // Component name corrected to start with an uppercase letter
     const navigate = useNavigate();
@@ -14,21 +17,32 @@ const SignupComplete:React.FC = () => { // Component name corrected to start wit
     }
 
     return (
-        <div className="signup-complete-container" style={styleObj}>
-            <div className="world-illustration"style={styleObj}>
-                {/* background img 넣는 위치 */}
-            </div>
-            <div className="confirmation-box" style={styleObj}>
-                <div className="checkmark-icon" style={styleObj}>
-                    {/* Icon or image of checkmark */}
-                </div>
-                <div className="confirmation-message"style={styleObj}>
-                    <p>회원가입을 완료했어요!</p>
-                    <p>이채은님, 환영합니다!</p>
-                </div>
-                <button className="start-button" onClick={handleButtonClick}>토스 시작하기</button>
-            </div>
+      <div className={styles.materialContainer}>
+        <div className={styles.box}>
+          <div className={styles.icon}>
+            <CheckCircleRoundedIcon style={{ color: '#0064FF', fontSize: 100 }} />
+          </div>
+          <div className={styles.subtitle}>회원가입을 완료했습니다!</div>
+          <div className={styles.title1}>이채은님,</div>
+          <div className={styles.title2}>환영합니다!</div>
+
+          {/* 회원가입 완료 버튼 */}
+          <div className={styles.button}>
+            <Button
+              variant="contained"
+              disableElevation
+              sx={{
+                width: '100%',
+                height: '60px',
+                fontSize: '22px',
+                backgroundColor: '#0064FF',
+              }}
+            >
+              확인
+            </Button>
+          </div>
         </div>
+      </div>
     );
 };
 
