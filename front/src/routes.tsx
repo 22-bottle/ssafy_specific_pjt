@@ -90,8 +90,20 @@ const routes: RouteType[] = [
         element: React.lazy(() => import("@/components/mainchild/Italy")),
       },
       {
-        path: "stage", 
-        element: React.lazy(() => import("@/components/mainchild/Stage")),
+        path: "stage/usa", 
+        element: React.lazy(() => import("@/components/mainchild/USAStage")),
+      },
+      {
+        path: "stage/italy", 
+        element: React.lazy(() => import("@/components/mainchild/ItalyStage")),
+      },
+      {
+        path: "stage/japan", 
+        element: React.lazy(() => import("@/components/mainchild/JapanStage")),
+      },
+      {
+        path: "stage/china", 
+        element: React.lazy(() => import("@/components/mainchild/ChinaStage")),
       },
       {
         path: "stage/cartoon", 
