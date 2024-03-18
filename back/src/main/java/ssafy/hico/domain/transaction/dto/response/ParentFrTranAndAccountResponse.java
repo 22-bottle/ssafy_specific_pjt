@@ -12,7 +12,5 @@ import java.util.List;
 public class ParentFrTranAndAccountResponse {
     private String accountNo;
     private String balance;
-    private List<PageParentFrTranResponse> frTranList;
-    private Long totalElements;
-    private int totalPages;
+    private List<ChildFrTranResponse> frTranList;
 }

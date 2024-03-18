@@ -21,5 +21,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Query("UPDATE Member SET refreshToken= :refreshToken where id=:memberId")
     void updateRefreshToken(@Param("memberId") Long memberId, @Param("refreshToken") String refreshToken);
 
-    List<Member> findByParentId(Long memberId);
+    @Query("SELECT m.id FROM Member m WHERE m.parent.id = :parentId")
+    List<Long> findIdsByParentId(@Param("parentId") Long parentId);
 }

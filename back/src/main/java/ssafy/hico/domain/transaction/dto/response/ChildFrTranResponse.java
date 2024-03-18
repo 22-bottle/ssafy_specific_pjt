@@ -7,8 +7,8 @@ import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
-public class PageParentFrTranResponse {
-    private Long id;
+public class ChildFrTranResponse {
+    private Long frTranId;
     private int balance;
     private LocalDateTime createTime;
     private String isTransacted;

@@ -28,10 +28,6 @@ public class ParentController {
         return getResponseEntity(SuccessCode.OK, parentService.getParentAccount(memberId));
     }
 
-    @GetMapping("/wallet/{page}")
-    @LoginOnly(level = LoginOnly.Level.PARENT)
-    public ResponseEntity<?> getAccountTranInfoByPage(HttpServletRequest httpServletRequest, @PathVariable("page") int page){
-        Long memberId = (Long) httpServletRequest.getAttribute("memberId");
-        return getResponseEntity(SuccessCode.OK, parentService.getAccountTranInfoByPage(memberId, page));
-    }
+
+//    @GetMapping("/wallet/")
 }

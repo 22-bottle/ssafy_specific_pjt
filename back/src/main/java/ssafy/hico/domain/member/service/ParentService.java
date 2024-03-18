@@ -1,8 +1,6 @@
 package ssafy.hico.domain.member.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ssafy.hico.domain.account.entity.Account;
 import ssafy.hico.domain.account.repository.AccountRepository;
@@ -10,13 +8,11 @@ import ssafy.hico.domain.member.dto.request.BankAccountBalanceRequest;
 import ssafy.hico.domain.member.dto.response.AccountBalanceResponse;
 import ssafy.hico.domain.member.entity.Member;
 import ssafy.hico.domain.member.repository.MemberRepository;
-import ssafy.hico.domain.transaction.dto.response.FrTransactionResponse;
-import ssafy.hico.domain.transaction.dto.response.PageParentFrTranResponse;
+import ssafy.hico.domain.transaction.dto.response.ChildFrTranResponse;
 import ssafy.hico.domain.transaction.dto.response.ParentFrTranAndAccountResponse;
+import ssafy.hico.domain.transaction.entity.FrTransaction;
 import ssafy.hico.domain.transaction.repository.FrTransactionRepository;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import ssafy.hico.global.bank.BankApi;
 import ssafy.hico.global.bank.BankApiClient;
 import ssafy.hico.global.bank.dto.request.Header;
@@ -44,28 +40,25 @@ public class ParentService {
 
         AccountBalanceResponse accountBalanceResponse = bankApiClient.getDtoFromResponse(response, AccountBalanceResponse.class);
 
-        List<Member> children = memberRepository.findByParentId(memberId);
-        List<Long> childIds = children.stream().map(Member::getId).collect(Collectors.toList());
-        Pageable pageable = PageRequest.of(1, 10, Sort.by("createTime").descending());
-        Page<PageParentFrTranResponse> pageResponse = frTransactionRepository.findByChildMemberIds(childIds, pageable);
+        List<Long> childIds = memberRepository.findIdsByParentId(memberId);
 
-        return ParentFrTranAndAccountResponse.builder().accountNo(account.getAccountNo())
+        List<FrTransaction> transactions = frTransactionRepository.findByChildMemberIds(childIds);
+
+        List<ChildFrTranResponse> list = transactions.stream()
+                .map(transaction -> new ChildFrTranResponse(
+                        transaction.getId(),
+                        transaction.getBalance(),
+                        transaction.getCreateTime(),
+                        transaction.getIsTransacted(),
+                        transaction.getFrWallet().getMember().getId(),
+                        transaction.getFrWallet().getMember().getName()
+                ))
+                .collect(Collectors.toList());
+
+        return ParentFrTranAndAccountResponse.builder()
+                .accountNo(account.getAccountNo())
                 .balance(accountBalanceResponse.getREC().getAccountBalance())
-                .totalElements(pageResponse.getTotalElements())
-                .totalPages(pageResponse.getTotalPages())
-                .frTranList(pageResponse.getContent()).build();
+                .frTranList(list).build();
 
-    }
-
-    public FrTransactionResponse getAccountTranInfoByPage(Long memberId, int page) {
-        List<Member> children = memberRepository.findByParentId(memberId);
-        List<Long> childIds = children.stream().map(Member::getId).collect(Collectors.toList());
-        Pageable pageable = PageRequest.of(page, 10, Sort.by("createTime").descending());
-        Page<PageParentFrTranResponse> pageResponse = frTransactionRepository.findByChildMemberIds(childIds, pageable);
-
-        return FrTransactionResponse.builder()
-                .totalElements(pageResponse.getTotalElements())
-                .totalPages(pageResponse.getTotalPages())
-                .frTranList(pageResponse.getContent()).build();
     }
 }
