@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ssafy.hico.domain.member.entity.Member;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -19,4 +20,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Modifying
     @Query("UPDATE Member SET refreshToken= :refreshToken where id=:memberId")
     void updateRefreshToken(@Param("memberId") Long memberId, @Param("refreshToken") String refreshToken);
+
+    List<Member> findByParentId(Long memberId);
 }
