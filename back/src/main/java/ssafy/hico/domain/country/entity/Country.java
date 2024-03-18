@@ -7,6 +7,7 @@ import ssafy.hico.domain.exchangerate.entity.ExchangeRate;
 import ssafy.hico.domain.point.entity.FrPoint;
 import ssafy.hico.domain.quiz.entity.QuizLevel;
 import ssafy.hico.domain.stage.entity.Stage;
+import ssafy.hico.domain.transaction.entity.FrTransaction;
 import ssafy.hico.global.entity.BaseTimeEntity;
 
 import java.util.ArrayList;
@@ -35,5 +36,8 @@ public class Country extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "country")
     private List<QuizLevel> quizLevels = new ArrayList<>();
+
+    @OneToMany(mappedBy = "country")
+    private List<FrTransaction> frTransactions = new ArrayList<>();
 
 }

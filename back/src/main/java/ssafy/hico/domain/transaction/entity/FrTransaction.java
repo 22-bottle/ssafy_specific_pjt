@@ -3,6 +3,7 @@ package ssafy.hico.domain.transaction.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import ssafy.hico.domain.country.entity.Country;
 import ssafy.hico.domain.wallet.entity.FrWallet;
 import ssafy.hico.global.entity.BaseTimeEntity;
 
@@ -19,10 +20,15 @@ public class FrTransaction extends BaseTimeEntity {
     private long id;
 
     @ManyToOne(fetch = LAZY)
+    @JoinColumn(name = "country_id")
+    private Country country;
+
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "fr_wallet_id")
     private FrWallet frWallet;
 
     private int balance;
-    private Boolean isTransacted;
 
+    private double frBalance;
+    private Boolean isTransacted;
 }
