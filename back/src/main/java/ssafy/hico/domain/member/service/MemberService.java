@@ -139,4 +139,7 @@ public class MemberService {
         return new String(characters);
     }
 
+    public Member findById(Long memberId) {
+        return memberRepository.findById(memberId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+    }
 }

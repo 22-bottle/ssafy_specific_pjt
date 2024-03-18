@@ -13,29 +13,26 @@ import ssafy.hico.domain.account.dto.response.OpenAccountResponse;
 import ssafy.hico.domain.account.entity.Account;
 import ssafy.hico.domain.account.repository.AccountRepository;
 import ssafy.hico.domain.member.entity.Member;
-import ssafy.hico.domain.member.repository.MemberRepository;
+import ssafy.hico.domain.member.service.MemberService;
 import ssafy.hico.global.bank.BankApi;
 import ssafy.hico.global.bank.BankApiClient;
 import ssafy.hico.global.bank.BankProperties;
 import ssafy.hico.global.bank.dto.request.Header;
 import ssafy.hico.global.bank.dto.request.HeaderRequest;
-import ssafy.hico.global.response.error.ErrorCode;
-import ssafy.hico.global.response.error.exception.CustomException;
 
 @Service
 @RequiredArgsConstructor
 public class AccountService {
 
-    private final MemberRepository memberRepository;
+    private final MemberService memberService;
     private final BankApiClient bankApiClient;
     private final BankProperties bankProperties;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final AccountRepository accountRepository;
 
 
-
     public void makeAccount(Long memberId, MakeAccountRequest request) {
-        Member member = memberRepository.findById(memberId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+        Member member = memberService.findById(memberId);
         Header header = bankApiClient.makeHeader(BankApi.OPEN_ACCOUNT.getApiName(), member.getUserKey());
 
         OpenAccountRequest openAccountRequest = OpenAccountRequest.builder()
@@ -62,8 +59,9 @@ public class AccountService {
         accountRepository.save(account);
     }
 
+
     public AccountListResponse getAccountList(Long memberId) {
-        Member member = memberRepository.findById(memberId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+        Member member = memberService.findById(memberId);
         Header header = bankApiClient.makeHeader(BankApi.INQUIRE_ACCOUNT_LIST.getApiName(), member.getUserKey());
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -78,7 +76,7 @@ public class AccountService {
     }
 
     public void registrationAccount(Long memberId, RegistrationAccountRequest request) {
-        Member member = memberRepository.findById(memberId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+        Member member = memberService.findById(memberId);
 
         Account account = Account.builder()
                 .member(member)
