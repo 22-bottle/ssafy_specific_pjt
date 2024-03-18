@@ -58,6 +58,7 @@ function Login() {
         <a href="#" className={styles.passforgot}>비밀번호를 잊으셨나요?</a>
       </div>
 
+      {/* 회원가입 버튼 */}
       <div className={`${styles.materialbutton} ${styles.alt2}`}>
         <span className={styles.shape}></span>
         <span className={styles.textshape}>회원가입</span>
