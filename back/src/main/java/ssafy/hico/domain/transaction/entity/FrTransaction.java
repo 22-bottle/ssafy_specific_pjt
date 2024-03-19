@@ -1,6 +1,7 @@
 package ssafy.hico.domain.transaction.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import ssafy.hico.domain.country.entity.Country;
@@ -31,4 +32,12 @@ public class FrTransaction extends BaseTimeEntity {
 
     private double frBalance;
     private Boolean isTransacted;
+
+    @Builder
+    public FrTransaction(Country country, FrWallet frWallet, int balance, double frBalance){
+        this.country = country;
+        this.frWallet = frWallet;
+        this.balance = balance;
+        this.frBalance = frBalance;
+    }
 }
