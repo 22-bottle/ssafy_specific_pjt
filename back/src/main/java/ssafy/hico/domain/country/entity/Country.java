@@ -20,7 +20,7 @@ public class Country extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long countryId;
+    private long id;
     private String countryName;
     private String code;
     private String frType;
