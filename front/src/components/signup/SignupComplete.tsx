@@ -41,6 +41,7 @@ const SignupComplete:React.FC = () => { // Component name corrected to start wit
               확인
             </Button>
           </div>
+
         </div>
       </div>
     );
