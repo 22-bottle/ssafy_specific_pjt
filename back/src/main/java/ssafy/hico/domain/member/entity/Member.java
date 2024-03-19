@@ -76,4 +76,8 @@ public class Member extends BaseTimeEntity {
     @Column(name = "invitation code")
     private String invitationCode;
 
+    public void modifyTutorial() {
+        this.isTutorial = true;
+    }
+
 }

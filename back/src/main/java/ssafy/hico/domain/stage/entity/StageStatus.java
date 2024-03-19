@@ -16,7 +16,7 @@ public class StageStatus extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long stageStatusId;
-    private String isPassed;
+    private boolean isPassed;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "stage_id")

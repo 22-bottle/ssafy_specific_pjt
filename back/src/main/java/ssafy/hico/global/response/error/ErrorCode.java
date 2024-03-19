@@ -30,7 +30,11 @@ public enum ErrorCode {
     NOT_FOUND_EXCHANGE_RATE(HttpStatus.NOT_FOUND, "환율 정보가 존재하지 않습니다."),
 
     //나라 관련 예외
-    NOT_FOUND_COUNTRY(HttpStatus.NOT_FOUND, "나라 정보가 존재하지 않습니다.");
+    NOT_FOUND_COUNTRY(HttpStatus.NOT_FOUND, "나라 정보가 존재하지 않습니다."),
+
+    //스테이지 관련 예외
+    NOT_FOUND_STAGE(HttpStatus.NOT_FOUND, "스테이지 정보가 존재하지 않습니다."),
+    NOT_FOUND_STAGE_STATUS(HttpStatus.NOT_FOUND, "스테이지 상태가 존재하지 않습니다.");
 
     private final HttpStatus httpStatus;
     private final String message;
