@@ -3,10 +3,7 @@ package ssafy.hico.domain.point.controller;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ssafy.hico.domain.point.dto.ChildApplyTranRequest;
 import ssafy.hico.domain.point.service.PointService;
 import ssafy.hico.global.annotation.LoginOnly;
@@ -21,11 +18,20 @@ public class PointController {
 
     private final PointService pointService;
 
-    @PostMapping()
+    @GetMapping
+    @LoginOnly(level = LoginOnly.Level.CHILD)
+    public ResponseEntity<?> getAllPoint(HttpServletRequest httpServletRequest){
+        Long memberId = (Long) httpServletRequest.getAttribute("memberId");
+        return getResponseEntity(SuccessCode.OK, pointService.addFindAllPoint(memberId));
+    }
+
+    @PostMapping("/require")
     @LoginOnly(level = LoginOnly.Level.CHILD)
     public ResponseEntity<?> requestTransaction(HttpServletRequest httpServletRequest, @RequestBody ChildApplyTranRequest request){
         Long memberId = (Long) httpServletRequest.getAttribute("memberId");
         pointService.addFrTransaction(memberId, request);
-        return getResponseEntity(SuccessCode.OK);
+        return getResponseEntity(SuccessCode.CREATED);
     }
+
+
 }
