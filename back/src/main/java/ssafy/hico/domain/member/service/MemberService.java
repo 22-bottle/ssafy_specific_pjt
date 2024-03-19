@@ -27,6 +27,7 @@ import ssafy.hico.global.response.error.ErrorCode;
 import ssafy.hico.global.response.error.exception.CustomException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Random;
 
@@ -91,7 +92,7 @@ public class MemberService {
             FrPoint frPoint = FrPoint.builder()
                     .country(country)
                     .frWallet(frWallet)
-                    .balance(0).build();
+                    .balance(BigDecimal.ZERO).build();
             frPointRepository.save(frPoint);
         }
     }

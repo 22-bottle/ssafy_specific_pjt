@@ -9,6 +9,8 @@ import ssafy.hico.domain.wallet.entity.FrWallet;
 import ssafy.hico.global.entity.BaseTimeEntity;
 
 
+import java.math.BigDecimal;
+
 import static jakarta.persistence.FetchType.LAZY;
 
 @Getter
@@ -28,16 +30,18 @@ public class FrTransaction extends BaseTimeEntity {
     @JoinColumn(name = "fr_wallet_id")
     private FrWallet frWallet;
 
-    private int balance;
+    private BigDecimal balance;
 
-    private double frBalance;
+    private BigDecimal frBalance;
+
     private Boolean isTransacted;
 
     @Builder
-    public FrTransaction(Country country, FrWallet frWallet, int balance, double frBalance){
+    public FrTransaction(Country country, FrWallet frWallet, BigDecimal balance, BigDecimal frBalance){
         this.country = country;
         this.frWallet = frWallet;
         this.balance = balance;
         this.frBalance = frBalance;
+        this.isTransacted = false;
     }
 }

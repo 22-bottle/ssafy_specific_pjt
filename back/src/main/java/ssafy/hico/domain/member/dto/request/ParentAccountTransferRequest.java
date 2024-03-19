@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import ssafy.hico.global.bank.dto.request.Header;
 
+import java.math.BigDecimal;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -14,7 +16,7 @@ public class ParentAccountTransferRequest {
     Header header;
     private String depositBankCode;
     private String depositAccountNo;
-    private int transactionBalance;
+    private BigDecimal transactionBalance;
     private String withdrawalBankCode;
     private String withdrawalAccountNo;
 }
