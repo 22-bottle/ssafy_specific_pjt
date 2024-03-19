@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ssafy.hico.domain.stage.dto.response.StageChildFindResponse;
 import ssafy.hico.domain.stage.dto.response.StageCountryFindResponse;
+import ssafy.hico.domain.stage.dto.response.StageQuizFindResponse;
 import ssafy.hico.domain.stage.service.StageService;
 import ssafy.hico.global.jwt.JwtTokenProvider;
 import ssafy.hico.global.response.success.SuccessCode;
@@ -40,6 +41,12 @@ public class StageController {
         Long memberId = (Long) httpServletRequest.getAttribute("memberId");
         List<StageCountryFindResponse> stageList = stageService.findCountryStage(memberId, countryId);
         return getResponseEntity(SuccessCode.OK, stageList);
+    }
+
+    @GetMapping("/quiz/{stageId}")
+    public ResponseEntity<?> stageQuizList(@PathVariable int stageId) {
+        StageQuizFindResponse stageQuizFindResponse = stageService.findQuizStage(stageId);
+        return getResponseEntity(SuccessCode.OK, stageQuizFindResponse);
     }
 
 }

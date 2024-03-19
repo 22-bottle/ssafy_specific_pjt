@@ -19,7 +19,8 @@ public class QuizLevel extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long quizLevelId;
-    private String quizLevel;
+    @Enumerated(EnumType.STRING)
+    private Difficulty quizLevel;
     private double quizPrice;
 
     @OneToMany(mappedBy = "quizLevel")

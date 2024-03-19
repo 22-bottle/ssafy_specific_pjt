@@ -34,7 +34,10 @@ public enum ErrorCode {
 
     //스테이지 관련 예외
     NOT_FOUND_STAGE(HttpStatus.NOT_FOUND, "스테이지 정보가 존재하지 않습니다."),
-    NOT_FOUND_STAGE_STATUS(HttpStatus.NOT_FOUND, "스테이지 상태가 존재하지 않습니다.");
+    NOT_FOUND_STAGE_STATUS(HttpStatus.NOT_FOUND, "스테이지 상태가 존재하지 않습니다."),
+
+    //퀴즈 관련 예외
+    NOT_FOUND_QUIZ(HttpStatus.NOT_FOUND, "퀴즈 정보가 존재하지 않습니다.");
 
     private final HttpStatus httpStatus;
     private final String message;

@@ -9,9 +9,8 @@ import ssafy.hico.domain.country.repository.CountryRepository;
 import ssafy.hico.domain.member.entity.Member;
 import ssafy.hico.domain.member.repository.MemberRepository;
 import ssafy.hico.domain.quiz.entity.Quiz;
-import ssafy.hico.domain.stage.dto.response.ProgressRate;
-import ssafy.hico.domain.stage.dto.response.StageChildFindResponse;
-import ssafy.hico.domain.stage.dto.response.StageCountryFindResponse;
+import ssafy.hico.domain.quiz.repository.QuizRepository;
+import ssafy.hico.domain.stage.dto.response.*;
 import ssafy.hico.domain.stage.entity.Stage;
 import ssafy.hico.domain.stage.entity.StageStatus;
 import ssafy.hico.domain.stage.repository.StageRepository;
@@ -32,6 +31,7 @@ public class StageService {
     private final MemberRepository memberRepository;
     private final StageStatusRepository stageStatusRepository;
     private final CountryRepository countryRepository;
+    private final QuizRepository quizRepository;
 
     private final static int COUNTRY_NUM = 4;
 
@@ -81,6 +81,18 @@ public class StageService {
             stageList.add(new StageCountryFindResponse(stage, stageStatus.isPassed(), 0));
         }
         return stageList;
+    }
+
+    public StageQuizFindResponse findQuizStage(long stageId) {
+        Stage stage = stageRepository.findById(stageId)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_STAGE));
+        List<Quiz> quizzes = quizRepository.findAllByStage(stage)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_QUIZ));
+        List<QuizInfo> quizInfos = new ArrayList<>();
+        for (Quiz quiz : quizzes) {
+            quizInfos.add(new QuizInfo(quiz));
+        }
+        return new StageQuizFindResponse(stage.getIncrease(), quizInfos);
     }
 
 }
