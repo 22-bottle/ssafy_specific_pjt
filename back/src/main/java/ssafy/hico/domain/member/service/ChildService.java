@@ -39,7 +39,7 @@ public class ChildService {
                 .map(transaction -> new ChildForeignTransactionResponse(
                         transaction.getId(),
                         transaction.getBalance(),
-                        transaction.getCountry().getCountryId(),
+                        transaction.getCountry().getId(),
                         transaction.getFrBalance(),
                         transaction.getCountry().getCode(),
                         transaction.getCreateTime(),

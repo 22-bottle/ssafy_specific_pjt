@@ -19,6 +19,7 @@ public enum ErrorCode {
     NOT_FOUND_USER(HttpStatus.NOT_FOUND, "해당 이메일로 가입한 유저가 없습니다."),
     INVALID_PASSWORD(HttpStatus.CONFLICT, "비밀번호가 일치하지 않습니다."),
     NOT_FOUND_ACCOUNT(HttpStatus.NOT_FOUND, "등록된 계좌가 없습니다."),
+    NOT_ENOUGH_BALANCE(HttpStatus.BAD_REQUEST, "잔액이 부족합니다."),
 
     //JWT 관련 예외
     EXPIRED_AUTH_TOKEN(HttpStatus.UNAUTHORIZED, "토큰이 만료되었습니다."),
