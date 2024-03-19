@@ -3,7 +3,10 @@ package ssafy.hico.domain.point.service;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ssafy.hico.domain.exchangerate.entity.ExchangeRate;
+import ssafy.hico.domain.exchangerate.repository.ExchangeRateRepository;
 import ssafy.hico.domain.point.dto.ChildApplyTranRequest;
+import ssafy.hico.domain.point.dto.response.MyPointResponse;
 import ssafy.hico.domain.point.entity.FrPoint;
 import ssafy.hico.domain.point.repository.FrPointRepository;
 import ssafy.hico.domain.transaction.entity.FrTransaction;
@@ -15,12 +18,19 @@ import ssafy.hico.global.response.error.exception.CustomException;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class PointService {
 
     private final FrTransactionRepository frTransactionRepository;
+    private final ExchangeRateRepository exchangeRateRepository;
     private final FrWalletRepository frWalletRepository;
     private final FrPointRepository frPointRepository;
 
@@ -47,5 +57,41 @@ public class PointService {
         }
 
 
+    }
+
+    public List<MyPointResponse> addFindAllPoint(Long memberId) {
+        LocalDate now = LocalDate.now();
+        FrWallet frWallet = frWalletRepository.findByMemberId(memberId).get();
+        List<ExchangeRate> todayExchangeRate = findExchangeRateByTodayOrElseYesterday().get();
+        List<FrPoint> pointList = frWallet.getFrPoints();
+
+        Map<Long, ExchangeRate> exchangeRateMap = todayExchangeRate.stream()
+                .collect(Collectors.toMap(rate -> rate.getCountry().getId(), rate -> rate));
+
+        return pointList.stream().map(frPoint -> {
+            ExchangeRate exchangeRate = exchangeRateMap.get(frPoint.getCountry().getId());
+
+            return new MyPointResponse(
+                    frPoint.getCountry().getId(),
+                    frPoint.getCountry().getCode(),
+                    frPoint.getCountry().getFrType(),
+                    frPoint.getBalance(),
+                    exchangeRate.getBasicRate()
+            );
+        }).collect(Collectors.toList());
+
+
+    }
+
+    public Optional<List<ExchangeRate>> findExchangeRateByTodayOrElseYesterday() {
+        LocalDate today = LocalDate.now();
+        Optional<List<ExchangeRate>> todayExchangeRate = exchangeRateRepository.findAllByTodayDate(today);
+
+        if (todayExchangeRate.isPresent() && !todayExchangeRate.get().isEmpty()) {
+            return todayExchangeRate;
+        } else {
+            LocalDate yesterday = today.minusDays(1);
+            return exchangeRateRepository.findAllByTodayDate(yesterday);
+        }
     }
 }
