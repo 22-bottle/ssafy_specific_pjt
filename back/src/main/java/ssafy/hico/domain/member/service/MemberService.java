@@ -4,6 +4,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ssafy.hico.domain.account.repository.AccountRepository;
+import ssafy.hico.domain.country.entity.Country;
+import ssafy.hico.domain.country.repository.CountryRepository;
 import ssafy.hico.domain.member.dto.request.BankMemberSearchRequest;
 import ssafy.hico.domain.member.dto.request.MemberLoginRequest;
 import ssafy.hico.domain.member.dto.request.MemberSignUpRequest;
@@ -12,6 +14,10 @@ import ssafy.hico.domain.member.dto.response.LoginResponse;
 import ssafy.hico.domain.member.entity.Member;
 import ssafy.hico.domain.member.entity.Role;
 import ssafy.hico.domain.member.repository.MemberRepository;
+import ssafy.hico.domain.point.entity.FrPoint;
+import ssafy.hico.domain.point.repository.FrPointRepository;
+import ssafy.hico.domain.wallet.entity.FrWallet;
+import ssafy.hico.domain.wallet.repository.FrWalletRepository;
 import ssafy.hico.global.bank.BankApi;
 import ssafy.hico.global.bank.BankApiClient;
 import ssafy.hico.global.bank.BankProperties;
@@ -21,6 +27,7 @@ import ssafy.hico.global.response.error.ErrorCode;
 import ssafy.hico.global.response.error.exception.CustomException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.util.List;
 import java.util.Random;
 
 @Service
@@ -28,6 +35,9 @@ import java.util.Random;
 public class MemberService {
     private final MemberRepository memberRepository;
     private final AccountRepository accountRepository;
+    private final FrWalletRepository frWalletRepository;
+    private final CountryRepository countryRepository;
+    private final FrPointRepository frPointRepository;
     private final BankProperties bankProperties;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final BankApiClient bankApiClient;
@@ -55,6 +65,7 @@ public class MemberService {
                 .birthDate(request.getBirthDate())
                 .userKey(memberSearchResponse.getPayload().getUserKey());
 
+
         if(request.getRole() == Role.CHILD) {
             Member parent = memberRepository.findByInvitationCode(request.getCode())
                     .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_CODE));
@@ -63,7 +74,26 @@ public class MemberService {
             builder.invitationCode(makeRandomCode());
         }
 
-        memberRepository.save(builder.build());
+        Member member = memberRepository.save(builder.build());
+
+        if(request.getRole() == Role.CHILD){
+            setChildFrWallet(member);
+        }
+    }
+
+    private void setChildFrWallet(Member member) {
+        FrWallet frWallet = FrWallet.builder()
+                .member(member).build();
+        frWalletRepository.save(frWallet);
+
+        List<Country> countries = countryRepository.findByIdBetween(1, 4);
+        for (Country country : countries) {
+            FrPoint frPoint = FrPoint.builder()
+                    .country(country)
+                    .frWallet(frWallet)
+                    .balance(0).build();
+            frPointRepository.save(frPoint);
+        }
     }
 
 
