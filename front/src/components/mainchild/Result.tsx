@@ -1,7 +1,7 @@
 import React from "react";
 import styles from '@/components/mainchild/Result.module.css'
 const  quizsuccess = require('@/assets/success.png');
-const quizfailed = require('@/assets/falies.png');
+const quizfailed = require('@/assets/failed.png');
 
 const Result:React.FC= () => {
     
