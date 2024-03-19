@@ -3,27 +3,88 @@
     flex-direction: column; /* 자식 요소들을 세로로 정렬 */
     align-items: center; /* 가운데 정렬 */
     justify-content: center; /* 가운데 정렬 */
-    height: 100vh; /* 화면의 전체 높이 */
+    width: 100%;
+    height: 100%; /* 화면의 전체 높이 */
     text-align: center; /* 텍스트 가운데 정렬 */
+    overflow: hidden; /* 스크롤바 없애기 */
   }
   
   .backgroundImage {
-    position: absolute; /* 배경 이미지를 절대 위치 */
+    position: absolute; /* 배경 이미지를 절대 위치로 수정 */
     top: 0;
     left: 0;
-    width: 100%; /* 전체 너비 */
-    height: 100%; /* 전체 높이 */
+    background-size: cover; /* 배경 이미지가 화면을 꽉 채우도록 */
+    background-position: center; /* 이미지를 중앙에 위치 */
+    width: 100%;
+    height: 100%; /* 전체 높이를 차지하도록 변경 */
     z-index: -1; /* 배경으로 보내기 */
   }
   
   .storyNavigation {
-    position: relative;
-    bottom:0%;
-    display: flex; /* Flexbox layout을 사용 */
-    flex-direction: row; /* 자식 요소들을 가로로 정렬 */
-    align-items: center; /* 가운데 정렬 */
-    justify-content: space-between; /* 요소들 사이에 공간을 균등하게 배분 */
-    width: 100%; /* 전체 너비의 80% */
-    max-width: 600px; /* 최대 너비 제한 */
-    height: 100px;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center; /* 중앙 정렬을 위해 수정 */
+    width: 100%;
+    padding: -2 20px; /* 좌우 패딩 추가 */
+    height: 150px;
+    margin:0 0;
+    background-color: #f0f0f0; /* 업로드한 이미지의 배경 색에 따라 달라질 수 있음 */
   }
+  
+  .button {
+    border: none;
+    background-color: #007bff; /* 예시 색상 */
+    color: white;
+    padding: 10px 20px;
+    margin: 0 0px;
+    border-radius: 30px; /* 둥근 모서리 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 버튼 그림자 */
+    cursor: pointer;
+  }
+  
+  .button:disabled {
+    background-color: #cccccc; /* 비활성화 상태의 배경 색 */
+  }
+  
+  .textfield {
+    flex-grow: 1; /* 사용 가능한 공간을 모두 채우도록 함 */
+    margin: 0 10px;
+    background-color: rgba(255, 255, 255, 0.5); /* 투명도를 준 흰색 배경 */
+    padding: 10px;
+    border-radius: 20px; /* 둥근 모서리 */
+    border: 1px solid #dddddd; /* 경계선 */
+    text-align: center;
+  }
+  
+  .textfield p {
+    margin: 0; /* 기본 p 태그 마진 제거 */
+    font-size: 30px;
+  }
+  .grandpa {
+    background-image: url('@/assets/grandpa.png'); /* 이미지 경로를 정확하게 지정하세요 */
+    position: absolute;
+    top: 31%;
+    left: 1%;
+    width: 410px;
+    height: 498px;
+  }
+  .boy {
+    background-image: url('@/assets/boy.png'); /* 이미지 경로를 정확하게 지정하세요 */
+    position: absolute;
+    top: 25%;
+    right: 5%;
+    width: 350px;
+    height: 554px;
+}
+.timemachine {
+    background-image: url('@/assets/storytimemachine.png'); /* 이미지 경로를 정확하게 지정하세요 */
+    position: absolute;
+    top: 12%;
+    right: 40%;
+    width: 469px;
+    height: 643px;
+}
+  
