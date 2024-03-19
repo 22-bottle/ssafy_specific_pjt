@@ -29,10 +29,10 @@ public class PointService {
         FrWallet frWallet = frWalletRepository.findByMemberId(memberId).get();
         for(FrPoint point : frWallet.getFrPoints()){
             if(point.getCountry().getId() == request.getCountryId()){
-                double balance = point.getBalance() - request.getFrBalance();
-                BigDecimal bd = new BigDecimal(balance).setScale(2, RoundingMode.HALF_UP);
-                double roundedBalance = bd.doubleValue();
-                if(roundedBalance < 0){
+                BigDecimal balance = point.getBalance().subtract(request.getFrBalance());
+                BigDecimal roundedBalance = balance.setScale(2, RoundingMode.HALF_UP);
+
+                if (roundedBalance.compareTo(BigDecimal.ZERO) < 0) {
                     throw new CustomException(ErrorCode.NOT_ENOUGH_BALANCE);
                 }
                 frPointRepository.updatePoint(point.getFrPointId(), roundedBalance);
