@@ -84,7 +84,7 @@ public class ExchangeRateService {
         return exchangeRateList;
     }
 
-    public List<ExchangeRateFindResponse> findMonthExchangeRate(int countryId) {
+    public List<ExchangeRateFindResponse> findMonthExchangeRate(long countryId) {
         LocalDate today = LocalDate.now();
         Country country = countryRepository.findById(countryId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_COUNTRY));
