@@ -1,7 +1,7 @@
 import React from "react";
 import styles from '@/components/mainchild/Result.module.css'
 const  quizsuccess = require('@/assets/success.png');
-
+const quizfailed = require('@/assets/falies.png');
 
 const Result:React.FC= () => {
     
@@ -12,6 +12,7 @@ const Result:React.FC= () => {
         <button className={styles.closeButton}>X</button>
       </div>
       <div className={styles.title}>10개 중 9개 정답</div>
+      {/* if문으로  성공 실패 렌더링 다르게*/}
       <img src={quizsuccess} alt="Character" className={styles.characterImage} />
       <div className={styles.info}>
         <div>성공</div>
