@@ -7,11 +7,16 @@ import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
-public class ChildFrTranResponse {
+public class ChildForeignTransactionResponse {
     private Long frTranId;
     private int balance;
+
+    private Long countryId;
+    private double frBalance;
+    private String code;
+
     private LocalDateTime createTime;
     private boolean isTransacted;
-    private Long memberId;
+    private Long childId;
     private String name;
 }

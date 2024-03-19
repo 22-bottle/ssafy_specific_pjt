@@ -10,7 +10,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 public class FrTransactionResponse {
-    private List<ChildFrTranResponse> frTranList;
+    private List<ChildForeignTransactionResponse> frTranList;
     private Long totalElements;
     private int totalPages;
 }

@@ -10,6 +10,8 @@ import ssafy.hico.domain.account.dto.response.AccountListResponse;
 import ssafy.hico.domain.account.dto.response.OpenAccountResponse;
 import ssafy.hico.domain.account.entity.Account;
 import ssafy.hico.domain.account.repository.AccountRepository;
+import ssafy.hico.domain.member.dto.request.BankAccountBalanceRequest;
+import ssafy.hico.domain.member.dto.response.AccountBalanceResponse;
 import ssafy.hico.domain.member.entity.Member;
 import ssafy.hico.domain.member.service.MemberService;
 import ssafy.hico.global.bank.BankApi;
@@ -17,6 +19,8 @@ import ssafy.hico.global.bank.BankApiClient;
 import ssafy.hico.global.bank.BankProperties;
 import ssafy.hico.global.bank.dto.request.Header;
 import ssafy.hico.global.bank.dto.request.HeaderRequest;
+import ssafy.hico.global.response.error.ErrorCode;
+import ssafy.hico.global.response.error.exception.CustomException;
 
 @Service
 @RequiredArgsConstructor
@@ -75,4 +79,15 @@ public class AccountService {
 
         accountRepository.save(account);
     }
+
+    public AccountBalanceResponse getAccountBalance(Long memberId){
+        Account account = accountRepository.findByMemberId(memberId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));;
+
+        Header header = bankApiClient.makeHeader(BankApi.INQUIRE_ACCOUNT_BALANCE.getApiName(), account.getMember().getUserKey());
+        BankAccountBalanceRequest request = new BankAccountBalanceRequest(header, account.getBankCode(), account.getAccountNo());
+        String response = bankApiClient.getResponse(BankApi.INQUIRE_ACCOUNT_BALANCE.getUrl(), request);
+
+        return bankApiClient.getDtoFromResponse(response, AccountBalanceResponse.class);
+    }
+
 }

@@ -9,8 +9,8 @@ import java.util.List;
 @Data
 @Builder
 @AllArgsConstructor
-public class ParentFrTranAndAccountResponse {
+public class AccountAndFrTranResponse {
     private String accountNo;
     private String balance;
-    private List<ChildFrTranResponse> frTranList;
+    private List<ChildForeignTransactionResponse> frTranList;
 }
