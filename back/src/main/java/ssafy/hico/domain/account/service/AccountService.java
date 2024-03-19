@@ -81,7 +81,7 @@ public class AccountService {
     }
 
     public AccountBalanceResponse getAccountBalance(Long memberId){
-        Account account = accountRepository.findByMemberId(memberId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));;
+        Account account = findByMemberId(memberId);
 
         Header header = bankApiClient.makeHeader(BankApi.INQUIRE_ACCOUNT_BALANCE.getApiName(), account.getMember().getUserKey());
         BankAccountBalanceRequest request = new BankAccountBalanceRequest(header, account.getBankCode(), account.getAccountNo());
@@ -90,4 +90,7 @@ public class AccountService {
         return bankApiClient.getDtoFromResponse(response, AccountBalanceResponse.class);
     }
 
+    public Account findByMemberId(Long memberId) {
+        return accountRepository.findByMemberId(memberId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+    }
 }
