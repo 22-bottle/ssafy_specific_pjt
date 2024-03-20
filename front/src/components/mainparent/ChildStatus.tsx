@@ -1,25 +1,70 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from './childstatus.module.css';
 import Carousel from 'react-bootstrap/Carousel'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom'; 
+import profileBoy1 from '../../assets/profile_boy1.png';
+import profileBoy2 from '../../assets/profile_boy2.png';
+import profileBoy3 from '../../assets/profile_boy3.png';
+import profileBoy4 from '../../assets/profile_boy4.png';
+import profileGirl1 from '../../assets/profile_girl1.png';
+import profileGirl2 from '../../assets/profile_girl2.png';
+import profileGirl3 from '../../assets/profile_girl3.png';
+import profileGirl4 from '../../assets/profile_girl4.png';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
+
 
 const Childstatus:React.FC= () => {
 
   const [selectedChild, setSelectedChild] = useState("");
-  const styleObj = {
-    border: '1px solid black', 
-    padding: '10px', 
-    margin: '10px' 
-  }
+  const [selectedImage, setSelectedImage] = useState('');
+
   const navigate = useNavigate();
   const handleButtonClick = () => {
     navigate('/mainparent/childadd');
-    };
+  };
+
+
+  // 프로필 랜덤 사진
+  // 예시로 'boy'로 설정. 동적으로 설정 필요.
+  const gender = 'boy'; // 'boy' 또는 'girl'
+  useEffect(() => {
+    const boyImages = [profileBoy1, profileBoy2, profileBoy3, profileBoy4];
+    const girlImages = [profileGirl1, profileGirl2, profileGirl3, profileGirl4];
+    const images = gender === 'boy' ? boyImages : girlImages;
+    const randomIndex = Math.floor(Math.random() * images.length);
+    setSelectedImage(images[randomIndex]);
+  }, [gender]);
+
+
+  // 자녀이름 select
+  const [age, setAge] = useState<string>('10');
+  const handleChange = (event: SelectChangeEvent<string>) => {
+    setAge(event.target.value);
+  };
+
+  useEffect(() => {
+    const boyImages = [profileBoy1, profileBoy2, profileBoy3, profileBoy4];
+    const girlImages = [profileGirl1, profileGirl2, profileGirl3, profileGirl4];
+
+    // 성별 결정 로직 추가 설정 필요
+    // 예시로 '10'이면 남자 아이, '20'이면 여자 아이로 가정
+    let images = age === '10' ? boyImages : girlImages; 
+    const randomIndex = Math.floor(Math.random() * images.length);
+    setSelectedImage(images[randomIndex]);
+  }, [age]);
+
+
   // 아이 선택시 라벨 변경 
   const handleChildSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedChild(event.target.value);
   };
+
+  
   return (
     <div className={styles.container}>
 
@@ -28,10 +73,37 @@ const Childstatus:React.FC= () => {
       <div className={styles.profile}>
 
         {/* 프로필 사진 */}
-        <div></div>
+        <div className={styles.profileimage}>
+          <img src={selectedImage} alt={gender} style={{ height: '100px' }} />
+        </div>
 
         {/* 자녀 이름 */}
-        <div></div>
+        <div>
+          <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+            <Select
+              value={age}
+              onChange={handleChange}
+              displayEmpty
+              inputProps={{ 'aria-label': 'Without label' }}
+              disableUnderline
+              IconComponent={ExpandMoreRoundedIcon}
+              sx={{
+                '.MuiSelect-select': {
+                  fontSize: '18px',
+                  fontWeight: 600,
+                  color: '#585865',
+                },
+                '.MuiSvgIcon-root': { 
+                  fontSize: '45px', 
+                  paddingBottom: '5px',
+                },
+              }}
+            >
+              <MenuItem value={'10'}>이승재</MenuItem>
+              <MenuItem value={'20'}>이무진</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
       </div>
 
       
@@ -39,32 +111,32 @@ const Childstatus:React.FC= () => {
       <div className={styles.materialContainer}>
 
         {/* 카로셀 버튼 + 나라 */}
-        <div></div>
+        <div>p</div>
 
         {/* 진행률 차트 */}
-        <div></div>
+        <div>p</div>
 
         {/* 문항수 */}
         <div>
           {/* 전체 문항수 */}
-          <div></div>
+          <div>p</div>
           {/* 맞은 문항수 */}
-          <div></div>
+          <div>p</div>
         </div>
 
         {/* title */}
-        <div></div>
+        <div>p</div>
 
         {/* 나라 */}
         <div>
           {/* 미국 */}
-          <div></div>
+          <div>p</div>
           {/* 일본 */}
-          <div></div>
+          <div>p</div>
           {/* 유럽 */}
-          <div></div>
+          <div>p</div>
           {/* 중국 */}
-          <div></div>
+          <div>p</div>
         </div>
       </div>
 
