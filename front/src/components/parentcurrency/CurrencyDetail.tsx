@@ -1,8 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import ApexCharts from "apexcharts";
+import { useRecoilValue } from 'recoil';
+import { currencydataList } from '@/state/currencyselectors';
 
 const CurrencyDetail: React.FC = () => {
-  const chartRef = useRef<HTMLDivElement | null>(null);
+    const currencyData = useRecoilValue(currencydataList) || []
+    const chartRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (chartRef.current) {
@@ -10,16 +13,10 @@ const CurrencyDetail: React.FC = () => {
         chart: {
           type: "line",
         },
-        series: [{
-            data: [{
-              x:'2018-02-12',
-              y: 76
-            }, {
-              x: '2018-02-13',
-              y: 77
-            }]
-          }], 
-          xaxis: {
+        series:[{
+            data:currencyData
+        }],
+        xaxis: {
             type: 'datetime'
           }  
       };
@@ -32,7 +29,7 @@ const CurrencyDetail: React.FC = () => {
         chart.destroy();
       };
     }
-  }, []); // 빈 의존성 배열을 사용하여 컴포넌트 마운트 시에만 실행되도록 함
+  }, [currencyData]); // 빈 의존성 배열을 사용하여 컴포넌트 마운트 시에만 실행
 
   return (
     <div>
