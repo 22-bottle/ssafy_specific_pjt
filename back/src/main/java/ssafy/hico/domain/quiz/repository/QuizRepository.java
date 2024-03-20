@@ -11,4 +11,5 @@ public interface QuizRepository extends JpaRepository<Quiz, Long> {
 
     Optional<List<Quiz>> findAllByStage(Stage stage);
 
+    List<Quiz> findByQuizLevel_Country_Id(Long countryId);
 }

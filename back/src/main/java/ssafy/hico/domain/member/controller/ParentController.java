@@ -57,8 +57,13 @@ public class ParentController {
 
     @GetMapping("/main/point/{childId}")
     @LoginOnly(level = LoginOnly.Level.PARENT)
-    public ResponseEntity<?> getChildPoint(HttpServletRequest httpServletRequest, @PathVariable Long childId){
-        Long memberId = (Long) httpServletRequest.getAttribute("memberId");
+    public ResponseEntity<?> getChildPoint(@PathVariable Long childId){
         return getResponseEntity(SuccessCode.OK, parentService.findChildPoint(childId));
+    }
+
+    @GetMapping("/main/{childId}")
+    @LoginOnly(level = LoginOnly.Level.PARENT)
+    public ResponseEntity<?> getChildQuizStatus(@PathVariable Long childId){
+        return getResponseEntity(SuccessCode.OK, parentService.findChildQuizStatus(childId));
     }
 }

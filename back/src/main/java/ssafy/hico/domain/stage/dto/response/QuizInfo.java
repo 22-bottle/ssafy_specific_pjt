@@ -21,7 +21,7 @@ public class QuizInfo {
     private double quizPrice;
 
     public QuizInfo(Quiz quiz) {
-        this.quizId = quiz.getQuizId();
+        this.quizId = quiz.getId();
         this.quizQuestion = quiz.getQuizQuestion();
         this.quizAnswer = quiz.getQuizAnswer();
         this.quizType = quiz.getQuizType();

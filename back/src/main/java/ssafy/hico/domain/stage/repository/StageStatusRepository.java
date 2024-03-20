@@ -13,4 +13,5 @@ public interface StageStatusRepository extends JpaRepository<StageStatus, Long> 
     Optional<List<StageStatus>> findAllByMemberId(long childId);
     Optional<StageStatus> findByMemberAndStage(Member member, Stage stage);
 
+    List<StageStatus> findAllByMemberIdAndStage_Country_Id(Long childId, long id);
 }

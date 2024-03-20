@@ -18,7 +18,7 @@ public class Quiz extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long quizId;
+    private long id;
     private String quizQuestion;
     private String quizAnswer;
     private String quizType;
