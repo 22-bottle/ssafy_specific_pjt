@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ssafy.hico.domain.stage.dto.request.StageQuizSaveRequest;
 import ssafy.hico.domain.stage.dto.response.StageChildFindResponse;
 import ssafy.hico.domain.stage.dto.response.StageCountryFindResponse;
 import ssafy.hico.domain.stage.dto.response.StageQuizFindResponse;
@@ -47,6 +48,12 @@ public class StageController {
     public ResponseEntity<?> stageQuizList(@PathVariable int stageId) {
         StageQuizFindResponse stageQuizFindResponse = stageService.findQuizStage(stageId);
         return getResponseEntity(SuccessCode.OK, stageQuizFindResponse);
+    }
+
+    @PostMapping("/quiz")
+    public ResponseEntity<?> stageQuizSave(@RequestBody StageQuizSaveRequest stageQuizSaveRequest) {
+        stageService.saveStageQuiz(stageQuizSaveRequest);
+        return getResponseEntity(SuccessCode.OK);
     }
 
 }

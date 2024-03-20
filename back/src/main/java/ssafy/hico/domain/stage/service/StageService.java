@@ -10,6 +10,8 @@ import ssafy.hico.domain.member.entity.Member;
 import ssafy.hico.domain.member.repository.MemberRepository;
 import ssafy.hico.domain.quiz.entity.Quiz;
 import ssafy.hico.domain.quiz.repository.QuizRepository;
+import ssafy.hico.domain.stage.dto.request.QuizResult;
+import ssafy.hico.domain.stage.dto.request.StageQuizSaveRequest;
 import ssafy.hico.domain.stage.dto.response.*;
 import ssafy.hico.domain.stage.entity.Stage;
 import ssafy.hico.domain.stage.entity.StageStatus;
@@ -93,6 +95,13 @@ public class StageService {
             quizInfos.add(new QuizInfo(quiz));
         }
         return new StageQuizFindResponse(stage.getIncrease(), quizInfos);
+    }
+
+    public void saveStageQuiz(StageQuizSaveRequest stageQuizSaveRequest) {
+        int answerCnt = 0;
+        for (QuizResult quizResult : stageQuizSaveRequest.getQuizResultList()) {
+
+        }
     }
 
 }
