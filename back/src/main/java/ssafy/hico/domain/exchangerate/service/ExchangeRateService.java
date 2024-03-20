@@ -1,6 +1,7 @@
 package ssafy.hico.domain.exchangerate.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -31,10 +32,11 @@ public class ExchangeRateService {
     private final ExchangeRateRepository exchangeRateRepository;
     private final CountryRepository countryRepository;
 
-    private final String URL = "https://www.koreaexim.go.kr/site/program/financial/exchangeJSON";
-    private final String APIKEY = "?authkey=0j4LxTQLjeIZ56itctsOy118aX5MM80g";
-    private final String SEARCHDATE = "&searchdate=";
-    private final String DATA = "&data=AP01";
+    private String URL = "https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey=";
+    @Value("${currency.secret-key}")
+    private String APIKEY;
+    private String SEARCHDATE = "&searchdate=";
+    private String DATA = "&data=AP01";
 
     public WebClient getBaseUrl(final String url) {
         return WebClient.builder()
@@ -69,6 +71,19 @@ public class ExchangeRateService {
                 todayExchangeRate = dto.createExchangeRate(country, null, 0);
             } finally {
                 exchangeRateRepository.save(todayExchangeRate);
+            }
+        }
+        if (exchangeRateDtos.length == 0) {
+            List<ExchangeRate> ers = exchangeRateRepository.findAllByTodayDate(yesterday)
+                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_COUNTRY));;
+            for (ExchangeRate er : ers) {
+                ExchangeRate newEx = new ExchangeRate();
+                newEx.setTodayDate(today);
+                newEx.setBasicRate(er.getBasicRate());
+                newEx.setAmount(er.getAmount());
+                newEx.setRiseStatus(er.getRiseStatus());
+                newEx.setCountry(er.getCountry());
+                exchangeRateRepository.save(newEx);
             }
         }
     }
