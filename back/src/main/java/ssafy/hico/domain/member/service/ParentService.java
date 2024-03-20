@@ -83,7 +83,7 @@ public class ParentService {
 
     @Transactional
     public void confirmAndSendExchangeToChild(Long memberId, ParentSendMoneyRequest request) {
-        Account account = accountRepository.findByMemberId(memberId).get();
+        Account account = accountRepository.findByMemberId(memberId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_ACCOUNT));
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         if(!encoder.matches(request.getPassword(), account.getPassword())) {
             throw new CustomException(ErrorCode.INVALID_PASSWORD);
@@ -91,7 +91,7 @@ public class ParentService {
 
         FrTransaction frTransaction = frTransactionRepository.findById(request.getFrTranId()).get();
         Member child = frTransaction.getFrWallet().getMember();
-        Account childAccount = accountRepository.findByMemberId(child.getId()).get();
+        Account childAccount = accountRepository.findByMemberId(child.getId()).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_ACCOUNT));
         Header header = bankApiClient.makeHeader(BankApi.ACCOUNT_TRANSFER.getApiName(), account.getMember().getUserKey());
         ParentAccountTransferRequest requestBody = ParentAccountTransferRequest.builder().header(header)
                 .depositBankCode(childAccount.getBankCode())
