@@ -82,9 +82,14 @@ public class StageService {
         for (Stage stage : stages) {
             StageStatus stageStatus = stageStatusRepository.findByMemberAndStage(member, stage)
                     .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_STAGE_STATUS));
-            //answer 처리
-            //stage의 퀴즈 불러와서 아이의 quizStatus보고 answer count
-            stageList.add(new StageCountryFindResponse(stage, stageStatus.isPassed(), 0));
+            List<Quiz> quizzes = quizRepository.findAllByStage(stage)
+                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_QUIZ));
+            int answer = 0;
+            for (Quiz quiz : quizzes) {
+                Optional<QuizStatus> quizStatus = quizStatusRepository.findByMemberIdAndQuizId(memberId, quiz.getId());
+                if (!quizStatus.isEmpty() && quizStatus.get().getIsCorrect()) answer++;
+            }
+            stageList.add(new StageCountryFindResponse(stage, stageStatus.isPassed(), answer));
         }
         return stageList;
     }
