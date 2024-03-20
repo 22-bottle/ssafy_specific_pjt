@@ -20,6 +20,7 @@ public enum ErrorCode {
     INVALID_PASSWORD(HttpStatus.CONFLICT, "비밀번호가 일치하지 않습니다."),
     NOT_FOUND_ACCOUNT(HttpStatus.NOT_FOUND, "등록된 계좌가 없습니다."),
     NOT_ENOUGH_BALANCE(HttpStatus.BAD_REQUEST, "잔액이 부족합니다."),
+    ALREADY_HAVE_ACCOUNT(HttpStatus.CONFLICT, "이미 계좌가 존재합니다."),
 
     //JWT 관련 예외
     EXPIRED_AUTH_TOKEN(HttpStatus.UNAUTHORIZED, "토큰이 만료되었습니다."),
