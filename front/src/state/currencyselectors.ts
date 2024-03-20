@@ -4,7 +4,7 @@ import { currencydetailState } from "./currencyatoms";
 // 더미 데이터 테스트--> 추후 api로 요청
 const usacurrencymonth =[
     {
-        x:new Date('2022-02-01'),
+        x:new Date('2022-02-01').getDate(),
         y:44
     },
     {
