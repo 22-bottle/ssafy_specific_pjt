@@ -6,24 +6,30 @@ import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import styles from './Currency.module.css';
+import { useRecoilState } from "recoil";
+import { currencydetailState } from "@/state/currencyatoms";
+
 
 const usaflag = require('@/assets/usaflag.PNG');
 const japanflag = require('@/assets/japanflag.PNG');
 const europeflag = require('@/assets/europeflag.PNG');
 const chinaflag = require('@/assets/chinaflag.PNG');
 const upicon = require('@/assets/upicon.png');
-const downicon = require('@/assets/downicon.png');
+// const downicon = require('@/assets/downicon.png');
 
 
 
 
 const Currency: React.FC = () => {
+    const [countryId, setCountryId] = useRecoilState(currencydetailState)
     const navigate = useNavigate()
-    const navigatToDetail = () => {
-    // startTransition을 사용하여 비동기 업데이트 처리
-    startTransition(() => {
-        navigate('/currency/detail');
-    });
+    const navigatToDetail = (Id:number) => {
+        // 상태 업데이트 함수를 사용하여 countryId 상태를 변경
+        setCountryId(Id);
+        // startTransition을 사용하여 비동기 업데이트 처리
+        startTransition(() => {
+            navigate('/currency/detail');
+        });
     }
 return (
     <div className="currencycontainer">
@@ -47,7 +53,7 @@ return (
                 {'얼마나 증가했는지'}
                 </Box>
                 <CardActions>
-                <Button size="small" className={styles.detailButton} onClick={ navigatToDetail }>자세히보기</Button>
+                <Button size="small" className={styles.detailButton} onClick={() => navigatToDetail(1)}>자세히보기</Button>
                 </CardActions>
             </Box>
             </Card>
@@ -65,7 +71,7 @@ return (
                 {'얼마나 증가했는지'}
                 </Box>
                 <CardActions>
-                <Button size="small" className={styles.detailButton} onClick={ navigatToDetail }>자세히보기</Button>
+                <Button size="small" className={styles.detailButton} onClick={() => navigatToDetail(3)}>자세히보기</Button>
                 </CardActions>
             </Box>
             </Card>
@@ -78,12 +84,12 @@ return (
                 {'rate 환율 자리'}
                 
             </Typography>
-            <Box component="span" sx={{ display: 'flex', alignItems: 'center' }} onClick={ navigatToDetail }>
+            <Box component="span" sx={{ display: 'flex', alignItems: 'center' }}>
                 <img src={upicon} alt="Change icon" />
                 {'얼마나 증가했는지'}
                 </Box>
                 <CardActions>
-                <Button size="small" className={styles.detailButton} onClick={ navigatToDetail }>자세히보기</Button>
+                <Button size="small" className={styles.detailButton} onClick={() => navigatToDetail(2)}>자세히보기</Button>
                 </CardActions>
             </Box>
             </Card>
@@ -101,7 +107,7 @@ return (
                 {'얼마나 증가했는지'}
                 </Box>
                 <CardActions>
-                <Button size="small" className={styles.detailButton} onClick={ navigatToDetail }>자세히보기</Button>
+                <Button size="small" className={styles.detailButton} onClick={() => navigatToDetail(4)}>자세히보기</Button>
                 </CardActions>
             </Box>
             </Card>
