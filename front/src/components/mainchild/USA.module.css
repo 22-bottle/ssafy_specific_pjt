@@ -36,8 +36,8 @@
 .stage1 {
     background-image: url('../../assets/activated_1.png'); /* 이미지 경로를 정확하게 지정하세요 */
     position: absolute;
-    top: 12%;
-    left: 26%;
+    top: 20%;
+    left: 30%;
     width: 130px;
     height: 100px;
     background-size: cover; /* 이미지가 버튼 크기에 맞게 조정됩니다 */
@@ -49,8 +49,8 @@
 .unactive_stage2 {
     background-image: url('../../assets/unactivated_2.png'); /* 이미지 경로를 정확하게 지정하세요 */
     position: absolute;
-    top: 31%;
-    left: 36%;
+    top: 40%;
+    left: 34%;
     width: 103px;
     height: 104px;
     background-size: cover; /* 이미지가 버튼 크기에 맞게 조정됩니다 */
@@ -63,7 +63,7 @@
     background-image: url('../../assets/unactivated_3.png'); /* 이미지 경로를 정확하게 지정하세요 */
     position: absolute;
     top: 19%;
-    left: 49%;
+    left: 47%;
     width: 107px;
     height: 105px;
     background-size: cover; /* 이미지가 버튼 크기에 맞게 조정됩니다 */
@@ -75,7 +75,7 @@
 .unactive_stage4 {
     background-image: url('../../assets/unactivated_4.png'); /* 이미지 경로를 정확하게 지정하세요 */
     position: absolute;
-    top: 38%;
+    top: 45%;
     left: 55%;
     width: 135px;
     height: 103px;
@@ -88,8 +88,8 @@
 .unactive_stage5 {
     background-image: url('../../assets/unactivated_5.png'); /* 이미지 경로를 정확하게 지정하세요 */
     position: absolute;
-    top: 27%;
-    left: 65%;
+    top: 35%;
+    left: 70%;
     width: 109px;
     height: 93px;
     background-size: cover; /* 이미지가 버튼 크기에 맞게 조정됩니다 */
