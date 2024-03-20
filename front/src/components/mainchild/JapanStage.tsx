@@ -1,4 +1,4 @@
-import React, { useState, FormEvent } from "react";
+import React, { useState, startTransition } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
 import styles from './JapanStage.module.css'
 
@@ -9,11 +9,15 @@ const JapanStage:React.FC= () => {
     // 해당 스테이지의 번호 >> int로??
     const [stageNum, setStageNum] = useState<string>('1');
 
+    const characterImage = require('@/assets/fairy_japan.png')
+
     // 퀴즈 시작하기 버튼 >> 경로 이동 필요!!
     const navigate = useNavigate();
 
     const startClick = () => {
-        navigate('/mainchild/stage/cartoon');
+        startTransition(() => {
+            navigate('/mainchild/stage/cartoon');
+        });
     };
     
     return (
@@ -25,7 +29,7 @@ const JapanStage:React.FC= () => {
             </div>
             <div>
                 {/* 캐릭터 자리 */}
-                <img src="" alt="일본 캐릭터" className={styles.characterImage} />
+                <img src={ characterImage } alt="일본 캐릭터" className={styles.characterImage} />
             </div>
             <button onClick={ startClick } className={styles.startButton}>시작하기</button>            
         </div>
