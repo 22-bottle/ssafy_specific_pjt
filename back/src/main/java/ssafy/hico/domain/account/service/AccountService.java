@@ -91,6 +91,6 @@ public class AccountService {
     }
 
     public Account findByMemberId(Long memberId) {
-        return accountRepository.findByMemberId(memberId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+        return accountRepository.findByMemberId(memberId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_ACCOUNT));
     }
 }
