@@ -87,4 +87,8 @@ public class ParentService {
     public String findInvitationCode(Long memberId) {
         return memberService.findById(memberId).getInvitationCode();
     }
+
+    public List<Long> findChildren(Long memberId) {
+        return memberRepository.findIdsByParentId(memberId);
+    }
 }

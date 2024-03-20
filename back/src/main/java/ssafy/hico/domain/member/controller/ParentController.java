@@ -47,4 +47,11 @@ public class ParentController {
         Long memberId = (Long) httpServletRequest.getAttribute("memberId");
         return getResponseEntity(SuccessCode.OK, parentService.findInvitationCode(memberId));
     }
+
+    @GetMapping("/main")
+    @LoginOnly(level = LoginOnly.Level.PARENT)
+    public ResponseEntity<?> getChildren(HttpServletRequest httpServletRequest){
+        Long memberId = (Long) httpServletRequest.getAttribute("memberId");
+        return getResponseEntity(SuccessCode.OK, parentService.findChildren(memberId));
+    }
 }
