@@ -34,6 +34,9 @@ public class AccountService {
 
 
     public void makeAccount(Long memberId, MakeAccountRequest request) {
+        if(accountRepository.findByMemberId(memberId).isPresent()){
+            throw new CustomException(ErrorCode.ALREADY_HAVE_ACCOUNT);
+        }
         Member member = memberService.findById(memberId);
         Header header = bankApiClient.makeHeader(BankApi.OPEN_ACCOUNT.getApiName(), member.getUserKey());
 
@@ -66,6 +69,9 @@ public class AccountService {
     }
 
     public void registrationAccount(Long memberId, RegistrationAccountRequest request) {
+        if(accountRepository.findByMemberId(memberId).isPresent()){
+            throw new CustomException(ErrorCode.ALREADY_HAVE_ACCOUNT);
+        }
         Member member = memberService.findById(memberId);
 
         String encryptPassword = bCryptPasswordEncoder.encode(request.getPassword());
@@ -91,6 +97,6 @@ public class AccountService {
     }
 
     public Account findByMemberId(Long memberId) {
-        return accountRepository.findByMemberId(memberId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+        return accountRepository.findByMemberId(memberId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_ACCOUNT));
     }
 }

@@ -1,5 +1,6 @@
 package ssafy.hico.domain.account.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -57,6 +58,9 @@ public class AccountListResponse {
 
         @JsonProperty("accountBalance")
         private String accountBalance;
+
+        @JsonIgnore
+        private String lastTransactionDate;
     }
 
 }
