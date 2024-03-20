@@ -11,6 +11,8 @@ import ssafy.hico.domain.account.service.AccountService;
 import ssafy.hico.domain.member.dto.request.ParentAccountTransferRequest;
 import ssafy.hico.domain.member.dto.request.ParentSendMoneyRequest;
 import ssafy.hico.domain.member.dto.response.AccountBalanceResponse;
+import ssafy.hico.domain.member.dto.response.ChildInfoResponse;
+import ssafy.hico.domain.member.dto.response.ChildPointResponse;
 import ssafy.hico.domain.member.entity.Member;
 import ssafy.hico.domain.member.repository.MemberRepository;
 import ssafy.hico.domain.transaction.dto.response.ChildForeignTransactionResponse;
@@ -18,6 +20,8 @@ import ssafy.hico.domain.transaction.dto.response.AccountAndFrTranResponse;
 import ssafy.hico.domain.transaction.entity.FrTransaction;
 import ssafy.hico.domain.transaction.repository.FrTransactionRepository;
 
+import ssafy.hico.domain.wallet.entity.FrWallet;
+import ssafy.hico.domain.wallet.repository.FrWalletRepository;
 import ssafy.hico.global.bank.BankApi;
 import ssafy.hico.global.bank.BankApiClient;
 import ssafy.hico.global.bank.dto.request.Header;
@@ -25,6 +29,7 @@ import ssafy.hico.global.response.error.ErrorCode;
 import ssafy.hico.global.response.error.exception.CustomException;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -34,6 +39,7 @@ public class ParentService {
     private final MemberService memberService;
     private final ChildService childService;
     private final FrTransactionRepository frTransactionRepository;
+    private final FrWalletRepository frWalletRepository;
     private final AccountRepository accountRepository;
     private final AccountService accountService;
     private final BankApiClient bankApiClient;
@@ -88,7 +94,22 @@ public class ParentService {
         return memberService.findById(memberId).getInvitationCode();
     }
 
-    public List<Long> findChildren(Long memberId) {
-        return memberRepository.findIdsByParentId(memberId);
+    public List<ChildInfoResponse> findChildren(Long memberId) {
+        List<Member> children = memberRepository.findByParentId(memberId);
+        return children.stream()
+                .map(child -> new ChildInfoResponse(child.getId(), child.getName()))
+                .collect(Collectors.toList());
+    }
+
+    public List<ChildPointResponse> findChildPoint(Long childId) {
+        FrWallet frWallet = frWalletRepository.findByMemberId(childId).get();
+        return frWallet.getFrPoints().stream()
+                .map(frPoint -> new ChildPointResponse(frPoint.getFrPointId(),
+                        frPoint.getCountry().getId(),
+                        frPoint.getCountry().getCountryName(),
+                        frPoint.getCountry().getCode(),
+                        frPoint.getCountry().getFrType(),
+                        frPoint.getBalance()))
+                .collect(Collectors.toList());
     }
 }

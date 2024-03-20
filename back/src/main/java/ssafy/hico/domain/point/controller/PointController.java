@@ -22,7 +22,7 @@ public class PointController {
     @LoginOnly(level = LoginOnly.Level.CHILD)
     public ResponseEntity<?> getAllPoint(HttpServletRequest httpServletRequest){
         Long memberId = (Long) httpServletRequest.getAttribute("memberId");
-        return getResponseEntity(SuccessCode.OK, pointService.addFindAllPoint(memberId));
+        return getResponseEntity(SuccessCode.OK, pointService.findAllPointAndExchangeRate(memberId));
     }
 
     @PostMapping("/require")

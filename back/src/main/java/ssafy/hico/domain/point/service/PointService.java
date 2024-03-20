@@ -19,7 +19,6 @@ import ssafy.hico.global.response.error.exception.CustomException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -59,12 +58,12 @@ public class PointService {
 
     }
 
-    public List<MyPointResponse> addFindAllPoint(Long memberId) {
+    public List<MyPointResponse> findAllPointAndExchangeRate(Long memberId) {
         LocalDate now = LocalDate.now();
         FrWallet frWallet = frWalletRepository.findByMemberId(memberId).get();
-        List<ExchangeRate> todayExchangeRate = findExchangeRateByTodayOrElseYesterday().get();
         List<FrPoint> pointList = frWallet.getFrPoints();
 
+        List<ExchangeRate> todayExchangeRate = findExchangeRateByTodayOrElseYesterday().get();
         Map<Long, ExchangeRate> exchangeRateMap = todayExchangeRate.stream()
                 .collect(Collectors.toMap(rate -> rate.getCountry().getId(), rate -> rate));
 
