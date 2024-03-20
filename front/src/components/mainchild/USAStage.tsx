@@ -1,13 +1,20 @@
-import React, { useState, startTransition } from "react";
-import { useNavigate, Outlet } from "react-router-dom";
+import React, { useState, startTransition, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from 'recoil';
+import { selectedStageInfo } from '@/state/StageSubjectSelectors';
 import styles from './USAStage.module.css'
 
 
 const USAStage:React.FC= () => {
     // 해당 스테이지의 만화 주제
-    const [topic, setTopic] = useState<string>('미국의 독립전쟁');
+    // const [topic, setTopic] = useState<string>('미국의 독립전쟁');
+
     // 해당 스테이지의 번호 >> int로??
-    const [stageNum, setStageNum] = useState<string>('1');
+    // const [stageNum, setStageNum] = useState<string>('1');
+
+
+    // 해당 스테이지의 번호와 주제 가져오기
+    const { stageNum, topic } = useRecoilValue(selectedStageInfo);
 
     const characterImage = require('@/assets/fairy_usa.png')
 
