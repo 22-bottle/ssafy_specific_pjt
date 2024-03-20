@@ -22,10 +22,58 @@ const Childstatus:React.FC= () => {
   };
   return (
     <div className={styles.container}>
+
+      
+      {/* 프로필 */}
       <div className={styles.profile}>
+
+        {/* 프로필 사진 */}
+        <div></div>
+
+        {/* 자녀 이름 */}
+        <div></div>
       </div>
+
+      
+      {/* 메인 */}
       <div className={styles.materialContainer}>
 
+        {/* 카로셀 버튼 + 나라 */}
+        <div></div>
+
+        {/* 진행률 차트 */}
+        <div></div>
+
+        {/* 문항수 */}
+        <div>
+          {/* 전체 문항수 */}
+          <div></div>
+          {/* 맞은 문항수 */}
+          <div></div>
+        </div>
+
+        {/* title */}
+        <div></div>
+
+        {/* 나라 */}
+        <div>
+          {/* 미국 */}
+          <div></div>
+          {/* 일본 */}
+          <div></div>
+          {/* 유럽 */}
+          <div></div>
+          {/* 중국 */}
+          <div></div>
+        </div>
+      </div>
+
+      {/* comment */}
+      <div>
+        {/* 마이지갑 이동 */}
+        <div></div>
+        {/* 실시간 환율 이동 */}
+        <div></div>
       </div>
     </div>
       //   <div className="child-status-container">
