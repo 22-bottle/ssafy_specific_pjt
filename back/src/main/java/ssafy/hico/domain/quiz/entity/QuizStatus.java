@@ -16,7 +16,7 @@ public class QuizStatus extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long quizStatusId;
+    private long id;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")
@@ -26,8 +26,14 @@ public class QuizStatus extends BaseTimeEntity {
     @JoinColumn(name = "quiz_id")
     private Quiz quiz;
 
-    public static QuizStatus createQuizStatus(QuizResult quizResult) {
+    private Boolean isCorrect;
 
+    public static QuizStatus createQuizStatus(Member child, Quiz quiz, boolean isCorrect) {
+        QuizStatus quizStatus = new QuizStatus();
+        quizStatus.member = child;
+        quizStatus.quiz = quiz;
+        quizStatus.isCorrect = isCorrect;
+        return quizStatus;
     }
 
 }

@@ -23,4 +23,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     @Query("SELECT m.id FROM Member m WHERE m.parent.id = :parentId")
     List<Long> findIdsByParentId(@Param("parentId") Long parentId);
+
+    List<Member> findByParentId(Long memberId);
 }

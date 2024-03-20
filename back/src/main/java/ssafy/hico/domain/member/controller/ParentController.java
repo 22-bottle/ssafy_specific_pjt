@@ -47,4 +47,23 @@ public class ParentController {
         Long memberId = (Long) httpServletRequest.getAttribute("memberId");
         return getResponseEntity(SuccessCode.OK, parentService.findInvitationCode(memberId));
     }
+
+    @GetMapping("/main")
+    @LoginOnly(level = LoginOnly.Level.PARENT)
+    public ResponseEntity<?> getChildren(HttpServletRequest httpServletRequest){
+        Long memberId = (Long) httpServletRequest.getAttribute("memberId");
+        return getResponseEntity(SuccessCode.OK, parentService.findChildren(memberId));
+    }
+
+    @GetMapping("/main/point/{childId}")
+    @LoginOnly(level = LoginOnly.Level.PARENT)
+    public ResponseEntity<?> getChildPoint(@PathVariable Long childId){
+        return getResponseEntity(SuccessCode.OK, parentService.findChildPoint(childId));
+    }
+
+    @GetMapping("/main/{childId}")
+    @LoginOnly(level = LoginOnly.Level.PARENT)
+    public ResponseEntity<?> getChildQuizStatus(@PathVariable Long childId){
+        return getResponseEntity(SuccessCode.OK, parentService.findChildQuizStatus(childId));
+    }
 }

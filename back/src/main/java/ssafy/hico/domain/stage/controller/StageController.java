@@ -38,7 +38,7 @@ public class StageController {
     }
 
     @GetMapping("/country/{countryId}")
-    public ResponseEntity<?> stageCountryList(HttpServletRequest httpServletRequest, @PathVariable int countryId) {
+    public ResponseEntity<?> stageCountryList(@PathVariable int countryId, HttpServletRequest httpServletRequest) {
         Long memberId = (Long) httpServletRequest.getAttribute("memberId");
         List<StageCountryFindResponse> stageList = stageService.findCountryStage(memberId, countryId);
         return getResponseEntity(SuccessCode.OK, stageList);
@@ -51,8 +51,9 @@ public class StageController {
     }
 
     @PostMapping("/quiz")
-    public ResponseEntity<?> stageQuizSave(@RequestBody StageQuizSaveRequest stageQuizSaveRequest) {
-        stageService.saveStageQuiz(stageQuizSaveRequest);
+    public ResponseEntity<?> stageQuizSave(@RequestBody StageQuizSaveRequest stageQuizSaveRequest, HttpServletRequest httpServletRequest) {
+        Long memberId = (Long) httpServletRequest.getAttribute("memberId");
+        stageService.saveStageQuiz(stageQuizSaveRequest, memberId);
         return getResponseEntity(SuccessCode.OK);
     }
 

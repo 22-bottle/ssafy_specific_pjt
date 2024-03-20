@@ -26,4 +26,16 @@ public class StageStatus extends BaseTimeEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    public static StageStatus createStageStatus(Stage stage, Member child, boolean isPassed) {
+        StageStatus stageStatus = new StageStatus();
+        stageStatus.stage = stage;
+        stageStatus.member = child;
+        stageStatus.isPassed = isPassed;
+        return stageStatus;
+    }
+
+    public void modifyStageStatus() {
+        this.isPassed = true;
+    }
+
 }

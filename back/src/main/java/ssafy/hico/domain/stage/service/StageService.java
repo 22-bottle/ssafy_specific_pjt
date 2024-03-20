@@ -9,7 +9,9 @@ import ssafy.hico.domain.country.repository.CountryRepository;
 import ssafy.hico.domain.member.entity.Member;
 import ssafy.hico.domain.member.repository.MemberRepository;
 import ssafy.hico.domain.quiz.entity.Quiz;
+import ssafy.hico.domain.quiz.entity.QuizStatus;
 import ssafy.hico.domain.quiz.repository.QuizRepository;
+import ssafy.hico.domain.quiz.repository.QuizStatusRepository;
 import ssafy.hico.domain.stage.dto.request.QuizResult;
 import ssafy.hico.domain.stage.dto.request.StageQuizSaveRequest;
 import ssafy.hico.domain.stage.dto.response.*;
@@ -23,6 +25,7 @@ import ssafy.hico.global.response.error.exception.CustomException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Component
@@ -34,6 +37,7 @@ public class StageService {
     private final StageStatusRepository stageStatusRepository;
     private final CountryRepository countryRepository;
     private final QuizRepository quizRepository;
+    private final QuizStatusRepository quizStatusRepository;
 
     private final static int COUNTRY_NUM = 4;
 
@@ -97,11 +101,31 @@ public class StageService {
         return new StageQuizFindResponse(stage.getIncrease(), quizInfos);
     }
 
-    public void saveStageQuiz(StageQuizSaveRequest stageQuizSaveRequest) {
+    @Transactional
+    public void saveStageQuiz(StageQuizSaveRequest stageQuizSaveRequest, long memberId) {
         int answerCnt = 0;
+        Member child = memberRepository.findById(memberId)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
         for (QuizResult quizResult : stageQuizSaveRequest.getQuizResultList()) {
-
+            Quiz quiz = quizRepository.findById(quizResult.getQuizId())
+                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_QUIZ));
+            Optional<QuizStatus> quizStatus= quizStatusRepository.findByMemberIdAndQuizId(memberId, quiz.getId());
+            if (quizStatus.isEmpty()) {
+                quizStatus = Optional.of(QuizStatus.createQuizStatus(child, quiz, quizResult.isCorrect()));
+            }
+            quizStatusRepository.save(quizStatus.get());
+            if (quizResult.isCorrect()) answerCnt++;
         }
+        Stage stage = stageRepository.findById(stageQuizSaveRequest.getStageId())
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_STAGE));
+        Optional<StageStatus> stageStatus = stageStatusRepository.findByMemberAndStage(child, stage);
+        if (stageStatus.isEmpty()) {
+            if (answerCnt >= 7) stageStatus = Optional.of(StageStatus.createStageStatus(stage, child, true));
+            else stageStatus = Optional.of(StageStatus.createStageStatus(stage, child, false));
+        } else {
+            if (answerCnt >= 7) stageStatus.get().modifyStageStatus();
+        }
+        stageStatusRepository.save(stageStatus.get());
     }
 
 }
