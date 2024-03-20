@@ -143,6 +143,18 @@ const routes: RouteType[] = [
         path:"complete",
         element:React.lazy(() => import("@/components/parentwallet/SendingComplete")),
       },
+      {
+        path:"regist-account",
+        element:React.lazy(() => import("@/components/parentwallet/RegisterAccount")),
+      },
+      {
+        path:"create-account",
+        element:React.lazy(() => import("@/components/parentwallet/CreateAccount")),
+      },
+      {
+        path:"complete-account",
+        element:React.lazy(() => import("@/components/parentwallet/CompleteAccount")),
+      },
     ],
   },
   {
