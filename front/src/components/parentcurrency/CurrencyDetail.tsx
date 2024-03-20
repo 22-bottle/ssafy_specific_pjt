@@ -34,7 +34,7 @@ const CurrencyDetail: React.FC = () => {
   return (
     <div>
       <div>this is currency detail page</div>
-      <div ref={chartRef} /> {/* 차트를 렌더링할 div에 ref를 연결 */}
+      <div ref={chartRef} />
     </div>
   );
 };
