@@ -31,7 +31,7 @@ public class MemberController {
         return getResponseEntity(SuccessCode.OK, memberService.login(request));
     }
 
-    @PostMapping("token")
+    @PostMapping("/token")
     public ResponseEntity<?> recreateToken(@RequestHeader(value = "Authorization", required = false) String bearerToken){
         return getResponseEntity(SuccessCode.OK, memberService.recreateToken(bearerToken));
     }

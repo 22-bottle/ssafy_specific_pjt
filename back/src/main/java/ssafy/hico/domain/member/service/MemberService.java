@@ -119,6 +119,7 @@ public class MemberService {
         }
     }
 
+    @Transactional
     public TokenResponse recreateToken(String bearerToken) {
         String refreshToken = jwtTokenProvider.getToken(bearerToken);
         jwtTokenProvider.validateToken(refreshToken);
