@@ -110,6 +110,10 @@ const routes: RouteType[] = [
         element: React.lazy(() => import("@/components/mainchild/Cartoon")),
       },
       {
+        path: "stage/quiz/start", 
+        element: React.lazy(() => import("@/components/mainchild/QuizStart")),
+      },
+      {
         path: "stage/quiz", 
         element: React.lazy(() => import("@/components/mainchild/Quiz")),
       },
