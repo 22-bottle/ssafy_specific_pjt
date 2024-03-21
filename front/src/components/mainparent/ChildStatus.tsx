@@ -1,128 +1,291 @@
-import React, {useState} from "react";
-import Carousel from 'react-bootstrap/Carousel'
+import React, { useState, useEffect } from "react";
+import styles from './childstatus.module.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom'; 
+import profileBoy1 from '../../assets/profile_boy1.png';
+import profileBoy2 from '../../assets/profile_boy2.png';
+import profileBoy3 from '../../assets/profile_boy3.png';
+import profileBoy4 from '../../assets/profile_boy4.png';
+import profileGirl1 from '../../assets/profile_girl1.png';
+import profileGirl2 from '../../assets/profile_girl2.png';
+import profileGirl3 from '../../assets/profile_girl3.png';
+import profileGirl4 from '../../assets/profile_girl4.png';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
+import IconButton from '@mui/material/IconButton';
+import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded';
+import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
+import { Doughnut } from 'react-chartjs-2';
+import 'chart.js/auto';
+import { AspectRatio } from "@mui/icons-material";
+
+
+const countries = ['usa', 'japan']; // 캐로셀 배열
+const countryNames: { [key: string]: string } = {
+  'usa': '미국',
+  'japan': '일본',
+};
+interface ChartData {
+  progress: number;
+  total: number;
+  correct: number;
+  datasets: {
+    data: number[];
+    backgroundColor: string[];
+    hoverOffset: number;
+    borderRadius?: number;
+  }[];
+}
+
+interface DataMap  {
+  [key: string]: ChartData;
+}
+
+const dataMap: DataMap = {
+  'usa': {
+    progress: 60,
+    total: 50,
+    correct: 30,
+    datasets: [{
+      data: [60, 40],
+      backgroundColor: [
+        '#0064FF',
+        '#F5F5F5',
+      ],
+      hoverOffset: 4,
+      borderRadius: 5,
+    }],
+  },
+  'japan': {
+    progress: 10,
+    total: 70,
+    correct: 7,
+    datasets: [
+      {
+        data: [10, 90],
+        backgroundColor: ['#0064FF', '#F5F5F5'],
+        hoverOffset: 4,
+        borderRadius: 5,
+      },
+    ],
+  },
+};
+
+
+
 
 const Childstatus:React.FC= () => {
 
   const [selectedChild, setSelectedChild] = useState("");
-  const styleObj = {
-    border: '1px solid black', 
-    padding: '10px', 
-    margin: '10px' 
-  }
+  const [selectedImage, setSelectedImage] = useState('');
+
   const navigate = useNavigate();
   const handleButtonClick = () => {
     navigate('/mainparent/childadd');
-    };
-  // 아이 선택시 라벨 변경 
-  const handleChildSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedChild(event.target.value);
   };
-    return (
-        <div className="child-status-container">
-          <div className="header">
-            <div className="logo">toss</div>
-            {/* profile picture */}
-          </div>
-          
-          <div className="profile-selection">
-        <label htmlFor="child-select">{selectedChild} </label>
-        <select id="child-select" value={selectedChild} onChange={handleChildSelect}>
-          <option value="">아이를 선택하세요</option>
-          <option value="이채은">이채은</option>
-          <option value="이지은">이지은</option>
-          {/* Add more options for each child */}
-        </select>
-        <button onClick={handleButtonClick}>아이추가+</button>
+
+
+  // 프로필 랜덤 사진
+  // 예시로 'boy'로 설정. 동적으로 설정 필요.
+  const gender = 'boy'; // 'boy' 또는 'girl'
+  useEffect(() => {
+    const boyImages = [profileBoy1, profileBoy2, profileBoy3, profileBoy4];
+    const girlImages = [profileGirl1, profileGirl2, profileGirl3, profileGirl4];
+    const images = gender === 'boy' ? boyImages : girlImages;
+    const randomIndex = Math.floor(Math.random() * images.length);
+    setSelectedImage(images[randomIndex]);
+  }, [gender]);
+
+
+  // 자녀이름 select
+  const [age, setAge] = useState<string>('10');
+  const handleChange = (event: SelectChangeEvent<string>) => {
+    setAge(event.target.value);
+  };
+
+  useEffect(() => {
+    const boyImages = [profileBoy1, profileBoy2, profileBoy3, profileBoy4];
+    const girlImages = [profileGirl1, profileGirl2, profileGirl3, profileGirl4];
+
+    // 성별 결정 로직 추가 설정 필요
+    // 예시로 '10'이면 남자 아이, '20'이면 여자 아이로 가정
+    let images = age === '10' ? boyImages : girlImages; 
+    const randomIndex = Math.floor(Math.random() * images.length);
+    setSelectedImage(images[randomIndex]);
+  }, [age]);
+
+
+
+  // 캐러셀 버튼
+  // 현재 캐로셀의 인덱스 상태
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // 이전 버튼 클릭 핸들러
+  const handlePreviousClick = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    }
+  };
+
+  // 다음 버튼 클릭 핸들러
+  const handleNextClick = () => {
+    if (currentIndex < countries.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+    }
+  };
+
+
+  // 학습 진행률
+  // 예시로 60% 입력
+  const [currentProgress, setCurrentProgress] = useState(dataMap[countries[0]].progress);
+
+  // 캐로셀 인덱스 변경 시 해당 국가의 진행률을 업데이트합니다.
+  useEffect(() => {
+    setCurrentProgress(dataMap[countries[currentIndex]].progress);
+  }, [currentIndex]);
+
+
+  // 전체 문항수, 맞은 문항수
+  // 예시
+  const [total, setTotal] = useState(dataMap[countries[0]].total);
+  const [correct, setCorrect] = useState(dataMap[countries[0]].correct);
+  useEffect(() => {
+    const currentCountry = countries[currentIndex];
+    const countryData = dataMap[currentCountry];
+    setTotal(countryData.total);
+    setCorrect(countryData.correct);
+  }, [currentIndex]);
+  
+  return (
+    <div className={styles.container}>
+
+      
+      {/* 프로필 */}
+      <div className={styles.profile}>
+
+        {/* 프로필 사진 */}
+        <div className={styles.profileimage}>
+          <img src={selectedImage} alt={gender} style={{ height: '110px' }} />
+        </div>
+
+        {/* 자녀 이름 */}
+        <div>
+          <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+            <Select
+              value={age}
+              onChange={handleChange}
+              displayEmpty
+              inputProps={{ 'aria-label': 'Without label' }}
+              disableUnderline
+              IconComponent={ExpandMoreRoundedIcon}
+              sx={{
+                '.MuiSelect-select': {
+                  fontSize: '18px',
+                  fontWeight: 600,
+                  color: '#585865',
+                },
+                '.MuiSvgIcon-root': { 
+                  fontSize: '45px', 
+                  paddingBottom: '5px',
+                },
+              }}
+            >
+              <MenuItem value={'10'}>이승재</MenuItem>
+              <MenuItem value={'20'}>이무진</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
       </div>
-    
-          <div className="child-process" style={styleObj}>
-            <Carousel data-bs-theme="dark" >
-                <Carousel.Item>
-                <div className="summary-card" style={styleObj}>
-                <div className="summary-header" style={styleObj}>
-                    <p>미국</p>
-                </div>
-                 <div className="savings-goal">
-                 {/* Savings goal indicator would go here */}
-                <div className="goal-percentage">학습 진행률 60%</div>
-                <div className="goal-details">
-                  <span>전체 문항수: 50개</span>
-                  <br/>
-                  <span>맞은 문항수: 34개</span>
-                </div>
-              </div>
-              </div>
-              </Carousel.Item>
-              <Carousel.Item>
-              <div className="summary-card" style={styleObj}>
-                <div className="summary-header" style={styleObj}>
-                    <p>이탈리아</p>
-                </div>
-                 <div className="savings-goal">
-                 {/* Savings goal indicator would go here */}
-                <div className="goal-percentage">학습 진행률 60%</div>
-                <div className="goal-details">
-                  <span>전체 문항수: 50개</span>
-                  <br/>
-                  <span>맞은 문항수: 34개</span>
-                </div>
-              </div>
-              </div>
-            </Carousel.Item>
-            <Carousel.Item>
-            <div className="summary-card" style={styleObj}>
-                <div className="summary-header" style={styleObj}>
-                    <p>일본</p>
-                </div>
-                 <div className="savings-goal">
-                 {/* Savings goal indicator would go here */}
-                <div className="goal-percentage">학습 진행률 60%</div>
-                <div className="goal-details">
-                  <span>전체 문항수: 50개</span>
-                  <br/>
-                  <span>맞은 문항수: 34개</span>
-                </div>
-              </div>
-              </div>
-            </Carousel.Item>
-            <Carousel.Item>
-            <div className="summary-card" style={styleObj}>
-                <div className="summary-header" style={styleObj}>
-                    <p>중국</p>
-                </div>
-                 <div className="savings-goal">
-                 {/* Savings goal indicator would go here */}
-                <div className="goal-percentage">학습 진행률 60%</div>
-                <div className="goal-details">
-                  <span>전체 문항수: 50개</span>
-                  <br/>
-                  <span>맞은 문항수: 34개</span>
-                </div>
-              </div>
-              </div>
-            </Carousel.Item>
-            </Carousel>
+
+      
+      {/* 메인1 */}
+      <div className={styles.materialContainer}>
+
+        {/* 카로셀 버튼 + 나라 */}
+        <div className={styles.carouselcontrols}>
+          <IconButton aria-label="previous" onClick={handlePreviousClick} disabled={currentIndex === 0}>
+            <ArrowBackIosRoundedIcon />
+          </IconButton>
+          <div className={styles.countrytext}>{countryNames[countries[currentIndex]]}</div>
+          <IconButton aria-label="next" onClick={handleNextClick} disabled={currentIndex === countries.length - 1}>
+            <ArrowForwardIosRoundedIcon />
+          </IconButton>
+        </div>
+
+        {/* 진행률 차트 */}
+        <div>
+          <Doughnut
+            data={dataMap[countries[currentIndex]]}
+            options={{ responsive: false }}
+            style={{ position: "relative", height: "200px" }}
+          />
+        </div>
+
+        {/* 학습 진행률 */}
+        <div className={styles.progresslayout}>
+          <div className={styles.title1}>학습진행률</div>
+          <div className={styles.subtitle1}>{currentProgress}%</div>
+        </div>
+
+
+        {/* 문항수 */}
+        <div className={styles.correctlayout}>
+          {/* 전체 문항수 */}
+          <div className={styles.title2}>전체 문항수</div>
+          <div className={styles.subtitle2}>{total}</div>
+          <div className={styles.subtitle4}>개</div>
+          {/* 맞은 문항수 */}
+          <div className={styles.title3}>맞은 문항수</div>
+          <div className={styles.subtitle3}>{correct}</div>
+          <div className={styles.subtitle5}>개</div>
+        </div>
+      </div>
+      
+
+      {/* main2 */}
+      <div className={styles.materialContainer2}>
+        {/* title */}
+        <div className={styles.secondtitle}>현재 보유 외화 포인트</div>
+        {/* 나라 */}
+        <div className={styles.countrylayout}>
+          {/* 미국 */}
+          <div className={styles.eachcountry}>
+            <div className={styles.countryname}>미국달러</div>
+            <div className={styles.countryInfo}>
+              <div className={styles.countrynum}>8.00</div>
+              <div className={styles.countrymoney}>달러</div>
             </div>
-            
-    
-          <div className="finance-details">
-            <p>보유외화포인트</p>
-            <ul>
-              <li>미국달러: 35.5만원 / 8.0만원</li>
-              <li>유로: 13.3만원 / 0.0만원</li>
-              <li>일본엔: 20.5만원 / 10.3만원</li>
-              <li>중국위안: 0.5만원 / 0.0만원</li>
-            </ul>
           </div>
-    
-          <div className="footer">
-            {/* 마이지갑 바로가기 실시간 환율 확인하기 */}
-           
+          {/* 일본 */}
+          <div className={styles.eachcountry}>
+            <div className={styles.countryname}>일본엔</div>
+            <div className={styles.countryInfo}>
+              <div className={styles.countrynum}>14.35</div>
+              <div className={styles.countrymoney}>엔</div>
+            </div>
+          </div>
+          {/* 유럽 */}
+          <div className={styles.eachcountry}>
+            <div className={styles.countryname}>유럽유로</div>
+            <div className={styles.countryInfo}>
+              <div className={styles.countrynum}>0.00</div>
+              <div className={styles.countrymoney}>유로</div>
+            </div>
+          </div>
+          {/* 중국 */}
+          <div className={styles.eachcountry}>
+            <div className={styles.countryname}>중국위안</div>
+            <div className={styles.countryInfo}>
+              <div className={styles.countrynum}>0.00</div>
+              <div className={styles.countrymoney}>위엔</div>
+            </div>
           </div>
         </div>
-      );
+      </div>
+    </div>
+  );
 };
 
 export default Childstatus;
