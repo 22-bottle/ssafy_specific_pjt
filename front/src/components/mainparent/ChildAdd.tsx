@@ -1,13 +1,17 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
 import styles from './childadd.module.css'
 
-const Childadd: React.FC = () => {
-  // 닫기 버튼
-  const [open, setOpen] = useState(true) // 모달 열림 상태 관리
-  const handleClose = () => setOpen(false) // 모달 닫기
+// 닫기 버튼
+interface ChildAddProps {
+  handleClose: () => void
+}
+
+const ChildAdd: React.FC<ChildAddProps> = ({ handleClose }) => {
+  // const [open, setOpen] = useState(true) // 모달 열림 상태 관리
+  // const handleClose = () => setOpen(false) // 모달 닫기
 
   // 초대코드 저장 변수
   const registCode = '52qpt2'
@@ -25,14 +29,24 @@ const Childadd: React.FC = () => {
   return (
     <div className={styles.container}>
       {/* 닫기 버튼 */}
-      <div className={styles.closeButton}>
+      <IconButton
+        onClick={handleClose}
+        sx={{
+          position: 'absolute',
+          top: '15px',
+          right: '20px',
+        }}
+      >
+        <CloseRoundedIcon sx={{ fontSize: '35px' }} />
+      </IconButton>
+      {/* <div className={styles.closeButton}>
         <IconButton
           onClick={handleClose}
           sx={{ position: 'absolute', top: '8px', right: '8px' }}
         >
           <CloseRoundedIcon />
         </IconButton>
-      </div>
+      </div> */}
 
       {/* 설명 */}
       <div className={styles.maintext}>아이 등록 초대 코드</div>
@@ -102,4 +116,4 @@ const Childadd: React.FC = () => {
   )
 }
 
-export default Childadd
+export default ChildAdd
