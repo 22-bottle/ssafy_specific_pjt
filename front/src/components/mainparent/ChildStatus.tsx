@@ -145,7 +145,7 @@ const Childstatus: React.FC = () => {
     setCorrect(countryData.correct)
   }, [currentIndex])
 
-  // 아이 추가등록 모달
+  //  추가등록 모달
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
