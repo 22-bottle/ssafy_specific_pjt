@@ -145,7 +145,7 @@ const Childstatus: React.FC = () => {
     setCorrect(countryData.correct)
   }, [currentIndex])
 
-  // 자녀 추가등록 모달
+  // 아이 추가등록 모달
   const [open, setOpen] = useState(false)
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
@@ -197,15 +197,15 @@ const Childstatus: React.FC = () => {
           </FormControl>
         </div>
 
-        {/* 자녀 추가등록 */}
+        {/* 아이 추가등록 */}
         <div className={styles.registermore}>
           <Button color="primary" onClick={handleOpen}>
-            자녀 추가등록
+            아이 추가등록
           </Button>
         </div>
       </div>
 
-      {/* 자녀 추가등록 모달 */}
+      {/* 아이 추가등록 모달 */}
       <Modal
         open={open}
         onClose={handleClose}
