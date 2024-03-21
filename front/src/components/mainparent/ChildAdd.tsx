@@ -1,8 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton'
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
 import styles from './childadd.module.css'
 
 const Childadd: React.FC = () => {
+  // 닫기 버튼
+  const [open, setOpen] = useState(true) // 모달 열림 상태 관리
+  const handleClose = () => setOpen(false) // 모달 닫기
+
   // 초대코드 저장 변수
   const registCode = '52qpt2'
   // 코드 클립보드 저장 함수
@@ -18,6 +24,17 @@ const Childadd: React.FC = () => {
   }
   return (
     <div className={styles.container}>
+      {/* 닫기 버튼 */}
+      <div className={styles.closeButton}>
+        <IconButton
+          onClick={handleClose}
+          sx={{ position: 'absolute', top: '8px', right: '8px' }}
+        >
+          <CloseRoundedIcon />
+        </IconButton>
+      </div>
+
+      {/* 설명 */}
       <div className={styles.maintext}>아이 등록 초대 코드</div>
       <div className={styles.sublayout}>
         <div className={styles.subtext}>
@@ -27,6 +44,7 @@ const Childadd: React.FC = () => {
           아이 계정에서 코드를 입려해 보세요.
         </div>
       </div>
+
       {/* 초대코드 */}
       <div className={styles.invitation}>
         <div className={styles.invitationmain}>
