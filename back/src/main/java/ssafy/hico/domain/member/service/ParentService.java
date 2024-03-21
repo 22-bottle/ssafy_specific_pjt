@@ -38,10 +38,9 @@ import ssafy.hico.global.bank.dto.request.Header;
 import ssafy.hico.global.response.error.ErrorCode;
 import ssafy.hico.global.response.error.exception.CustomException;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -93,10 +92,12 @@ public class ParentService {
         Member child = frTransaction.getFrWallet().getMember();
         Account childAccount = accountRepository.findByMemberId(child.getId()).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_ACCOUNT));
         Header header = bankApiClient.makeHeader(BankApi.ACCOUNT_TRANSFER.getApiName(), account.getMember().getUserKey());
+
+        BigDecimal balance = frTransaction.getBalance().setScale(0, BigDecimal.ROUND_DOWN);
         ParentAccountTransferRequest requestBody = ParentAccountTransferRequest.builder().header(header)
                 .depositBankCode(childAccount.getBankCode())
                 .depositAccountNo(childAccount.getAccountNo())
-                .transactionBalance(frTransaction.getBalance())
+                .transactionBalance(balance)
                 .withdrawalBankCode(account.getBankCode())
                 .withdrawalAccountNo(account.getAccountNo()).build();
 
