@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   flex-direction: column;
-  min-height: calc(120vh - 70px) !important;
+  min-height: calc(100vh - 70px) !important;
 }
 
 .themetext {
@@ -60,6 +60,8 @@
 }
 
 .main2 {
+  max-height: 380px;
+  overflow-y: auto;
   width: 100%;
   max-width: 520px;
   display: flex;
