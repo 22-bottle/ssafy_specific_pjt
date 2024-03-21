@@ -1,0 +1,22 @@
+.loadingcontainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* 전체 화면 높이 */
+}
+img {
+  max-width: 100%; /* 이미지가 컨테이너를 넘지 않도록 */
+  height: auto; /* 이미지의 비율을 유지 */
+  animation: moveUpDown 2.5s ease-in-out infinite; /* 애니메이션 적용 */
+}
+
+/* @keyframes를 사용하여 위아래 움직임 정의 */
+@keyframes moveUpDown {
+  0%,
+  100% {
+    transform: translateY(0); /* 시작과 끝은 원래 위치 */
+  }
+  50% {
+    transform: translateY(30px); /* 중간은 20px 아래로 */
+  }
+}

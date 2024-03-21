@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import styles from './login.module.css';
-import TextField from '@mui/material/TextField';
+import React from 'react'
+import styles from './login.module.css'
+import TextField from '@mui/material/TextField'
 
 function Login() {
   // Type state variables explicitly
-  const [username, setUsername] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  // const [username, setUsername] = useState<string>('')
+  // const [password, setPassword] = useState<string>('')
 
   // If you were to use handleSubmit, type the event parameter e
   // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -55,7 +55,9 @@ function Login() {
           </button>
         </div>
 
-        <a href="#" className={styles.passforgot}>비밀번호를 잊으셨나요?</a>
+        <a href="#" className={styles.passforgot}>
+          비밀번호를 잊으셨나요?
+        </a>
       </div>
 
       {/* 회원가입 버튼 */}
@@ -64,7 +66,7 @@ function Login() {
         <span className={styles.textshape}>회원가입</span>
       </div>
     </div>
-  );
+  )
 }
 
-export default Login;
+export default Login
