@@ -1,23 +1,23 @@
-import React, { useState, startTransition } from "react";
-import { useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
-import { stageSubjectState } from "@/state/StageSubjectAtoms";
+import React, { startTransition } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useRecoilState } from 'recoil'
+import { stageSubjectState } from '@/state/StageSubjectAtoms'
 
-import styles from "./Italy.module.css";
+import styles from './Italy.module.css'
 
 const Italy: React.FC = () => {
-  const [stageId, setStageId] = useRecoilState(stageSubjectState);
+  const [stageId, setStageId] = useRecoilState(stageSubjectState)
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const stageStart = (Id: number) => {
     // 상태 업데이트 함수를 사용하여 stageId 상태를 변경
-    setStageId(Id);
+    setStageId(Id)
     // startTransition을 사용하여 비동기 업데이트 처리
     startTransition(() => {
-      navigate("/mainchild/stage/Italy");
-    });
-  };
+      navigate('/mainchild/stage/Italy')
+    })
+  }
 
   return (
     <div>
@@ -44,7 +44,7 @@ const Italy: React.FC = () => {
 
       <div className={styles.fairy}></div>
     </div>
-  );
-};
+  )
+}
 
-export default Italy;
+export default Italy
