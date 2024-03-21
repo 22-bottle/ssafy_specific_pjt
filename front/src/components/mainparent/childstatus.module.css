@@ -14,7 +14,10 @@
   font-weight: bold;
   padding-top: 20px;
   padding-bottom: 5px;
-  margin-right: 255px;
+}
+
+.registermore {
+  margin-left: 125px;
 }
 
 .materialContainer {
@@ -63,7 +66,7 @@
 
 .subtitle1 {
   font-size: 32px;
-  color: #0064FF;
+  color: #0064ff;
   font-weight: bold;
   padding-left: 12px;
 }
@@ -72,7 +75,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 15px;  
+  margin-top: 15px;
   position: relative;
 }
 
@@ -82,7 +85,7 @@
   position: absolute;
   left: -35px;
   right: -35px;
-  background-color: #E9E9E9;
+  background-color: #e9e9e9;
 }
 
 .correctlayout::before {
@@ -102,7 +105,7 @@
   bottom: 3px;
   left: 170px;
   width: 2.5px;
-  background-color: #E9E9E9;
+  background-color: #e9e9e9;
 }
 
 .title2 {
@@ -118,7 +121,7 @@
 
 .subtitle2 {
   font-size: 25px;
-  color: #0064FF;
+  color: #0064ff;
   font-weight: bold;
   padding-left: 10px;
 }
@@ -132,7 +135,7 @@
 
 .subtitle4 {
   font-size: 21px;
-  color: #0064FF;
+  color: #0064ff;
   font-weight: bold;
 }
 
