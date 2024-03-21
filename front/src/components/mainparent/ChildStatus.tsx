@@ -1,64 +1,62 @@
-import React, { useState, useEffect } from "react";
-import styles from './childstatus.module.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { useNavigate } from 'react-router-dom'; 
-import profileBoy1 from '../../assets/profile_boy1.png';
-import profileBoy2 from '../../assets/profile_boy2.png';
-import profileBoy3 from '../../assets/profile_boy3.png';
-import profileBoy4 from '../../assets/profile_boy4.png';
-import profileGirl1 from '../../assets/profile_girl1.png';
-import profileGirl2 from '../../assets/profile_girl2.png';
-import profileGirl3 from '../../assets/profile_girl3.png';
-import profileGirl4 from '../../assets/profile_girl4.png';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
-import IconButton from '@mui/material/IconButton';
-import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded';
-import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
-import { Doughnut } from 'react-chartjs-2';
-import 'chart.js/auto';
-import { AspectRatio } from "@mui/icons-material";
+import React, { useState, useEffect } from 'react'
+import styles from './childstatus.module.css'
+import 'bootstrap/dist/css/bootstrap.min.css'
+// import { useNavigate } from 'react-router-dom'
+import profileBoy1 from '../../assets/profile_boy1.png'
+import profileBoy2 from '../../assets/profile_boy2.png'
+import profileBoy3 from '../../assets/profile_boy3.png'
+import profileBoy4 from '../../assets/profile_boy4.png'
+import profileGirl1 from '../../assets/profile_girl1.png'
+import profileGirl2 from '../../assets/profile_girl2.png'
+import profileGirl3 from '../../assets/profile_girl3.png'
+import profileGirl4 from '../../assets/profile_girl4.png'
+import MenuItem from '@mui/material/MenuItem'
+import FormControl from '@mui/material/FormControl'
+import Select, { SelectChangeEvent } from '@mui/material/Select'
+import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded'
+import IconButton from '@mui/material/IconButton'
+import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded'
+import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
+import Button from '@mui/material/Button'
+import { Doughnut } from 'react-chartjs-2'
+import 'chart.js/auto'
 
-
-const countries = ['usa', 'japan']; // 캐로셀 배열
+const countries = ['usa', 'japan'] // 캐로셀 배열
 const countryNames: { [key: string]: string } = {
-  'usa': '미국',
-  'japan': '일본',
-};
+  usa: '미국',
+  japan: '일본',
+}
 interface ChartData {
-  progress: number;
-  total: number;
-  correct: number;
+  progress: number
+  total: number
+  correct: number
   datasets: {
-    data: number[];
-    backgroundColor: string[];
-    hoverOffset: number;
-    borderRadius?: number;
-  }[];
+    data: number[]
+    backgroundColor: string[]
+    hoverOffset: number
+    borderRadius?: number
+  }[]
 }
 
-interface DataMap  {
-  [key: string]: ChartData;
+interface DataMap {
+  [key: string]: ChartData
 }
 
 const dataMap: DataMap = {
-  'usa': {
+  usa: {
     progress: 60,
     total: 50,
     correct: 30,
-    datasets: [{
-      data: [60, 40],
-      backgroundColor: [
-        '#0064FF',
-        '#F5F5F5',
-      ],
-      hoverOffset: 4,
-      borderRadius: 5,
-    }],
+    datasets: [
+      {
+        data: [60, 40],
+        backgroundColor: ['#0064FF', '#F5F5F5'],
+        hoverOffset: 4,
+        borderRadius: 5,
+      },
+    ],
   },
-  'japan': {
+  japan: {
     progress: 10,
     total: 70,
     correct: 7,
@@ -71,100 +69,83 @@ const dataMap: DataMap = {
       },
     ],
   },
-};
+}
 
-
-
-
-const Childstatus:React.FC= () => {
-
-  const [selectedChild, setSelectedChild] = useState("");
-  const [selectedImage, setSelectedImage] = useState('');
-
-  const navigate = useNavigate();
-  const handleButtonClick = () => {
-    navigate('/mainparent/childadd');
-  };
-
+const Childstatus: React.FC = () => {
+  const [selectedImage, setSelectedImage] = useState('')
 
   // 프로필 랜덤 사진
   // 예시로 'boy'로 설정. 동적으로 설정 필요.
-  const gender = 'boy'; // 'boy' 또는 'girl'
+  const gender = 'boy' // 'boy' 또는 'girl'
   useEffect(() => {
-    const boyImages = [profileBoy1, profileBoy2, profileBoy3, profileBoy4];
-    const girlImages = [profileGirl1, profileGirl2, profileGirl3, profileGirl4];
-    const images = gender === 'boy' ? boyImages : girlImages;
-    const randomIndex = Math.floor(Math.random() * images.length);
-    setSelectedImage(images[randomIndex]);
-  }, [gender]);
-
+    const boyImages = [profileBoy1, profileBoy2, profileBoy3, profileBoy4]
+    const girlImages = [profileGirl1, profileGirl2, profileGirl3, profileGirl4]
+    const images = gender === 'boy' ? boyImages : girlImages
+    const randomIndex = Math.floor(Math.random() * images.length)
+    setSelectedImage(images[randomIndex])
+  }, [gender])
 
   // 자녀이름 select
-  const [age, setAge] = useState<string>('10');
+  const [age, setAge] = useState<string>('10')
   const handleChange = (event: SelectChangeEvent<string>) => {
-    setAge(event.target.value);
-  };
+    setAge(event.target.value)
+  }
 
   useEffect(() => {
-    const boyImages = [profileBoy1, profileBoy2, profileBoy3, profileBoy4];
-    const girlImages = [profileGirl1, profileGirl2, profileGirl3, profileGirl4];
+    const boyImages = [profileBoy1, profileBoy2, profileBoy3, profileBoy4]
+    const girlImages = [profileGirl1, profileGirl2, profileGirl3, profileGirl4]
 
     // 성별 결정 로직 추가 설정 필요
     // 예시로 '10'이면 남자 아이, '20'이면 여자 아이로 가정
-    let images = age === '10' ? boyImages : girlImages; 
-    const randomIndex = Math.floor(Math.random() * images.length);
-    setSelectedImage(images[randomIndex]);
-  }, [age]);
-
-
+    const images = age === '10' ? boyImages : girlImages
+    const randomIndex = Math.floor(Math.random() * images.length)
+    setSelectedImage(images[randomIndex])
+  }, [age])
 
   // 캐러셀 버튼
   // 현재 캐로셀의 인덱스 상태
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0)
 
   // 이전 버튼 클릭 핸들러
   const handlePreviousClick = () => {
     if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
+      setCurrentIndex(currentIndex - 1)
     }
-  };
+  }
 
   // 다음 버튼 클릭 핸들러
   const handleNextClick = () => {
     if (currentIndex < countries.length - 1) {
-      setCurrentIndex(currentIndex + 1);
+      setCurrentIndex(currentIndex + 1)
     }
-  };
-
+  }
 
   // 학습 진행률
   // 예시로 60% 입력
-  const [currentProgress, setCurrentProgress] = useState(dataMap[countries[0]].progress);
+  const [currentProgress, setCurrentProgress] = useState(
+    dataMap[countries[0]].progress
+  )
 
   // 캐로셀 인덱스 변경 시 해당 국가의 진행률을 업데이트합니다.
   useEffect(() => {
-    setCurrentProgress(dataMap[countries[currentIndex]].progress);
-  }, [currentIndex]);
-
+    setCurrentProgress(dataMap[countries[currentIndex]].progress)
+  }, [currentIndex])
 
   // 전체 문항수, 맞은 문항수
   // 예시
-  const [total, setTotal] = useState(dataMap[countries[0]].total);
-  const [correct, setCorrect] = useState(dataMap[countries[0]].correct);
+  const [total, setTotal] = useState(dataMap[countries[0]].total)
+  const [correct, setCorrect] = useState(dataMap[countries[0]].correct)
   useEffect(() => {
-    const currentCountry = countries[currentIndex];
-    const countryData = dataMap[currentCountry];
-    setTotal(countryData.total);
-    setCorrect(countryData.correct);
-  }, [currentIndex]);
-  
+    const currentCountry = countries[currentIndex]
+    const countryData = dataMap[currentCountry]
+    setTotal(countryData.total)
+    setCorrect(countryData.correct)
+  }, [currentIndex])
+
   return (
     <div className={styles.container}>
-
-      
       {/* 프로필 */}
       <div className={styles.profile}>
-
         {/* 프로필 사진 */}
         <div className={styles.profileimage}>
           <img src={selectedImage} alt={gender} style={{ height: '110px' }} />
@@ -186,8 +167,8 @@ const Childstatus:React.FC= () => {
                   fontWeight: 600,
                   color: '#585865',
                 },
-                '.MuiSvgIcon-root': { 
-                  fontSize: '45px', 
+                '.MuiSvgIcon-root': {
+                  fontSize: '45px',
                   paddingBottom: '5px',
                 },
               }}
@@ -197,19 +178,32 @@ const Childstatus:React.FC= () => {
             </Select>
           </FormControl>
         </div>
+
+        {/* 자녀 추가등록 */}
+        <div className={styles.registermore}>
+          <Button color="primary">자녀 추가등록</Button>
+        </div>
       </div>
 
-      
       {/* 메인1 */}
       <div className={styles.materialContainer}>
-
         {/* 카로셀 버튼 + 나라 */}
         <div className={styles.carouselcontrols}>
-          <IconButton aria-label="previous" onClick={handlePreviousClick} disabled={currentIndex === 0}>
+          <IconButton
+            aria-label="previous"
+            onClick={handlePreviousClick}
+            disabled={currentIndex === 0}
+          >
             <ArrowBackIosRoundedIcon />
           </IconButton>
-          <div className={styles.countrytext}>{countryNames[countries[currentIndex]]}</div>
-          <IconButton aria-label="next" onClick={handleNextClick} disabled={currentIndex === countries.length - 1}>
+          <div className={styles.countrytext}>
+            {countryNames[countries[currentIndex]]}
+          </div>
+          <IconButton
+            aria-label="next"
+            onClick={handleNextClick}
+            disabled={currentIndex === countries.length - 1}
+          >
             <ArrowForwardIosRoundedIcon />
           </IconButton>
         </div>
@@ -219,7 +213,7 @@ const Childstatus:React.FC= () => {
           <Doughnut
             data={dataMap[countries[currentIndex]]}
             options={{ responsive: false }}
-            style={{ position: "relative", height: "200px" }}
+            style={{ position: 'relative', height: '200px' }}
           />
         </div>
 
@@ -228,7 +222,6 @@ const Childstatus:React.FC= () => {
           <div className={styles.title1}>학습진행률</div>
           <div className={styles.subtitle1}>{currentProgress}%</div>
         </div>
-
 
         {/* 문항수 */}
         <div className={styles.correctlayout}>
@@ -242,7 +235,6 @@ const Childstatus:React.FC= () => {
           <div className={styles.subtitle5}>개</div>
         </div>
       </div>
-      
 
       {/* main2 */}
       <div className={styles.materialContainer2}>
@@ -285,7 +277,7 @@ const Childstatus:React.FC= () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Childstatus;
+export default Childstatus
