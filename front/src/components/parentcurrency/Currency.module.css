@@ -1,0 +1,27 @@
+.card {
+    display: 'flex';
+    justify-Content: 'space-between';
+    align-items: 'center';
+    margin: '10px';
+    padding: '10px';
+    width: 700px;
+    height: 100px;
+
+  }
+  .flag {
+    width: '50px';
+    height: 'auto';
+    margin-right: '10px';
+  }
+  .currencyInfo {
+    flex-grow: 1,
+  }
+  .header {
+    height: 100px;
+    display: 'flex';
+    justify-Content: 'space-between';
+    margin-bottom:100px;
+  }
+  .currencyContainer{
+
+  }
