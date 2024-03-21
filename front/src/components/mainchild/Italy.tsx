@@ -11,6 +11,17 @@ import styles from './Italy.module.css'
 const Italy: React.FC = () => {
   const [stageId, setStageId] = useRecoilState(stageSubjectState)
 
+  // 물음표 아이콘 클릭
+  const [showDescription, setShowDescription] = useState(false)
+
+  const toggleDescription = () => {
+    setShowDescription(!showDescription)
+  }
+
+  const closeDescription = () => {
+    setShowDescription(false)
+  }
+
   const navigate = useNavigate()
 
   const stageStart = (Id: number) => {
