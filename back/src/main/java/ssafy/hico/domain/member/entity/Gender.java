@@ -1,4 +1,5 @@
 package ssafy.hico.domain.member.entity;
 
-public class Child {
+public enum Gender {
+    MAN, WOMAN
 }
