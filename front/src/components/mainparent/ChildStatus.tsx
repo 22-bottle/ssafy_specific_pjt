@@ -147,14 +147,14 @@ const Childstatus: React.FC = () => {
 
   //  추가등록 모달
   const [open, setOpen] = useState(false)
-  const handleOpen = () => setOpen(true)
+  // const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
   const style = {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 480,
+    width: 450,
     bgcolor: 'background.paper',
     boxShadow: 40,
     borderRadius: '8px',
@@ -199,7 +199,7 @@ const Childstatus: React.FC = () => {
 
         {/* 아이 추가등록 */}
         <div className={styles.registermore}>
-          <Button color="primary" onClick={handleOpen}>
+          <Button color="primary" onClick={() => setOpen(true)}>
             아이 추가등록
           </Button>
         </div>
@@ -213,7 +213,7 @@ const Childstatus: React.FC = () => {
         aria-describedby="child-add-modal-description"
       >
         <Box sx={style}>
-          <ChildAdd />
+          <ChildAdd handleClose={handleClose} />
         </Box>
       </Modal>
 
