@@ -27,7 +27,7 @@ function Login() {
         if (response.data.data.account === false) {
           startTransition(() => {
             // 등록된 계좌가 없을 때 계좌 등록 페이지로 이동
-            navigate('/parentwallet/create-account')
+            navigate('/parentaccount')
           })
         }
         // 로컬 스토리지에 토큰 저장
