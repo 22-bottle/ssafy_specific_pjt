@@ -36,4 +36,8 @@ public class QuizStatus extends BaseTimeEntity {
         return quizStatus;
     }
 
+    public void modifyQuizStatus() {
+        this.isCorrect = true;
+    }
+
 }

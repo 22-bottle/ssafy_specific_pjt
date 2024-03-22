@@ -117,9 +117,13 @@ public class StageService {
             Optional<QuizStatus> quizStatus= quizStatusRepository.findByMemberIdAndQuizId(memberId, quiz.getId());
             if (quizStatus.isEmpty()) {
                 quizStatus = Optional.of(QuizStatus.createQuizStatus(child, quiz, quizResult.isCorrect()));
+                quizStatusRepository.save(quizStatus.get());
+            } else {
+                if (quizResult.isCorrect()) {
+                    quizStatus.get().modifyQuizStatus();
+                    answerCnt++;
+                }
             }
-            quizStatusRepository.save(quizStatus.get());
-            if (quizResult.isCorrect()) answerCnt++;
         }
         Stage stage = stageRepository.findById(stageQuizSaveRequest.getStageId())
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_STAGE));
@@ -127,10 +131,10 @@ public class StageService {
         if (stageStatus.isEmpty()) {
             if (answerCnt >= 7) stageStatus = Optional.of(StageStatus.createStageStatus(stage, child, true));
             else stageStatus = Optional.of(StageStatus.createStageStatus(stage, child, false));
+            stageStatusRepository.save(stageStatus.get());
         } else {
             if (answerCnt >= 7) stageStatus.get().modifyStageStatus();
         }
-        stageStatusRepository.save(stageStatus.get());
     }
 
 }
