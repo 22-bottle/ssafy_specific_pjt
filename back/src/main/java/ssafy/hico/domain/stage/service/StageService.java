@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import ssafy.hico.domain.book.entity.BookPage;
 import ssafy.hico.domain.country.entity.Country;
 import ssafy.hico.domain.country.repository.CountryRepository;
 import ssafy.hico.domain.member.entity.Member;
@@ -92,6 +93,17 @@ public class StageService {
             stageList.add(new StageCountryFindResponse(stage, stageStatus.isPassed(), answer));
         }
         return stageList;
+    }
+
+    public StageBookFindResponse findBookStage(long stageId) {
+        Stage stage = stageRepository.findById(stageId)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_STAGE));
+        List<BookPage> bookPages = stage.getBookPages();
+        List<Page> pages = new ArrayList<>();
+        for (BookPage bookPage : bookPages) {
+            pages.add(new Page(bookPage));
+        }
+        return new StageBookFindResponse(stage, pages);
     }
 
     public StageQuizFindResponse findQuizStage(long stageId) {

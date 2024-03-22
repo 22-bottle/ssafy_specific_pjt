@@ -1,6 +1,7 @@
 package ssafy.hico.domain.book.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import ssafy.hico.domain.stage.entity.Stage;
@@ -22,5 +23,12 @@ public class BookPage extends BaseTimeEntity {
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "stage_id")
     private Stage stage;
+
+    @Builder
+    public BookPage(int bookPageNum, String bookPageImg, Stage stage) {
+        this.bookPageNum = bookPageNum;
+        this.bookPageImg = bookPageImg;
+        this.stage = stage;
+    }
 
 }
