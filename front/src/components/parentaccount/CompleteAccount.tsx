@@ -2,10 +2,22 @@ import React from 'react'
 import styles from './completeaccount.module.css'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 import Button from '@mui/material/Button'
+import logoImage from '../../assets/logo.png'
 
 const CompleteAccount: React.FC = () => {
   return (
     <div className={styles.container}>
+      {/* 로고 이미지 */}
+      <img
+        src={logoImage}
+        alt="LOGO"
+        style={{
+          height: '80px',
+          marginTop: '30px',
+          marginRight: '320px',
+          marginBottom: '20px',
+        }}
+      />
       {/* 메인 */}
       <div className={styles.materialContainer}>
         {/* 체크 아이콘 */}
