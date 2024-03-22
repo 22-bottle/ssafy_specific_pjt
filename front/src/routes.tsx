@@ -180,7 +180,7 @@ const routes: RouteType[] = [
         ),
       },
       {
-        path: 'request',
+        path: 'create',
         element: React.lazy(
           () => import('@/components/parentaccount/CreateAccount')
         ),
