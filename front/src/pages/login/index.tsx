@@ -3,23 +3,28 @@ import styles from './login.module.css'
 import TextField from '@mui/material/TextField'
 import { login } from '@/api/member'
 import { useNavigate } from 'react-router-dom'
+import { useRecoilState } from 'recoil'
+import { accessTokenState, refreshTokenState } from '@/state/Memberatoms'
 
 function Login() {
   const navigate = useNavigate()
   const [useremail, setUseremail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
+  const [accessToken, setAccessToken] = useRecoilState(accessTokenState)
+  const [refreshToken, setRefreshToken] = useRecoilState(refreshTokenState)
+
   const completeClick = async () => {
     console.log(useremail, password)
     try {
       const response = await login(useremail, password)
-      console.log(response.data)
-      console.log('account 확인', response.data.data.account)
       if (response.data.data.account === false) {
         startTransition(() => {
           // 등록된 계좌가 없을 때 계좌 등록 페이지로 이동
           navigate('/parentwallet/create-account')
         })
       }
+      setAccessToken(`Bearer ${response.data.data.tokenResponse.accessToken}`)
+      setRefreshToken(`Bearer ${response.data.data.tokenResponse.refreshToken}`)
     } catch (error) {
       console.error(error) // 에러 로깅
       // 에러 처리 로직...
