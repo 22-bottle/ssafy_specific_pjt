@@ -18,12 +18,13 @@ import { Grid } from '@mui/material'
 import { IconButton } from '@mui/material'
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
 import dayjs from 'dayjs'
+import { join } from '@/api/member'
 
 function Signup() {
   const navigate = useNavigate()
 
   // 계좌 등록 화면으로 이동해야 한다. 경로 변경 필요!
-  const completeClick = () => {
+  const completeClick = async () => {
     //날짜형식 변경
     const birthDateformated = birthDate.format('YYYY-MM-DD')
     console.log(
@@ -37,7 +38,22 @@ function Signup() {
       code,
       birthDateformated
     )
-
+    try {
+      const response = await join(
+        email,
+        password,
+        name,
+        birthDateformated,
+        gender,
+        role,
+        code
+      )
+      console.log(response.data) // 요청 성공 시 응답 데이터 로깅
+      // 성공 처리 로직...
+    } catch (error) {
+      console.error(error) // 에러 로깅
+      // 에러 처리 로직...
+    }
     // api 함수에 보내기
     startTransition(() => {
       navigate('/mainparent/childstatus')
@@ -53,7 +69,6 @@ function Signup() {
   const [name, setName] = useState('')
   //생년월일
   const [birthDate, setBirthDate] = useState(dayjs('1111-11-11'))
-
   // 성별 판별
   const [gender, setGender] = useState('female')
   // 부모, 아이 역할
@@ -222,10 +237,10 @@ function Signup() {
                 }}
               >
                 <MenuItem value=""></MenuItem>
-                <MenuItem value={10} sx={{ fontSize: 20 }}>
+                <MenuItem value={'WOMAN'} sx={{ fontSize: 20 }}>
                   여자
                 </MenuItem>
-                <MenuItem value={20} sx={{ fontSize: 20 }}>
+                <MenuItem value={'MAN'} sx={{ fontSize: 20 }}>
                   남자
                 </MenuItem>
               </Select>
