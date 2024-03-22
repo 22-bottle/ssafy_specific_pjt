@@ -27,7 +27,7 @@ function Signup() {
     //날짜형식 변경
     const birthDateformated = birthDate.format('YYYY-MM-DD')
     console.log(
-      'signup 입력 변수 확인',
+      'signup 입력 변수 확인->api에 이 변수들 post',
       role,
       gender,
       name,
