@@ -1,17 +1,11 @@
-import React, { useState } from 'react';
-import styles from './login.module.css';
-import TextField from '@mui/material/TextField';
+import React, { useState } from 'react'
+import styles from './login.module.css'
+import TextField from '@mui/material/TextField'
 
 function Login() {
   // Type state variables explicitly
-  const [username, setUsername] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-
-  // If you were to use handleSubmit, type the event parameter e
-  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   console.log('로그인 시도:', username, password);
-  // };
+  const [useremail, setUseremail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
 
   return (
     <div className={styles.materialContainer}>
@@ -27,6 +21,8 @@ function Login() {
             type="text"
             variant="standard"
             color="primary"
+            value={useremail}
+            onChange={(e) => setUseremail(e.target.value)}
             inputProps={{ style: { fontSize: 25 } }}
             InputLabelProps={{ style: { fontSize: 22 } }}
             className={styles.inputmargin}
@@ -42,6 +38,8 @@ function Login() {
             type="password"
             variant="standard"
             color="primary"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             inputProps={{ style: { fontSize: 25 } }}
             InputLabelProps={{ style: { fontSize: 22 } }}
             className={styles.inputinput}
@@ -55,7 +53,9 @@ function Login() {
           </button>
         </div>
 
-        <a href="#" className={styles.passforgot}>비밀번호를 잊으셨나요?</a>
+        <a href="#" className={styles.passforgot}>
+          비밀번호를 잊으셨나요?
+        </a>
       </div>
 
       {/* 회원가입 버튼 */}
@@ -64,7 +64,7 @@ function Login() {
         <span className={styles.textshape}>회원가입</span>
       </div>
     </div>
-  );
+  )
 }
 
-export default Login;
+export default Login

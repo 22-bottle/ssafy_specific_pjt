@@ -19,6 +19,7 @@
     "@testing-library/user-event": "^13.5.0",
     "@types/react": "^18.2.66",
     "apexcharts": "^3.48.0",
+    "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
     "chart.js": "^4.4.2",
     "dayjs": "^1.11.10",
