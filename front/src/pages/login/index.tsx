@@ -1,12 +1,30 @@
-import React, { useState } from 'react'
+import React, { useState, startTransition } from 'react'
 import styles from './login.module.css'
 import TextField from '@mui/material/TextField'
+import { login } from '@/api/member'
+import { useNavigate } from 'react-router-dom'
 
 function Login() {
-  // Type state variables explicitly
+  const navigate = useNavigate()
   const [useremail, setUseremail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
-
+  const completeClick = async () => {
+    console.log(useremail, password)
+    try {
+      const response = await login(useremail, password)
+      console.log(response.data)
+      console.log('account 확인', response.data.data.account)
+      if (response.data.data.account === false) {
+        startTransition(() => {
+          // 등록된 계좌가 없을 때 계좌 등록 페이지로 이동
+          navigate('/parentwallet/create-account')
+        })
+      }
+    } catch (error) {
+      console.error(error) // 에러 로깅
+      // 에러 처리 로직...
+    }
+  }
   return (
     <div className={styles.materialContainer}>
       <div className={styles.box}>
@@ -47,7 +65,10 @@ function Login() {
         </div>
 
         {/* 로그인 완료 버튼 */}
-        <div className={`${styles.button} ${styles.login}`}>
+        <div
+          onClick={completeClick}
+          className={`${styles.button} ${styles.login}`}
+        >
           <button type="submit">
             <span>로그인</span>
           </button>

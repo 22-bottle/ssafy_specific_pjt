@@ -2,6 +2,7 @@ import axios from 'axios'
 
 const api = {
   join: 'http://localhost:8080/member/join',
+  login: 'http://localhost:8080/member/login',
 }
 function join(
   email: string,
@@ -22,5 +23,10 @@ function join(
     code: code,
   })
 }
-
-export { join }
+function login(email: string, password: string) {
+  return axios.post(api.login, {
+    email: email,
+    password: password,
+  })
+}
+export { join, login }
