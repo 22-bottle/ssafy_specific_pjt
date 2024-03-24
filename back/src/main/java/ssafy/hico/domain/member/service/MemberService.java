@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ssafy.hico.domain.account.repository.AccountRepository;
 import ssafy.hico.domain.country.entity.Country;
 import ssafy.hico.domain.country.repository.CountryRepository;
+import ssafy.hico.domain.member.dto.request.BankMemberCreateRequest;
 import ssafy.hico.domain.member.dto.request.BankMemberSearchRequest;
 import ssafy.hico.domain.member.dto.request.MemberLoginRequest;
 import ssafy.hico.domain.member.dto.request.MemberSignUpRequest;
@@ -24,6 +25,7 @@ import ssafy.hico.global.bank.BankProperties;
 import ssafy.hico.global.jwt.JwtTokenProvider;
 import ssafy.hico.global.jwt.TokenResponse;
 import ssafy.hico.global.response.error.ErrorCode;
+import ssafy.hico.global.response.error.exception.BankException;
 import ssafy.hico.global.response.error.exception.CustomException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -49,12 +51,26 @@ public class MemberService {
             throw new CustomException(ErrorCode.DUPLICATE_EMAIL);
         }
 
-        String memberSearchUrl = BankApi.MEMBER_SEARCH.getUrl();
-        BankMemberSearchRequest requestBody = new BankMemberSearchRequest(request.getEmail(), bankProperties.getApiKey());
-        String response = bankApiClient.getResponse(memberSearchUrl, requestBody);
+        try {
+            String memberSearchUrl = BankApi.MEMBER_SEARCH.getUrl();
+            BankMemberSearchRequest requestBody = new BankMemberSearchRequest(request.getEmail(), bankProperties.getApiKey());
+            String response = bankApiClient.getResponse(memberSearchUrl, requestBody);
 
-        BankMemberSearchResponse memberSearchResponse = bankApiClient.getDtoFromResponse(response, BankMemberSearchResponse.class);
+            BankMemberSearchResponse memberSearchResponse = bankApiClient.getDtoFromResponse(response, BankMemberSearchResponse.class);
+            createMember(request, memberSearchResponse.getPayload().getUserKey()); // 계정이 있으면 멤버 생성
+        } catch (BankException e) {
+            if ("E4003".equals(e.getCode())) {
+                BankMemberCreateRequest bankMemberCreateRequest = new BankMemberCreateRequest(bankProperties.getApiKey(), request.getEmail());
+                String response = bankApiClient.getResponse(BankApi.MEMBER_CREATE.getUrl(), bankMemberCreateRequest);
+                BankMemberSearchResponse memberSearchResponse = bankApiClient.getDtoFromResponse(response, BankMemberSearchResponse.class);
+                createMember(request, memberSearchResponse.getPayload().getUserKey()); // 계정이 있으면 멤버 생성
+            } else {
+                throw new BankException(e.getCode(), e.getMessage());
+            }
+        }
+    }
 
+    private void createMember(MemberSignUpRequest request, String userKey) {
         String encryptPassword = bCryptPasswordEncoder.encode(request.getPassword());
 
         Member.MemberBuilder builder = Member.builder()
@@ -64,14 +80,13 @@ public class MemberService {
                 .name(request.getName())
                 .role(request.getRole())
                 .birthDate(request.getBirthDate())
-                .userKey(memberSearchResponse.getPayload().getUserKey());
+                .userKey(userKey);
 
-
-        if(request.getRole() == Role.CHILD) {
+        if (request.getRole() == Role.CHILD) {
             Member parent = memberRepository.findByInvitationCode(request.getCode())
                     .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_CODE));
             builder.parent(parent);
-        } else if(request.getRole() == Role.PARENT) {
+        } else if (request.getRole() == Role.PARENT) {
             builder.invitationCode(makeRandomCode());
         }
 
