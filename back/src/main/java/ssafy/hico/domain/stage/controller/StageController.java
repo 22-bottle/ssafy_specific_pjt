@@ -11,7 +11,6 @@ import ssafy.hico.domain.stage.dto.response.StageChildFindResponse;
 import ssafy.hico.domain.stage.dto.response.StageCountryFindResponse;
 import ssafy.hico.domain.stage.dto.response.StageQuizFindResponse;
 import ssafy.hico.domain.stage.service.StageService;
-import ssafy.hico.global.jwt.JwtTokenProvider;
 import ssafy.hico.global.response.success.SuccessCode;
 
 import java.util.List;
@@ -52,8 +51,9 @@ public class StageController {
     }
 
     @GetMapping("/quiz/{stageId}")
-    public ResponseEntity<?> stageQuizList(@PathVariable int stageId) {
-        StageQuizFindResponse stageQuizFindResponse = stageService.findQuizStage(stageId);
+    public ResponseEntity<?> stageQuizList(@PathVariable int stageId, HttpServletRequest httpServletRequest) {
+        Long memberId = (Long) httpServletRequest.getAttribute("memberId");
+        StageQuizFindResponse stageQuizFindResponse = stageService.findQuizStage(stageId, memberId);
         return getResponseEntity(SuccessCode.OK, stageQuizFindResponse);
     }
 

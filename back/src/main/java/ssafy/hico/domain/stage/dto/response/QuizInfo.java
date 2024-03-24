@@ -19,14 +19,16 @@ public class QuizInfo {
     private String quizType;
     private Difficulty quizLevel;
     private double quizPrice;
+    private boolean isCorrect;
 
-    public QuizInfo(Quiz quiz) {
+    public QuizInfo(Quiz quiz, boolean isCorrect) {
         this.quizId = quiz.getId();
         this.quizQuestion = quiz.getQuizQuestion();
         this.quizAnswer = quiz.getQuizAnswer();
         this.quizType = quiz.getQuizType();
         this.quizLevel = quiz.getQuizLevel().getQuizLevel();
         this.quizPrice = quiz.getQuizLevel().getQuizPrice();
+        this.isCorrect = isCorrect;
     }
 
 }
