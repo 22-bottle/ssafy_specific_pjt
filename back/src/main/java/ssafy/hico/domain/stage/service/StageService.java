@@ -9,6 +9,8 @@ import ssafy.hico.domain.country.entity.Country;
 import ssafy.hico.domain.country.repository.CountryRepository;
 import ssafy.hico.domain.member.entity.Member;
 import ssafy.hico.domain.member.repository.MemberRepository;
+import ssafy.hico.domain.point.entity.FrPoint;
+import ssafy.hico.domain.point.repository.FrPointRepository;
 import ssafy.hico.domain.quiz.entity.Quiz;
 import ssafy.hico.domain.quiz.entity.QuizStatus;
 import ssafy.hico.domain.quiz.repository.QuizRepository;
@@ -20,10 +22,12 @@ import ssafy.hico.domain.stage.entity.Stage;
 import ssafy.hico.domain.stage.entity.StageStatus;
 import ssafy.hico.domain.stage.repository.StageRepository;
 import ssafy.hico.domain.stage.repository.StageStatusRepository;
+import ssafy.hico.domain.wallet.entity.FrWallet;
 import ssafy.hico.global.jwt.JwtTokenProvider;
 import ssafy.hico.global.response.error.ErrorCode;
 import ssafy.hico.global.response.error.exception.CustomException;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -39,6 +43,7 @@ public class StageService {
     private final CountryRepository countryRepository;
     private final QuizRepository quizRepository;
     private final QuizStatusRepository quizStatusRepository;
+    private final FrPointRepository frPointRepository;
 
     private final static int COUNTRY_NUM = 4;
 
@@ -106,14 +111,16 @@ public class StageService {
         return new StageBookFindResponse(stage, pages);
     }
 
-    public StageQuizFindResponse findQuizStage(long stageId) {
+    public StageQuizFindResponse findQuizStage(long stageId, long memberId) {
         Stage stage = stageRepository.findById(stageId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_STAGE));
         List<Quiz> quizzes = quizRepository.findAllByStage(stage)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_QUIZ));
         List<QuizInfo> quizInfos = new ArrayList<>();
         for (Quiz quiz : quizzes) {
-            quizInfos.add(new QuizInfo(quiz));
+            Optional<QuizStatus> quizStatus = quizStatusRepository.findByMemberIdAndQuizId(memberId, quiz.getId());
+            if (quizStatus.isEmpty() || !quizStatus.get().getIsCorrect()) quizInfos.add(new QuizInfo(quiz, false));
+            else quizInfos.add(new QuizInfo(quiz, true));
         }
         return new StageQuizFindResponse(stage.getIncrease(), quizInfos);
     }
@@ -123,6 +130,12 @@ public class StageService {
         int answerCnt = 0;
         Member child = memberRepository.findById(memberId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+        Stage stage = stageRepository.findById(stageQuizSaveRequest.getStageId())
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_STAGE));
+        FrPoint frPoint = frPointRepository.findByFrWalletAndCountry(child.getFrWallet(), stage.getCountry())
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_POINT));
+        BigDecimal balance = frPoint.getBalance().add(stageQuizSaveRequest.getPrice());
+        frPointRepository.updatePoint(frPoint.getFrPointId(), balance);
         for (QuizResult quizResult : stageQuizSaveRequest.getQuizResultList()) {
             Quiz quiz = quizRepository.findById(quizResult.getQuizId())
                     .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_QUIZ));
@@ -137,11 +150,8 @@ public class StageService {
                 }
             }
         }
-        Stage stage = stageRepository.findById(stageQuizSaveRequest.getStageId())
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_STAGE));
         Optional<StageStatus> stageStatus = stageStatusRepository.findByMemberAndStage(child, stage);
         if (stageStatus.isEmpty()) {
-            System.out.println(answerCnt);
             if (answerCnt >= 7) {
                 stageStatus = Optional.of(StageStatus.createStageStatus(stage, child, true));
             }

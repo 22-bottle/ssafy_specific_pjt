@@ -1,8 +1,9 @@
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 
 const api = {
   join: 'http://localhost:8080/member/join',
   login: 'http://localhost:8080/member/login',
+  token: 'http://localhost:8080/member/token',
 }
 function join(
   email: string,
@@ -29,4 +30,9 @@ function login(email: string, password: string) {
     password: password,
   })
 }
-export { join, login }
+// 토큰 재발급 함수
+function token() {
+  const refrechtoken = localStorage.getItem('refreshToken')
+  return axios.post(api.token, {}, { headers: { Authorization: refrechtoken } }) // header에 refrechtoken 전송
+}
+export { join, login, token }

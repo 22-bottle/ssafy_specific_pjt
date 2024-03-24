@@ -1,11 +1,23 @@
 import React from 'react'
-import styles from './sendingcomplete.module.css'
+import styles from './completeaccount.module.css'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 import Button from '@mui/material/Button'
+import logoImage from '../../assets/logo.png'
 
-const Sendingcomplete: React.FC = () => {
+const CompleteAccount: React.FC = () => {
   return (
     <div className={styles.container}>
+      {/* 로고 이미지 */}
+      <img
+        src={logoImage}
+        alt="LOGO"
+        style={{
+          height: '80px',
+          marginTop: '30px',
+          marginRight: '320px',
+          marginBottom: '20px',
+        }}
+      />
       {/* 메인 */}
       <div className={styles.materialContainer}>
         {/* 체크 아이콘 */}
@@ -14,9 +26,9 @@ const Sendingcomplete: React.FC = () => {
         </div>
         {/* 글씨 */}
         <div className={styles.text}>
-          <div className={styles.maintext1}>이승재님에게</div>
-          <div className={styles.maintext2}>3,000원을 보냈어요!</div>
-          <div className={styles.subtext}>수수료는 히코가 냈어요!</div>
+          <div className={styles.maintext1}>계좌등록을 완료했어요!</div>
+          <div className={styles.subtext1}>이제 우리 아이들의 히코현황을</div>
+          <div className={styles.subtext2}>모두 확인할 수 있어요!</div>
         </div>
         {/* 버튼 */}
         <div className={styles.button}>
@@ -39,4 +51,4 @@ const Sendingcomplete: React.FC = () => {
   )
 }
 
-export default Sendingcomplete
+export default CompleteAccount
