@@ -33,6 +33,10 @@ function login(email: string, password: string) {
 // 토큰 재발급 함수
 function token() {
   const refrechtoken = localStorage.getItem('refreshToken')
-  return axios.post(api.token, {}, { headers: { Authorization: refrechtoken } }) // header에 refrechtoken 전송
+  return axios.post(
+    api.token,
+    {},
+    { headers: { Authorization: `Bearer ${refrechtoken}` } }
+  ) // header에 refrechtoken 전송
 }
 export { join, login, token }
