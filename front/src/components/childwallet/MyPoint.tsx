@@ -76,6 +76,7 @@ const Mypoint: React.FC = () => {
           </div>
         </div>
       </div>
+
       <p>실시간 환율 확인하기</p>
       <div style={divBorder}>
         <div style={divBorder}>
