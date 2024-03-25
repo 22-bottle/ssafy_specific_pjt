@@ -1,9 +1,10 @@
 import axios, { AxiosError } from 'axios'
+const { REACT_APP_SERVER_URI } = process.env
 
 const api = {
-  join: 'http://localhost:8080/member/join',
-  login: 'http://localhost:8080/member/login',
-  token: 'http://localhost:8080/member/token',
+  join: `${REACT_APP_SERVER_URI}/member/join`,
+  login: `${REACT_APP_SERVER_URI}/member/login`,
+  token: `${REACT_APP_SERVER_URI}/member/token`,
 }
 function join(
   email: string,
