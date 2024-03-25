@@ -1,6 +1,12 @@
 import React from 'react'
 import styles from './mypoint.module.css'
 import Button from '@mui/material/Button'
+import Link from '@mui/material/Link'
+import updown from '../../assets/updow.png'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import ListItemButton from '@mui/material/ListItemButton'
+import ListItemText from '@mui/material/ListItemText'
 import { useNavigate } from 'react-router-dom'
 
 const Mypoint: React.FC = () => {
@@ -10,9 +16,16 @@ const Mypoint: React.FC = () => {
     navigate('/childwallet/ask')
   }
 
-  // const currencyButton = () => {
-  //   navigate('/currency/detail')
-  // }
+  const currencyButton = () => {
+    navigate('/currency/detail')
+  }
+
+  function scrollToAnchor(anchorId: string) {
+    const anchorElement = document.getElementById(anchorId)
+    if (anchorElement) {
+      anchorElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    }
+  }
 
   return (
     <div className={styles.container}>
@@ -27,11 +40,15 @@ const Mypoint: React.FC = () => {
         <div className={styles.line}></div>
 
         {/* 미국 */}
-        <div className={styles.horizontal}>
+        <div className={styles.horizontal2}>
           <div className={styles.country}>미국달러</div>
           <div className={styles.horizontal1}>
-            <div className={styles.context}>보유</div>
-            <div className={styles.money}>7.5달러 = 3,996.99원</div>
+            <div className={styles.context}>보유 7.5달러</div>
+            <div className={styles.money}>3,996.99원</div>
+          </div>
+          <div className={styles.smaller}>
+            <div className={styles.smallertext}>7.5달러</div>
+            <div className={styles.smallertext}>3,996.99원</div>
           </div>
           <div className={styles.button}>
             <Button
@@ -54,11 +71,15 @@ const Mypoint: React.FC = () => {
         </div>
 
         {/* 일본 */}
-        <div className={styles.horizontal}>
+        <div className={styles.horizontal2}>
           <div className={styles.country}>일본엔</div>
           <div className={styles.horizontal1}>
-            <div className={styles.context}>보유</div>
-            <div className={styles.money}>10.5엔 = 1,771.58원</div>
+            <div className={styles.context}>보유 10.5엔</div>
+            <div className={styles.money}>1,771.58원</div>
+          </div>
+          <div className={styles.smaller}>
+            <div className={styles.smallertext}>10.5엔</div>
+            <div className={styles.smallertext}>1,771.58원</div>
           </div>
           <div className={styles.button}>
             <Button
@@ -81,11 +102,15 @@ const Mypoint: React.FC = () => {
         </div>
 
         {/* 유럽 */}
-        <div className={styles.horizontal}>
+        <div className={styles.horizontal2}>
           <div className={styles.country}>유럽유로</div>
           <div className={styles.horizontal1}>
-            <div className={styles.context}>보유</div>
-            <div className={styles.money}>2.0유로 = 14,457.5원</div>
+            <div className={styles.context}>보유 2.0유로</div>
+            <div className={styles.money}>3,000원</div>
+          </div>
+          <div className={styles.smaller}>
+            <div className={styles.smallertext}>2.0유로</div>
+            <div className={styles.smallertext}>3,000원</div>
           </div>
           <div className={styles.button}>
             <Button
@@ -108,11 +133,15 @@ const Mypoint: React.FC = () => {
         </div>
 
         {/* 중국 */}
-        <div className={styles.horizontal}>
+        <div className={styles.horizontal2}>
           <div className={styles.country}>중국위안</div>
           <div className={styles.horizontal1}>
-            <div className={styles.context}>보유</div>
-            <div className={styles.money}>0위안 = 0원</div>
+            <div className={styles.context}>보유 0위안</div>
+            <div className={styles.money}>0원</div>
+          </div>
+          <div className={styles.smaller}>
+            <div className={styles.smallertext}>0위안</div>
+            <div className={styles.smallertext}>0원</div>
           </div>
           <div className={styles.button}>
             <Button
@@ -135,25 +164,59 @@ const Mypoint: React.FC = () => {
         </div>
       </div>
 
-      {/* <p>실시간 환율 확인하기</p>
-      <div style={divBorder}>
-        <div style={divBorder}>
-          <h2>실시간 환율</h2>
-          <p>어제보다 오르락 내리락</p>
+      <div className={`${styles.main} ${styles.help}`}>
+        <Link
+          onClick={() => scrollToAnchor('my-anchor')}
+          className="link-pointer"
+          sx={{
+            color: '#bdc6d7;',
+            textDecorationColor: '#bdc6d7',
+          }}
+        >
+          실시간 환율 확인하기
+        </Link>
+      </div>
+
+      <div className={styles.main2}>
+        <div className={styles.pointtitle} id="my-anchor">
+          실시간 환율
         </div>
-        <div style={divBorder}>
-          미국달러 1,300원<button onClick={currencyButton}>버튼</button>
+        <div className={styles.subtitle}>
+          어제보다
+          <img
+            src={updown}
+            alt="boy"
+            style={{ height: '20px', marginTop: 3, marginLeft: '15px' }}
+          />
         </div>
-        <div style={divBorder}>
-          일본엔 900원<button onClick={currencyButton}>버튼</button>
+        <div className={styles.maindiv}>
+          {/* Material UI: Lists */}
+          <List>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemText primary="미국달러" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton component="a" href="#simple-list">
+                <ListItemText primary="Spam" />
+              </ListItemButton>
+            </ListItem>
+          </List>
+          <div>
+            미국달러 1,300원<button onClick={currencyButton}>버튼</button>
+          </div>
+          <div>
+            일본엔 900원<button onClick={currencyButton}>버튼</button>
+          </div>
+          <div>
+            유럽유로 1400원<button onClick={currencyButton}>버튼</button>
+          </div>
+          <div>
+            중국위안 190원<button onClick={currencyButton}>버튼</button>
+          </div>
         </div>
-        <div style={divBorder}>
-          유럽유로 1400원<button onClick={currencyButton}>버튼</button>
-        </div>
-        <div style={divBorder}>
-          중국위안 190원<button onClick={currencyButton}>버튼</button>
-        </div>
-      </div> */}
+      </div>
     </div>
   )
 }
