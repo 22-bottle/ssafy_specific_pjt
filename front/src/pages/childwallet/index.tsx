@@ -8,10 +8,10 @@ const ChildWallet: React.FC = () => {
       <Navbar />
       {/* this is ChildWallet */}
       <div style={{
-        paddingTop: '70px',
+        paddingTop: '85px',
         backgroundColor: "#F9FAFB",
         position: "relative",
-        minHeight: "calc(100vh - 70px)",
+        minHeight: "calc(100vh - 85px)",
       }}>
         <Outlet />
       </div>
