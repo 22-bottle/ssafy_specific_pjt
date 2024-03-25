@@ -1,17 +1,26 @@
-import React, { useState } from 'react';
-import styles from './login.module.css';
-import TextField from '@mui/material/TextField';
+import React, { startTransition, useState } from 'react'
+import styles from './login.module.css'
+import TextField from '@mui/material/TextField'
+import { useNavigate } from 'react-router-dom'
 
 function Login() {
   // Type state variables explicitly
-  const [username, setUsername] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [username, setUsername] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
 
   // If you were to use handleSubmit, type the event parameter e
   // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
   //   e.preventDefault();
   //   console.log('로그인 시도:', username, password);
   // };
+
+  const navigate = useNavigate()
+
+  const signupClick = () => {
+    startTransition(() => {
+      navigate('/signup')
+    })
+  }
 
   return (
     <div className={styles.materialContainer}>
@@ -55,16 +64,21 @@ function Login() {
           </button>
         </div>
 
-        <a href="#" className={styles.passforgot}>비밀번호를 잊으셨나요?</a>
+        <a href="#" className={styles.passforgot}>
+          비밀번호를 잊으셨나요?
+        </a>
       </div>
 
       {/* 회원가입 버튼 */}
-      <div className={`${styles.materialbutton} ${styles.alt2}`}>
-        <span className={styles.shape}></span>
+      <div
+        onClick={signupClick}
+        className={`${styles.materialbutton} ${styles.alt2}`}
+      >
+        <span onClick={signupClick} className={styles.shape}></span>
         <span className={styles.textshape}>회원가입</span>
       </div>
     </div>
-  );
+  )
 }
 
-export default Login;
+export default Login
