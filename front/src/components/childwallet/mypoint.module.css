@@ -159,13 +159,19 @@
 }
 
 .row0 {
-  font-size: clamp(20px, 2.2vw, 28px);
+  font-size: clamp(16px, 2.2vw, 28px);
   font-weight: 500;
   color: #585865;
 }
 
 .col2 {
   margin-right: 4vw
+}
+
+@media (max-width: 1130px) {
+  .col2 {
+    margin-right: 0px
+  }
 }
 
 .row1 {
