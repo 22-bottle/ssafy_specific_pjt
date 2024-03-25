@@ -54,33 +54,27 @@ const Mypoint: React.FC = () => {
 
         {/* 유럽 */}
         <div className={styles.horizontal}>
-          <div>미국달러</div>
+          <div>유럽유로</div>
           <div className={styles.horizontal}>
             <div>보유</div>
-            <div>7.5달러 = 3,996.99원</div>
+            <div>2.0유로 = 14,457.5원</div>
           </div>
           <div>
             <button onClick={askClick}>버튼</button>
           </div>
         </div>
+
         {/* 중국 */}
         <div className={styles.horizontal}>
-          <div>미국달러</div>
+          <div>중국위안</div>
           <div className={styles.horizontal}>
             <div>보유</div>
-            <div>7.5달러 = 3,996.99원</div>
+            <div>0위안 = 0원</div>
           </div>
           <div>
             <button onClick={askClick}>버튼</button>
           </div>
         </div>
-        <p>
-          유럽유로 보유 2.0유로 = 14,457.5원
-          <button onClick={askClick}>버튼</button>
-        </p>
-        <p>
-          중국위안 보유 0위안 = 0원<button onClick={askClick}>버튼</button>
-        </p>
       </div>
       <p>실시간 환율 확인하기</p>
       <div style={divBorder}>
