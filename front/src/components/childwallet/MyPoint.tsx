@@ -192,18 +192,28 @@ const Mypoint: React.FC = () => {
         <div className={styles.maindiv}>
           {/* Material UI: Lists */}
           <List>
-            <ListItem disablePadding>
-              <ListItemButton>
+            <ListItem disablePadding >
+              <ListItemButton sx={{ minHeight: '100px', alignItems: 'center' }}>
                 <ListItemText primary="미국달러" />
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
-              <ListItemButton component="a" href="#simple-list">
-                <ListItemText primary="Spam" />
+              <ListItemButton sx={{ minHeight: '100px', alignItems: 'center' }}>
+                <ListItemText primary="일본엔" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton sx={{ minHeight: '100px', alignItems: 'center' }}>
+                <ListItemText primary="유럽유로" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton sx={{ minHeight: '100px', alignItems: 'center' }}>
+                <ListItemText primary="중국위안" />
               </ListItemButton>
             </ListItem>
           </List>
-          <div>
+          {/* <div>
             미국달러 1,300원<button onClick={currencyButton}>버튼</button>
           </div>
           <div>
@@ -214,7 +224,7 @@ const Mypoint: React.FC = () => {
           </div>
           <div>
             중국위안 190원<button onClick={currencyButton}>버튼</button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
