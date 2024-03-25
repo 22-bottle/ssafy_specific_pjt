@@ -29,8 +29,8 @@
 
 @media (max-width: 700px) {
   .horizontal {
-    flex-direction: column; /* 화면 너비가 700px 이하일 때 세로 방향으로 쌓이게 */
-    align-items: center; /* 세로 정렬 */
+    flex-direction: column;
+    align-items: center;
   }
 }
 
@@ -44,6 +44,14 @@
   color: #202632;
   font-size: clamp(16px, 2.2vw, 28px);
   font-weight: bold;
+}
+
+.line {
+  grid-column: 3 / 7;
+  height: 3px;
+  background-color: #b5b5b7;
+  width: 100%;
+  margin-top: clamp(16px, 1.5vw, 25px);
 }
 
 .textcolor {
