@@ -3,8 +3,6 @@ import styles from './login.module.css'
 import TextField from '@mui/material/TextField'
 import { login, token } from '@/api/member'
 import { useNavigate } from 'react-router-dom'
-import { useRecoilState } from 'recoil'
-import { accessTokenState, refreshTokenState } from '@/state/Memberatoms'
 import axios, { AxiosError } from 'axios'
 interface ErrorResponse {
   statusCode: number
@@ -15,15 +13,22 @@ function Login() {
   const navigate = useNavigate()
   const [useremail, setUseremail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
-  const [accessToken, setAccessToken] = useRecoilState(accessTokenState)
-  const [refreshToken, setRefreshToken] = useRecoilState(refreshTokenState)
 
   const completeClick = async () => {
     try {
       const response = await login(useremail, password)
       console.log(response.data)
       if (response.data.statusCode === 200) {
-        console.log('로그인 성공')
+        console.log('로그인 성공', response.data.data.tokenResponse)
+        // token 저장
+        window.localStorage.setItem(
+          'accessToken',
+          response.data.data.tokenResponse.accessToken
+        )
+        window.localStorage.setItem(
+          'refreshToken',
+          response.data.data.tokenResponse.refreshToken
+        )
         if (response.data.data.account === false) {
           startTransition(() => {
             // 등록된 계좌가 없을 때 계좌 등록 페이지로 이동
@@ -31,10 +36,6 @@ function Login() {
           })
         }
         // 로컬 스토리지에 토큰 저장
-        setAccessToken(`Bearer ${response.data.data.tokenResponse.accessToken}`)
-        setRefreshToken(
-          `Bearer ${response.data.data.tokenResponse.refreshToken}`
-        )
       }
     } catch (error) {
       // 정상적인 응답이 아닌 경우
@@ -48,8 +49,14 @@ function Login() {
         } else if (errorData.statusCode === 401) {
           // 토큰 재발급 처리
           const newToken = await token()
-          setAccessToken(`Bearer ${newToken.data.data.accessToken}`)
-          setRefreshToken(`Bearer ${newToken.data.data.refreshToken}`)
+          window.localStorage.setItem(
+            'accessToken',
+            newToken.data.data.accessToken
+          )
+          window.localStorage.setItem(
+            'refreshToken',
+            newToken.data.data.refreshToken
+          )
         }
       } else {
         console.error(error)
