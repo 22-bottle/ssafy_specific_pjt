@@ -11,4 +11,5 @@ import ssafy.hico.global.jwt.TokenResponse;
 public class LoginResponse {
     private TokenResponse tokenResponse;
     private boolean isAccount;
+    private String name;
 }
