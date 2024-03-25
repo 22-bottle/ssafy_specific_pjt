@@ -14,6 +14,12 @@ function Login() {
   const [useremail, setUseremail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
 
+  const signupClick = () => {
+    startTransition(() => {
+      navigate('/signup')
+    })
+  }
+
   const completeClick = async () => {
     try {
       const response = await login(useremail, password)
@@ -119,7 +125,10 @@ function Login() {
       </div>
 
       {/* 회원가입 버튼 */}
-      <div className={`${styles.materialbutton} ${styles.alt2}`}>
+      <div
+        onClick={signupClick}
+        className={`${styles.materialbutton} ${styles.alt2}`}
+      >
         <span className={styles.shape}></span>
         <span className={styles.textshape}>회원가입</span>
       </div>
