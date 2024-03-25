@@ -28,16 +28,16 @@ services:
       - 8081:8081
     depends_on:
       - database
-#  frontend:
-#    container_name: frontend
-#    build:
-#      context: ./front
-#      dockerfile: Dockerfile
-#    restart: always
-#    ports:
-#      - 3000:3000
-#    depends_on:
-#      - backend
+  frontend:
+    container_name: frontend
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend
 networks:
   default:
     name: hico_net
