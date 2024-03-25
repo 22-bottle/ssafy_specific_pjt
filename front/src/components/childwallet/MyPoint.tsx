@@ -26,6 +26,7 @@ const Mypoint: React.FC = () => {
 
         <div className={styles.line}></div>
 
+        {/* 미국 */}
         <div className={styles.horizontal}>
           <div className={styles.country}>미국달러</div>
           <div className={styles.horizontal1}>
