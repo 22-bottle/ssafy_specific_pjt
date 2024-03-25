@@ -10,7 +10,7 @@
 
 .main {
   grid-column: 3 / 7;
-  margin-top: 5vw;
+  margin-top: 4vw;
 }
 
 .main2 {
@@ -58,13 +58,14 @@
   background-color: #b5b5b7;
   width: 100%;
   margin-top: clamp(16px, 3vw, 40px);
-  margin-bottom: clamp(16px, 3vw, 40px);
+  margin-bottom: 10px
 }
 
 .horizontal1 {
   display: flex;
   justify-content: space-between;
   margin-right: 60px;
+  margin-top: 8px;
 }
 
 .smaller {
@@ -78,6 +79,7 @@
   .smaller {
     display: block;
     text-align: center;
+    margin-top: 15px;
   }
 }
 
@@ -85,7 +87,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 15px;
-  margin-bottom: clamp(14px, 3vw, 50px);
+  margin-bottom: clamp(14px, 2vw, 30px);
 }
 
 .button {
@@ -97,20 +99,22 @@
   font-weight: bold;
   font-size: clamp(16px, 2vw, 22px);
   padding-top: 8px;
+  display: flex;
+  align-items: center;
 }
 
 .context {
   color: #585865;
   font-weight: bold;
   font-size: clamp(14px, 1.4vw, 18px);
-  padding-top: 12px;
+  padding-top: 30px;
 }
 
 .money {
   color: #585865;
   font-weight: bold;
   font-size: clamp(16px, 2vw, 22px);
-  padding-top: 8px;
+  padding-top: 25px;
   margin-left: 2px;
   margin-right: 25px;
 }
@@ -131,15 +135,15 @@
   font-weight: bold;
   font-size: clamp(14px, 1.3vw, 20px);
   margin-bottom: 10px;
-  margin-right: 40px;
+  margin-right: 70px;
 }
 
 .maindiv {
   box-shadow:
     -6px 6px 10px rgba(0, 0, 0, 0.364),
     4px 4px 8px rgba(0, 0, 0, 0.121);
-  margin-left: 40px;
-  margin-right: 40px;
+  margin-left: 70px;
+  margin-right: 70px;
 }
 
 .col1, .col2 {
@@ -159,29 +163,29 @@
 }
 
 .row0 {
-  font-size: clamp(16px, 2.2vw, 28px);
+  font-size: clamp(14px, 2vw, 28px);
   font-weight: 500;
   color: #585865;
 }
 
 .col2 {
-  margin-right: 4vw
+  margin-right: 2.5vw
 }
 
-@media (max-width: 1130px) {
+@media (max-width: 1200px) {
   .col2 {
     margin-right: 0px
   }
 }
 
 .row1 {
-  font-size: clamp(20px, 2.2vw, 28px);
+  font-size: clamp(16px, 2vw, 28px);
   font-weight: bold;
   color: #585865;
 }
 
 .row2red, .row2blue {
-  font-size: clamp(16px, 2vw, 22px);
+  font-size: clamp(12px, 2vw, 22px);
 }
 
 .row2red {
