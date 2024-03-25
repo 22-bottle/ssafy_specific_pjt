@@ -42,10 +42,10 @@ const Mypoint: React.FC = () => {
 
         {/* 일본 */}
         <div className={styles.horizontal}>
-          <div>미국달러</div>
+          <div>일본엔</div>
           <div className={styles.horizontal}>
             <div>보유</div>
-            <div>7.5달러 = 3,996.99원</div>
+            <div>10.5엔 = 1,771.58원</div>
           </div>
           <div>
             <button onClick={askClick}>버튼</button>
@@ -74,11 +74,6 @@ const Mypoint: React.FC = () => {
             <button onClick={askClick}>버튼</button>
           </div>
         </div>
-        <p></p>
-        <p>
-          일본엔 보유 10.5엔 = 1,771.58원
-          <button onClick={askClick}>버튼</button>
-        </p>
         <p>
           유럽유로 보유 2.0유로 = 14,457.5원
           <button onClick={askClick}>버튼</button>
