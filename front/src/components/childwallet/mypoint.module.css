@@ -52,23 +52,32 @@
   background-color: #b5b5b7;
   width: 100%;
   margin-top: clamp(16px, 1.5vw, 25px);
+  margin-bottom: clamp(16px, 1.5vw, 25px);
 }
 
-.textcolor {
-  color: #585865;
+/*  */
+.horizontal1 {
+  display: flex;
+}
+
+.button {
+  grid-column: 6;
 }
 
 .country {
-  font-size: 18px;
+  color: #585865;
   font-weight: bold;
+  font-size: 18px;
 }
 
 .context {
-  font-size: 15px;
+  color: #585865;
   font-weight: bold;
+  font-size: 15px;
 }
 
 .money {
-  font-size: 18px;
+  color: #585865;
   font-weight: bold;
+  font-size: 18px;
 }
