@@ -35,6 +35,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
         String requestURI = request.getRequestURI();
 
+        if (request.getMethod().equals("OPTIONS")) {
+            return;
+        }
+
         //main url 이거나 whiteList url이면 다음 필터로
         if (requestURI.equals(main) || checkWhiteList(requestURI)) {
             chain.doFilter(request, response);
