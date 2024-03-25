@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   database:
-    image: database
+    image: mysql:latest
     container_name: mysql-hico
     restart: always
     environment:
