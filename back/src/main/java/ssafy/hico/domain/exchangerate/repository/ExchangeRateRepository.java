@@ -12,7 +12,7 @@ import java.util.Optional;
 public interface ExchangeRateRepository extends JpaRepository<ExchangeRate, Integer> {
 
     Optional<ExchangeRate> findByCountryAndTodayDate(Country country, LocalDate todayDate);
-    Optional<List<ExchangeRate>> findAllByTodayDate(LocalDate todayDate);
+    Optional<List<ExchangeRate>> findAllByTodayDateOrderByCountry(LocalDate todayDate);
     Optional<List<ExchangeRate>> findAllByCountryAndTodayDateBetween(Country country, LocalDate startDate, LocalDate lastDate);
 
 }

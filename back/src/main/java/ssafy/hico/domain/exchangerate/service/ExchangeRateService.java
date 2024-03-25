@@ -74,7 +74,7 @@ public class ExchangeRateService {
             }
         }
         if (exchangeRateDtos.length == 0) {
-            List<ExchangeRate> ers = exchangeRateRepository.findAllByTodayDate(yesterday)
+            List<ExchangeRate> ers = exchangeRateRepository.findAllByTodayDateOrderByCountry(yesterday)
                     .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_COUNTRY));;
             for (ExchangeRate er : ers) {
                 ExchangeRate newEx = new ExchangeRate();
@@ -90,7 +90,7 @@ public class ExchangeRateService {
 
     public List<ExchangeRateFindResponse> findTodayExchangeRate() {
         LocalDate today = LocalDate.now();
-        List<ExchangeRate> exchangeRates = exchangeRateRepository.findAllByTodayDate(today)
+        List<ExchangeRate> exchangeRates = exchangeRateRepository.findAllByTodayDateOrderByCountry(today)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_EXCHANGE_RATE));
         List<ExchangeRateFindResponse> exchangeRateList = new ArrayList<>();
         for (ExchangeRate exchangeRate : exchangeRates) {
