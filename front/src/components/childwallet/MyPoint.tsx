@@ -24,6 +24,8 @@ const Mypoint: React.FC = () => {
           <div className={styles.possiblemoney}>총 20,226원</div>
         </div>
 
+        <div className={styles.line}></div>
+
         {/* <div className={styles.horizontal}>
           <div className={`${styles.textcolor} ${styles.country}`}>
             미국달러
