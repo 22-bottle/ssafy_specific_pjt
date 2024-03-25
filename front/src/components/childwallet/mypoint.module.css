@@ -13,6 +13,12 @@
   margin-top: 5vw;
 }
 
+.main2 {
+  grid-column: 3 / 7;
+  margin-top: 5vw;
+  margin-bottom: 100px;
+}
+
 .pointtitle {
   color: #585865;
   font-size: clamp(24px, 5vw, 45px);
@@ -51,13 +57,33 @@
   height: 3px;
   background-color: #b5b5b7;
   width: 100%;
-  margin-top: clamp(16px, 2vw, 30px);
-  margin-bottom: clamp(16px, 2vw, 30px);
+  margin-top: clamp(16px, 3vw, 40px);
+  margin-bottom: clamp(16px, 3vw, 40px);
 }
 
-/*  */
 .horizontal1 {
   display: flex;
+}
+
+.smaller {
+  display: none;
+}
+
+@media (max-width: 1522px) {
+  .horizontal1 {
+    display: none;
+  }
+  .smaller {
+    display: block;
+    align-items: center;
+  }
+}
+
+.horizontal2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: clamp(14px, 1.4vw, 18px);
 }
 
 .button {
@@ -76,7 +102,7 @@
   font-weight: bold;
   font-size: clamp(14px, 1.4vw, 18px);
   padding-top: 12px;
-  padding-right: 0.6vw;
+  padding-right: 1vw;
 }
 
 .money {
@@ -84,4 +110,30 @@
   font-weight: bold;
   font-size: clamp(16px, 2vw, 22px);
   padding-top: 8px;
+  margin-left: auto;
+  margin-right: 25px;
+}
+
+.help {
+  font-size: clamp(16px, 1.8vw, 20px);
+  font-weight: bold;
+  grid-column: 1 / -1;
+  text-align: center;
+  cursor: pointer !important;
+}
+
+.subtitle {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 4vw;
+  color: #585865;
+  font-weight: bold;
+  font-size: clamp(14px, 1.3vw, 18px);
+  margin-bottom: 8px;
+}
+
+.maindiv {
+  box-shadow:
+    -6px 6px 10px rgba(0, 0, 0, 0.364),
+    4px 4px 8px rgba(0, 0, 0, 0.121);
 }
