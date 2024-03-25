@@ -85,7 +85,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 15px;
-  margin-bottom: clamp(14px, 1.4vw, 18px);
+  margin-bottom: clamp(14px, 3vw, 50px);
 }
 
 .button {
