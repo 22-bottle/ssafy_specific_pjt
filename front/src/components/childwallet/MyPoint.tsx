@@ -193,38 +193,50 @@ const Mypoint: React.FC = () => {
           {/* Material UI: Lists */}
           <List>
             <ListItem disablePadding >
-              <ListItemButton sx={{ minHeight: '100px', alignItems: 'center' }}>
-                <ListItemText primary="미국달러" />
+              <ListItemButton onClick={currencyButton} sx={{ minHeight: '150px', alignItems: 'center' }}>
+                <div className={styles.col1}>
+                  <div className={styles.row0}>미국달러</div>
+                  <div className={styles.col2}>
+                    <div className={styles.row1}>1,332원</div>
+                    <div className={styles.row2red}>3.34원</div>
+                  </div>
+                </div>
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
-              <ListItemButton sx={{ minHeight: '100px', alignItems: 'center' }}>
-                <ListItemText primary="일본엔" />
+              <ListItemButton onClick={currencyButton} sx={{ minHeight: '150px', alignItems: 'center' }}>
+              <div className={styles.col1}>
+                  <div className={styles.row0}>일본엔</div>
+                  <div className={styles.col2}>
+                    <div className={styles.row1}>885원</div>
+                    <div className={styles.row2blue}>0.38원</div>
+                  </div>
+                </div>
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
-              <ListItemButton sx={{ minHeight: '100px', alignItems: 'center' }}>
-                <ListItemText primary="유럽유로" />
+              <ListItemButton onClick={currencyButton} sx={{ minHeight: '150px', alignItems: 'center' }}>
+              <div className={styles.col1}>
+                  <div className={styles.row0}>유럽유로</div>
+                  <div className={styles.col2}>
+                    <div className={styles.row1}>1,445원</div>
+                    <div className={styles.row2red}>4.45원</div>
+                  </div>
+                </div>
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
-              <ListItemButton sx={{ minHeight: '100px', alignItems: 'center' }}>
-                <ListItemText primary="중국위안" />
+              <ListItemButton onClick={currencyButton} sx={{ minHeight: '150px', alignItems: 'center' }}>
+              <div className={styles.col1}>
+                  <div className={styles.row0}>중국위안</div>
+                  <div className={styles.col2}>
+                    <div className={styles.row1}>187원</div>
+                    <div className={styles.row2red}>0.42원</div>
+                  </div>
+                </div>
               </ListItemButton>
             </ListItem>
           </List>
-          {/* <div>
-            미국달러 1,300원<button onClick={currencyButton}>버튼</button>
-          </div>
-          <div>
-            일본엔 900원<button onClick={currencyButton}>버튼</button>
-          </div>
-          <div>
-            유럽유로 1400원<button onClick={currencyButton}>버튼</button>
-          </div>
-          <div>
-            중국위안 190원<button onClick={currencyButton}>버튼</button>
-          </div> */}
         </div>
       </div>
     </div>
