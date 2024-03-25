@@ -18,7 +18,7 @@ const Mypoint: React.FC = () => {
     <div className={styles.container}>
       {/* 메인1 */}
       <div className={styles.pointtitle}>획득 포인트</div>
-      <div>
+      <div className={styles.main}>
         <div className={styles.horizontal}>
           <div className={styles.possibletext}>이승재님의 환전 가능 금액 </div>
           <div className={styles.possiblemoney}>총 20,226원</div>
