@@ -1,78 +1,145 @@
 import React from 'react'
 import styles from './mypoint.module.css'
-import { useNavigate } from 'react-router-dom'
+// import Button from '@mui/material/Button'
+// import { useNavigate } from 'react-router-dom'
 
 const Mypoint: React.FC = () => {
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
-  const askClick = () => {
-    navigate('/childwallet/ask')
-  }
+  // const askClick = () => {
+  //   navigate('/childwallet/ask')
+  // }
 
-  const currencyButton = () => {
-    navigate('/currency/detail')
-  }
+  // const currencyButton = () => {
+  //   navigate('/currency/detail')
+  // }
 
-  const divBorder = {
-    border: '1px solid black',
-    margin: '10px',
-  }
+  // const divBorder = {
+  //   border: '1px solid black',
+  //   margin: '10px',
+  // }
 
   return (
     <div className={styles.container}>
       {/* 메인1 */}
       <div className={styles.pointtitle}>획득 포인트</div>
-      <div style={divBorder}>
+      {/* <div style={divBorder}>
         <div className={styles.horizontal}>
           <div className={styles.possibletext}>이승재님의 환전 가능 금액 </div>
           <div className={styles.possiblemoney}>총 20,226원</div>
         </div>
 
-        {/* 미국 */}
         <div className={styles.horizontal}>
-          <div>미국달러</div>
+          <div className={`${styles.textcolor} ${styles.country}`}>
+            미국달러
+          </div>
           <div className={styles.horizontal}>
-            <div>보유</div>
-            <div>7.5달러 = 3,996.99원</div>
+            <div className={`${styles.textcolor} ${styles.context}`}>보유</div>
+            <div className={`${styles.textcolor} ${styles.money}`}>
+              7.5달러 = 3,996.99원
+            </div>
           </div>
           <div>
-            <button onClick={askClick}>버튼</button>
+            <Button
+              variant="contained"
+              disableElevation
+              onClick={askClick}
+              sx={{
+                width: 140,
+                height: '42px',
+                fontSize: '17px',
+                backgroundColor: '#0064FF',
+                borderRadius: 2,
+                fontWeight: 600,
+              }}
+            >
+              환전 요청
+            </Button>
           </div>
         </div>
 
-        {/* 일본 */}
         <div className={styles.horizontal}>
-          <div>일본엔</div>
+          <div className={`${styles.textcolor} ${styles.country}`}>일본엔</div>
           <div className={styles.horizontal}>
-            <div>보유</div>
-            <div>10.5엔 = 1,771.58원</div>
+            <div className={`${styles.textcolor} ${styles.context}`}>보유</div>
+            <div className={`${styles.textcolor} ${styles.money}`}>
+              10.5엔 = 1,771.58원
+            </div>
           </div>
           <div>
-            <button onClick={askClick}>버튼</button>
+            <Button
+              variant="contained"
+              disableElevation
+              onClick={askClick}
+              sx={{
+                width: 140,
+                height: '42px',
+                fontSize: '17px',
+                backgroundColor: '#0064FF',
+                borderRadius: 2,
+                fontWeight: 600,
+              }}
+            >
+              환전 요청
+            </Button>
           </div>
         </div>
 
-        {/* 유럽 */}
         <div className={styles.horizontal}>
-          <div>유럽유로</div>
+          <div className={`${styles.textcolor} ${styles.country}`}>
+            유럽유로
+          </div>
           <div className={styles.horizontal}>
-            <div>보유</div>
-            <div>2.0유로 = 14,457.5원</div>
+            <div className={`${styles.textcolor} ${styles.context}`}>보유</div>
+            <div className={`${styles.textcolor} ${styles.money}`}>
+              2.0유로 = 14,457.5원
+            </div>
           </div>
           <div>
-            <button onClick={askClick}>버튼</button>
+            <Button
+              variant="contained"
+              disableElevation
+              onClick={askClick}
+              sx={{
+                width: 140,
+                height: '42px',
+                fontSize: '17px',
+                backgroundColor: '#0064FF',
+                borderRadius: 2,
+                fontWeight: 600,
+              }}
+            >
+              환전 요청
+            </Button>
           </div>
         </div>
 
-        {/* 중국 */}
         <div className={styles.horizontal}>
-          <div>중국위안</div>
+          <div className={`${styles.textcolor} ${styles.country}`}>
+            중국위안
+          </div>
           <div className={styles.horizontal}>
-            <div>보유</div>
-            <div>0위안 = 0원</div>
+            <div className={`${styles.textcolor} ${styles.context}`}>보유</div>
+            <div className={`${styles.textcolor} ${styles.money}`}>
+              0위안 = 0원
+            </div>
           </div>
           <div>
-            <button onClick={askClick}>버튼</button>
+            <Button
+              variant="contained"
+              disableElevation
+              onClick={askClick}
+              sx={{
+                width: 140,
+                height: '42px',
+                fontSize: '17px',
+                backgroundColor: '#0064FF',
+                borderRadius: 2,
+                fontWeight: 600,
+              }}
+            >
+              환전 요청
+            </Button>
           </div>
         </div>
       </div>
@@ -95,7 +162,7 @@ const Mypoint: React.FC = () => {
         <div style={divBorder}>
           중국위안 190원<button onClick={currencyButton}>버튼</button>
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }
