@@ -63,19 +63,21 @@
 
 .horizontal1 {
   display: flex;
+  justify-content: space-between;
+  margin-right: 60px;
 }
 
 .smaller {
   display: none;
 }
 
-@media (max-width: 1522px) {
+@media (max-width: 1660px) {
   .horizontal1 {
     display: none;
   }
   .smaller {
     display: block;
-    align-items: center;
+    text-align: center;
   }
 }
 
@@ -102,7 +104,6 @@
   font-weight: bold;
   font-size: clamp(14px, 1.4vw, 18px);
   padding-top: 12px;
-  padding-right: 1vw;
 }
 
 .money {
@@ -110,7 +111,7 @@
   font-weight: bold;
   font-size: clamp(16px, 2vw, 22px);
   padding-top: 8px;
-  margin-left: auto;
+  margin-left: 2px;
   margin-right: 25px;
 }
 
@@ -129,11 +130,14 @@
   color: #585865;
   font-weight: bold;
   font-size: clamp(14px, 1.3vw, 18px);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+  margin-right: 40px;
 }
 
 .maindiv {
   box-shadow:
     -6px 6px 10px rgba(0, 0, 0, 0.364),
     4px 4px 8px rgba(0, 0, 0, 0.121);
+  margin-left: 40px;
+  margin-right: 40px;
 }
