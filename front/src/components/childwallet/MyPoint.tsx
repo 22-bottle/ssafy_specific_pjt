@@ -107,25 +107,23 @@ const Mypoint: React.FC = () => {
           </div>
         </div>
 
-        {/* <div className={styles.horizontal}>
-          <div className={`${styles.textcolor} ${styles.country}`}>
-            중국위안
+        {/* 중국 */}
+        <div className={styles.horizontal}>
+          <div className={styles.country}>중국위안</div>
+          <div className={styles.horizontal1}>
+            <div className={styles.context}>보유</div>
+            <div className={styles.money}>0위안 = 0원</div>
           </div>
-          <div className={styles.horizontal}>
-            <div className={`${styles.textcolor} ${styles.context}`}>보유</div>
-            <div className={`${styles.textcolor} ${styles.money}`}>
-              0위안 = 0원
-            </div>
-          </div>
-          <div>
+          <div className={styles.button}>
             <Button
               variant="contained"
               disableElevation
               onClick={askClick}
               sx={{
-                width: 140,
-                height: '42px',
-                fontSize: '17px',
+                width: 'clamp(100px, 15vw, 140px)',
+                height: 'clamp(35px, 6vw, 45px)',
+                fontSize: 'clamp(14px, 1.7vw, 17px)',
+                paddingBottom: '3px',
                 backgroundColor: '#0064FF',
                 borderRadius: 2,
                 fontWeight: 600,
@@ -134,7 +132,7 @@ const Mypoint: React.FC = () => {
               환전 요청
             </Button>
           </div>
-        </div> */}
+        </div>
       </div>
 
       {/* <p>실시간 환율 확인하기</p>
