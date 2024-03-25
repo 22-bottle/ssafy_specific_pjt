@@ -14,22 +14,17 @@ const Mypoint: React.FC = () => {
   //   navigate('/currency/detail')
   // }
 
-  // const divBorder = {
-  //   border: '1px solid black',
-  //   margin: '10px',
-  // }
-
   return (
     <div className={styles.container}>
       {/* 메인1 */}
       <div className={styles.pointtitle}>획득 포인트</div>
-      {/* <div style={divBorder}>
+      <div>
         <div className={styles.horizontal}>
           <div className={styles.possibletext}>이승재님의 환전 가능 금액 </div>
           <div className={styles.possiblemoney}>총 20,226원</div>
         </div>
 
-        <div className={styles.horizontal}>
+        {/* <div className={styles.horizontal}>
           <div className={`${styles.textcolor} ${styles.country}`}>
             미국달러
           </div>
@@ -141,10 +136,10 @@ const Mypoint: React.FC = () => {
               환전 요청
             </Button>
           </div>
-        </div>
+        </div> */}
       </div>
 
-      <p>실시간 환율 확인하기</p>
+      {/* <p>실시간 환율 확인하기</p>
       <div style={divBorder}>
         <div style={divBorder}>
           <h2>실시간 환율</h2>
