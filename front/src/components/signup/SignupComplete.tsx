@@ -10,9 +10,9 @@ const SignupComplete: React.FC = () => {
         <div className={styles.icon}>
           <CheckCircleRoundedIcon style={{ color: '#0064FF', fontSize: 100 }} />
         </div>
-        <div className={styles.subtitle}>회원가입을 완료했습니다!</div>
-        <div className={styles.title1}>이채은님,</div>
-        <div className={styles.title2}>환영합니다!</div>
+        <div className={styles.subtitle}>회원가입을 완료했습니다.</div>
+        <div className={styles.title1}>환영합니다!</div>
+        <div className={styles.title2}>즐거운 여행을 시작하세요 😀</div>
 
         {/* 회원가입 완료 버튼 */}
         <div className={styles.button}>

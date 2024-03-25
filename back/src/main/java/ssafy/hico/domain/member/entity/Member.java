@@ -2,24 +2,37 @@ package ssafy.hico.domain.member.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.CreationTimestamp;
+import ssafy.hico.domain.quiz.entity.QuizStatus;
+import ssafy.hico.domain.stage.entity.StageStatus;
+import ssafy.hico.domain.wallet.entity.FrWallet;
+import ssafy.hico.global.entity.BaseTimeEntity;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
-@NoArgsConstructor
+@Builder
 @Table(name = "member")
-public class Member {
+@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Member extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
 
-    @Column(name = "phone_number")
-    private String phoneNumber;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_id")
+    private Member parent;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "user_key")
+    private String userKey;
 
     @Column(name = "password")
     private String password;
@@ -27,19 +40,44 @@ public class Member {
     @Column(name = "name")
     private String name;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "gender")
-    private String gender;
+    private Gender gender;
 
     @Column(name = "birth_date")
     private LocalDate birthDate;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "role")
-    private String role;
+    private Role role;
 
     @Column(name = "refresh_token")
     private String refreshToken;
 
-    @CreationTimestamp
-    @Column(name = "create_time")
-    private LocalDateTime createTime;
+    @Column(name = "season_num")
+    //@ColumnDefault("1")
+    private Integer seasonNum;
+
+    @Column(name = "fuel")
+    private Integer fuel;
+
+    @Column(name = "is_tutorial")
+    private Boolean isTutorial;
+
+    @OneToOne(mappedBy = "member")
+    private FrWallet frWallet;
+
+    @OneToMany(mappedBy = "member")
+    private List<StageStatus> stageStatuses = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    private List<QuizStatus> quizStatuses = new ArrayList<>();
+
+    @Column(name = "invitation code")
+    private String invitationCode;
+
+    public void modifyTutorial() {
+        this.isTutorial = true;
+    }
+
 }
