@@ -6,7 +6,7 @@ import updown from '../../assets/updow.png'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
-import ListItemText from '@mui/material/ListItemText'
+import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
 import { useNavigate } from 'react-router-dom'
 
 const Mypoint: React.FC = () => {
@@ -196,9 +196,12 @@ const Mypoint: React.FC = () => {
               <ListItemButton onClick={currencyButton} sx={{ minHeight: '150px', alignItems: 'center' }}>
                 <div className={styles.col1}>
                   <div className={styles.row0}>미국달러</div>
-                  <div className={styles.col2}>
-                    <div className={styles.row1}>1,332원</div>
-                    <div className={styles.row2red}>3.34원</div>
+                  <div className={styles.rightContainer}>
+                    <div className={styles.col2}>
+                      <div className={styles.row1}>1,332원</div>
+                      <div className={styles.row2red}>3.34원</div>
+                    </div>
+                    <ArrowForwardIosRoundedIcon sx={{ fontSize: '35px', color:'#C2C2C9'}}/>
                   </div>
                 </div>
               </ListItemButton>
@@ -207,9 +210,12 @@ const Mypoint: React.FC = () => {
               <ListItemButton onClick={currencyButton} sx={{ minHeight: '150px', alignItems: 'center' }}>
               <div className={styles.col1}>
                   <div className={styles.row0}>일본엔</div>
-                  <div className={styles.col2}>
-                    <div className={styles.row1}>885원</div>
-                    <div className={styles.row2blue}>0.38원</div>
+                  <div className={styles.rightContainer}>
+                    <div className={styles.col2}>
+                      <div className={styles.row1}>885원</div>
+                      <div className={styles.row2blue}>0.38원</div>
+                    </div>
+                    <ArrowForwardIosRoundedIcon sx={{ fontSize: '35px', color:'#C2C2C9'}}/>
                   </div>
                 </div>
               </ListItemButton>
@@ -218,9 +224,12 @@ const Mypoint: React.FC = () => {
               <ListItemButton onClick={currencyButton} sx={{ minHeight: '150px', alignItems: 'center' }}>
               <div className={styles.col1}>
                   <div className={styles.row0}>유럽유로</div>
-                  <div className={styles.col2}>
-                    <div className={styles.row1}>1,445원</div>
-                    <div className={styles.row2red}>4.45원</div>
+                  <div className={styles.rightContainer}>
+                    <div className={styles.col2}>
+                      <div className={styles.row1}>1,445원</div>
+                      <div className={styles.row2red}>4.45원</div>
+                    </div>
+                    <ArrowForwardIosRoundedIcon sx={{ fontSize: '35px', color:'#C2C2C9'}}/>
                   </div>
                 </div>
               </ListItemButton>
@@ -229,9 +238,12 @@ const Mypoint: React.FC = () => {
               <ListItemButton onClick={currencyButton} sx={{ minHeight: '150px', alignItems: 'center' }}>
               <div className={styles.col1}>
                   <div className={styles.row0}>중국위안</div>
-                  <div className={styles.col2}>
-                    <div className={styles.row1}>187원</div>
-                    <div className={styles.row2red}>0.42원</div>
+                  <div className={styles.rightContainer}>
+                    <div className={styles.col2}>
+                      <div className={styles.row1}>187원</div>
+                      <div className={styles.row2red}>0.42원</div>
+                    </div>
+                    <ArrowForwardIosRoundedIcon sx={{ fontSize: '35px', color:'#C2C2C9'}}/>
                   </div>
                 </div>
               </ListItemButton>
