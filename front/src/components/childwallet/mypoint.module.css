@@ -1,14 +1,19 @@
 .container {
-  display: flex;
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(8, 1fr);
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  gap: 10px;
 }
 
 .pointtitle {
   color: #585865;
   font-size: 40px;
   font-weight: bold;
+  grid-column: 1 / -1;
+  text-align: center;
+  margin-top: 30px;
 }
 
 .horizontal {
@@ -25,5 +30,24 @@
 .possiblemoney {
   color: #202632;
   font-size: 24px;
+  font-weight: bold;
+}
+
+.textcolor {
+  color: #585865;
+}
+
+.country {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.context {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.money {
+  font-size: 18px;
   font-weight: bold;
 }
