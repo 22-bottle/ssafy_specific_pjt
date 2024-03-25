@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.pointtitle {
+  color: #585865;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.horizontal {
+  display: flex;
+  align-items: center;
+}
+
+.possibletext {
+  color: #585865;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.possiblemoney {
+  color: #202632;
+  font-size: 24px;
+  font-weight: bold;
+}
