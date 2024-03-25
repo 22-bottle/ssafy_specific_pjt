@@ -80,25 +80,23 @@ const Mypoint: React.FC = () => {
           </div>
         </div>
 
-        {/* <div className={styles.horizontal}>
-          <div className={`${styles.textcolor} ${styles.country}`}>
-            유럽유로
+        {/* 유럽 */}
+        <div className={styles.horizontal}>
+          <div className={styles.country}>유럽유로</div>
+          <div className={styles.horizontal1}>
+            <div className={styles.context}>보유</div>
+            <div className={styles.money}>2.0유로 = 14,457.5원</div>
           </div>
-          <div className={styles.horizontal}>
-            <div className={`${styles.textcolor} ${styles.context}`}>보유</div>
-            <div className={`${styles.textcolor} ${styles.money}`}>
-              2.0유로 = 14,457.5원
-            </div>
-          </div>
-          <div>
+          <div className={styles.button}>
             <Button
               variant="contained"
               disableElevation
               onClick={askClick}
               sx={{
-                width: 140,
-                height: '42px',
-                fontSize: '17px',
+                width: 'clamp(100px, 15vw, 140px)',
+                height: 'clamp(35px, 6vw, 45px)',
+                fontSize: 'clamp(14px, 1.7vw, 17px)',
+                paddingBottom: '3px',
                 backgroundColor: '#0064FF',
                 borderRadius: 2,
                 fontWeight: 600,
@@ -109,7 +107,7 @@ const Mypoint: React.FC = () => {
           </div>
         </div>
 
-        <div className={styles.horizontal}>
+        {/* <div className={styles.horizontal}>
           <div className={`${styles.textcolor} ${styles.country}`}>
             중국위안
           </div>
