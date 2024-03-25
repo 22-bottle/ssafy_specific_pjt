@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  database:
+    image: mysql:latest
+    container_name: mysql-hico
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: hico
+    ports:
+      - 3306:3306
+  #    volumes:
+  #      - ./mariadb/data:/var/lib/mysql
+  #      - ./mariadb/conf.d:/etc/mysql/conf.d
+  #      - ./mariadb/db/initdb.d:/docker-entrypoint-initdb.d
+  backend:
+    container_name: backend
+    build:
+      context: ./back
+      dockerfile: Dockerfile
+    restart: always
+    #    environment:
+    #      SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/test?useSSL=false&allowPublicKeyRetrieval=true
+    #      SPRING_DATASOURCE_USERNAME: root
+    #      SPRING_DATASOURCE_PASSWORD: 3025
+    ports:
+      - 8081:8081
+    depends_on:
+      - database
+  frontend:
+    container_name: frontend
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 3000:3000
+    depends_on:
+      - backend
+networks:
+  default:
+    name: hico_net
+    external: true

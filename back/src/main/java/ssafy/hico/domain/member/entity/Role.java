@@ -1,4 +1,5 @@
 package ssafy.hico.domain.member.entity;
 
-public class Parent {
+public enum Role {
+    CHILD, PARENT, ADMIN
 }

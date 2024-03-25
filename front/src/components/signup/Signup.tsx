@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, startTransition } from 'react'
 import styles from './signup.module.css'
 import { useNavigate } from 'react-router-dom'
 import Radio from '@mui/material/Radio'
@@ -6,7 +6,7 @@ import RadioGroup from '@mui/material/RadioGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
-import Select, { SelectChangeEvent } from '@mui/material/Select'
+import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import TextField from '@mui/material/TextField'
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo'
@@ -17,33 +17,64 @@ import { Typography } from '@mui/material'
 import { Grid } from '@mui/material'
 import { IconButton } from '@mui/material'
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
+import dayjs from 'dayjs'
+import { join } from '@/api/member'
 
 function Signup() {
   const navigate = useNavigate()
 
   // 계좌 등록 화면으로 이동해야 한다. 경로 변경 필요!
-  const completeClick = () => {
-    navigate('/parentaccount')
+  const completeClick = async () => {
+    //날짜형식 변경
+    const birthDateformated = birthDate.format('YYYY-MM-DD')
+    console.log(
+      'signup 입력 변수 확인->api에 이 변수들 post',
+      role,
+      gender,
+      name,
+      email,
+      password,
+      confirm,
+      code,
+      birthDateformated
+    )
+    try {
+      const response = await join(
+        email,
+        password,
+        name,
+        birthDateformated,
+        gender,
+        role,
+        code
+      )
+      console.log(response.data) // 요청 성공 시 응답 데이터 로깅
+      // 성공 처리 로직...
+    } catch (error) {
+      console.error(error) // 에러 로깅
+      // 에러 처리 로직...
+    }
+    // api 함수에 보내기
+    startTransition(() => {
+      navigate('/mainparent/childstatus')
+    })
   }
-
-  const divBorder = {
-    border: '1px solid black',
-    margin: '10px',
-  }
-
-  // 초대코드 로직
-  const [selectedValue, setSelectedValue] = useState('female')
-
-  const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedValue(event.target.value)
-  }
-
-  // 성별 로직
-  const [age, setAge] = useState('')
-
-  const handleSelectChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value)
-  }
+  // 이메일
+  const [email, setEmail] = useState('')
+  // 비밀번호
+  const [password, setPassword] = useState('')
+  //비밀번호 확인
+  const [confirm, setConfirm] = useState('')
+  //이름
+  const [name, setName] = useState('')
+  //생년월일
+  const [birthDate, setBirthDate] = useState(dayjs('1111-11-11'))
+  // 성별 판별
+  const [gender, setGender] = useState('female')
+  // 부모, 아이 역할
+  const [role, setRole] = useState('PARENT')
+  // 초대 코드
+  const [code, setCode] = useState('')
 
   return (
     <div className={styles.materialContainer}>
@@ -66,12 +97,12 @@ function Signup() {
                 row
                 aria-labelledby="demo-row-radio-buttons-group-label"
                 name="row-radio-buttons-group"
-                defaultValue="female"
-                value={selectedValue}
-                onChange={handleRadioChange}
+                defaultValue="ROLE"
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
               >
                 <FormControlLabel
-                  value="female"
+                  value="CHILD"
                   control={
                     <Radio
                       sx={{
@@ -92,7 +123,7 @@ function Signup() {
                   }
                 />
                 <FormControlLabel
-                  value="male"
+                  value="PARENT"
                   control={
                     <Radio
                       sx={{
@@ -116,7 +147,7 @@ function Signup() {
             </FormControl>
           </Grid>
           {/* 부모님 초대코드, 아이를 선택했을 때만 표시 */}
-          {selectedValue === 'female' && (
+          {role === 'CHILD' && (
             <Grid
               item
               xs={12}
@@ -130,6 +161,8 @@ function Signup() {
                 type="text"
                 variant="standard"
                 color="primary"
+                value={code}
+                onChange={(e) => setCode(e.target.value)}
                 inputProps={{
                   style: {
                     fontSize: 22,
@@ -183,8 +216,8 @@ function Signup() {
               <Select
                 labelId="gender"
                 id="gender"
-                value={age}
-                onChange={handleSelectChange}
+                value={gender}
+                onChange={(e) => setGender(e.target.value)}
                 sx={{
                   color: 'white',
                   fontSize: 22,
@@ -204,10 +237,10 @@ function Signup() {
                 }}
               >
                 <MenuItem value=""></MenuItem>
-                <MenuItem value={10} sx={{ fontSize: 20 }}>
+                <MenuItem value={'WOMAN'} sx={{ fontSize: 20 }}>
                   여자
                 </MenuItem>
-                <MenuItem value={20} sx={{ fontSize: 20 }}>
+                <MenuItem value={'MAN'} sx={{ fontSize: 20 }}>
                   남자
                 </MenuItem>
               </Select>
@@ -223,6 +256,10 @@ function Signup() {
                     variant="standard"
                     color="primary"
                     label="생년월일"
+                    value={birthDate}
+                    onChange={(newValue) => {
+                      setBirthDate(newValue ? newValue : dayjs('1111-11-11'))
+                    }}
                     inputProps={{
                       style: {
                         fontSize: 22,
@@ -268,6 +305,8 @@ function Signup() {
               type="text"
               variant="standard"
               color="primary"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               inputProps={{
                 style: {
                   fontSize: 22,
@@ -307,6 +346,8 @@ function Signup() {
               type="text"
               variant="standard"
               color="primary"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               inputProps={{
                 style: {
                   fontSize: 22,
@@ -349,6 +390,8 @@ function Signup() {
               type="password"
               variant="standard"
               color="primary"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               inputProps={{
                 style: {
                   fontSize: 22,
@@ -389,6 +432,8 @@ function Signup() {
               type="password"
               variant="standard"
               color="primary"
+              value={confirm}
+              onChange={(e) => setConfirm(e.target.value)}
               inputProps={{
                 style: {
                   fontSize: 22,
@@ -423,7 +468,7 @@ function Signup() {
 
         {/* 회원가입 완료 버튼 */}
         <div className={`${styles.button} ${styles.login}`}>
-          <button type="submit">
+          <button type="submit" onClick={completeClick}>
             <span>회원가입</span>
           </button>
         </div>
