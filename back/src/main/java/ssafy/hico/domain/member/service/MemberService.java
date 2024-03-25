@@ -128,6 +128,7 @@ public class MemberService {
             return LoginResponse.builder()
                     .tokenResponse(tokenResponse)
                     .isAccount(isAccount)
+                    .name(member.getName())
                     .build();
         } else {
             throw new CustomException(ErrorCode.INVALID_PASSWORD);

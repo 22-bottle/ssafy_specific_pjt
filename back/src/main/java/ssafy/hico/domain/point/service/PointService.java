@@ -84,13 +84,13 @@ public class PointService {
 
     public Optional<List<ExchangeRate>> findExchangeRateByTodayOrElseYesterday() {
         LocalDate today = LocalDate.now();
-        Optional<List<ExchangeRate>> todayExchangeRate = exchangeRateRepository.findAllByTodayDate(today);
+        Optional<List<ExchangeRate>> todayExchangeRate = exchangeRateRepository.findAllByTodayDateOrderByCountry(today);
 
         if (todayExchangeRate.isPresent() && !todayExchangeRate.get().isEmpty()) {
             return todayExchangeRate;
         } else {
             LocalDate yesterday = today.minusDays(1);
-            return exchangeRateRepository.findAllByTodayDate(yesterday);
+            return exchangeRateRepository.findAllByTodayDateOrderByCountry(yesterday);
         }
     }
 }
