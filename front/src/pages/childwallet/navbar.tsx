@@ -28,7 +28,7 @@ function ResponsiveAppBar() {
 
 
   return (
-    <AppBar position="fixed" sx={{ height: 85, backgroundColor: 'white' }}>
+    <AppBar position="fixed" sx={{ height: 85, backgroundColor: 'white' }} elevation={0}>
       <Container maxWidth="xl">
         <Toolbar 
           disableGutters 
@@ -52,7 +52,7 @@ function ResponsiveAppBar() {
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ marginTop: '25px', color: '#585865', display: 'block', fontWeight: 'bold', mx: '50px', fontSize: '24px' }}
+                sx={{ marginTop: '25px', color: '#585865', display: 'block', fontWeight: 'bold', mx: '3.5vw', fontSize: '1.65vw' }}
               >
                 {page}
               </Button>
@@ -104,7 +104,7 @@ function ResponsiveAppBar() {
           {/* 작은 화면 로고 */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <Link to="/mainparent" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
-              <img src={logoImage} alt="LOGO" style={{ height: '50px', marginBottom: 4.5 }} />
+              <img src={logoImage} alt="LOGO" style={{ height: '65px' }} />
             </Link>
           </Box>
 
