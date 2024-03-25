@@ -203,7 +203,7 @@ const Mypoint: React.FC = () => {
                     <img
                       src={usa}
                       alt="usa flag"
-                      style={{ height: '80px', marginRight: '20px' }}
+                      style={{ height: '5.5vw', marginRight: '20px' }}
                     />
                     <div className={styles.row0}>미국달러</div>
                   </div>
@@ -224,7 +224,7 @@ const Mypoint: React.FC = () => {
                     <img
                       src={japan}
                       alt="japan flag"
-                      style={{ height: '80px', marginRight: '20px' }}
+                      style={{ height: '5.5vw', marginRight: '20px' }}
                     />
                     <div className={styles.row0}>일본엔</div>
                   </div>
@@ -245,7 +245,7 @@ const Mypoint: React.FC = () => {
                     <img
                       src={europe}
                       alt="europe flag"
-                      style={{ height: '110px', marginRight: '10px' }}
+                      style={{ height: '7.5vw', marginRight: '10px' }}
                     />
                     <div className={styles.row0}>유럽유로</div>
                   </div>
@@ -266,7 +266,7 @@ const Mypoint: React.FC = () => {
                     <img
                       src={china}
                       alt="china flag"
-                      style={{ height: '80px', marginRight: '20px' }}
+                      style={{ height: '5.5vw', marginRight: '20px' }}
                     />
                     <div className={styles.row0}>중국위안</div>
                   </div>
