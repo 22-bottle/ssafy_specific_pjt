@@ -40,7 +40,7 @@ const Mypoint: React.FC = () => {
           </div>
         </div>
 
-        {/* 미국 */}
+        {/* 일본 */}
         <div className={styles.horizontal}>
           <div>미국달러</div>
           <div className={styles.horizontal}>
@@ -51,7 +51,8 @@ const Mypoint: React.FC = () => {
             <button onClick={askClick}>버튼</button>
           </div>
         </div>
-        {/* 미국 */}
+
+        {/* 유럽 */}
         <div className={styles.horizontal}>
           <div>미국달러</div>
           <div className={styles.horizontal}>
@@ -62,7 +63,7 @@ const Mypoint: React.FC = () => {
             <button onClick={askClick}>버튼</button>
           </div>
         </div>
-        {/* 미국 */}
+        {/* 중국 */}
         <div className={styles.horizontal}>
           <div>미국달러</div>
           <div className={styles.horizontal}>
