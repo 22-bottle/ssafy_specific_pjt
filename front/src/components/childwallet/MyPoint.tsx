@@ -7,6 +7,10 @@ import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
+import usa from '../../assets/flag_usa.png'
+import japan from '../../assets/flag_japan.png'
+import europe from '../../assets/flag_europe.png'
+import china from '../../assets/flag_china.png'
 import { useNavigate } from 'react-router-dom'
 
 const Mypoint: React.FC = () => {
@@ -178,7 +182,7 @@ const Mypoint: React.FC = () => {
       </div>
 
       <div className={styles.main2}>
-        <div className={styles.pointtitle} id="my-anchor">
+        <div className={styles.pointtitle}>
           실시간 환율
         </div>
         <div className={styles.subtitle}>
@@ -186,16 +190,23 @@ const Mypoint: React.FC = () => {
           <img
             src={updown}
             alt="boy"
-            style={{ height: '20px', marginTop: 3, marginLeft: '15px' }}
+            style={{ height: '25px', marginTop: 3, marginLeft: '15px' }}
           />
         </div>
         <div className={styles.maindiv}>
           {/* Material UI: Lists */}
           <List>
-            <ListItem disablePadding >
-              <ListItemButton onClick={currencyButton} sx={{ minHeight: '150px', alignItems: 'center' }}>
+            <ListItem disablePadding  sx={{ minHeight: '160px', alignItems: 'center' }}>
+              <ListItemButton onClick={currencyButton} sx={{ minHeight: '130px'}}>
                 <div className={styles.col1}>
-                  <div className={styles.row0}>미국달러</div>
+                  <div className={styles.countryInfo}>
+                    <img
+                      src={usa}
+                      alt="usa flag"
+                      style={{ height: '80px', marginRight: '20px' }}
+                    />
+                    <div className={styles.row0}>미국달러</div>
+                  </div>
                   <div className={styles.rightContainer}>
                     <div className={styles.col2}>
                       <div className={styles.row1}>1,332원</div>
@@ -206,10 +217,17 @@ const Mypoint: React.FC = () => {
                 </div>
               </ListItemButton>
             </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton onClick={currencyButton} sx={{ minHeight: '150px', alignItems: 'center' }}>
-              <div className={styles.col1}>
-                  <div className={styles.row0}>일본엔</div>
+            <ListItem disablePadding sx={{ minHeight: '160px', alignItems: 'center' }}>
+              <ListItemButton onClick={currencyButton} sx={{ minHeight: '130px', alignItems: 'center' }}>
+                <div className={styles.col1}>
+                  <div className={styles.countryInfo}>
+                    <img
+                      src={japan}
+                      alt="japan flag"
+                      style={{ height: '80px', marginRight: '20px' }}
+                    />
+                    <div className={styles.row0}>일본엔</div>
+                  </div>
                   <div className={styles.rightContainer}>
                     <div className={styles.col2}>
                       <div className={styles.row1}>885원</div>
@@ -221,9 +239,16 @@ const Mypoint: React.FC = () => {
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
-              <ListItemButton onClick={currencyButton} sx={{ minHeight: '150px', alignItems: 'center' }}>
-              <div className={styles.col1}>
-                  <div className={styles.row0}>유럽유로</div>
+              <ListItemButton onClick={currencyButton} sx={{ minHeight: '160px', alignItems: 'center' }}>
+                <div className={styles.col1}>
+                  <div className={styles.countryInfo1}>
+                    <img
+                      src={europe}
+                      alt="europe flag"
+                      style={{ height: '110px', marginRight: '10px' }}
+                    />
+                    <div className={styles.row0}>유럽유로</div>
+                  </div>
                   <div className={styles.rightContainer}>
                     <div className={styles.col2}>
                       <div className={styles.row1}>1,445원</div>
@@ -234,10 +259,17 @@ const Mypoint: React.FC = () => {
                 </div>
               </ListItemButton>
             </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton onClick={currencyButton} sx={{ minHeight: '150px', alignItems: 'center' }}>
-              <div className={styles.col1}>
-                  <div className={styles.row0}>중국위안</div>
+            <ListItem disablePadding  id="my-anchor">
+              <ListItemButton onClick={currencyButton} sx={{ minHeight: '160px', alignItems: 'center' }}>
+                <div className={styles.col1}>
+                  <div className={styles.countryInfo}>
+                    <img
+                      src={china}
+                      alt="china flag"
+                      style={{ height: '80px', marginRight: '20px' }}
+                    />
+                    <div className={styles.row0}>중국위안</div>
+                  </div>
                   <div className={styles.rightContainer}>
                     <div className={styles.col2}>
                       <div className={styles.row1}>187원</div>
