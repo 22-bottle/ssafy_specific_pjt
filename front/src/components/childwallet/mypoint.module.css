@@ -7,6 +7,10 @@
   gap: 10px;
 }
 
+.main {
+  grid-column: 3 / 7;
+}
+
 .pointtitle {
   color: #585865;
   font-size: 40px;
