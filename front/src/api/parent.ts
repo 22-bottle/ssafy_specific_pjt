@@ -1,17 +1,13 @@
 import axios, { AxiosError } from 'axios'
+import { http } from '@/axios'
 
 const api = {
-  code: 'http://localhost:8080/parent/main/code',
-  getChild: 'http://localhost:8080/parent/main',
+  code: '/parent/main/code',
+  getChild: '/parent/main',
 }
 
 async function code() {
-  const accessToken = localStorage.getItem('accessToken')
-  //   console.log(accessToken)
-  return await axios.get(api.code, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  })
+  // http는 '@/axios.ts'에 작성된 자동 헤더 생성 전송 함수
+  return await http.get(api.code)
 }
 export { code }

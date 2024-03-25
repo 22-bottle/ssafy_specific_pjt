@@ -47,6 +47,7 @@ function Login() {
         } else if (errorData.statusCode === 409) {
           alert('비밀번호가 일치하지 않습니다.')
         } else if (errorData.statusCode === 401) {
+          window.localStorage.clear()
           // 토큰 재발급 처리
           const newToken = await token()
           window.localStorage.setItem(
