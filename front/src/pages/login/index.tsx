@@ -25,7 +25,8 @@ function Login() {
       const response = await login(useremail, password)
       console.log(response.data)
       if (response.data.statusCode === 200) {
-        console.log('로그인 성공', response.data.data.tokenResponse)
+        // console.log('로그인 성공', response.data.data.tokenResponse)
+        console.log('로그인 성공', response.data)
         // token 저장
         window.localStorage.setItem(
           'accessToken',
@@ -35,12 +36,24 @@ function Login() {
           'refreshToken',
           response.data.data.tokenResponse.refreshToken
         )
-        if (response.data.data.account === false) {
+
+        // 사용자의 role에 따라 다른 페이지로 이동
+        const userRole = response.data.data.role; // 로그인 응답에서 role 추출
+        if (userRole === 'PARENT') {
           startTransition(() => {
-            // 등록된 계좌가 없을 때 계좌 등록 페이지로 이동
-            navigate('/parentaccount')
-          })
-        }
+            navigate('/mainparent/child-status'); // PARENT용 페이지 경로로 이동
+          });
+        } else if (userRole === 'CHILD') {
+          startTransition(() => {
+            navigate('/mainchild/worldmap'); // CHILD용 페이지 경로로 이동
+          });
+
+        // if (response.data.data.account === false) {
+        //   startTransition(() => {
+        //     // 등록된 계좌가 없을 때 계좌 등록 페이지로 이동
+        //     navigate('/parentaccount')
+        //   })
+        // }
         // 로컬 스토리지에 토큰 저장
       }
     } catch (error) {
