@@ -23,6 +23,8 @@ import Box from '@mui/material/Box'
 import ChildAdd from './ChildAdd'
 import { Doughnut } from 'react-chartjs-2'
 import 'chart.js/auto'
+import { useRecoilValue } from 'recoil'
+import { childrenListState } from '@/state/Parentselectors'
 
 const countries = ['usa', 'japan'] // 캐로셀 배열
 const countryNames: { [key: string]: string } = {
@@ -73,8 +75,37 @@ const dataMap: DataMap = {
     ],
   },
 }
+// 자녀 객체의 타입 정의
+type Child = {
+  id: number
+  name: string
+}
 
 const Childstatus: React.FC = () => {
+  // 자녀 아이디, 자녀 이름 불러오기
+  const [childId, setChildId] = useState('')
+  const [childName, setChildName] = useState('')
+  const ChildList = useRecoilValue(childrenListState)
+  useEffect(() => {
+    // ChildList가 로드되어 있고 비어있지 않은 경우 첫 번째 아이를 기본값으로 설정
+    if (ChildList.length > 0) {
+      const firstChild = ChildList[0]
+      setChildId(firstChild.id.toString())
+      setChildName(firstChild.name)
+    }
+  }, [ChildList])
+  // 자녀 아이디가 바뀌는것을 감지하고 이름 바꿔서 렌더링
+  // 이벤트 핸들러의 매개변수 타입을 SelectChangeEvent<string>로 명시
+  const handleChange = (event: SelectChangeEvent<string>) => {
+    const selectedId = event.target.value // 여기서 selectedId는 문자열입니다.
+    const selectedChild = ChildList.find(
+      (child: Child) => child.id.toString() === selectedId
+    )
+    if (selectedChild) {
+      setChildId(selectedId)
+      setChildName(selectedChild.name)
+    }
+  }
   const [selectedImage, setSelectedImage] = useState('')
 
   // 프로필 랜덤 사진
@@ -88,22 +119,12 @@ const Childstatus: React.FC = () => {
     setSelectedImage(images[randomIndex])
   }, [gender])
 
-  // 자녀이름 select
-  const [age, setAge] = useState<string>('10')
-  const handleChange = (event: SelectChangeEvent<string>) => {
-    setAge(event.target.value)
-  }
-
-  useEffect(() => {
-    const boyImages = [profileBoy1, profileBoy2, profileBoy3, profileBoy4]
-    const girlImages = [profileGirl1, profileGirl2, profileGirl3, profileGirl4]
-
-    // 성별 결정 로직 추가 설정 필요
-    // 예시로 '10'이면 남자 아이, '20'이면 여자 아이로 가정
-    const images = age === '10' ? boyImages : girlImages
-    const randomIndex = Math.floor(Math.random() * images.length)
-    setSelectedImage(images[randomIndex])
-  }, [age])
+  // useEffect(() => {
+  //   const boyImages = [profileBoy1, profileBoy2, profileBoy3, profileBoy4]
+  //   const girlImages = [profileGirl1, profileGirl2, profileGirl3, profileGirl4]
+  //   const randomIndex = Math.floor(Math.random() * images.length)
+  //   setSelectedImage(images[randomIndex])
+  // }, [])
 
   // 캐러셀 버튼
   // 현재 캐로셀의 인덱스 상태
@@ -173,7 +194,7 @@ const Childstatus: React.FC = () => {
         <div>
           <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
             <Select
-              value={age}
+              value={childId}
               onChange={handleChange}
               displayEmpty
               inputProps={{ 'aria-label': 'Without label' }}
@@ -191,8 +212,11 @@ const Childstatus: React.FC = () => {
                 },
               }}
             >
-              <MenuItem value={'10'}>이승재</MenuItem>
-              <MenuItem value={'20'}>이무진</MenuItem>
+              {ChildList.map((child: Child) => (
+                <MenuItem key={child.id} value={child.id.toString()}>
+                  {child.name}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
         </div>
