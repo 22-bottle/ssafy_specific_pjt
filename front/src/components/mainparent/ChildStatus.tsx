@@ -23,8 +23,9 @@ import Box from '@mui/material/Box'
 import ChildAdd from './ChildAdd'
 import { Doughnut } from 'react-chartjs-2'
 import 'chart.js/auto'
-import { useRecoilValue } from 'recoil'
-import { childrenListState } from '@/state/Parentselectors'
+import { useRecoilValue, useRecoilState } from 'recoil'
+import { childIdState } from '@/state/Parentatoms'
+import { childrenListState, getChildStudyList } from '@/state/Parentselectors'
 
 const countries = ['usa', 'japan'] // 캐로셀 배열
 const countryNames: { [key: string]: string } = {
@@ -83,29 +84,33 @@ type Child = {
 
 const Childstatus: React.FC = () => {
   // 자녀 아이디, 자녀 이름 불러오기
-  const [childId, setChildId] = useState('')
+  const [childId, setChildId] = useRecoilState(childIdState)
   const [childName, setChildName] = useState('')
   const ChildList = useRecoilValue(childrenListState)
+  const childStudyList = useRecoilValue(getChildStudyList)
+
+  // 컴포넌트가 마운트될 때 첫 번째 자녀를 기본값으로 설정
   useEffect(() => {
-    // ChildList가 로드되어 있고 비어있지 않은 경우 첫 번째 아이를 기본값으로 설정
     if (ChildList.length > 0) {
       const firstChild = ChildList[0]
-      setChildId(firstChild.id.toString())
+      setChildId(firstChild.id)
       setChildName(firstChild.name)
     }
-  }, [ChildList])
-  // 자녀 아이디가 바뀌는것을 감지하고 이름 바꿔서 렌더링
-  // 이벤트 핸들러의 매개변수 타입을 SelectChangeEvent<string>로 명시
+    console.log(childStudyList)
+  }, [ChildList]) // ChildList가 변경될 때마다 이 효과 실행
+
+  // 선택 변경 시 자녀의 ID와 이름을 업데이트
   const handleChange = (event: SelectChangeEvent<string>) => {
-    const selectedId = event.target.value // 여기서 selectedId는 문자열입니다.
+    const selectedId = parseInt(event.target.value, 10) // 선택된 ID를 숫자로 변환
     const selectedChild = ChildList.find(
-      (child: Child) => child.id.toString() === selectedId
+      (child: any) => child.id === selectedId
     )
     if (selectedChild) {
       setChildId(selectedId)
       setChildName(selectedChild.name)
     }
   }
+
   const [selectedImage, setSelectedImage] = useState('')
 
   // 프로필 랜덤 사진
@@ -194,7 +199,7 @@ const Childstatus: React.FC = () => {
         <div>
           <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
             <Select
-              value={childId}
+              value={childId.toString()} // Recoil state를 string으로 변환하여 사용
               onChange={handleChange}
               displayEmpty
               inputProps={{ 'aria-label': 'Without label' }}
@@ -212,7 +217,7 @@ const Childstatus: React.FC = () => {
                 },
               }}
             >
-              {ChildList.map((child: Child) => (
+              {ChildList.map((child: any) => (
                 <MenuItem key={child.id} value={child.id.toString()}>
                   {child.name}
                 </MenuItem>

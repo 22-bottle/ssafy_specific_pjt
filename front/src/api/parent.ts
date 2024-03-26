@@ -4,6 +4,8 @@ import { http } from '@/axios'
 const api = {
   code: '/parent/main/code',
   getChild: '/parent/main',
+  //자녀 학습 현황
+  study: `/parent/main`,
 }
 
 async function code() {
@@ -13,4 +15,7 @@ async function code() {
 async function getChild() {
   return await http.get(api.getChild)
 }
-export { code, getChild }
+async function study(id: number) {
+  return await http.get(`${api.study}/${id}`)
+}
+export { code, getChild, study }
