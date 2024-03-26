@@ -21,6 +21,7 @@ import ssafy.hico.global.response.error.ErrorCode;
 import ssafy.hico.global.response.error.exception.CustomException;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,6 +91,7 @@ public class ExchangeRateService {
 
     public List<ExchangeRateFindResponse> findTodayExchangeRate() {
         LocalDate today = LocalDate.now();
+        if (LocalTime.now().isBefore(LocalTime.of(11, 10))) today = today.minusDays(1);
         List<ExchangeRate> exchangeRates = exchangeRateRepository.findAllByTodayDateOrderByCountry(today)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_EXCHANGE_RATE));
         List<ExchangeRateFindResponse> exchangeRateList = new ArrayList<>();
@@ -101,6 +103,7 @@ public class ExchangeRateService {
 
     public List<ExchangeRateFindResponse> findMonthExchangeRate(long countryId) {
         LocalDate today = LocalDate.now();
+        if (LocalTime.now().isBefore(LocalTime.of(11, 10))) today = today.minusDays(1);
         Country country = countryRepository.findById(countryId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_COUNTRY));
         List<ExchangeRate> exchangeRates = exchangeRateRepository.findAllByCountryAndTodayDateBetween(country, today.minusDays(30), today)
