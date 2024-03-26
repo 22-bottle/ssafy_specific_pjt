@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './askWon.module.css'
 import { useNavigate } from 'react-router-dom'
 import IconButton from '@mui/material/IconButton'
@@ -7,22 +7,22 @@ import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 import Button from '@mui/material/Button'
 
 // 닫기 버튼
-interface ChildAddProps {
-  handleClose: () => void
+interface AskWonProps {
+  onClose: () => void
+  onConfirm: () => void
 }
-
-const Askwon: React.FC<ChildAddProps> = ({ handleClose }) => {
-  const navigate = useNavigate()
+const Askwon: React.FC<AskWonProps> = ({ onClose, onConfirm }) => {
+  const [modalState, setModalState] = useState('request')
 
   const completeClick = () => {
-    navigate('/childwallet/askcomplete')
+    setModalState('complete')
   }
 
   return (
     <div className={styles.container}>
       {/* 닫기 버튼 */}
       <IconButton
-        onClick={handleClose}
+        onClick={onClose}
         sx={{
           position: 'absolute',
           top: '15px',
@@ -44,7 +44,7 @@ const Askwon: React.FC<ChildAddProps> = ({ handleClose }) => {
           <div className={styles.maintext2}>10유로 (14,457.5원)</div>
           <div className={styles.maintext3}> 환전을 요청할까요?</div>
           <div className={styles.subtext1}>
-            환전 요청 금액을 다시한번 확인해주세요
+            환전 요청 금액을 다시한번 확인해주세요!
           </div>
         </div>
         {/* 버튼 */}
@@ -52,7 +52,7 @@ const Askwon: React.FC<ChildAddProps> = ({ handleClose }) => {
           <Button
             variant="contained"
             disableElevation
-            onClick={completeClick}
+            onClick={onConfirm}
             sx={{
               width: '100%',
               height: '55px',
