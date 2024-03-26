@@ -8,6 +8,8 @@ import styles from './mypoint.module.css'
 import Button from '@mui/material/Button'
 import Link from '@mui/material/Link'
 import updown from '../../assets/updow.png'
+import up from '../../assets/up.png'
+import down from '../../assets/down.png'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
@@ -36,7 +38,7 @@ const Mypoint: React.FC = () => {
     bgcolor: 'background.paper',
     borderRadius: '8px',
     boxShadow:
-      '-6px 6px 10px rgba(0, 0, 0, 0.364), 4px 4px 8px rgba(0, 0, 0, 0.121)', // 추가된 박스 쉐도우 스타일
+      '-6px 6px 10px rgba(0, 0, 0, 0.364), 4px 4px 8px rgba(0, 0, 0, 0.121)',
   }
 
   const currencyButton = () => {
@@ -286,11 +288,11 @@ const Mypoint: React.FC = () => {
           <List>
             <ListItem
               disablePadding
-              sx={{ minHeight: '150px', alignItems: 'center' }}
+              sx={{ minHeight: '130px', alignItems: 'center' }}
             >
               <ListItemButton
                 onClick={currencyButton}
-                sx={{ minHeight: '110px' }}
+                sx={{ minHeight: '100px' }}
               >
                 <div className={styles.col1}>
                   <div className={styles.countryInfo}>
@@ -304,7 +306,18 @@ const Mypoint: React.FC = () => {
                   <div className={styles.rightContainer}>
                     <div className={styles.col2}>
                       <div className={styles.row1}>1,332원</div>
-                      <div className={styles.row2red}>3.34원</div>
+                      <div className={styles.row2red}>
+                        3.34원
+                        <img
+                          src={up}
+                          alt="up"
+                          style={{
+                            height: '1.6vw',
+                            marginLeft: '4px',
+                            marginTop: '2px',
+                          }}
+                        />
+                      </div>
                     </div>
                     <ArrowForwardIosRoundedIcon
                       sx={{ fontSize: '35px', color: '#C2C2C9' }}
@@ -315,11 +328,11 @@ const Mypoint: React.FC = () => {
             </ListItem>
             <ListItem
               disablePadding
-              sx={{ minHeight: '150px', alignItems: 'center' }}
+              sx={{ minHeight: '130px', alignItems: 'center' }}
             >
               <ListItemButton
                 onClick={currencyButton}
-                sx={{ minHeight: '110px', alignItems: 'center' }}
+                sx={{ minHeight: '100px', alignItems: 'center' }}
               >
                 <div className={styles.col1}>
                   <div className={styles.countryInfo}>
@@ -333,7 +346,18 @@ const Mypoint: React.FC = () => {
                   <div className={styles.rightContainer}>
                     <div className={styles.col2}>
                       <div className={styles.row1}>885원</div>
-                      <div className={styles.row2blue}>0.38원</div>
+                      <div className={styles.row2blue}>
+                        0.38원
+                        <img
+                          src={down}
+                          alt="down"
+                          style={{
+                            height: '1.6vw',
+                            marginLeft: '4px',
+                            marginTop: '2px',
+                          }}
+                        />
+                      </div>
                     </div>
                     <ArrowForwardIosRoundedIcon
                       sx={{ fontSize: '35px', color: '#C2C2C9' }}
@@ -344,11 +368,11 @@ const Mypoint: React.FC = () => {
             </ListItem>
             <ListItem
               disablePadding
-              sx={{ minHeight: '150px', alignItems: 'center' }}
+              sx={{ minHeight: '130px', alignItems: 'center' }}
             >
               <ListItemButton
                 onClick={currencyButton}
-                sx={{ minHeight: '110px' }}
+                sx={{ minHeight: '100px' }}
               >
                 <div className={styles.col1}>
                   <div className={styles.countryInfo1}>
@@ -362,7 +386,18 @@ const Mypoint: React.FC = () => {
                   <div className={styles.rightContainer}>
                     <div className={styles.col2}>
                       <div className={styles.row1}>1,445원</div>
-                      <div className={styles.row2red}>4.45원</div>
+                      <div className={styles.row2red}>
+                        4.45원
+                        <img
+                          src={up}
+                          alt="up"
+                          style={{
+                            height: '1.6vw',
+                            marginLeft: '4px',
+                            marginTop: '2px',
+                          }}
+                        />
+                      </div>
                     </div>
                     <ArrowForwardIosRoundedIcon
                       sx={{ fontSize: '35px', color: '#C2C2C9' }}
@@ -373,26 +408,37 @@ const Mypoint: React.FC = () => {
             </ListItem>
             <ListItem
               disablePadding
-              sx={{ minHeight: '150px', alignItems: 'center' }}
+              sx={{ minHeight: '130px', alignItems: 'center' }}
               id="my-anchor"
             >
               <ListItemButton
                 onClick={currencyButton}
-                sx={{ minHeight: '160px' }}
+                sx={{ minHeight: '100px' }}
               >
                 <div className={styles.col1}>
                   <div className={styles.countryInfo}>
                     <img
                       src={china}
                       alt="china flag"
-                      style={{ height: '4.5vw', marginRight: '20px' }}
+                      style={{ height: '4.4vw', marginRight: '20px' }}
                     />
                     <div className={styles.row0}>중국위안</div>
                   </div>
                   <div className={styles.rightContainer}>
                     <div className={styles.col2}>
                       <div className={styles.row1}>187원</div>
-                      <div className={styles.row2red}>0.42원</div>
+                      <div className={styles.row2red}>
+                        0.42원
+                        <img
+                          src={up}
+                          alt="up"
+                          style={{
+                            height: '1.6vw',
+                            marginLeft: '4px',
+                            marginTop: '2px',
+                          }}
+                        />
+                      </div>
                     </div>
                     <ArrowForwardIosRoundedIcon
                       sx={{ fontSize: '35px', color: '#C2C2C9' }}
