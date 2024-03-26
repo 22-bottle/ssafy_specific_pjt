@@ -5,8 +5,8 @@
   "rules": {
     "prettier/prettier": 1, //0 off 1 warn 2 error
     "linebreak-style": 0,
-    "@typescript-eslint/no-unused-vars": 0,
-    "@typescript-eslint/no-explicit-any": 0,
-    "@typescript-eslint/no-var-requires": 0,
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-var-requires": "off",
   },
 }
