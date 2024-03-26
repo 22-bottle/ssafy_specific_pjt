@@ -23,6 +23,12 @@ import { join } from '@/api/member'
 function Signup() {
   const navigate = useNavigate()
 
+  const loginClick = () => {
+    startTransition(() => {
+      navigate('/')
+    })
+  }
+
   // 계좌 등록 화면으로 이동해야 한다. 경로 변경 필요!
   const completeClick = async () => {
     //날짜형식 변경
@@ -85,7 +91,10 @@ function Signup() {
           <div className={styles.title}>회원가입</div>
           {/* 닫기 버튼 */}
           <IconButton aria-label="close" size="large" className={styles.close}>
-            <CloseRoundedIcon style={{ color: 'white', fontSize: 40 }} />
+            <CloseRoundedIcon
+              onClick={loginClick}
+              style={{ color: 'white', fontSize: 40 }}
+            />
           </IconButton>
         </div>
 
