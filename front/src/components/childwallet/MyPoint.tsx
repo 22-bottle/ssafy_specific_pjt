@@ -34,12 +34,9 @@ const Mypoint: React.FC = () => {
     transform: 'translate(-50%, -50%)',
     width: 450,
     bgcolor: 'background.paper',
-    boxShadow: 40,
     borderRadius: '8px',
-  }
-
-  const askClick = () => {
-    navigate('/childwallet/ask')
+    boxShadow:
+      '-6px 6px 10px rgba(0, 0, 0, 0.364), 4px 4px 8px rgba(0, 0, 0, 0.121)', // 추가된 박스 쉐도우 스타일
   }
 
   const currencyButton = () => {
@@ -70,7 +67,7 @@ const Mypoint: React.FC = () => {
           <div className={styles.country}>
             <Lottie
               animationData={usalottie}
-              style={{ width: '4.5vw', height: '4.5vw' }}
+              style={{ width: '4.5vw', height: '4.5vw', marginRight: '6px' }}
             />
             미국달러
           </div>
@@ -86,7 +83,7 @@ const Mypoint: React.FC = () => {
             <Button
               variant="contained"
               disableElevation
-              onClick={askClick}
+              onClick={() => setOpen(true)}
               sx={{
                 width: 'clamp(100px, 15vw, 140px)',
                 height: 'clamp(35px, 6vw, 45px)',
@@ -100,6 +97,17 @@ const Mypoint: React.FC = () => {
               환전 요청
             </Button>
           </div>
+          {/* 환전 요청 모달 */}
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="ask-won-modal-title"
+            aria-describedby="ask-won-modal-description"
+          >
+            <Box sx={style}>
+              <AskWon handleClose={handleClose} />
+            </Box>
+          </Modal>
         </div>
 
         {/* 일본 */}
@@ -107,7 +115,7 @@ const Mypoint: React.FC = () => {
           <div className={styles.country}>
             <Lottie
               animationData={japanlottie}
-              style={{ width: '4.5vw', height: '4.5vw' }}
+              style={{ width: '4.5vw', height: '4.5vw', marginRight: '6px' }}
             />
             일본엔
           </div>
@@ -123,7 +131,7 @@ const Mypoint: React.FC = () => {
             <Button
               variant="contained"
               disableElevation
-              onClick={askClick}
+              onClick={() => setOpen(true)}
               sx={{
                 width: 'clamp(100px, 15vw, 140px)',
                 height: 'clamp(35px, 6vw, 45px)',
@@ -138,6 +146,17 @@ const Mypoint: React.FC = () => {
               환전 요청
             </Button>
           </div>
+          {/* 환전 요청 모달 */}
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="ask-won-modal-title"
+            aria-describedby="ask-won-modal-description"
+          >
+            <Box sx={style}>
+              <AskWon handleClose={handleClose} />
+            </Box>
+          </Modal>
         </div>
 
         {/* 유럽 */}
@@ -145,7 +164,7 @@ const Mypoint: React.FC = () => {
           <div className={styles.country}>
             <Lottie
               animationData={europelottie}
-              style={{ width: '4.5vw', height: '4.5vw' }}
+              style={{ width: '4.5vw', height: '4.5vw', marginRight: '6px' }}
             />
             유럽유로
           </div>
@@ -161,7 +180,7 @@ const Mypoint: React.FC = () => {
             <Button
               variant="contained"
               disableElevation
-              onClick={askClick}
+              onClick={() => setOpen(true)}
               sx={{
                 width: 'clamp(100px, 15vw, 140px)',
                 height: 'clamp(35px, 6vw, 45px)',
@@ -176,6 +195,17 @@ const Mypoint: React.FC = () => {
               환전 요청
             </Button>
           </div>
+          {/* 환전 요청 모달 */}
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="ask-won-modal-title"
+            aria-describedby="ask-won-modal-description"
+          >
+            <Box sx={style}>
+              <AskWon handleClose={handleClose} />
+            </Box>
+          </Modal>
         </div>
 
         {/* 중국 */}
@@ -183,7 +213,7 @@ const Mypoint: React.FC = () => {
           <div className={styles.country}>
             <Lottie
               animationData={chinalottie}
-              style={{ width: '4.5vw', height: '4.5vw' }}
+              style={{ width: '4.5vw', height: '4.5vw', marginRight: '6px' }}
             />
             중국위안
           </div>
@@ -218,8 +248,8 @@ const Mypoint: React.FC = () => {
           <Modal
             open={open}
             onClose={handleClose}
-            aria-labelledby="child-add-modal-title"
-            aria-describedby="child-add-modal-description"
+            aria-labelledby="ask-won-modal-title"
+            aria-describedby="ask-won-modal-description"
           >
             <Box sx={style}>
               <AskWon handleClose={handleClose} />
