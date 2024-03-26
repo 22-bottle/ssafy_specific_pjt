@@ -23,6 +23,12 @@ import { join } from '@/api/member'
 function Signup() {
   const navigate = useNavigate()
 
+  const loginClick = () => {
+    startTransition(() => {
+      navigate('/')
+    })
+  }
+
   // 계좌 등록 화면으로 이동해야 한다. 경로 변경 필요!
   const completeClick = async () => {
     //날짜형식 변경
@@ -68,7 +74,7 @@ function Signup() {
   //이름
   const [name, setName] = useState('')
   //생년월일
-  const [birthDate, setBirthDate] = useState(dayjs('1111-11-11'))
+  const [birthDate, setBirthDate] = useState(dayjs('2024-03-26'))
   // 성별 판별
   const [gender, setGender] = useState('female')
   // 부모, 아이 역할
@@ -84,7 +90,12 @@ function Signup() {
         <div className={styles.titleContainer}>
           <div className={styles.title}>회원가입</div>
           {/* 닫기 버튼 */}
-          <IconButton aria-label="close" size="large" className={styles.close}>
+          <IconButton
+            onClick={loginClick}
+            aria-label="close"
+            size="large"
+            className={styles.close}
+          >
             <CloseRoundedIcon style={{ color: 'white', fontSize: 40 }} />
           </IconButton>
         </div>
@@ -258,7 +269,7 @@ function Signup() {
                     label="생년월일"
                     value={birthDate}
                     onChange={(newValue) => {
-                      setBirthDate(newValue ? newValue : dayjs('1111-11-11'))
+                      setBirthDate(newValue ? newValue : dayjs('2024-03-26'))
                     }}
                     inputProps={{
                       style: {
