@@ -1,11 +1,27 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './nochild.module.css'
 import Button from '@mui/material/Button'
 import boy from '../../assets/nochild_boy.png'
+import { code } from '@/api/parent'
 
 const Nochild: React.FC = () => {
-  // 초대코드 저장 변수
-  const registCode = '52qpt2'
+  const [registCode, setRegistCode] = useState('')
+  useEffect(() => {
+    // 비동기 함수 정의
+    const fetchCode = async () => {
+      try {
+        const response = await code()
+        // console.log(response.data)
+        // 초대코드 업데이트
+        setRegistCode(response.data.data)
+      } catch (error) {
+        console.error('API 요청 중 오류 발생:', error)
+      }
+    }
+
+    // 비동기 함수 실행
+    fetchCode()
+  }, []) // 빈 배열을 넣어서 컴포넌트 마운트 시에만 실행되도록 함
 
   // 코드 클립보드 저장 함수
   const handleCopyCode = () => {
