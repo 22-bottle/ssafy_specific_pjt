@@ -21,14 +21,24 @@ import china from '../../assets/flag_china.png'
 import Modal from '@mui/material/Modal'
 import Box from '@mui/material/Box'
 import AskWon from './AskWon'
+import AskComplete from './AskComplete'
 import { useNavigate } from 'react-router-dom'
 
 const Mypoint: React.FC = () => {
   const navigate = useNavigate()
 
-  //  추가등록 모달
+  // 환전 요청 모달
   const [open, setOpen] = useState(false)
-  const handleClose = () => setOpen(false)
+  const [modalContent, setModalContent] = useState('ask')
+
+  const handleClose = () => {
+    setOpen(false)
+    setModalContent('ask') // 모달을 닫을 때 항상 'ask' 상태로 리셋
+  }
+
+  const handleComplete = () => {
+    setModalContent('complete')
+  }
   const style = {
     position: 'absolute',
     top: '50%',
@@ -107,7 +117,11 @@ const Mypoint: React.FC = () => {
             aria-describedby="ask-won-modal-description"
           >
             <Box sx={style}>
-              <AskWon handleClose={handleClose} />
+              {modalContent === 'ask' ? (
+                <AskWon onConfirm={handleComplete} onClose={handleClose} />
+              ) : (
+                <AskComplete onClose={handleClose} />
+              )}
             </Box>
           </Modal>
         </div>
@@ -156,7 +170,11 @@ const Mypoint: React.FC = () => {
             aria-describedby="ask-won-modal-description"
           >
             <Box sx={style}>
-              <AskWon handleClose={handleClose} />
+              {modalContent === 'ask' ? (
+                <AskWon onConfirm={handleComplete} onClose={handleClose} />
+              ) : (
+                <AskComplete onClose={handleClose} />
+              )}
             </Box>
           </Modal>
         </div>
@@ -205,7 +223,11 @@ const Mypoint: React.FC = () => {
             aria-describedby="ask-won-modal-description"
           >
             <Box sx={style}>
-              <AskWon handleClose={handleClose} />
+              {modalContent === 'ask' ? (
+                <AskWon onConfirm={handleComplete} onClose={handleClose} />
+              ) : (
+                <AskComplete onClose={handleClose} />
+              )}
             </Box>
           </Modal>
         </div>
@@ -254,7 +276,11 @@ const Mypoint: React.FC = () => {
             aria-describedby="ask-won-modal-description"
           >
             <Box sx={style}>
-              <AskWon handleClose={handleClose} />
+              {modalContent === 'ask' ? (
+                <AskWon onConfirm={handleComplete} onClose={handleClose} />
+              ) : (
+                <AskComplete onClose={handleClose} />
+              )}
             </Box>
           </Modal>
         </div>
