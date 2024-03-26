@@ -18,8 +18,8 @@ const localStorageEffect =
     })
   }
 
-export const currencydetailState = atom<number>({
-  key: 'currencydetailState',
+export const childIdState = atom<number>({
+  key: 'childIdState',
   default: 0,
-  effects_UNSTABLE: [localStorageEffect('currencydetailState')],
+  effects_UNSTABLE: [localStorageEffect('childIdState')],
 })
