@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField'
 import { login, token } from '@/api/member'
 import { useNavigate } from 'react-router-dom'
 import axios, { AxiosError } from 'axios'
+
 interface ErrorResponse {
   statusCode: number
   message: string
@@ -41,20 +42,26 @@ function Login() {
         const userRole = response.data.data.role // 로그인 응답에서 role 추출
         if (userRole === 'PARENT') {
           startTransition(() => {
-            navigate('/mainparent/child-status') // PARENT용 페이지 경로로 이동
+            navigate('/mainparent/child-status') // 경로 확인 필요!!!
           })
+          if (response.data.data.account === false) {
+            startTransition(() => {
+              // 등록된 계좌가 없을 때 계좌 등록 페이지로 이동
+              navigate('/parentaccount')
+            })
+          }
         } else if (userRole === 'CHILD') {
           startTransition(() => {
-            navigate('/mainchild/worldmap') // CHILD용 페이지 경로로 이동
+            navigate('/mainchild/worldmap') // 경로 확인 필요!!
           })
+          if (response.data.data.account === false) {
+            startTransition(() => {
+              // 등록된 계좌가 없을 때 계좌 등록 페이지로 이동
+              navigate('/parentaccount')
+            })
+          }
         }
 
-        // if (response.data.data.account === false) {
-        //   startTransition(() => {
-        //     // 등록된 계좌가 없을 때 계좌 등록 페이지로 이동
-        //     navigate('/parentaccount')
-        //   })
-        // }
         // 로컬 스토리지에 토큰 저장
       }
     } catch (error) {
