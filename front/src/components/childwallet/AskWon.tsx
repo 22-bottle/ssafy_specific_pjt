@@ -1,7 +1,6 @@
 import React from 'react'
 import styles from './askWon.module.css'
 import { useNavigate } from 'react-router-dom'
-import logoImage from '@/assets/logo.png'
 import IconButton from '@mui/material/IconButton'
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
