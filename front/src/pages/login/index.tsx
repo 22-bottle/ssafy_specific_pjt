@@ -37,23 +37,12 @@ function Login() {
           response.data.data.tokenResponse.refreshToken
         )
 
-        // 사용자의 role에 따라 다른 페이지로 이동
-        const userRole = response.data.data.role; // 로그인 응답에서 role 추출
-        if (userRole === 'PARENT') {
+        if (response.data.data.account === false) {
           startTransition(() => {
-            navigate('/mainparent/child-status'); // PARENT용 페이지 경로로 이동
-          });
-        } else if (userRole === 'CHILD') {
-          startTransition(() => {
-            navigate('/mainchild/worldmap'); // CHILD용 페이지 경로로 이동
-          });
-
-        // if (response.data.data.account === false) {
-        //   startTransition(() => {
-        //     // 등록된 계좌가 없을 때 계좌 등록 페이지로 이동
-        //     navigate('/parentaccount')
-        //   })
-        // }
+            // 등록된 계좌가 없을 때 계좌 등록 페이지로 이동
+            navigate('/parentaccount')
+          })
+        }
         // 로컬 스토리지에 토큰 저장
       }
     } catch (error) {
