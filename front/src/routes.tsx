@@ -186,10 +186,6 @@ const routes: RouteType[] = [
         ),
       },
       {
-        path: 'status',
-        element: React.lazy(() => import('@/components/childwallet/MyStatus')),
-      },
-      {
         path: 'point',
         element: React.lazy(() => import('@/components/childwallet/MyPoint')),
       },
