@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useEffect, useState} from 'react'
 import Lottie from 'lottie-react'
 import usalottie from '../../assets/lottie/america.json'
 import japanlottie from '../../assets/lottie/japan.json'
@@ -23,13 +23,43 @@ import Box from '@mui/material/Box'
 import AskWon from './AskWon'
 import AskComplete from './AskComplete'
 import { useNavigate } from 'react-router-dom'
+import { point } from '@/api/childPoint'
+
+interface CurrencyData {
+  countryId: number;
+  code: string;
+  frType: string;
+  point: number;
+  basicRate: number;
+}
 
 const Mypoint: React.FC = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  // 환전 요청 모달
-  const [open, setOpen] = useState(false)
-  const [modalContent, setModalContent] = useState('ask')
+  const [open, setOpen] = useState(false);
+  const [modalContent, setModalContent] = useState('ask');
+  const [totalAmount, setTotalAmount] = useState(0);
+
+  const [currencyData, setCurrencyData] = useState<CurrencyData[]>([]);
+
+  useEffect(() => {
+    const fetchCurrencyData = async () => {
+      try {
+        const response = await point(); // Assume `point` fetches the data
+        console.log(response.data.data);
+        setCurrencyData(response.data.data);
+      } catch (error) {
+        console.error("Error fetching currency data:", error);
+      }
+    };
+
+    fetchCurrencyData();
+  }, []);
+
+  useEffect(() => {
+    const total = currencyData.reduce((acc, currency) => acc + Math.floor(currency.point * currency.basicRate), 0);
+    setTotalAmount(total);
+  }, [currencyData]);
 
   const handleClose = () => {
     setOpen(false)
@@ -69,222 +99,73 @@ const Mypoint: React.FC = () => {
       <div className={styles.main}>
         <div className={styles.horizontal}>
           <div className={styles.possibletext}>이승재님의 환전 가능 금액 </div>
-          <div className={styles.possiblemoney}>총 20,226원</div>
+          <div className={styles.possiblemoney}>총 {totalAmount.toLocaleString('ko-KR')}원</div>
         </div>
 
         <div className={styles.line}></div>
 
-        {/* 미국 */}
-        <div className={styles.horizontal2}>
-          <div className={styles.country}>
-            <Lottie
-              animationData={usalottie}
-              style={{ width: '4.5vw', height: '4.5vw', marginRight: '6px' }}
-            />
-            미국달러
-          </div>
-          <div className={styles.horizontal1}>
-            <div className={styles.context}>보유 7.5달러</div>
-            <div className={styles.money}>3,996.99원</div>
-          </div>
-          <div className={styles.smaller}>
-            <div className={styles.smallertext}>7.5달러</div>
-            <div className={styles.smallertext}>3,996.99원</div>
-          </div>
-          <div className={styles.button}>
-            <Button
-              variant="contained"
-              disableElevation
-              onClick={() => setOpen(true)}
-              sx={{
-                width: 'clamp(100px, 15vw, 140px)',
-                height: 'clamp(35px, 6vw, 45px)',
-                fontSize: 'clamp(14px, 1.7vw, 17px)',
-                marginTop: '27px',
-                backgroundColor: '#0064FF',
-                borderRadius: 2,
-                fontWeight: 600,
-              }}
-            >
-              환전 요청
-            </Button>
-          </div>
-          {/* 환전 요청 모달 */}
-          <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="ask-won-modal-title"
-            aria-describedby="ask-won-modal-description"
-          >
-            <Box sx={style}>
-              {modalContent === 'ask' ? (
-                <AskWon onConfirm={handleComplete} onClose={handleClose} />
-              ) : (
-                <AskComplete onClose={handleClose} />
-              )}
-            </Box>
-          </Modal>
-        </div>
+        {/* 환율 정보를 동적으로 렌더링 */}
+        {currencyData.map((currency) => (
+            <div key={currency.countryId} className={styles.horizontal2}>
+              <div className={styles.country}>
+                {/* 국가 Lottie */}
+                <Lottie
+                    animationData={
+                      currency.code === 'USD' ? usalottie :
+                          currency.code === 'JPY' ? japanlottie :
+                              currency.code === 'EUR' ? europelottie :
+                                  currency.code === 'CNH' ? chinalottie :
+                                      null // 기본값 혹은 일치하는 코드가 없을 경우
+                    }
+                    style={{ width: '4.5vw', height: '4.5vw', marginRight: '6px' }}
+                />
+                {currency.frType}
+              </div>
+              <div className={styles.horizontal1}>
+                <div className={styles.context}>보유 {currency.point}{currency.code}</div>
+                <div className={styles.money}> {Math.floor(currency.point * currency.basicRate).toLocaleString('ko-KR')}원</div>
+              </div>
 
-        {/* 일본 */}
-        <div className={styles.horizontal2}>
-          <div className={styles.country}>
-            <Lottie
-              animationData={japanlottie}
-              style={{ width: '4.5vw', height: '4.5vw', marginRight: '6px' }}
-            />
-            일본엔
-          </div>
-          <div className={styles.horizontal1}>
-            <div className={styles.context}>보유 10.5엔</div>
-            <div className={styles.money}>1,771.58원</div>
-          </div>
-          <div className={styles.smaller}>
-            <div className={styles.smallertext}>10.5엔</div>
-            <div className={styles.smallertext}>1,771.58원</div>
-          </div>
-          <div className={styles.button}>
-            <Button
-              variant="contained"
-              disableElevation
-              onClick={() => setOpen(true)}
-              sx={{
-                width: 'clamp(100px, 15vw, 140px)',
-                height: 'clamp(35px, 6vw, 45px)',
-                fontSize: 'clamp(14px, 1.7vw, 17px)',
-                paddingBottom: '3px',
-                marginTop: '27px',
-                backgroundColor: '#0064FF',
-                borderRadius: 2,
-                fontWeight: 600,
-              }}
-            >
-              환전 요청
-            </Button>
-          </div>
-          {/* 환전 요청 모달 */}
-          <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="ask-won-modal-title"
-            aria-describedby="ask-won-modal-description"
-          >
-            <Box sx={style}>
-              {modalContent === 'ask' ? (
-                <AskWon onConfirm={handleComplete} onClose={handleClose} />
-              ) : (
-                <AskComplete onClose={handleClose} />
-              )}
-            </Box>
-          </Modal>
-        </div>
-
-        {/* 유럽 */}
-        <div className={styles.horizontal2}>
-          <div className={styles.country}>
-            <Lottie
-              animationData={europelottie}
-              style={{ width: '4.5vw', height: '4.5vw', marginRight: '6px' }}
-            />
-            유럽유로
-          </div>
-          <div className={styles.horizontal1}>
-            <div className={styles.context}>보유 2.0유로</div>
-            <div className={styles.money}>3,000원</div>
-          </div>
-          <div className={styles.smaller}>
-            <div className={styles.smallertext}>2.0유로</div>
-            <div className={styles.smallertext}>3,000원</div>
-          </div>
-          <div className={styles.button}>
-            <Button
-              variant="contained"
-              disableElevation
-              onClick={() => setOpen(true)}
-              sx={{
-                width: 'clamp(100px, 15vw, 140px)',
-                height: 'clamp(35px, 6vw, 45px)',
-                fontSize: 'clamp(14px, 1.7vw, 17px)',
-                paddingBottom: '3px',
-                marginTop: '27px',
-                backgroundColor: '#0064FF',
-                borderRadius: 2,
-                fontWeight: 600,
-              }}
-            >
-              환전 요청
-            </Button>
-          </div>
-          {/* 환전 요청 모달 */}
-          <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="ask-won-modal-title"
-            aria-describedby="ask-won-modal-description"
-          >
-            <Box sx={style}>
-              {modalContent === 'ask' ? (
-                <AskWon onConfirm={handleComplete} onClose={handleClose} />
-              ) : (
-                <AskComplete onClose={handleClose} />
-              )}
-            </Box>
-          </Modal>
-        </div>
-
-        {/* 중국 */}
-        <div className={styles.horizontal2}>
-          <div className={styles.country}>
-            <Lottie
-              animationData={chinalottie}
-              style={{ width: '4.5vw', height: '4.5vw', marginRight: '6px' }}
-            />
-            중국위안
-          </div>
-          <div className={styles.horizontal1}>
-            <div className={styles.context}>보유 0위안</div>
-            <div className={styles.money}>0원</div>
-          </div>
-          <div className={styles.smaller}>
-            <div className={styles.smallertext}>0위안</div>
-            <div className={styles.smallertext}>0원</div>
-          </div>
-          <div className={styles.button}>
-            <Button
-              variant="contained"
-              disableElevation
-              onClick={() => setOpen(true)}
-              sx={{
-                width: 'clamp(100px, 15vw, 140px)',
-                height: 'clamp(35px, 6vw, 45px)',
-                fontSize: 'clamp(14px, 1.7vw, 17px)',
-                paddingBottom: '3px',
-                marginTop: '27px',
-                backgroundColor: '#0064FF',
-                borderRadius: 2,
-                fontWeight: 600,
-              }}
-            >
-              환전 요청
-            </Button>
-          </div>
-          {/* 환전 요청 모달 */}
-          <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="ask-won-modal-title"
-            aria-describedby="ask-won-modal-description"
-          >
-            <Box sx={style}>
-              {modalContent === 'ask' ? (
-                <AskWon onConfirm={handleComplete} onClose={handleClose} />
-              ) : (
-                <AskComplete onClose={handleClose} />
-              )}
-            </Box>
-          </Modal>
-        </div>
+              <div className={styles.smaller}>
+                <div className={styles.smallertext}>{currency.point}{currency.code}</div>
+                <div className={styles.smallertext}>{Math.floor(currency.point * currency.basicRate).toLocaleString('ko-KR')}원</div>
+              </div>
+              <div className={styles.button}>
+                <Button
+                    variant="contained"
+                    disableElevation
+                    onClick={() => setOpen(true)}
+                    sx={{
+                      width: 'clamp(100px, 15vw, 140px)',
+                      height: 'clamp(35px, 6vw, 45px)',
+                      fontSize: 'clamp(14px, 1.7vw, 17px)',
+                      marginTop: '27px',
+                      backgroundColor: '#0064FF',
+                      borderRadius: 2,
+                      fontWeight: 600,
+                    }}
+                >
+                  환전 요청
+                </Button>
+              </div>
+              <Modal
+                  open={open}
+                  onClose={handleClose}
+                  aria-labelledby="ask-won-modal-title"
+                  aria-describedby="ask-won-modal-description"
+              >
+                <Box sx={style}>
+                  {modalContent === 'ask' ? (
+                      <AskWon onConfirm={handleComplete} onClose={handleClose} />
+                  ) : (
+                      <AskComplete onClose={handleClose} />
+                  )}
+                </Box>
+              </Modal>
+            </div>
+        ))}
       </div>
+
 
       <div className={`${styles.main} ${styles.help}`}>
         <Link
