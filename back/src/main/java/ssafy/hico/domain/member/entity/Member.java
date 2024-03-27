@@ -2,6 +2,8 @@ package ssafy.hico.domain.member.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 import ssafy.hico.domain.quiz.entity.QuizStatus;
 import ssafy.hico.domain.stage.entity.StageStatus;
 import ssafy.hico.domain.wallet.entity.FrWallet;
@@ -17,6 +19,7 @@ import java.util.List;
 @Table(name = "member")
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@DynamicInsert
 public class Member extends BaseTimeEntity {
 
     @Id
@@ -59,9 +62,11 @@ public class Member extends BaseTimeEntity {
     private Integer seasonNum;
 
     @Column(name = "fuel")
+    @ColumnDefault("0")
     private Integer fuel;
 
     @Column(name = "is_tutorial")
+    @ColumnDefault("false")
     private Boolean isTutorial;
 
     @OneToOne(mappedBy = "member")
