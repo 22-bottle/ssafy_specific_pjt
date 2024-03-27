@@ -25,6 +25,19 @@ import AskComplete from './AskComplete'
 import { useNavigate } from 'react-router-dom'
 import { point } from '@/api/childPoint'
 
+import { atom, useSetRecoilState  } from 'recoil';
+
+export const exchangeAmountState = atom({
+  key: 'exchangeAmountState', // 고유한 키
+  default: {
+    point: 0,
+    code: '',
+    calculatedAmount: '',
+    balance : 0,
+    countryId : 0,
+  }, // 기본값
+});
+
 interface CurrencyData {
   countryId: number;
   code: string;
@@ -39,14 +52,14 @@ const Mypoint: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [modalContent, setModalContent] = useState('ask');
   const [totalAmount, setTotalAmount] = useState(0);
-
   const [currencyData, setCurrencyData] = useState<CurrencyData[]>([]);
+
+  const setExchangeAmount = useSetRecoilState(exchangeAmountState);
 
   useEffect(() => {
     const fetchCurrencyData = async () => {
       try {
-        const response = await point(); // Assume `point` fetches the data
-        console.log(response.data.data);
+        const response = await point();
         setCurrencyData(response.data.data);
       } catch (error) {
         console.error("Error fetching currency data:", error);
@@ -60,6 +73,19 @@ const Mypoint: React.FC = () => {
     const total = currencyData.reduce((acc, currency) => acc + Math.floor(currency.point * currency.basicRate), 0);
     setTotalAmount(total);
   }, [currencyData]);
+
+  // 환전 요청 핸들러
+  const handleExchangeRequest = (currency: CurrencyData) => {
+    const calculatedAmount = Math.floor(currency.point * currency.basicRate).toLocaleString('ko-KR');
+    setExchangeAmount({
+      point: currency.point,
+      code: currency.code,
+      balance : Math.floor(currency.point * currency.basicRate),
+      calculatedAmount,
+      countryId: currency.countryId,
+    });
+    setOpen(true); // Modal을 열어 AskWon 컴포넌트를 보여줌
+  };
 
   const handleClose = () => {
     setOpen(false)
@@ -134,7 +160,7 @@ const Mypoint: React.FC = () => {
                 <Button
                     variant="contained"
                     disableElevation
-                    onClick={() => setOpen(true)}
+                    onClick={() => handleExchangeRequest(currency)}
                     sx={{
                       width: 'clamp(100px, 15vw, 140px)',
                       height: 'clamp(35px, 6vw, 45px)',

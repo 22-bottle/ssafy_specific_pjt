@@ -5,18 +5,38 @@ import IconButton from '@mui/material/IconButton'
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 import Button from '@mui/material/Button'
-
+import { exchangeAmountState } from './MyPoint'; // atom 정의를 임포트합니다.
+import { useRecoilValue } from 'recoil';
+import { ask } from '@/api/childPoint'
+import AskComplete from '@/components/childwallet/AskComplete';
 // 닫기 버튼
 interface AskWonProps {
   onClose: () => void
   onConfirm: () => void
 }
 const Askwon: React.FC<AskWonProps> = ({ onClose, onConfirm }) => {
-  const [modalState, setModalState] = useState('request')
+    const [modalState, setModalState] = useState('request');
+    const [requestSuccess, setRequestSuccess] = useState(false);
+    const exchangeAmount = useRecoilValue(exchangeAmountState);
+    const navigate = useNavigate();
 
-  const completeClick = () => {
-    setModalState('complete')
-  }
+    const handleRequest = async () => {
+        try {
+            const response = await ask(exchangeAmount.balance, exchangeAmount.point, exchangeAmount.countryId);
+            if (response.data.statusCode === 201) {
+                setRequestSuccess(true);
+            } else {
+                console.error('Request failed with status code:', response.data.statusCode);
+            }
+        } catch (error) {
+            console.error('There was an error with the request:', error);
+        }
+    };
+
+    if (requestSuccess) {
+        return <AskComplete onClose={onClose} />;
+    }
+
 
   return (
     <div className={styles.container}>
@@ -40,8 +60,8 @@ const Askwon: React.FC<AskWonProps> = ({ onClose, onConfirm }) => {
         </div>
         {/* 글씨 */}
         <div className={styles.text}>
-          <div className={styles.maintext1}>이채은님에게</div>
-          <div className={styles.maintext2}>10유로 (14,457.5원)</div>
+          <div className={styles.maintext1}>부모님에게</div>
+          <div className={styles.maintext2}>{exchangeAmount.point} {exchangeAmount.code} ({exchangeAmount.calculatedAmount})</div>
           <div className={styles.maintext3}> 환전을 요청할까요?</div>
           <div className={styles.subtext1}>
             환전 요청 금액을 다시한번 확인해주세요!
@@ -52,7 +72,7 @@ const Askwon: React.FC<AskWonProps> = ({ onClose, onConfirm }) => {
           <Button
             variant="contained"
             disableElevation
-            onClick={onConfirm}
+            onClick={handleRequest}
             sx={{
               width: '100%',
               height: '55px',

@@ -16,4 +16,5 @@ public class BankProperties {
     private String institutionCode;
     private String fintechAppNo;
     private String bankName;
+    private String bankCode;
 }

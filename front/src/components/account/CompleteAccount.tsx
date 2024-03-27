@@ -27,8 +27,8 @@ const CompleteAccount: React.FC = () => {
         {/* 글씨 */}
         <div className={styles.text}>
           <div className={styles.maintext1}>계좌등록을 완료했어요!</div>
-          <div className={styles.subtext1}>이제 우리 아이들의 히코현황을</div>
-          <div className={styles.subtext2}>모두 확인할 수 있어요!</div>
+          <div className={styles.subtext1}>이제 History Coin,히코를</div>
+          <div className={styles.subtext2}>모두 즐길 수 있어요!</div>
         </div>
         {/* 버튼 */}
         <div className={styles.button}>

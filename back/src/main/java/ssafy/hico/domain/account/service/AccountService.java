@@ -78,8 +78,8 @@ public class AccountService {
         Account account = Account.builder()
                 .member(member)
                 .accountNo(request.getAccountNo())
-                .bankName(request.getBankName())
-                .bankCode(request.getBankCode())
+                .bankName(bankProperties.getBankName())
+                .bankCode(bankProperties.getBankCode())
                 .password(encryptPassword)
                 .build();
 

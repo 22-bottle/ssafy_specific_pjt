@@ -152,25 +152,29 @@ const routes: RouteType[] = [
     ],
   },
   {
-    path: '/parentaccount',
-    element: React.lazy(() => import('@/pages/parentaccount')),
+    path: '/account',
+    element: React.lazy(() => import('@/pages/account')),
     children: [
       {
         path: '',
         element: React.lazy(
-          () => import('@/components/parentaccount/RegisterAccount')
+          () => import('@/components/account/RegisterAccount')
         ),
       },
       {
-        path: 'request',
+        path: 'password',
         element: React.lazy(
-          () => import('@/components/parentaccount/CreateAccount')
+            () => import('@/components/account/RegisterAccountPassword')
         ),
+      },
+      {
+        path: 'create',
+        element: React.lazy(() => import('@/components/account/CreateAccount')),
       },
       {
         path: 'complete',
         element: React.lazy(
-          () => import('@/components/parentaccount/CompleteAccount')
+          () => import('@/components/account/CompleteAccount')
         ),
       },
     ],
