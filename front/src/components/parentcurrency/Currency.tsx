@@ -109,9 +109,9 @@ const Currency: React.FC = () => {
                   </div>
                   <div className={styles.rightContainer}>
                     <div className={styles.col2}>
-                      <div className={styles.row1}>1,332원</div>
+                      <div className={styles.row1}>{usaBasicRate}원</div>
                       <div className={styles.row2red}>
-                        3.34원
+                        {usaAmount}원
                         <img
                           src={up}
                           alt="up"
@@ -162,9 +162,9 @@ const Currency: React.FC = () => {
                   </div>
                   <div className={styles.rightContainer}>
                     <div className={styles.col2}>
-                      <div className={styles.row1}>885원</div>
+                      <div className={styles.row1}>{japanBasicRate}원</div>
                       <div className={styles.row2blue}>
-                        0.38원
+                        {japanAmount}원
                         <img
                           src={down}
                           alt="down"
@@ -215,9 +215,9 @@ const Currency: React.FC = () => {
                   </div>
                   <div className={styles.rightContainer}>
                     <div className={styles.col2}>
-                      <div className={styles.row1}>1,445원</div>
+                      <div className={styles.row1}>{euBasicRate}원</div>
                       <div className={styles.row2red}>
-                        4.45원
+                        {euAmount}원
                         <img
                           src={up}
                           alt="up"
@@ -268,9 +268,9 @@ const Currency: React.FC = () => {
                   </div>
                   <div className={styles.rightContainer}>
                     <div className={styles.col2}>
-                      <div className={styles.row1}>187원</div>
+                      <div className={styles.row1}>{chinaBasicRate}원</div>
                       <div className={styles.row2red}>
-                        0.42원
+                        {chinaAmount}원
                         <img
                           src={up}
                           alt="up"

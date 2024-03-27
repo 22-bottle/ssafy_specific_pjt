@@ -25,8 +25,9 @@ public class StageController {
 
     private final StageService stageService;
 
-    @GetMapping("/child/{childId}")
-    public ResponseEntity<?> stageChildDetails(@PathVariable("childId") long childId) {
+    @GetMapping("/child")
+    public ResponseEntity<?> stageChildDetails(HttpServletRequest httpServletRequest) {
+        long childId = (Long) httpServletRequest.getAttribute("memberId");
         StageChildFindResponse stageChildFindResponse = stageService.findChildStage(childId);
         return getResponseEntity(SuccessCode.OK, stageChildFindResponse);
     }

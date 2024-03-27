@@ -27,9 +27,9 @@ public class ExchangeRateFindResponse {
         this.exchangeRateId = exchangeRate.getExchangeRateId();
         this.frType = exchangeRate.getCountry().getFrType();
         this.code = exchangeRate.getCountry().getCode();
-        this.basicRate = exchangeRate.getBasicRate();
+        this.basicRate = (double) Math.round(exchangeRate.getBasicRate() * 100) / 100;
         this.riseStatus = exchangeRate.getRiseStatus();
-        this.amount = exchangeRate.getAmount();
+        this.amount = (double) Math.round(exchangeRate.getAmount() * 100) / 100;
         this.todayDate = exchangeRate.getTodayDate();
     }
 
