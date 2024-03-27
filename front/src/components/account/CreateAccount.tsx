@@ -3,27 +3,48 @@ import styles from './createaccount.module.css'
 import Button from '@mui/material/Button'
 import CircleIcon from '@mui/icons-material/Circle'
 import KeyboardBackspaceRoundedIcon from '@mui/icons-material/KeyboardBackspaceRounded'
-// import { useNavigate } from 'react-router-dom'
+import {make} from "@/api/account";
+ import { useNavigate } from 'react-router-dom'
 
 const CreateAccount: React.FC = () => {
+    const navigate = useNavigate();
   // 입력된 비밀번호 길이를 추적하는 상태
-  const [passwordLength, setPasswordLength] = useState(0)
+    const [password, setPassword] = useState('');
   const name = window.localStorage.getItem('userName')
-  // 비밀번호 입력 핸들러
-  const handlePasswordInput = (number: number) => {
-    // 비밀번호 길이가 4 이하일 때만 업데이트
-    if (passwordLength < 4) {
-      setPasswordLength(passwordLength + 1)
-    }
-  }
+    const handlePasswordInput = (number: number) => {
+        if (password.length < 4) {
+            const newPassword = password + number.toString();
+            setPassword(newPassword);
 
-  // 비밀번호 삭제 핸들러
-  const handleDelete = () => {
-    if (passwordLength > 0) {
-      setPasswordLength(passwordLength - 1)
-    }
-  }
+            if (newPassword.length === 4) {
+                make(newPassword)
+                    .then((response) => {
+                        if (response.data.statusCode === 201) {
+                            alert('정상적으로 등록되었습니다.');
+                            console.log(localStorage.getItem('userRole'));
+                            if(localStorage.getItem('userRole') === 'CHILD'){
+                                navigate('/mainchild');
+                            }else if(localStorage.getItem('userRole') === 'PARENT'){
+                                navigate('/mainparent');
+                            }
+                        } else {
+                            alert('등록에 실패하였습니다.');
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Registration failed', error);
+                        alert('등록 과정에서 오류가 발생하였습니다.');
+                    });
+            }
+        }
+    };
 
+    const handleDelete = () => {
+        if (password.length > 0) {
+            const newPassword = password.slice(0, -1);
+            setPassword(newPassword);
+        }
+    };
   // const navigate = useNavigate()
   // const handleButtonClick = () => {
   //   navigate('/parentwallet/complete')
@@ -112,7 +133,7 @@ const CreateAccount: React.FC = () => {
               key={index}
               sx={{
                 fontSize: '30px',
-                color: index < passwordLength ? '#fff' : '#6C6C7D',
+                color: index < password.length ? '#fff' : '#6C6C7D',
                 marginLeft: index > 0 ? '50px' : '0px',
               }}
             />
