@@ -162,6 +162,12 @@ const routes: RouteType[] = [
         ),
       },
       {
+        path: 'password',
+        element: React.lazy(
+            () => import('@/components/account/RegisterAccountPassword')
+        ),
+      },
+      {
         path: 'create',
         element: React.lazy(() => import('@/components/account/CreateAccount')),
       },

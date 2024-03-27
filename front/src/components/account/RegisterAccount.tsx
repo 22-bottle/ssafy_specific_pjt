@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, startTransition } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { List, ListItem, ListItemText, ListItemButton } from '@mui/material'
 import { blue } from '@mui/material/colors'
@@ -6,6 +6,14 @@ import styles from './registeraccount.module.css'
 import Button from '@mui/material/Button'
 import logoImage from '../../assets/logo.png'
 import { list } from '@/api/account'
+import { atom, useSetRecoilState  } from 'recoil';
+
+export const accountState = atom({
+    key: 'accountState', // 고유한 키
+    default: {
+        accountNo : '',
+    },
+});
 
 const RegisterAccount: React.FC = () => {
   // 더미데이터
@@ -15,7 +23,7 @@ const RegisterAccount: React.FC = () => {
   }
     const navigate = useNavigate();
     const [bankAccounts, setBankAccounts] = useState<BankAccount[]>([]);
-
+    const setAccount = useSetRecoilState(accountState);
     useEffect(() => {
         const fetchAccountData = async () => {
             try {
@@ -33,8 +41,20 @@ const RegisterAccount: React.FC = () => {
 
         fetchAccountData();
     }, [navigate]);
-  // 리스트 중에 내 계좌 선택
+
+    // 리스트 중에 내 계좌 선택
   const [selectedAccount, setSelectedAccount] = useState<string | null>(null)
+
+    const handleConfirmSelection = () => {
+        if (selectedAccount) {
+            startTransition(() => {
+                setAccount({ accountNo: selectedAccount });
+                navigate('/account/password');
+            });
+        } else {
+            alert('계좌를 선택해주세요.');
+        }
+    };
 
   const handleListItemClick = (account: string) => {
     setSelectedAccount(account)
@@ -97,6 +117,7 @@ const RegisterAccount: React.FC = () => {
           <Button
             variant="contained"
             disableElevation
+            onClick={handleConfirmSelection}
             sx={{
               width: '100%',
               height: '70px',
