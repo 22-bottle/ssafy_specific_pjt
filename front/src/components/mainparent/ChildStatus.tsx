@@ -87,7 +87,7 @@ const Childstatus: React.FC = () => {
   const [childId, setChildId] = useRecoilState(childIdState)
   const [childName, setChildName] = useState('')
   const ChildList = useRecoilValue(childrenListState)
-  const childStudyList = useRecoilValue(getChildStudyList)
+  // const childStudyList = useRecoilValue(getChildStudyList)
 
   // 컴포넌트가 마운트될 때 첫 번째 자녀를 기본값으로 설정
   useEffect(() => {
@@ -96,7 +96,7 @@ const Childstatus: React.FC = () => {
       setChildId(firstChild.id)
       setChildName(firstChild.name)
     }
-    console.log(childStudyList)
+    // console.log(childStudyList)
   }, [ChildList]) // ChildList가 변경될 때마다 이 효과 실행
 
   // 선택 변경 시 자녀의 ID와 이름을 업데이트
