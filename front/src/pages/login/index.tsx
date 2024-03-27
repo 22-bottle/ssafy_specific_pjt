@@ -40,29 +40,25 @@ function Login() {
 
         // 사용자의 role에 따라 다른 페이지로 이동
         const userRole = response.data.data.role // 로그인 응답에서 role 추출
-        if (userRole === 'PARENT') {
+        // 유저 role, name 로컬스토리지 저장
+        window.localStorage.setItem('userRole', response.data.data.role)
+        window.localStorage.setItem('userName', response.data.data.name)
+        if (response.data.data.account === false) {
           startTransition(() => {
-            navigate('/mainparent/child-status') // 경로 확인 필요!!!
+            // 등록된 계좌가 없을 때 계좌 등록 페이지로 이동
+            navigate('/account/create')
           })
-          if (response.data.data.account === false) {
+        } else {
+          if (userRole === 'PARENT') {
             startTransition(() => {
-              // 등록된 계좌가 없을 때 계좌 등록 페이지로 이동
-              navigate('/parentaccount')
+              navigate('/mainparent/child-status') // 경로 확인 필요!!!
             })
-          }
-        } else if (userRole === 'CHILD') {
-          startTransition(() => {
-            navigate('/mainchild/worldmap') // 경로 확인 필요!!
-          })
-          if (response.data.data.account === false) {
+          } else if (userRole === 'CHILD') {
             startTransition(() => {
-              // 등록된 계좌가 없을 때 계좌 등록 페이지로 이동
-              navigate('/parentaccount')
+              navigate('/mainchild/worldmap') // 경로 확인 필요!!
             })
           }
         }
-
-        // 로컬 스토리지에 토큰 저장
       }
     } catch (error) {
       // 정상적인 응답이 아닌 경우

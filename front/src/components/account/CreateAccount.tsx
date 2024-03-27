@@ -8,7 +8,7 @@ import KeyboardBackspaceRoundedIcon from '@mui/icons-material/KeyboardBackspaceR
 const CreateAccount: React.FC = () => {
   // 입력된 비밀번호 길이를 추적하는 상태
   const [passwordLength, setPasswordLength] = useState(0)
-
+  const name = window.localStorage.getItem('userName')
   // 비밀번호 입력 핸들러
   const handlePasswordInput = (number: number) => {
     // 비밀번호 길이가 4 이하일 때만 업데이트
@@ -100,7 +100,7 @@ const CreateAccount: React.FC = () => {
       {/* 메인 */}
       <div className={styles.materialContainer}>
         <div className={styles.text}>
-          <div className={styles.main1}>이채은님,한국은행 계좌를</div>
+          <div className={styles.main1}>{name}님,한국은행 계좌를</div>
           <div className={styles.main2}>원클릭으로 만들 수 있어요!</div>
           <div className={styles.sub}>계좌 비밀번호를 입력해 주세요.</div>
         </div>
