@@ -32,7 +32,9 @@ export const exchangeAmountState = atom({
   default: {
     point: 0,
     code: '',
-    calculatedAmount: '', // 계산된 금액을 문자열로 저장
+    calculatedAmount: '',
+    balance : 0,
+    countryId : 0,
   }, // 기본값
 });
 
@@ -57,8 +59,7 @@ const Mypoint: React.FC = () => {
   useEffect(() => {
     const fetchCurrencyData = async () => {
       try {
-        const response = await point(); // Assume `point` fetches the data
-        console.log(response.data.data);
+        const response = await point();
         setCurrencyData(response.data.data);
       } catch (error) {
         console.error("Error fetching currency data:", error);
@@ -79,7 +80,9 @@ const Mypoint: React.FC = () => {
     setExchangeAmount({
       point: currency.point,
       code: currency.code,
+      balance : Math.floor(currency.point * currency.basicRate),
       calculatedAmount,
+      countryId: currency.countryId,
     });
     setOpen(true); // Modal을 열어 AskWon 컴포넌트를 보여줌
   };

@@ -1,5 +1,5 @@
 import { selector } from 'recoil'
-import { getChild, study } from '@/api/parent'
+import { getChild, study, point } from '@/api/parent'
 import { childIdState } from '@/state/Parentatoms'
 
 export const childrenListState = selector({
@@ -22,6 +22,15 @@ export const getChildStudyList = selector({
   get: async ({ get }) => {
     const childId = get(childIdState)
     const response = await study(childId)
+    return response.data
+  },
+})
+
+export const getChildPointList = selector({
+  key: 'getChildPointList',
+  get: async ({ get }) => {
+    const childId = get(childIdState)
+    const response = await point(childId)
     return response.data
   },
 })

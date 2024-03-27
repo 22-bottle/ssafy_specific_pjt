@@ -4,12 +4,12 @@
   align-items: center;
   flex-direction: column;
   color: white;
-  padding-top: 70px;
+  padding-top: 100px;
 }
 
 .walletTitle {
   position: absolute;
-  top: 7.5%;
+  top: 10.5%;
   left: 16%;
 }
 

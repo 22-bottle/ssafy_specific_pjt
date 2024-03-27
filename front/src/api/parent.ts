@@ -6,6 +6,8 @@ const api = {
   getChild: '/parent/main',
   //자녀 학습 현황
   study: `/parent/main`,
+  // 자녀 보유 포인트 현황
+  point: `/parent/main/point`,
 }
 
 async function code() {
@@ -18,4 +20,7 @@ async function getChild() {
 async function study(id: number) {
   return await http.get(`${api.study}/${id}`)
 }
-export { code, getChild, study }
+async function point(id: number) {
+  return await http.get(`${api.point}/${id}`)
+}
+export { code, getChild, study, point }
