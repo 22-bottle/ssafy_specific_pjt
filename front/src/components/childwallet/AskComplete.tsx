@@ -1,4 +1,5 @@
 import React from 'react'
+import { redirect, useNavigate  } from "react-router-dom";
 import styles from '@/components/childwallet/AskComplete.module.css'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 import Button from '@mui/material/Button'
@@ -8,6 +9,12 @@ interface AskCompleteProps {
 }
 
 const AskComplete: React.FC<AskCompleteProps> = ({ onClose }) => {
+    const navigate = useNavigate();
+    const handleConfirm = () => {
+        onClose();
+        navigate('/childwallet/point');
+    };
+
   return (
     <div className={styles.container}>
       {/* 메인 */}
@@ -27,7 +34,7 @@ const AskComplete: React.FC<AskCompleteProps> = ({ onClose }) => {
           <Button
             variant="contained"
             disableElevation
-            onClick={onClose}
+            onClick={handleConfirm}
             sx={{
               width: '100%',
               height: '55px',
