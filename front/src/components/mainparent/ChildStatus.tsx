@@ -27,54 +27,58 @@ import { useRecoilValue, useRecoilState } from 'recoil'
 import { childIdState } from '@/state/Parentatoms'
 import { childrenListState, getChildStudyList } from '@/state/Parentselectors'
 
-const countries = ['usa', 'japan'] // 캐로셀 배열
-const countryNames: { [key: string]: string } = {
-  usa: '미국',
-  japan: '일본',
-}
+const countries = ['usa', 'japan', 'italy', 'china'] // 캐로셀 배열
+
 interface ChartData {
   progress: number
   total: number
   correct: number
-  datasets: {
+  datasets: Array<{
     data: number[]
     backgroundColor: string[]
     hoverOffset: number
     borderRadius?: number
-  }[]
+  }>
 }
 
 interface DataMap {
   [key: string]: ChartData
 }
 
-const dataMap: DataMap = {
-  usa: {
-    progress: 60,
-    total: 50,
-    correct: 30,
-    datasets: [
-      {
-        data: [60, 40],
-        backgroundColor: ['#0064FF', '#F5F5F5'],
-        hoverOffset: 4,
-        borderRadius: 5,
-      },
-    ],
-  },
-  japan: {
-    progress: 10,
-    total: 70,
-    correct: 7,
-    datasets: [
-      {
-        data: [10, 90],
-        backgroundColor: ['#0064FF', '#F5F5F5'],
-        hoverOffset: 4,
-        borderRadius: 5,
-      },
-    ],
-  },
+// `studyStatusList`의 타입을 정의
+interface StudyStatus {
+  countryId: number
+  countryName: string
+  progressRate: number
+  correct: number
+}
+
+// `generateDataMap` 함수의 반환 타입으로 `DataMap` 인터페이스를 사용
+const generateDataMap = (list: StudyStatus[]): DataMap => {
+  const dataMap: DataMap = {}
+  // list가 배열인지 확인하고, 그렇지 않은 경우 함수를 종료합니다.
+  if (!Array.isArray(list)) {
+    console.error('list is not an array:', list)
+    return dataMap // 빈 객체를 반환하거나 적절한 기본값을 설정합니다.
+  }
+
+  list.forEach((item) => {
+    const key: string = item.countryName.toLowerCase()
+    dataMap[key] = {
+      progress: item.progressRate,
+      total: 50, // 예시로 전체 진행률을 100으로 가정
+      correct: item.correct,
+      datasets: [
+        {
+          data: [item.progressRate, 100 - item.progressRate],
+          backgroundColor: ['#0064FF', '#F5F5F5'],
+          hoverOffset: 4,
+          borderRadius: 5,
+        },
+      ],
+    }
+  })
+  return dataMap
 }
 // 자녀 객체의 타입 정의
 type Child = {
@@ -87,8 +91,8 @@ const Childstatus: React.FC = () => {
   const [childId, setChildId] = useRecoilState(childIdState)
   const [childName, setChildName] = useState('')
   const ChildList = useRecoilValue(childrenListState)
-  // const childStudyList = useRecoilValue(getChildStudyList)
-
+  // 자녀 학습 현황
+  const childStudyList = useRecoilValue(getChildStudyList)
   // 컴포넌트가 마운트될 때 첫 번째 자녀를 기본값으로 설정
   useEffect(() => {
     if (ChildList.length > 0) {
@@ -133,43 +137,36 @@ const Childstatus: React.FC = () => {
 
   // 캐러셀 버튼
   // 현재 캐로셀의 인덱스 상태
-  const [currentIndex, setCurrentIndex] = useState(0)
 
   // 이전 버튼 클릭 핸들러
+
+  // 자녀 학습현황 가져오기
+
+  // 다음 버튼 클릭 핸들러
+  // 자녀학습현황 불러오기
+  const [currentIndex, setCurrentIndex] = useState<number>(0)
+  const [dataMap, setDataMap] = useState<DataMap>({})
+  useEffect(() => {
+    if (childStudyList && childStudyList.data) {
+      const studyStatusList = childStudyList.data // 여기서 studyStatusList를 정의합니다.
+      console.log('자녀학습현황', studyStatusList)
+      setDataMap(generateDataMap(studyStatusList))
+    }
+  }, [childStudyList])
+  // 캐로셀 위치 조정 함수
   const handlePreviousClick = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1)
     }
   }
-
-  // 다음 버튼 클릭 핸들러
   const handleNextClick = () => {
     if (currentIndex < countries.length - 1) {
       setCurrentIndex(currentIndex + 1)
     }
   }
-
-  // 학습 진행률
-  // 예시로 60% 입력
-  const [currentProgress, setCurrentProgress] = useState(
-    dataMap[countries[0]].progress
-  )
-
-  // 캐로셀 인덱스 변경 시 해당 국가의 진행률을 업데이트합니다.
-  useEffect(() => {
-    setCurrentProgress(dataMap[countries[currentIndex]].progress)
-  }, [currentIndex])
-
-  // 전체 문항수, 맞은 문항수
-  // 예시
-  const [total, setTotal] = useState(dataMap[countries[0]].total)
-  const [correct, setCorrect] = useState(dataMap[countries[0]].correct)
-  useEffect(() => {
-    const currentCountry = countries[currentIndex]
-    const countryData = dataMap[currentCountry]
-    setTotal(countryData.total)
-    setCorrect(countryData.correct)
-  }, [currentIndex])
+  const countries = Object.keys(dataMap) // dataMap에서 국가 이름 목록을 추출
+  const currentCountry = countries[currentIndex] || `""`
+  const currentData = dataMap[currentCountry]
 
   //  추가등록 모달
   const [open, setOpen] = useState(false)
@@ -257,9 +254,7 @@ const Childstatus: React.FC = () => {
           >
             <ArrowBackIosRoundedIcon />
           </IconButton>
-          <div className={styles.countrytext}>
-            {countryNames[countries[currentIndex]]}
-          </div>
+          <div className={styles.countrytext}>{countries[currentIndex]}</div>
           <IconButton
             aria-label="next"
             onClick={handleNextClick}
@@ -270,69 +265,73 @@ const Childstatus: React.FC = () => {
         </div>
 
         {/* 진행률 차트 */}
-        <div>
-          <Doughnut
-            data={dataMap[countries[currentIndex]]}
-            options={{ responsive: false }}
-            style={{ position: 'relative', height: '200px' }}
-          />
-        </div>
-
-        {/* 학습 진행률 */}
-        <div className={styles.progresslayout}>
-          <div className={styles.title1}>학습진행률</div>
-          <div className={styles.subtitle1}>{currentProgress}%</div>
-        </div>
-
-        {/* 문항수 */}
-        <div className={styles.correctlayout}>
-          {/* 전체 문항수 */}
-          <div className={styles.title2}>전체 문항수</div>
-          <div className={styles.subtitle2}>{total}</div>
-          <div className={styles.subtitle4}>개</div>
-          {/* 맞은 문항수 */}
-          <div className={styles.title3}>맞은 문항수</div>
-          <div className={styles.subtitle3}>{correct}</div>
-          <div className={styles.subtitle5}>개</div>
-        </div>
-      </div>
-
-      {/* main2 */}
-      <div className={styles.materialContainer2}>
-        {/* title */}
-        <div className={styles.secondtitle}>현재 보유 외화 포인트</div>
-        {/* 나라 */}
-        <div className={styles.countrylayout}>
-          {/* 미국 */}
-          <div className={styles.eachcountry}>
-            <div className={styles.countryname}>미국달러</div>
-            <div className={styles.countryInfo}>
-              <div className={styles.countrynum}>8.00</div>
-              <div className={styles.countrymoney}>달러</div>
+        {currentData && (
+          <div>
+            <Doughnut
+              data={{
+                labels: ['Progress', 'Remaining'],
+                datasets: currentData.datasets,
+              }}
+              options={{
+                responsive: true,
+                plugins: {
+                  legend: {
+                    display: false,
+                  },
+                },
+              }}
+            />
+            <div className={styles.progresslayout}>
+              <div className={styles.title1}>학습진행률</div>
+              <div className={styles.subtitle1}>{currentData.progress}%</div>
+            </div>
+            <div className={styles.correctlayout}>
+              <div className={styles.title2}>전체 문항수</div>
+              <div className={styles.subtitle2}>{currentData.total}</div>
+              <div className={styles.subtitle4}>개</div>
+              <div className={styles.title3}>맞은 문항수</div>
+              <div className={styles.subtitle3}>{currentData.correct}</div>
+              <div className={styles.subtitle5}>개</div>
             </div>
           </div>
-          {/* 일본 */}
-          <div className={styles.eachcountry}>
-            <div className={styles.countryname}>일본엔</div>
-            <div className={styles.countryInfo}>
-              <div className={styles.countrynum}>14.35</div>
-              <div className={styles.countrymoney}>엔</div>
+        )}
+        {/* 보유외화포인트 */}
+        <div className={styles.materialContainer2}>
+          {/* title */}
+          <div className={styles.secondtitle}>현재 보유 외화 포인트</div>
+          {/* 나라 */}
+          <div className={styles.countrylayout}>
+            {/* 미국 */}
+            <div className={styles.eachcountry}>
+              <div className={styles.countryname}>미국달러</div>
+              <div className={styles.countryInfo}>
+                <div className={styles.countrynum}>8.00</div>
+                <div className={styles.countrymoney}>달러</div>
+              </div>
             </div>
-          </div>
-          {/* 유럽 */}
-          <div className={styles.eachcountry}>
-            <div className={styles.countryname}>유럽유로</div>
-            <div className={styles.countryInfo}>
-              <div className={styles.countrynum}>0.00</div>
-              <div className={styles.countrymoney}>유로</div>
+            {/* 일본 */}
+            <div className={styles.eachcountry}>
+              <div className={styles.countryname}>일본엔</div>
+              <div className={styles.countryInfo}>
+                <div className={styles.countrynum}>14.35</div>
+                <div className={styles.countrymoney}>엔</div>
+              </div>
             </div>
-          </div>
-          {/* 중국 */}
-          <div className={styles.eachcountry}>
-            <div className={styles.countryname}>중국위안</div>
-            <div className={styles.countryInfo}>
-              <div className={styles.countrynum}>0.00</div>
-              <div className={styles.countrymoney}>위엔</div>
+            {/* 유럽 */}
+            <div className={styles.eachcountry}>
+              <div className={styles.countryname}>유럽유로</div>
+              <div className={styles.countryInfo}>
+                <div className={styles.countrynum}>0.00</div>
+                <div className={styles.countrymoney}>유로</div>
+              </div>
+            </div>
+            {/* 중국 */}
+            <div className={styles.eachcountry}>
+              <div className={styles.countryname}>중국위안</div>
+              <div className={styles.countryInfo}>
+                <div className={styles.countrynum}>0.00</div>
+                <div className={styles.countrymoney}>위엔</div>
+              </div>
             </div>
           </div>
         </div>
