@@ -5,14 +5,16 @@ import IconButton from '@mui/material/IconButton'
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 import Button from '@mui/material/Button'
-
+import { exchangeAmountState } from './MyPoint'; // atom 정의를 임포트합니다.
+import { useRecoilValue } from 'recoil';
 // 닫기 버튼
 interface AskWonProps {
   onClose: () => void
   onConfirm: () => void
 }
 const Askwon: React.FC<AskWonProps> = ({ onClose, onConfirm }) => {
-  const [modalState, setModalState] = useState('request')
+  const [modalState, setModalState] = useState('request');
+  const exchangeAmount = useRecoilValue(exchangeAmountState);
 
   const completeClick = () => {
     setModalState('complete')
@@ -40,8 +42,8 @@ const Askwon: React.FC<AskWonProps> = ({ onClose, onConfirm }) => {
         </div>
         {/* 글씨 */}
         <div className={styles.text}>
-          <div className={styles.maintext1}>이채은님에게</div>
-          <div className={styles.maintext2}>10유로 (14,457.5원)</div>
+          <div className={styles.maintext1}>부모님에게</div>
+          <div className={styles.maintext2}>{exchangeAmount.point} {exchangeAmount.code} ({exchangeAmount.calculatedAmount})</div>
           <div className={styles.maintext3}> 환전을 요청할까요?</div>
           <div className={styles.subtext1}>
             환전 요청 금액을 다시한번 확인해주세요!
