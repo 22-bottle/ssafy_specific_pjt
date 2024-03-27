@@ -4,6 +4,7 @@ import { http } from '@/axios'
 const api = {
   code: '/parent/main/code',
   getChild: '/parent/main',
+  getAccount: '/parent/wallet',
 }
 
 async function code() {
@@ -13,4 +14,7 @@ async function code() {
 async function getChild() {
   return await http.get(api.getChild)
 }
-export { code, getChild }
+async function getAccount() {
+  return await http.get(api.getAccount)
+}
+export { code, getChild, getAccount }

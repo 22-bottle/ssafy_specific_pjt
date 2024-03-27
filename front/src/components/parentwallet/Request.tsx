@@ -9,10 +9,31 @@ import { SvgIconProps } from '@mui/material/SvgIcon'
 import request from '../../assets/moneysending.png'
 import complete from '../../assets/moneycomplete.png'
 
+import { useRecoilValue } from 'recoil'
+import { accountSelector } from '@/state/AccountSelectors'
+
+interface AccountData {
+  accountNo: string
+  balance: string
+  frTranList: frTran[]
+}
+
+interface frTran {
+  frTranId: number
+  balance: number
+  countryId: number
+  frBalance: number
+  code: string
+  createTime: string
+  childId: number
+  name: string
+  transacted: boolean
+}
+
 const Request: React.FC = () => {
   // 계좌 변수
-  const accountNumber = '5809040653029952'
-  const accountBalance = '85,003,760'
+  const accountInfo = useRecoilValue<AccountData>(accountSelector) // Recoil 상태에 대한 타입 추가
+  const accountBalance = accountInfo.balance
 
   // 자녀이름 select
   const CustomExpandIcon = (props: SvgIconProps) => {
@@ -81,8 +102,8 @@ const Request: React.FC = () => {
         </div>
         {/* 계좌 정보 */}
         <div className={`${styles.horizontal} ${styles.banklayout}`}>
-          <div className={styles.mybank}>하나은행</div>
-          <div className={styles.myaccount}>{accountNumber}</div>
+          <div className={styles.mybank}>계좌번호</div>
+          <div className={styles.myaccount}>{accountInfo.accountNo}</div>
         </div>
         {/* 잔액 */}
         <div className={styles.horizontal}>
