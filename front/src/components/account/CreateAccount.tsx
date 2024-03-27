@@ -72,7 +72,7 @@ const CreateAccount: React.FC = () => {
               paddingRight: '10px',
             }}
           />
-          <div className={styles.navigatetext}>마이 지갑</div>
+          <div className={styles.navigatetext}>계좌등록</div>
         </Button>
       </div>
       <div className={styles.walletTitle2}>
@@ -100,9 +100,9 @@ const CreateAccount: React.FC = () => {
       {/* 메인 */}
       <div className={styles.materialContainer}>
         <div className={styles.text}>
-          <div className={styles.main1}>내 아이 '이승재'님 에게</div>
-          <div className={styles.main2}>3,000원을 송금할까요?</div>
-          <div className={styles.sub}>비밀번호를 입력해 주세요.</div>
+          <div className={styles.main1}>이채은님,한국은행 계좌를</div>
+          <div className={styles.main2}>원클릭으로 만들 수 있어요!</div>
+          <div className={styles.sub}>계좌 비밀번호를 입력해 주세요.</div>
         </div>
 
         {/* 비밀번호 입력 아이콘 */}
