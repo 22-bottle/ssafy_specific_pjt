@@ -11,7 +11,7 @@ interface ErrorResponse {
 }
 
 function Login() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [useremail, setUseremail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
 
@@ -46,7 +46,7 @@ function Login() {
         if (response.data.data.account === false) {
           startTransition(() => {
             // 등록된 계좌가 없을 때 계좌 등록 페이지로 이동
-            navigate('/account/create')
+            navigate('/account')
           })
         } else {
           if (userRole === 'PARENT') {

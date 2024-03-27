@@ -15,8 +15,6 @@ const RegisterAccountPassword: React.FC = () => {
     const [password, setPassword] = useState('');
     const accountValue = useRecoilValue(accountState);
 
-
-
     const handlePasswordInput = (number: number) => {
         if (password.length < 4) {
             const newPassword = password + number.toString();
@@ -27,8 +25,12 @@ const RegisterAccountPassword: React.FC = () => {
                     .then((response) => {
                         if (response.data.statusCode === 200) {
                             alert('정상적으로 등록되었습니다.');
-                            //역할별 리다이렉트 추가
-                            navigate('/');
+                            console.log(localStorage.getItem('userRole'));
+                            if(localStorage.getItem('userRole') === 'CHILD'){
+                                navigate('/mainchild');
+                            }else if(localStorage.getItem('userRole') === 'PARENT'){
+                                navigate('/mainparent');
+                            }
                         } else {
                             alert('등록에 실패하였습니다.');
                         }
