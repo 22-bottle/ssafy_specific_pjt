@@ -26,32 +26,32 @@ public class StageController {
     private final StageService stageService;
 
     @GetMapping("/child/{childId}")
-    public ResponseEntity<?> stageChildDetails(@PathVariable long childId) {
+    public ResponseEntity<?> stageChildDetails(@PathVariable("childId") long childId) {
         StageChildFindResponse stageChildFindResponse = stageService.findChildStage(childId);
         return getResponseEntity(SuccessCode.OK, stageChildFindResponse);
     }
 
     @PatchMapping("/tutorial/{childId}")
-    public ResponseEntity<?> stageTutorialModify(@PathVariable long childId) {
+    public ResponseEntity<?> stageTutorialModify(@PathVariable("childId") long childId) {
         stageService.modifyTutorial(childId);
         return getResponseEntity(SuccessCode.OK);
     }
 
     @GetMapping("/country/{countryId}")
-    public ResponseEntity<?> stageCountryList(@PathVariable int countryId, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<?> stageCountryList(@PathVariable("countryId") int countryId, HttpServletRequest httpServletRequest) {
         Long memberId = (Long) httpServletRequest.getAttribute("memberId");
         List<StageCountryFindResponse> stageList = stageService.findCountryStage(memberId, countryId);
         return getResponseEntity(SuccessCode.OK, stageList);
     }
 
     @GetMapping("/book/{stageId}")
-    public ResponseEntity<?> stageBookList(@PathVariable long stageId) {
+    public ResponseEntity<?> stageBookList(@PathVariable("stageId") long stageId) {
         StageBookFindResponse stageBookFindResponse = stageService.findBookStage(stageId);
         return getResponseEntity(SuccessCode.OK, stageBookFindResponse);
     }
 
     @GetMapping("/quiz/{stageId}")
-    public ResponseEntity<?> stageQuizList(@PathVariable int stageId, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<?> stageQuizList(@PathVariable("stageId") int stageId, HttpServletRequest httpServletRequest) {
         Long memberId = (Long) httpServletRequest.getAttribute("memberId");
         StageQuizFindResponse stageQuizFindResponse = stageService.findQuizStage(stageId, memberId);
         return getResponseEntity(SuccessCode.OK, stageQuizFindResponse);
