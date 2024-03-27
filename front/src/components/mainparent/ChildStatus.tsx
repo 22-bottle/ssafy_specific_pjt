@@ -25,7 +25,11 @@ import { Doughnut } from 'react-chartjs-2'
 import 'chart.js/auto'
 import { useRecoilValue, useRecoilState } from 'recoil'
 import { childIdState } from '@/state/Parentatoms'
-import { childrenListState, getChildStudyList } from '@/state/Parentselectors'
+import {
+  childrenListState,
+  getChildStudyList,
+  getChildPointList,
+} from '@/state/Parentselectors'
 
 const countries = ['usa', 'japan', 'italy', 'china'] // 캐로셀 배열
 
@@ -52,7 +56,13 @@ interface StudyStatus {
   progressRate: number
   correct: number
 }
-
+// 포인트 현황 오브젝트 타입 정의
+interface ChildPoint {
+  frPointId: number
+  frType: string
+  point: number
+  code: string
+}
 // `generateDataMap` 함수의 반환 타입으로 `DataMap` 인터페이스를 사용
 const generateDataMap = (list: StudyStatus[]): DataMap => {
   const dataMap: DataMap = {}
@@ -90,6 +100,7 @@ const Childstatus: React.FC = () => {
   // 자녀 아이디, 자녀 이름 불러오기
   const [childId, setChildId] = useRecoilState(childIdState)
   const [childName, setChildName] = useState('')
+  // 자녀 리스트 가져오기
   const ChildList = useRecoilValue(childrenListState)
   // 자녀 학습 현황
   const childStudyList = useRecoilValue(getChildStudyList)
@@ -135,21 +146,13 @@ const Childstatus: React.FC = () => {
   //   setSelectedImage(images[randomIndex])
   // }, [])
 
-  // 캐러셀 버튼
-  // 현재 캐로셀의 인덱스 상태
-
-  // 이전 버튼 클릭 핸들러
-
-  // 자녀 학습현황 가져오기
-
-  // 다음 버튼 클릭 핸들러
   // 자녀학습현황 불러오기
   const [currentIndex, setCurrentIndex] = useState<number>(0)
   const [dataMap, setDataMap] = useState<DataMap>({})
   useEffect(() => {
     if (childStudyList && childStudyList.data) {
       const studyStatusList = childStudyList.data // 여기서 studyStatusList를 정의합니다.
-      console.log('자녀학습현황', studyStatusList)
+      // console.log('자녀학습현황', studyStatusList)
       setDataMap(generateDataMap(studyStatusList))
     }
   }, [childStudyList])
@@ -182,6 +185,14 @@ const Childstatus: React.FC = () => {
     boxShadow: 40,
     borderRadius: '8px',
   }
+  // 자녀 포인트 가져오기
+  const childPointList = useRecoilValue(getChildPointList)
+  const [pointStatusList, setPointStatusList] = useState<ChildPoint[]>([])
+  useEffect(() => {
+    if (childPointList && Array.isArray(childPointList.data)) {
+      setPointStatusList(childPointList.data)
+    }
+  }, [childPointList])
 
   return (
     <div className={styles.container}>
@@ -301,38 +312,17 @@ const Childstatus: React.FC = () => {
           <div className={styles.secondtitle}>현재 보유 외화 포인트</div>
           {/* 나라 */}
           <div className={styles.countrylayout}>
-            {/* 미국 */}
-            <div className={styles.eachcountry}>
-              <div className={styles.countryname}>미국달러</div>
-              <div className={styles.countryInfo}>
-                <div className={styles.countrynum}>8.00</div>
-                <div className={styles.countrymoney}>달러</div>
+            {pointStatusList.map((point: ChildPoint) => (
+              <div className={styles.eachcountry} key={point.frPointId}>
+                <div className={styles.countryname}>{point.frType}</div>
+                <div className={styles.countryInfo}>
+                  <div className={styles.countrynum}>
+                    {point.point.toFixed(2)}
+                  </div>
+                  <div className={styles.countrymoney}>{point.code}</div>
+                </div>
               </div>
-            </div>
-            {/* 일본 */}
-            <div className={styles.eachcountry}>
-              <div className={styles.countryname}>일본엔</div>
-              <div className={styles.countryInfo}>
-                <div className={styles.countrynum}>14.35</div>
-                <div className={styles.countrymoney}>엔</div>
-              </div>
-            </div>
-            {/* 유럽 */}
-            <div className={styles.eachcountry}>
-              <div className={styles.countryname}>유럽유로</div>
-              <div className={styles.countryInfo}>
-                <div className={styles.countrynum}>0.00</div>
-                <div className={styles.countrymoney}>유로</div>
-              </div>
-            </div>
-            {/* 중국 */}
-            <div className={styles.eachcountry}>
-              <div className={styles.countryname}>중국위안</div>
-              <div className={styles.countryInfo}>
-                <div className={styles.countrynum}>0.00</div>
-                <div className={styles.countrymoney}>위엔</div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
