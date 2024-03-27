@@ -1,16 +1,20 @@
-import React, { startTransition, useState } from 'react'
+import React, { startTransition, useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useRecoilState } from 'recoil'
 import { stageSubjectState } from '@/state/StageSubjectAtoms'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faQuestion, faTimes } from '@fortawesome/free-solid-svg-icons'
-
+import { country } from '@/api/child'
 import styles from './Italy.module.css'
 
 const Italy: React.FC = () => {
   const [stageId, setStageId] = useRecoilState(stageSubjectState)
-
+  const [stageOneAns, setStageOneAns] = useState('');
+  const [stageTwoAns, setStageTwoAns] = useState('');
+  const [stageThreeAns, setStageThreeAns] = useState('');
+  const [stageFourAns, setStageFourAns] = useState('');
+  const [stageFiveAns, setStageFiveAns] = useState('');
   // 물음표 아이콘 클릭
   const [showDescription, setShowDescription] = useState(false)
 
@@ -23,7 +27,21 @@ const Italy: React.FC = () => {
   }
 
   const navigate = useNavigate()
-
+  useEffect(() => {
+    const fetchItalyStage = async () => {
+      try {
+        const response = await country(3)
+        setStageOneAns(response.data.data[0].answer);
+        setStageTwoAns(response.data.data[1].answer);
+        setStageThreeAns(response.data.data[2].answer);
+        setStageFourAns(response.data.data[3].answer);
+        setStageFiveAns(response.data.data[4].answer);
+      } catch (error) {
+        console.error('API 요청 중 오류 발생: ', error)
+      }
+    }
+    fetchItalyStage();
+  }, [])
   const stageStart = (Id: number) => {
     // 상태 업데이트 함수를 사용하여 stageId 상태를 변경
     setStageId(Id)
@@ -38,24 +56,24 @@ const Italy: React.FC = () => {
       <h1 className={styles.title}>Stage를 클릭해서 퀴즈를 시작하세요!</h1>
       <div className={styles.backgroundIMG}></div>
       <div className={styles.italymap}></div>
-      <div onClick={() => stageStart(0)} className={styles.stage1}></div>
+      <div onClick={() => stageStart(1)} className={styles.stage1}>{stageOneAns}/10</div>
       {/* stage가 개방되었는지 확인하고 css 다르게 적용 기능 추가해야함 */}
       <div
-        onClick={() => stageStart(1)}
-        className={styles.unactive_stage2}
-      ></div>
-      <div
         onClick={() => stageStart(2)}
-        className={styles.unactive_stage3}
-      ></div>
+        className={styles.unactive_stage2}
+      >{stageTwoAns}/10</div>
       <div
         onClick={() => stageStart(3)}
-        className={styles.unactive_stage4}
-      ></div>
+        className={styles.unactive_stage3}
+      >{stageThreeAns}/10</div>
       <div
         onClick={() => stageStart(4)}
+        className={styles.unactive_stage4}
+      >{stageFourAns}/10</div>
+      <div
+        onClick={() => stageStart(5)}
         className={styles.unactive_stage5}
-      ></div>
+      >{stageFiveAns}/10</div>
 
       <div className={styles.fairyContainer}>
         <div className={styles.fairy}>

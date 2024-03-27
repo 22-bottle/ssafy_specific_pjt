@@ -86,8 +86,6 @@ public class StageService {
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_STAGE));
         List<StageCountryFindResponse> stageList = new ArrayList<>();
         for (Stage stage : stages) {
-            StageStatus stageStatus = stageStatusRepository.findByMemberAndStage(member, stage)
-                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_STAGE_STATUS));
             List<Quiz> quizzes = quizRepository.findAllByStage(stage)
                     .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_QUIZ));
             int answer = 0;
@@ -95,7 +93,9 @@ public class StageService {
                 Optional<QuizStatus> quizStatus = quizStatusRepository.findByMemberIdAndQuizId(memberId, quiz.getId());
                 if (!quizStatus.isEmpty() && quizStatus.get().getIsCorrect()) answer++;
             }
-            stageList.add(new StageCountryFindResponse(stage, stageStatus.isPassed(), answer));
+            Optional<StageStatus> stageStatus = stageStatusRepository.findByMemberAndStage(member, stage);
+            if (!stageStatus.isEmpty()) stageList.add(new StageCountryFindResponse(stage, stageStatus.get().isPassed(), answer));
+            else stageList.add(new StageCountryFindResponse(stage, false, answer));
         }
         return stageList;
     }

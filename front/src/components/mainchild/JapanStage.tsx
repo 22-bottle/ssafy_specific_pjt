@@ -1,13 +1,17 @@
 import React, { useState, startTransition } from "react";
+import { useRecoilValue } from "recoil";
 import { useNavigate, Outlet } from "react-router-dom";
+import { selectedJapanStageInfo } from "@/state/StageSubjectSelectors";
 import styles from './JapanStage.module.css'
 
 
 const JapanStage:React.FC= () => {
     // 해당 스테이지의 만화 주제
-    const [topic, setTopic] = useState<string>('일본의 역사적 사건');
+    // const [topic, setTopic] = useState<string>('일본의 역사적 사건');
     // 해당 스테이지의 번호 >> int로??
-    const [stageNum, setStageNum] = useState<string>('1');
+    // const [stageNum, setStageNum] = useState<string>('1');
+
+    const { stageNum, topic } = useRecoilValue(selectedJapanStageInfo);
 
     const characterImage = require('@/assets/fairy_japan.png')
 
