@@ -1,30 +1,60 @@
-import React, { useState } from 'react'
+import React, {useEffect, useState, startTransition } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { List, ListItem, ListItemText, ListItemButton } from '@mui/material'
 import { blue } from '@mui/material/colors'
 import styles from './registeraccount.module.css'
 import Button from '@mui/material/Button'
 import logoImage from '../../assets/logo.png'
+import { list } from '@/api/account'
+import { atom, useSetRecoilState  } from 'recoil';
+
+export const accountState = atom({
+    key: 'accountState', // 고유한 키
+    default: {
+        accountNo : '',
+    },
+});
 
 const RegisterAccount: React.FC = () => {
   // 더미데이터
   interface BankAccount {
-    bank: string
-    account: string
+    bankName: string
+    accountNo: string
   }
+    const navigate = useNavigate();
+    const [bankAccounts, setBankAccounts] = useState<BankAccount[]>([]);
+    const setAccount = useSetRecoilState(accountState);
+    useEffect(() => {
+        const fetchAccountData = async () => {
+            try {
+                const response = await list();
+                console.log(response.data.data.REC);
+                if (response.data.data.REC === null || response.data.data.REC.length === 0) {
+                    navigate('/account/create'); // 경로를 CreateAccount 컴포넌트의 경로로 변경하세요
+                } else {
+                    setBankAccounts(response.data.data.REC);
+                }
+            } catch (error) {
+                console.error("Error fetching account data:", error);
+            }
+        };
 
-  const bankAccounts: BankAccount[] = [
-    { bank: '하나은행', account: '58092403392710' },
-    { bank: '국민은행', account: '58092403392711' },
-    { bank: '한국은행', account: '58092403392712' },
-    { bank: '카카오뱅크', account: '58092403392713' },
-    { bank: '토스뱅크', account: '58092403392714' },
-    { bank: '농협은행', account: '58092403392715' },
-    { bank: '수협은행', account: '58092403392716' },
-    { bank: '신한은행', account: '58092403392717' },
-  ]
+        fetchAccountData();
+    }, [navigate]);
 
-  // 리스트 중에 내 계좌 선택
+    // 리스트 중에 내 계좌 선택
   const [selectedAccount, setSelectedAccount] = useState<string | null>(null)
+
+    const handleConfirmSelection = () => {
+        if (selectedAccount) {
+            startTransition(() => {
+                setAccount({ accountNo: selectedAccount });
+                navigate('/account/password');
+            });
+        } else {
+            alert('계좌를 선택해주세요.');
+        }
+    };
 
   const handleListItemClick = (account: string) => {
     setSelectedAccount(account)
@@ -57,13 +87,13 @@ const RegisterAccount: React.FC = () => {
             {bankAccounts.map((account, index) => (
               <ListItem key={index} disablePadding>
                 <ListItemButton
-                  onClick={() => handleListItemClick(account.account)}
+                  onClick={() => handleListItemClick(account.accountNo)}
                   sx={{
                     '&:hover': {
                       backgroundColor: '#F1F3F7',
                     },
                     border:
-                      selectedAccount === account.account
+                      selectedAccount === account.accountNo
                         ? `2px solid #0064FF`
                         : 'none',
                     borderRadius: '5px',
@@ -74,8 +104,8 @@ const RegisterAccount: React.FC = () => {
                   }}
                 >
                   <div className={styles.account}>
-                    <div className={styles.acctext1}>{account.bank}</div>
-                    <div className={styles.acctext2}>{account.account}</div>
+                    <div className={styles.acctext1}>{account.bankName}</div>
+                    <div className={styles.acctext2}>{account.accountNo}</div>
                   </div>
                 </ListItemButton>
               </ListItem>
@@ -87,6 +117,7 @@ const RegisterAccount: React.FC = () => {
           <Button
             variant="contained"
             disableElevation
+            onClick={handleConfirmSelection}
             sx={{
               width: '100%',
               height: '70px',

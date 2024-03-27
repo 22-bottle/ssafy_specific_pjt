@@ -6,7 +6,5 @@ import lombok.Data;
 public class RegistrationAccountRequest {
     private String accountNo;
     private String password;
-    private String bankCode;
-    private String bankName;
 
 }
