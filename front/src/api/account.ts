@@ -3,6 +3,7 @@ import { http } from '@/axios'
 const api = {
     list: '/account',
     register : '/account',
+    make : '/account/make'
 }
 
 async function list(){
@@ -17,4 +18,11 @@ async function register(accountNo : string, password : string){
     return await http.post(api.register, requestBody);
 }
 
-export {list, register}
+async function make(password : string){
+    const requestBody = {
+        password : password
+    }
+    return await http.post(api.make, requestBody);
+}
+
+export {list, register, make}
