@@ -5,6 +5,7 @@ const api = {
   code: '/parent/main/code',
   getChild: '/parent/main',
   getAccount: '/parent/wallet',
+  getTrans: '/parent/wallet/tran',
 }
 
 async function code() {
@@ -17,4 +18,7 @@ async function getChild() {
 async function getAccount() {
   return await http.get(api.getAccount)
 }
-export { code, getChild, getAccount }
+async function getTrans() {
+  return await http.get(api.getTrans)
+}
+export { code, getChild, getAccount, getTrans }

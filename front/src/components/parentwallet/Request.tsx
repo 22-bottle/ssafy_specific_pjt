@@ -8,9 +8,11 @@ import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded'
 import { SvgIconProps } from '@mui/material/SvgIcon'
 import request from '../../assets/moneysending.png'
 import complete from '../../assets/moneycomplete.png'
+import { useNavigate } from 'react-router-dom'
 
 import { useRecoilValue } from 'recoil'
-import { accountSelector } from '@/state/AccountSelectors'
+import { accountSelector, transSelector } from '@/state/AccountSelectors'
+import { faL } from '@fortawesome/free-solid-svg-icons'
 
 interface AccountData {
   accountNo: string
@@ -30,10 +32,14 @@ interface frTran {
   transacted: boolean
 }
 
+interface TransData {}
+
 const Request: React.FC = () => {
   // 계좌 변수
-  const accountInfo = useRecoilValue<AccountData>(accountSelector) // Recoil 상태에 대한 타입 추가
-  const accountBalance = accountInfo.balance
+  const { accountNo, balance, frTranList } =
+    useRecoilValue<AccountData>(accountSelector)
+
+  const transData = useRecoilValue<TransData>(transSelector)
 
   // 자녀이름 select
   const CustomExpandIcon = (props: SvgIconProps) => {
@@ -103,11 +109,11 @@ const Request: React.FC = () => {
         {/* 계좌 정보 */}
         <div className={`${styles.horizontal} ${styles.banklayout}`}>
           <div className={styles.mybank}>계좌번호</div>
-          <div className={styles.myaccount}>{accountInfo.accountNo}</div>
+          <div className={styles.myaccount}>{accountNo}</div>
         </div>
         {/* 잔액 */}
         <div className={styles.horizontal}>
-          <div className={styles.balance}>{accountBalance}</div>
+          <div className={styles.balance}>{balance}</div>
           <div className={styles.won}>원</div>
         </div>
       </div>
@@ -146,33 +152,37 @@ const Request: React.FC = () => {
         </div>
 
         {/* 각각 내역 */}
-        {transactions.map((transaction, index) => (
+        {frTranList.map((transaction, index) => (
           <div key={index} className={styles.accountcontent}>
-            <div className={styles.date}>{transaction.date}</div>
+            <div className={styles.date}>{transaction.createTime}</div>
             <div className={styles.detail}>
               <img
-                src={transaction.type === 1 ? request : complete}
+                src={transaction.transacted === false ? request : complete}
                 alt="Transaction Type"
                 style={{ width: '65px', height: '65px' }}
               />
               <div className={styles.subdetail1}>
-                <div className={styles.sub1text1}>{transaction.main}</div>
-                <div className={styles.sub1text2}>{transaction.child}님</div>
+                <div className={styles.sub1text1}>
+                  {transaction.transacted ? '송금완료' : '송금요청'}
+                </div>
+                <div className={styles.sub1text2}>{transaction.name}님</div>
               </div>
-              {transaction.type === 1 ? (
+              {transaction.transacted === false ? (
                 <div className={styles.subdetail2}>
-                  <div className={styles.sub2text1}>{transaction.money}원</div>
-                  {transaction.done === 'no' ? (
+                  <div className={styles.sub2text1}>
+                    {transaction.balance}원
+                  </div>
+                  {transaction.transacted === false ? (
                     <div className={styles.sub2text2}>송금하기</div>
                   ) : null}
                 </div>
               ) : (
                 <div className={styles.subdetail2}>
-                  <div className={styles.sub2text1}>-{transaction.money}원</div>
+                  <div className={styles.sub2text1}>
+                    -{transaction.balance}원
+                  </div>
                   {transaction.balance && (
-                    <div className={styles.sub2text3}>
-                      {transaction.balance}원
-                    </div>
+                    <div className={styles.sub2text3}>{balance}원</div>
                   )}
                 </div>
               )}
