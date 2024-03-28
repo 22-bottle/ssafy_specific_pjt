@@ -182,4 +182,11 @@ public class MemberService {
     public Member findById(Long memberId) {
         return memberRepository.findById(memberId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
     }
+
+    @Transactional
+    public void logout(Long memberId) {
+        String refreshToken = findById(memberId).getRefreshToken();
+        jwtTokenProvider.validateToken(refreshToken);
+        memberRepository.updateRefreshToken(memberId, null);
+    }
 }
