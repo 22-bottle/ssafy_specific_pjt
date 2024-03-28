@@ -6,7 +6,7 @@ services:
     container_name: mysql-hico
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_ROOT_PASSWORD: hicohico52
       MYSQL_DATABASE: hico
     ports:
       - 3306:3306
@@ -28,9 +28,9 @@ services:
       - 8081:8081
     environment:
       TZ: Asia/Seoul
-      profile: ${PROFILE}
-      MYSQL_DATABASE_USERNAME: ${PROD_DATABASE_USERNAME}
-      MYSQL_DATABASE_PASSWORD: ${PROD_DATABASE_PASSWORD}
+#      profile: ${PROFILE}
+#      MYSQL_DATABASE_USERNAME: ${PROD_DATABASE_USERNAME}
+#      MYSQL_DATABASE_PASSWORD: ${PROD_DATABASE_PASSWORD}
     depends_on:
       - database
   frontend:
