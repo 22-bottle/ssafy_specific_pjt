@@ -20,10 +20,10 @@ export const quizList = selector({
         const countryId = get(countrydetailState);
         const response = await quiz(stageId + (countryId - 1) * 5);
         const increase = response.data.data.increase;
-        const quizzes = response.data.data.quizList;
+        const quizDataList = response.data.data.quizList;
         return {
             increase,
-            quizzes,
+            quizDataList,
         };
     }
 })

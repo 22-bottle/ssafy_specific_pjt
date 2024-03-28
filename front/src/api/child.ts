@@ -23,11 +23,11 @@ async function quiz(stageId: number) {
     return await http.get(`${api.quiz}/${stageId}`);
 }
 
-async function answer(stageId: number, price: number, quizes: Array<object>) {
+async function answer(stageId: number, price: number, quizzes: Array<object>) {
     const requestBody = {
         stageId : stageId,
         price: price,
-        quizes: quizes,
+        quizzes: quizzes,
     }
     return await http.post(`${api.quiz}`, requestBody);
 }
