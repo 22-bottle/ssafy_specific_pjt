@@ -5,7 +5,7 @@ import { Container } from "react-bootstrap";
 import { quizList } from "@/state/childselectors";
 import { useRecoilValue, useRecoilState } from "recoil";
 import { countrydetailState } from "@/state/StageSubjectAtoms"
-import { answer } from "@/api/child";
+import { saveAnswer } from "@/api/child";
 import { stageSubjectState } from '@/state/StageSubjectAtoms'
 
 const Quiz:React.FC = () => {
@@ -18,23 +18,48 @@ const Quiz:React.FC = () => {
     const characterImage = characterImages[countryId - 1];
     const { increase, quizDataList } = useRecoilValue(quizList) || [];
     const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
-    const requestBody = {
-        stageId: stageId,
-        price: 0,
-        quizzes: new Array(0),
+    const [price, setPrice] = useState(0);
+    interface quizResult {
+        quizId: number,
+        isCorrect: boolean
     }
+    const [quizResultList, setQuizResultList] = useState(new Array<quizResult>());
     const goOxToNextQuiz = () => {
-        //정답 확인
         if (answer === quizDataList[currentQuizIndex].quizAnswer) {
-            requestBody.quizzes.push({ quizId: quizDataList[currentQuizIndex].quizId, isCorrect: true })
+            quizResultList.push({ quizId: quizDataList[currentQuizIndex].quizId, isCorrect: true });
+            if (!quizDataList[currentQuizIndex].isCorrect) {
+                setPrice((prev) => prev += (quizDataList[currentQuizIndex].quizPrice + increase));
+            }
         } else {
-            requestBody.quizzes.push({ quizId: quizDataList[currentQuizIndex].quizId, isCorrect: false })
+            quizResultList.push({ quizId: quizDataList[currentQuizIndex].quizId, isCorrect: false });
         }
         setCurrentQuizIndex((prev) => (prev < 9 ? prev + 1 : prev));
     }
     const goSaToNextQuiz = () => {
-        //정답 확인
-        setCurrentQuizIndex((prev) => (prev < 9 ? prev + 1 : prev));
+        if (answer === quizDataList[currentQuizIndex].quizAnswer) {
+            quizResultList.push({ quizId: quizDataList[currentQuizIndex].quizId, isCorrect: true })
+            if (!quizDataList[currentQuizIndex].isCorrect) {
+                setPrice((prev) => prev += (quizDataList[currentQuizIndex].quizPrice + increase));
+            }
+        } else {
+            quizResultList.push({ quizId: quizDataList[currentQuizIndex].quizId, isCorrect: false })
+        }
+        if (currentQuizIndex < 9) {
+            setCurrentQuizIndex((prev) => (prev += 1));
+        } else {
+            saveAnswer(stageId, price, quizResultList)
+                .then((response) => {
+                    if (response.data.statusCode === 200) {
+                        alert('제출되었습니다.');
+                    } else {
+                        alert('제출에 실패하였습니다.')
+                    }
+                })
+                .catch((error) => {
+                    console.error(error);
+                    alert('오류');
+                });
+        }
     }
 
     // 객관식 선택지 자체를 버튼으로 >> 수정 필요!!!!!!!!!

@@ -55,14 +55,15 @@ function Signup() {
         code
       )
       console.log(response.data) // 요청 성공 시 응답 데이터 로깅
+      alert('화원가입이 완료 되었습니다.')
       // 성공 처리 로직...
     } catch (error) {
       console.error(error) // 에러 로깅
       // 에러 처리 로직...
     }
-    // api 함수에 보내기
+    // // api 함수에 보내기
     startTransition(() => {
-      navigate('/mainparent/childstatus')
+      navigate('/')
     })
   }
   // 이메일
