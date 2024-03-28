@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './request.module.css'
 import wallet from '../../assets/wallet.png'
 import FormControl from '@mui/material/FormControl'
@@ -32,14 +32,31 @@ interface frTran {
   transacted: boolean
 }
 
-interface TransData {}
+interface TransData {
+  frTranId: number
+  balance: number
+  countryId: number
+  frBalance: number
+  code: string
+  createTime: string
+  childId: number
+  name: string
+  transacted: boolean
+}
 
 const Request: React.FC = () => {
   // 계좌 변수
   const { accountNo, balance, frTranList } =
     useRecoilValue<AccountData>(accountSelector)
+  // const { accountNo, balance, frTranList } = useRecoilValue(accountSelector)
+  const transData = useRecoilValue(transSelector)
 
-  const transData = useRecoilValue<TransData>(transSelector)
+  useEffect(() => {
+    console.log(`계좌번호: ${accountNo}, 잔액: ${balance}`)
+    if (frTranList.length > 0) {
+      console.log(`리스트: ${JSON.stringify(frTranList)}`)
+    }
+  })
 
   // 자녀이름 select
   const CustomExpandIcon = (props: SvgIconProps) => {
@@ -49,52 +66,6 @@ const Request: React.FC = () => {
   const handleChange = (event: SelectChangeEvent<string>) => {
     setbilltype(event.target.value)
   }
-
-  // 거래 내역
-  interface Transaction {
-    type: number
-    date: string
-    main: string
-    child: string
-    money: string
-    done?: string
-    balance?: string
-  }
-
-  const transactions: Transaction[] = [
-    {
-      type: 1,
-      date: '3월 8일',
-      main: '송금 요청',
-      child: '이승재',
-      money: '5,220',
-      done: 'no',
-    },
-    {
-      type: 2,
-      date: '2월 25일',
-      main: '송금 완료',
-      child: '이승재',
-      money: '3,250',
-      balance: '85,000,510',
-    },
-    {
-      type: 2,
-      date: '2월 23일',
-      main: '송금 완료',
-      child: '이무진',
-      money: '1,523',
-      balance: '84,998,987',
-    },
-    {
-      type: 1,
-      date: '2월 17일',
-      main: '송금 요청',
-      child: '이승재',
-      money: '3,250',
-      done: 'yes',
-    },
-  ]
 
   return (
     <div className={styles.container}>
@@ -108,7 +79,7 @@ const Request: React.FC = () => {
         </div>
         {/* 계좌 정보 */}
         <div className={`${styles.horizontal} ${styles.banklayout}`}>
-          <div className={styles.mybank}>계좌번호</div>
+          <div className={styles.mybank}>한국은행</div>
           <div className={styles.myaccount}>{accountNo}</div>
         </div>
         {/* 잔액 */}
@@ -152,7 +123,7 @@ const Request: React.FC = () => {
         </div>
 
         {/* 각각 내역 */}
-        {frTranList.map((transaction, index) => (
+        {frTranList.map((transaction: frTran, index: number) => (
           <div key={index} className={styles.accountcontent}>
             <div className={styles.date}>{transaction.createTime}</div>
             <div className={styles.detail}>
