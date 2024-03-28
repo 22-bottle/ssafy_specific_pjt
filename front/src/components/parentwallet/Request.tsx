@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, startTransition } from 'react'
 import styles from './request.module.css'
 import wallet from '../../assets/wallet.png'
 import FormControl from '@mui/material/FormControl'
@@ -45,10 +45,16 @@ interface TransData {
 }
 
 const Request: React.FC = () => {
+  const navigate = useNavigate()
+
+  const sendClick = () => {
+    startTransition(() => {
+      navigate('/parentwallet/send')
+    })
+  }
   // 계좌 변수
   const { accountNo, balance, frTranList } =
     useRecoilValue<AccountData>(accountSelector)
-  // const { accountNo, balance, frTranList } = useRecoilValue(accountSelector)
   const transData = useRecoilValue(transSelector)
 
   useEffect(() => {
@@ -84,7 +90,9 @@ const Request: React.FC = () => {
         </div>
         {/* 잔액 */}
         <div className={styles.horizontal}>
-          <div className={styles.balance}>{balance}</div>
+          <div className={styles.balance}>
+            {Number(balance).toLocaleString()}
+          </div>
           <div className={styles.won}>원</div>
         </div>
       </div>
@@ -125,7 +133,12 @@ const Request: React.FC = () => {
         {/* 각각 내역 */}
         {frTranList.map((transaction: frTran, index: number) => (
           <div key={index} className={styles.accountcontent}>
-            <div className={styles.date}>{transaction.createTime}</div>
+            <div className={styles.date}>
+              {new Date(transaction.createTime).toLocaleDateString('ko-KR', {
+                month: 'long',
+                day: 'numeric',
+              })}
+            </div>
             <div className={styles.detail}>
               <img
                 src={transaction.transacted === false ? request : complete}
@@ -141,19 +154,23 @@ const Request: React.FC = () => {
               {transaction.transacted === false ? (
                 <div className={styles.subdetail2}>
                   <div className={styles.sub2text1}>
-                    {transaction.balance}원
+                    {Number(transaction.balance).toLocaleString()}원
                   </div>
                   {transaction.transacted === false ? (
-                    <div className={styles.sub2text2}>송금하기</div>
+                    <div onClick={sendClick} className={styles.sub2text2}>
+                      송금하기
+                    </div>
                   ) : null}
                 </div>
               ) : (
                 <div className={styles.subdetail2}>
                   <div className={styles.sub2text1}>
-                    -{transaction.balance}원
+                    -{Number(transaction.balance).toLocaleString()}원
                   </div>
                   {transaction.balance && (
-                    <div className={styles.sub2text3}>{balance}원</div>
+                    <div className={styles.sub2text3}>
+                      {Number(transaction.balance).toLocaleString()}원
+                    </div>
                   )}
                 </div>
               )}
