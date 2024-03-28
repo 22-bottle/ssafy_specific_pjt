@@ -1,5 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, startTransition } from 'react'
 import styles from './Story.module.css'
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+import Modal from '@mui/material/Modal'
+import { useNavigate } from 'react-router-dom'
+import { tutorial } from '@/api/child'
 const storyBackgroundLab = require('@/assets/storylab.png')
 const storyspaceship = require('@/assets/storyspaceship.png')
 const storyworldmap = require('@/assets/worldmap.jpg')
@@ -159,19 +165,51 @@ const stories: Storyline[] = [
     isgrandpa: 1,
     isgrandchild: 1,
   },
+  {
+    id: 21,
+    text: '요정들이 내는 문제를 맞추고 연료를 받아서 집으로 돌아가자꾸나! ',
+    image: storyworldmap,
+    isgrandpa: 1,
+    isgrandchild: 1,
+  },
 ]
 const Story: React.FC = () => {
+  const navigate = useNavigate()
   const [currentStoryIndex, setCurrentStoryIndex] = useState(0)
+  // 모달 오픈
+  const [open, setOpen] = useState(false)
 
   const goToPreviousStory = () => {
     setCurrentStoryIndex((prev) => (prev > 0 ? prev - 1 : prev))
   }
 
   const goToNextStory = () => {
-    setCurrentStoryIndex((prev) =>
-      prev < stories.length - 1 ? prev + 1 : prev
-    )
+    if (currentStoryIndex === stories.length - 2) {
+      // currentStoryIndex가 stories의 마지막 인덱스일 때
+      setOpen(true)
+    } else {
+      setCurrentStoryIndex((prev) => prev + 1)
+    }
   }
+  const goToworldmap = async () => {
+    try {
+      // API 호출
+      const response = await tutorial() // tutorial 함수는 API 호출하는 함수로 가정하고 작성되었다고 가정합니다.
+      console.log(response)
+      // API 호출이 성공하면 페이지 이동
+      if (response.data.statusCode === 200) {
+        // 성공일때
+        navigate('/mainchild/worldmap') // 페이지 이동
+      } else {
+        // API 호출이 실패했을 때의 처리
+      }
+    } catch (error) {
+      // 에러 처리
+      console.error('API 호출 중 에러 발생:', error)
+      // 에러 처리 코드 작성
+    }
+  }
+
   return (
     <div className={styles.storyContainer}>
       <div
@@ -209,6 +247,25 @@ const Story: React.FC = () => {
         >
           Next
         </button>
+      </div>
+      {/* world map으로 이동 모달 */}
+      <div>
+        <Modal
+          open={open}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              HICO를 얻으러 가볼까요?
+            </Typography>
+            <Typography
+              id="modal-modal-description"
+              sx={{ mt: 2 }}
+            ></Typography>
+            <button onClick={goToworldmap}>Hico 시작</button>
+          </Box>
+        </Modal>
       </div>
     </div>
   )
