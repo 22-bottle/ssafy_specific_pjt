@@ -14,6 +14,10 @@ const routes: RouteType[] = [
     element: React.lazy(() => import('@/pages/login')),
   },
   {
+    path: '/tts',
+    element: React.lazy(() => import('@/pages/tts')),
+  },
+  {
     path: '/signup',
     element: React.lazy(() => import('@/pages/signup')),
     children: [
