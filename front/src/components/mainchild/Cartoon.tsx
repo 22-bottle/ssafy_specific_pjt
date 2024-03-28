@@ -8,13 +8,13 @@ import { StoreMallDirectorySharp } from "@mui/icons-material";
 const Cartoon:React.FC= () => {
     // 스테이지 별 해당 만화
     // const [cartoon, setCartoon] =  useState('')
-    const cartoonList = useRecoilValue(bookList) || []
+    const cartoonList = useRecoilValue(bookList) || [];
 
     const [currentCartoonIndex, setCurrentCartoonIndex] = useState(0);
     const goToPreviousCartoon = () => {
         setCurrentCartoonIndex((prev) => (prev > 0 ? prev - 1 : prev));
     };
-    const goToNextStory = () => {
+    const goToNextCartoon = () => {
         setCurrentCartoonIndex((prev) => (prev < 4 ? prev + 1 : prev));
     }
 
@@ -26,10 +26,9 @@ const Cartoon:React.FC= () => {
             </div>
             <div className={styles.buttonContainer}>
                 <button className={styles.backButton} onClick={goToPreviousCartoon}></button>
-                <button className={styles.frontButton} onClick={goToNextStory}></button>
+                <button className={styles.frontButton} onClick={goToNextCartoon}></button>
             </div>
         </div>
-        
         
     );
 };

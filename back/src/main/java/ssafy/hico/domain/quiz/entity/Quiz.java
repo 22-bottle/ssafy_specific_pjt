@@ -21,7 +21,8 @@ public class Quiz extends BaseTimeEntity {
     private long id;
     private String quizQuestion;
     private String quizAnswer;
-    private String quizType;
+    @Enumerated(EnumType.STRING)
+    private QuizType quizType;
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "stage_id")

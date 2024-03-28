@@ -4,6 +4,7 @@ const api = {
     progress: '/stage/child',
     country: '/stage/country',
     book: '/stage/book',
+    quiz: 'stage/quiz',
 }
 
 async function progress() {
@@ -18,4 +19,17 @@ async function book(stageId: number) {
     return await http.get(`${api.book}/${stageId}`);
 }
 
-export { progress, country, book }
+async function quiz(stageId: number) {
+    return await http.get(`${api.quiz}/${stageId}`);
+}
+
+async function answer(stageId: number, price: number, quizes: Array<object>) {
+    const requestBody = {
+        stageId : stageId,
+        price: price,
+        quizes: quizes,
+    }
+    return await http.post(`${api.quiz}`, requestBody);
+}
+
+export { progress, country, book, quiz, answer }

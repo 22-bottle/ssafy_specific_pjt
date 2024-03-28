@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ssafy.hico.domain.quiz.entity.Difficulty;
 import ssafy.hico.domain.quiz.entity.Quiz;
+import ssafy.hico.domain.quiz.entity.QuizType;
 
 @Data
 @Builder
@@ -16,7 +17,7 @@ public class QuizInfo {
     private long quizId;
     private String quizQuestion;
     private String quizAnswer;
-    private String quizType;
+    private QuizType quizType;
     private Difficulty quizLevel;
     private double quizPrice;
     private boolean isCorrect;
