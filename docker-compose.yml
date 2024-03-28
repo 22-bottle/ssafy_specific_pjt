@@ -5,6 +5,7 @@ services:
     image: mysql:latest
     container_name: mysql-hico
     restart: always
+    command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: hicohico52
       MYSQL_DATABASE: hico
