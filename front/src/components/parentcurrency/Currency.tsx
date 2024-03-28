@@ -61,9 +61,10 @@ const Currency: React.FC = () => {
       navigate('/currency/detail')
     })
   }
+  const shouldShowNavbar = location.pathname === '/currency'
   return (
     <div>
-      <Navbar />
+      {shouldShowNavbar && <Navbar />}
       <div className={styles.currencycontainer}>
         <div className={styles.header}>실시간 환율</div>
         <div className={styles.subhead}>
@@ -140,7 +141,7 @@ const Currency: React.FC = () => {
               }}
             >
               <ListItemButton
-                onClick={() => navigatToDetail(3)}
+                onClick={() => navigatToDetail(2)}
                 sx={{
                   minHeight: '120px',
                   backgroundColor: 'white',
@@ -193,7 +194,7 @@ const Currency: React.FC = () => {
               }}
             >
               <ListItemButton
-                onClick={() => navigatToDetail(2)}
+                onClick={() => navigatToDetail(3)}
                 sx={{
                   minHeight: '120px',
                   backgroundColor: 'white',
