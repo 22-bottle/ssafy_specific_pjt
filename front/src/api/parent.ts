@@ -8,7 +8,9 @@ const api = {
   study: `/parent/main`,
   // 자녀 보유 포인트 현황
   point: `/parent/main/point`,
+  // 부모 계좌, 송금 내역
   getAccount: '/parent/wallet',
+  // 아이의 환전 요청 리스트
   getTrans: '/parent/wallet/tran',
 }
 

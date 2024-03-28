@@ -149,6 +149,11 @@
   font-size: 15px;
 }
 
+.sub2text2:hover {
+  cursor: pointer;
+  color: blue; /* 파란색으로 변경 */
+}
+
 .sub2text3 {
   font-size: 14px;
   color: #585865;
