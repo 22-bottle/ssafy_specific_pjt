@@ -18,20 +18,3 @@ export const accountSelector = selector({
     }
   },
 })
-
-// // 아이의 환전 요청 내역 조회
-// export const transSelector = selector({
-//   key: 'transSelector',
-//   get: async ({ get }) => {
-//     try {
-//       const trans = get(tranState)
-
-//       const response = await getTrans()
-//       const transData = response.data.data
-//       return { trans, transData }
-//     } catch (error) {
-//       console.error('API 요청 중 오류 발생:', error)
-//       throw error
-//     }
-//   },
-// })

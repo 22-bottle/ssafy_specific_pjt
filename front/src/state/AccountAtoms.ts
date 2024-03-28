@@ -8,8 +8,3 @@ export const accountState = atom({
     frTranList: [], // 거래 내역
   },
 })
-
-// export const tranState = atom({
-//   key: 'tranState',
-//   default: [],
-// })
