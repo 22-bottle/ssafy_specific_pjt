@@ -4,10 +4,29 @@ import Button from '@mui/material/Button'
 import CircleIcon from '@mui/icons-material/Circle'
 import KeyboardBackspaceRoundedIcon from '@mui/icons-material/KeyboardBackspaceRounded'
 // import { useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
+
+// interface AccountData {
+//   frTranList: frTran[]
+// }
+
+interface frTran {
+  frTranId: number
+  balance: number
+  countryId: number
+  frBalance: number
+  code: string
+  createTime: string
+  childId: number
+  name: string
+  transacted: boolean
+}
 
 const Sending: React.FC = () => {
   // 입력된 비밀번호 길이를 추적하는 상태
   const [passwordLength, setPasswordLength] = useState(0)
+  const location = useLocation()
+  const { transaction }: { transaction?: frTran } = location.state || {}
 
   // 비밀번호 입력 핸들러
   const handlePasswordInput = (number: number) => {
@@ -100,8 +119,10 @@ const Sending: React.FC = () => {
       {/* 메인 */}
       <div className={styles.materialContainer}>
         <div className={styles.text}>
-          <div className={styles.main1}>내 아이 '이승재'님 에게</div>
-          <div className={styles.main2}>3,000원을 송금할까요?</div>
+          <div className={styles.main1}>{transaction?.name}님 에게</div>
+          <div className={styles.main2}>
+            {Number(transaction?.balance).toLocaleString()}원을 송금할까요?
+          </div>
           <div className={styles.sub}>비밀번호를 입력해 주세요.</div>
         </div>
 

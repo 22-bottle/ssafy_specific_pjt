@@ -10,8 +10,8 @@ const api = {
   point: `/parent/main/point`,
   // 부모 계좌, 송금 내역
   getAccount: '/parent/wallet',
-  // 아이의 환전 요청 리스트
-  getTrans: '/parent/wallet/tran',
+  // // 아이의 환전 요청 리스트
+  // getTrans: '/parent/wallet/tran',
 }
 
 async function code() {
@@ -30,7 +30,7 @@ async function point(id: number) {
 async function getAccount() {
   return await http.get(api.getAccount)
 }
-async function getTrans() {
-  return await http.get(api.getTrans)
-}
-export { code, getChild, study, point, getAccount, getTrans }
+// async function getTrans() {
+//   return await http.get(api.getTrans)
+// }
+export { code, getChild, study, point, getAccount }

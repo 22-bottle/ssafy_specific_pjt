@@ -1,4 +1,9 @@
-import React, { useState, useEffect, startTransition } from 'react'
+import React, {
+  useState,
+  useEffect,
+  startTransition,
+  MouseEventHandler,
+} from 'react'
 import styles from './request.module.css'
 import wallet from '../../assets/wallet.png'
 import FormControl from '@mui/material/FormControl'
@@ -11,7 +16,7 @@ import complete from '../../assets/moneycomplete.png'
 import { useNavigate } from 'react-router-dom'
 
 import { useRecoilValue } from 'recoil'
-import { accountSelector, transSelector } from '@/state/AccountSelectors'
+import { accountSelector } from '@/state/AccountSelectors'
 import { faL } from '@fortawesome/free-solid-svg-icons'
 
 interface AccountData {
@@ -32,30 +37,18 @@ interface frTran {
   transacted: boolean
 }
 
-interface TransData {
-  frTranId: number
-  balance: number
-  countryId: number
-  frBalance: number
-  code: string
-  createTime: string
-  childId: number
-  name: string
-  transacted: boolean
-}
-
 const Request: React.FC = () => {
   const navigate = useNavigate()
 
-  const sendClick = () => {
+  const sendClick = (transaction: frTran) => {
     startTransition(() => {
-      navigate('/parentwallet/send')
+      navigate('/parentwallet/send', { state: { transaction } })
     })
   }
+
   // 계좌 변수
   const { accountNo, balance, frTranList } =
     useRecoilValue<AccountData>(accountSelector)
-  const transData = useRecoilValue(transSelector)
 
   useEffect(() => {
     console.log(`계좌번호: ${accountNo}, 잔액: ${balance}`)
@@ -157,7 +150,10 @@ const Request: React.FC = () => {
                     {Number(transaction.balance).toLocaleString()}원
                   </div>
                   {transaction.transacted === false ? (
-                    <div onClick={sendClick} className={styles.sub2text2}>
+                    <div
+                      onClick={() => sendClick(transaction)}
+                      className={styles.sub2text2}
+                    >
                       송금하기
                     </div>
                   ) : null}

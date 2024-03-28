@@ -9,7 +9,7 @@ export const accountState = atom({
   },
 })
 
-export const tranState = atom({
-  key: 'tranState',
-  default: [],
-})
+// export const tranState = atom({
+//   key: 'tranState',
+//   default: [],
+// })
