@@ -100,6 +100,7 @@ const Childstatus: React.FC = () => {
   // 자녀 아이디, 자녀 이름 불러오기
   const [childId, setChildId] = useRecoilState(childIdState)
   const [childName, setChildName] = useState('')
+  const [prevSelectedId, setPrevSelectedId] = useState(childId)
   // 자녀 리스트 가져오기
   const ChildList = useRecoilValue(childrenListState)
   // 자녀 학습 현황
@@ -120,12 +121,19 @@ const Childstatus: React.FC = () => {
     const selectedChild = ChildList.find(
       (child: any) => child.id === selectedId
     )
+
     if (selectedChild) {
+      setPrevSelectedId(childId) // 현재 선택된 ID를 이전에 선택된 ID로 설정
       setChildId(selectedId)
       setChildName(selectedChild.name)
     }
   }
-
+  useEffect(() => {
+    if (prevSelectedId !== childId) {
+      // 이전에 선택된 ID와 현재 선택된 ID가 다를 경우에만 UI를 업데이트
+      setPrevSelectedId(childId)
+    }
+  }, [childId, prevSelectedId])
   const [selectedImage, setSelectedImage] = useState('')
 
   // 프로필 랜덤 사진

@@ -11,7 +11,7 @@ interface ErrorResponse {
 }
 
 function Login() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const [useremail, setUseremail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
 
@@ -51,11 +51,11 @@ function Login() {
         } else {
           if (userRole === 'PARENT') {
             startTransition(() => {
-              navigate('/mainparent/childstatus') // 경로 확인 필요!!!
+              navigate('/mainparent') // 경로 확인 필요!!!
             })
           } else if (userRole === 'CHILD') {
             startTransition(() => {
-              navigate('/mainchild/worldmap') // 경로 확인 필요!!
+              navigate('/mainchild') // 경로 확인 필요!!
             })
           }
         }
