@@ -1,12 +1,9 @@
-import React from "react";
+import React from 'react'
+import { progress } from '@/api/child'
+const Mainchild: React.FC = () => {
+  const prog = progress()
+  console.log(prog)
+  return <div>메인차일드</div>
+}
 
-const Mainchild:React.FC= () => {
-    
-    return (
-        <div>
-        this is mainchild page
-    </div>
-    );
-};
-
-export default Mainchild;
+export default Mainchild

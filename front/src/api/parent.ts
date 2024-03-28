@@ -8,6 +8,8 @@ const api = {
   study: `/parent/main`,
   // 자녀 보유 포인트 현황
   point: `/parent/main/point`,
+  getAccount: '/parent/wallet',
+  getTrans: '/parent/wallet/tran',
 }
 
 async function code() {
@@ -23,4 +25,10 @@ async function study(id: number) {
 async function point(id: number) {
   return await http.get(`${api.point}/${id}`)
 }
-export { code, getChild, study, point }
+async function getAccount() {
+  return await http.get(api.getAccount)
+}
+async function getTrans() {
+  return await http.get(api.getTrans)
+}
+export { code, getChild, study, point, getAccount, getTrans }

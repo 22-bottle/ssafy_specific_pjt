@@ -1,5 +1,4 @@
 import React from 'react'
-import { redirect, useNavigate  } from "react-router-dom";
 import styles from '@/components/childwallet/AskComplete.module.css'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 import Button from '@mui/material/Button'
@@ -9,10 +8,9 @@ interface AskCompleteProps {
 }
 
 const AskComplete: React.FC<AskCompleteProps> = ({ onClose }) => {
-    const navigate = useNavigate();
     const handleConfirm = () => {
         onClose();
-        navigate('/childwallet/point');
+        window.location.reload();
     };
 
   return (

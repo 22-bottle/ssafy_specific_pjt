@@ -51,7 +51,7 @@ function Login() {
         } else {
           if (userRole === 'PARENT') {
             startTransition(() => {
-              navigate('/mainparent/child-status') // 경로 확인 필요!!!
+              navigate('/mainparent/childstatus') // 경로 확인 필요!!!
             })
           } else if (userRole === 'CHILD') {
             startTransition(() => {
