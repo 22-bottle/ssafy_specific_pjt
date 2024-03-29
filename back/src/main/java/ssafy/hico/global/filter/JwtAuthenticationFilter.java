@@ -26,9 +26,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final static List<String> whiteList = new ArrayList<>();
     static {
         //jwt 토큰이 필요 없는 곳은 uri 추가
-        whiteList.add("/member/join");
-        whiteList.add("/member/token");
-        whiteList.add("/member/login");
+        whiteList.add("/api/member/join");
+        whiteList.add("/api/member/token");
+        whiteList.add("/api/member/login");
     }
 
     @Override

@@ -5,6 +5,7 @@ const api = {
   join: `${REACT_APP_SERVER_URI}/member/join`,
   login: `${REACT_APP_SERVER_URI}/member/login`,
   token: `${REACT_APP_SERVER_URI}/member/token`,
+  logout : `${REACT_APP_SERVER_URI}/member/logout`,
 }
 function join(
   email: string,
@@ -40,4 +41,14 @@ function token() {
     { headers: { Authorization: `Bearer ${refrechtoken}` } }
   ) // header에 refrechtoken 전송
 }
-export { join, login, token }
+//로그아웃
+function logout() {
+  const accessToken = localStorage.getItem('accessToken')
+  return axios.post(
+      api.logout,
+      {},
+      { headers: { Authorization: `Bearer ${accessToken}` } }
+  )
+}
+
+export { join, login, token, logout }

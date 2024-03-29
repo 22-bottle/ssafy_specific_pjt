@@ -11,11 +11,14 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import logoImage from '../../assets/logo.png'
+import { logout } from '@/api/member'
+import { useNavigate } from 'react-router-dom'
 
 const pages = ['월드맵', '포인트/실시간 환율', '내 지갑'];
 
 
 function ResponsiveAppBar() {
+    const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -25,6 +28,19 @@ function ResponsiveAppBar() {
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
+
+    // Logout function
+    const handleLogout = () => {
+        logout()
+            .then(() => {
+                localStorage.clear()
+                navigate('/');
+            })
+            .catch((error) => {
+                console.error('Logout failed:', error);
+                // Handle logout error here
+            });
+    };
 
 
   return (
@@ -113,6 +129,7 @@ function ResponsiveAppBar() {
             <Button
                 variant="contained"
                 disableElevation
+                onClick={handleLogout}
               sx={{
                   marginLeft: 3,
                   marginTop: '20px',
