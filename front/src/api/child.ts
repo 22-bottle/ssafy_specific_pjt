@@ -24,16 +24,16 @@ async function quiz(stageId: number) {
   return await http.get(`${api.quiz}/${stageId}`)
 }
 
-async function answer(stageId: number, price: number, quizes: Array<object>) {
-  const requestBody = {
-    stageId: stageId,
-    price: price,
-    quizes: quizes,
-  }
-  return await http.post(`${api.quiz}`, requestBody)
+async function saveAnswer(stageId: number, price: number, quizzes: Array<object>) {
+    const requestBody = {
+        stageId : stageId,
+        price: price,
+        quizResultList: quizzes,
+    }
+    return await http.post(`${api.quiz}`, requestBody);
 }
 async function tutorial() {
   return await http.patch(api.tutorial)
 }
 
-export { progress, country, book, tutorial, quiz, answer }
+export { progress, country, book, tutorial, quiz, saveAnswer }
