@@ -48,7 +48,7 @@ public class ExchangeRateService {
                 .build();
     }
 
-    @Scheduled(cron = "0 10 11 * * *")
+    @Scheduled(cron = "0 47 12 * * *")
     public void getTodayExchangeRate() {
         LocalDate today = LocalDate.now();
         LocalDate yesterday = today.minusDays(1);
