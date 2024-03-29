@@ -1,10 +1,5 @@
-import React, { startTransition, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-// import Box from '@mui/material/Box'
-// import Card from '@mui/material/Card'
-// import CardActions from '@mui/material/CardActions'
-// import Button from '@mui/material/Button'
-// import Typography from '@mui/material/Typography'
 import up from '../../assets/up.png'
 import down from '../../assets/down.png'
 import List from '@mui/material/List'
@@ -22,6 +17,10 @@ import { currencydetailState } from '@/state/currencyatoms'
 import { today } from '@/api/currency'
 import updown from '../../assets/updow.png'
 import Navbar from '@/pages/mainparent/navbar'
+import Typography from '@mui/material/Typography'
+import Modal from '@mui/material/Modal'
+import Box from '@mui/material/Box'
+import CurrencyDetail from './CurrencyDetail'
 
 interface CurrencyData {
   amount: number
@@ -34,8 +33,9 @@ interface CurrencyData {
 const Currency: React.FC = () => {
   const [countryId, setCountryId] = useRecoilState(currencydetailState)
   const [currencyData, setCurrencyData] = useState<CurrencyData[]>([])
-  const navigate = useNavigate()
-
+  // const navigate = useNavigate()
+  // 모달 오픈
+  const [open, setOpen] = useState(false)
   useEffect(() => {
     const fetchTodayCurrency = async () => {
       try {
@@ -61,7 +61,8 @@ const Currency: React.FC = () => {
   const navigatToDetail = (Id: number) => {
     // 상태 업데이트 함수를 사용하여 countryId 상태를 변경
     setCountryId(Id)
-    navigate('/currency/detail')
+    setOpen(true)
+    // navigate('/currency/detail')
   }
 
   const shouldShowNavbar = location.pathname === '/currency'
@@ -186,6 +187,19 @@ const Currency: React.FC = () => {
             ))}
           </List>
         </div>
+      </div>
+      {/* world map으로 이동 모달 */}
+      <div>
+        <Modal
+          open={open}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box>
+            <button onClick={() => setOpen(false)}>닫기</button>
+            <CurrencyDetail />
+          </Box>
+        </Modal>
       </div>
     </div>
   )
