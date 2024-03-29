@@ -21,29 +21,31 @@ const Quiz:React.FC = () => {
     const [price, setPrice] = useState(0);
     interface quizResult {
         quizId: number,
-        isCorrect: boolean
+        correct: boolean
     }
+    const [saText, setSaText] = useState('');
     const [quizResultList, setQuizResultList] = useState(new Array<quizResult>());
     const goOxToNextQuiz = () => {
         if (answer === quizDataList[currentQuizIndex].quizAnswer) {
-            quizResultList.push({ quizId: quizDataList[currentQuizIndex].quizId, isCorrect: true });
-            if (!quizDataList[currentQuizIndex].isCorrect) {
+            quizResultList.push({ quizId: quizDataList[currentQuizIndex].quizId, correct: true });
+            if (!quizDataList[currentQuizIndex].correct) {
                 setPrice((prev) => prev += (quizDataList[currentQuizIndex].quizPrice + increase));
             }
         } else {
-            quizResultList.push({ quizId: quizDataList[currentQuizIndex].quizId, isCorrect: false });
+            quizResultList.push({ quizId: quizDataList[currentQuizIndex].quizId, correct: false });
         }
         setCurrentQuizIndex((prev) => (prev < 9 ? prev + 1 : prev));
     }
     const goSaToNextQuiz = () => {
         if (answer === quizDataList[currentQuizIndex].quizAnswer) {
-            quizResultList.push({ quizId: quizDataList[currentQuizIndex].quizId, isCorrect: true })
-            if (!quizDataList[currentQuizIndex].isCorrect) {
+            quizResultList.push({ quizId: quizDataList[currentQuizIndex].quizId, correct: true })
+            if (!quizDataList[currentQuizIndex].correct) {
                 setPrice((prev) => prev += (quizDataList[currentQuizIndex].quizPrice + increase));
             }
         } else {
-            quizResultList.push({ quizId: quizDataList[currentQuizIndex].quizId, isCorrect: false })
+            quizResultList.push({ quizId: quizDataList[currentQuizIndex].quizId, correct: false })
         }
+        setSaText('');
         if (currentQuizIndex < 9) {
             setCurrentQuizIndex((prev) => (prev += 1));
         } else {
@@ -72,6 +74,10 @@ const Quiz:React.FC = () => {
     const [answer, setAnswer] = useState('');
     const setOanswer = () => { setAnswer('O'); }
     const setXanswer = () => { setAnswer('X'); }
+    const setSaAnswer = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSaText(event.target.value);
+        setAnswer(event.target.value);
+    };
 
     switch (quizDataList[currentQuizIndex].quizType) {
         case 'OX':
@@ -116,7 +122,7 @@ const Quiz:React.FC = () => {
                             </div>
                         </div>
                         <div>
-                            <input type="text" />
+                            <input type="text" value={saText} onChange={setSaAnswer}/>
                         </div>
                     </div>
                     <div className={styles.buttonContainer}>
