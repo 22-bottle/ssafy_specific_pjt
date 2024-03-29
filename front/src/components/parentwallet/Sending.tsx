@@ -4,10 +4,11 @@ import Button from '@mui/material/Button'
 import CircleIcon from '@mui/icons-material/Circle'
 import KeyboardBackspaceRoundedIcon from '@mui/icons-material/KeyboardBackspaceRounded'
 // import { useNavigate } from 'react-router-dom'
-import { useLocation } from 'react-router-dom'
-import { useRecoilValue } from 'recoil'
-import { accountSelector } from '@/state/AccountSelectors'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { startTransition } from 'react'
+import { useRecoilState } from 'recoil'
 import { postBalance } from '@/api/parent'
+
 // interface AccountData {
 //   frTranList: frTran[]
 // }
@@ -29,6 +30,7 @@ const Sending: React.FC = () => {
   const [password, setPassword] = useState<string>('')
   const location = useLocation()
   const { transaction }: { transaction?: frTran } = location.state || {}
+  const navigate = useNavigate()
 
   // 비밀번호 입력 핸들러
   const handlePasswordInput = (number: number) => {
@@ -51,6 +53,10 @@ const Sending: React.FC = () => {
       await postBalance(transaction?.frTranId || 0, password)
       // 송금 성공 시 처리
       console.log('송금이 완료되었습니다.')
+      // 송금 완료 화면으로 정보 넘김
+      startTransition(() => {
+        navigate('/parentwallet/complete', { state: { transaction } })
+      })
     } catch (error) {
       console.error('송금 중 오류 발생:', error)
       alert('비밀번호가 올바르지 않습니다.')
@@ -64,27 +70,6 @@ const Sending: React.FC = () => {
       transferMoney()
     }
   }, [password])
-
-  // const transferMoney = async () => {
-  //   try {
-  //     const response = await http.post('/parentwallet/send', {
-  //       // 부모 계좌에서 출금
-  //       amount: transaction?.balance, // 송금 금액
-  //       recipientId: transaction?.childId, // 받는 사람의 ID
-  //       password: password, // 비밀번호
-  //     })
-  //     console.log('송금 완료:', response.data)
-
-  //     // 아이의 계좌에 입금
-  //     await http.post('/childwallet/receive', {
-  //       amount: transaction?.balance, // 입금 금액
-  //       senderId: '부모ID', // 보내는 사람의 ID (부모)
-  //     })
-  //     console.log('입금 완료')
-  //   } catch (error) {
-  //     console.error('송금 및 입금 중 오류 발생:', error)
-  //   }
-  // }
 
   return (
     <div className={styles.container}>
