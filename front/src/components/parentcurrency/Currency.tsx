@@ -11,10 +11,11 @@ import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
-import usa from '../../assets/flag_usa.png'
-import japan from '../../assets/flag_japan.png'
-import europe from '../../assets/flag_europe.png'
-import china from '../../assets/flag_china.png'
+import Lottie from 'lottie-react'
+import usa from '../../assets/lottie/america.json'
+import japan from '../../assets/lottie/japan.json'
+import europe from '../../assets/lottie/europe.json'
+import china from '../../assets/lottie/china.json'
 import styles from './Currency.module.css'
 import { useRecoilState } from 'recoil'
 import { currencydetailState } from '@/state/currencyatoms'
@@ -105,85 +106,74 @@ const Currency: React.FC = () => {
                   <div className={styles.col1}>
                     <div className={styles.countryInfo}>
                       {/* 나라 플래그 이미지 */}
-                      {currency.frType === '미국 달러' && (
-                        <img
-                          src={usa}
-                          alt="usa flag"
-                          style={{ height: '4.5vw', marginRight: '20px' }}
-                        />
-                      )}
-                      {currency.frType === '일본 옌' && (
-                        <img
-                          src={japan}
-                          alt="japan flag"
-                          style={{ height: '4.5vw', marginRight: '20px' }}
-                        />
-                      )}
-                      {currency.frType === '유로' && (
-                        <img
-                          src={europe}
-                          alt="europe flag"
-                          style={{ height: '6vw', marginRight: '10px' }}
-                        />
-                      )}
-                      {currency.frType === '위안화' && (
-                        <img
-                          src={china}
-                          alt="china flag"
-                          style={{ height: '4.4vw', marginRight: '20px' }}
-                        />
-                      )}
+                      <Lottie
+                        animationData={
+                          currency.frType === '미국 달러'
+                            ? usa
+                            : currency.frType === '일본 옌'
+                              ? japan
+                              : currency.frType === '유로'
+                                ? europe
+                                : currency.frType === '위안화'
+                                  ? china
+                                  : null // 기본값 혹은 일치하는 코드가 없을 경우
+                        }
+                        style={{
+                          width: '4.5vw',
+                          height: '4.5vw',
+                          marginRight: '6px',
+                        }}
+                      />
                       {/* 나라 이름 */}
                       <div className={styles.row0}>
-                        {currency.frType === 'USA' && '미국달러'}
+                        {currency.frType === '미국 달러' && '미국 달러 USD'}
                       </div>
                       <div className={styles.row0}>
-                        {currency.frType === 'JPN' && '일본엔'}
+                        {currency.frType === '일본 옌' && '일본 옌 JPN'}
                       </div>
                       <div className={styles.row0}>
-                        {currency.frType === 'EUR' && '유럽유로'}
+                        {currency.frType === '유로' && '유럽 유로 EUR'}
                       </div>
                       <div className={styles.row0}>
-                        {currency.frType === 'CHN' && '중국위안'}
+                        {currency.frType === '위안화' && '중국 위안 CHN'}
                       </div>
                     </div>
                     <div className={styles.rightContainer}>
                       <div className={styles.col2}>
                         {/* 기본 환율 */}
                         <div className={styles.row1}>
-                          {currency.basicRate}원
-                        </div>
-                        {/* 실시간 환율 */}
-                        <div
-                          className={
-                            currency.riseStatus === 'DECREASE'
-                              ? styles.row2blue
-                              : styles.row2red
-                          }
-                        >
-                          {currency.amount}원
-                          {currency.riseStatus === 'DECREASE' && (
-                            <img
-                              src={down}
-                              alt="down"
-                              style={{
-                                height: '1.6vw',
-                                marginLeft: '4px',
-                                marginTop: '2px',
-                              }}
-                            />
-                          )}
-                          {currency.riseStatus === 'INCREASE' && (
-                            <img
-                              src={up}
-                              alt="up"
-                              style={{
-                                height: '1.6vw',
-                                marginLeft: '4px',
-                                marginTop: '2px',
-                              }}
-                            />
-                          )}
+                          {currency.basicRate}원{/* 실시간 환율 */}
+                          <div
+                            className={
+                              currency.riseStatus === 'DECREASE'
+                                ? styles.row2blue
+                                : styles.row2red
+                            }
+                          >
+                            {currency.amount}원
+                            {currency.riseStatus === 'DECREASE' && (
+                              <img
+                                src={down}
+                                alt="down"
+                                style={{
+                                  height: '1.6vw',
+                                  marginLeft: '4px',
+                                  marginTop: '2px',
+                                }}
+                              />
+                            )}
+                            {currency.riseStatus === 'INCREASE' && (
+                              <img
+                                src={up}
+                                alt="up"
+                                style={{
+                                  height: '1.6vw',
+                                  marginLeft: '4px',
+                                  marginTop: '2px',
+                                }}
+                              />
+                            )}
+                          </div>
                         </div>
                       </div>
                       <ArrowForwardIosRoundedIcon
