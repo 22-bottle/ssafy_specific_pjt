@@ -42,3 +42,14 @@ button {
   border-radius: 3;
   font-weight: 600;
 }
+.subtitle {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 60%;
+}
+.detail {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
