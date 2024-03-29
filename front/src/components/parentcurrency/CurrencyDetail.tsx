@@ -7,6 +7,11 @@ import { currencydetailState } from '@/state/currencyatoms'
 import up from '../../assets/up.png'
 import down from '../../assets/down.png'
 import Button from '@mui/material/Button'
+import Lottie from 'lottie-react'
+import usa from '../../assets/lottie/america.json'
+import japan from '../../assets/lottie/japan.json'
+import europe from '../../assets/lottie/europe.json'
+import china from '../../assets/lottie/china.json'
 
 interface CurrencyDetailProps {
   open: boolean // 모달 오픈 상태
@@ -146,40 +151,62 @@ const CurrencyDetail: React.FC<CurrencyDetailProps> = ({ open, setOpen }) => {
         </Button>
       </div>
 
-      <div className={styles.header}>{countries[contryId]}</div>
-      <div>
-        {/* 실시간 환율 {usaBasicRate}원 어제보다 {usaAmount}원{' '} */}
-        실시간 환율 {todayBasicRate} {todayCode}
-        <div>
-          어제보다 {todayAmount}
-          {riseStatus === 'DECREASE' && (
-            <img
-              src={down}
-              alt="down"
-              style={{
-                height: '1.6vw',
-                marginLeft: '4px',
-                marginTop: '2px',
-              }}
-            />
-          )}
-          {riseStatus === 'INCREASE' && (
-            <img
-              src={up}
-              alt="up"
-              style={{
-                height: '1.6vw',
-                marginLeft: '4px',
-                marginTop: '2px',
-              }}
-            />
-          )}
+      <div className={styles.header}>
+        <Lottie
+          animationData={
+            contryId === 1
+              ? usa
+              : contryId === 2
+                ? japan
+                : contryId === 3
+                  ? europe
+                  : contryId === 4
+                    ? china
+                    : null // 기본값 혹은 일치하는 코드가 없을 경우
+          }
+          style={{
+            width: '4.5vw',
+            height: '4.5vw',
+            marginRight: '6px',
+          }}
+        />
+        {countries[contryId]}
+      </div>
+      <div className={styles.subtitle}>
+        {/* The subtitle container itself is left-aligned thanks to `align-items: flex-start;` in .subtitle */}
+        실시간 환율
+        <div className={styles.detail}>
+          {/* These two elements will be spaced between due to `justify-content: space-between;` in .detail */}
+          <span>
+            {todayBasicRate} {todayCode}
+          </span>{' '}
+          {/* Wrapped the text in a span for better control */}
+          <span>
+            어제보다 {todayAmount}원
+            {riseStatus === 'DECREASE' && (
+              <img
+                src={down}
+                alt="down"
+                style={{
+                  height: '1.6vw',
+                  marginLeft: '4px',
+                  marginTop: '2px',
+                }}
+              />
+            )}
+            {riseStatus === 'INCREASE' && (
+              <img
+                src={up}
+                alt="up"
+                style={{
+                  height: '1.6vw',
+                  marginLeft: '4px',
+                  marginTop: '2px',
+                }}
+              />
+            )}
+          </span>{' '}
         </div>
-        {/* <img
-          src={updown}
-          alt="boy"
-          style={{ height: '22px', marginTop: 3, marginLeft: '15px' }}
-        /> */}
       </div>
       <div className={styles.chart}>
         <div ref={chartRef} />
