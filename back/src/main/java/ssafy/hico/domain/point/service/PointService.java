@@ -5,6 +5,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ssafy.hico.domain.exchangerate.entity.ExchangeRate;
 import ssafy.hico.domain.exchangerate.repository.ExchangeRateRepository;
+import ssafy.hico.domain.history.dto.response.HistoryFindResponse;
+import ssafy.hico.domain.history.dto.response.HistoryRec;
+import ssafy.hico.domain.history.entity.History;
+import ssafy.hico.domain.history.repository.HistoryRepository;
 import ssafy.hico.domain.point.dto.ChildApplyTranRequest;
 import ssafy.hico.domain.point.dto.response.MyPointResponse;
 import ssafy.hico.domain.point.entity.FrPoint;
@@ -19,6 +23,7 @@ import ssafy.hico.global.response.error.exception.CustomException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -32,6 +37,7 @@ public class PointService {
     private final ExchangeRateRepository exchangeRateRepository;
     private final FrWalletRepository frWalletRepository;
     private final FrPointRepository frPointRepository;
+    private final HistoryRepository historyRepository;
 
     @Transactional
     public void addFrTransaction(Long memberId, ChildApplyTranRequest request) {
@@ -93,4 +99,16 @@ public class PointService {
             return exchangeRateRepository.findAllByTodayDateOrderByCountry(yesterday);
         }
     }
+
+    public HistoryFindResponse findHistoryList(long frPointId) {
+        FrPoint frPoint = frPointRepository.findById(frPointId)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_POINT));
+        List<History> histories = historyRepository.findAllByFrPointOrderByDateDesc(frPoint);
+        List<HistoryRec> historyList = new ArrayList<>();
+        for (History history : histories) {
+            historyList.add(new HistoryRec(history));
+        }
+        return new HistoryFindResponse(frPoint, historyList);
+    }
+
 }

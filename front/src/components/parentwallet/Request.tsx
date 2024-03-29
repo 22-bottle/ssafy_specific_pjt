@@ -11,7 +11,6 @@ import complete from '../../assets/moneycomplete.png'
 import { useNavigate } from 'react-router-dom'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { accountSelector } from '@/state/AccountSelectors'
-import { faL } from '@fortawesome/free-solid-svg-icons'
 
 interface AccountData {
   accountNo: string
@@ -49,7 +48,24 @@ const Request: React.FC = () => {
     if (frTranList.length > 0) {
       console.log(`리스트: ${JSON.stringify(frTranList)}`)
     }
-  })
+  }, [accountNo, balance, frTranList])
+
+  // 송금 완료 시점의 잔액 계산
+  const calculateCompletedBalance = (
+    transactions: frTran[],
+    currentIndex: number,
+    initialBalance: string
+  ): string => {
+    let completedBalance = parseFloat(initialBalance)
+
+    for (let i = 0; i < currentIndex; i++) {
+      const transaction = transactions[i]
+      if (transaction.transacted) {
+        completedBalance -= transaction.balance
+      }
+    }
+    return completedBalance.toLocaleString()
+  }
 
   // 자녀이름 select
   const CustomExpandIcon = (props: SvgIconProps) => {
@@ -111,62 +127,82 @@ const Request: React.FC = () => {
               }}
             >
               <MenuItem value={'10'}>전체</MenuItem>
-              <MenuItem value={'20'}>입금</MenuItem>
-              <MenuItem value={'30'}>출금</MenuItem>
+              <MenuItem value={'20'}>송금 요청</MenuItem>
+              <MenuItem value={'30'}>송금 완료</MenuItem>
             </Select>
           </FormControl>
         </div>
 
         {/* 각각 내역 */}
-        {frTranList.map((transaction: frTran, index: number) => (
-          <div key={index} className={styles.accountcontent}>
-            <div className={styles.date}>
-              {new Date(transaction.createTime).toLocaleDateString('ko-KR', {
-                month: 'long',
-                day: 'numeric',
-              })}
-            </div>
-            <div className={styles.detail}>
-              <img
-                src={transaction.transacted === false ? request : complete}
-                alt="Transaction Type"
-                style={{ width: '65px', height: '65px' }}
-              />
-              <div className={styles.subdetail1}>
-                <div className={styles.sub1text1}>
-                  {transaction.transacted ? '송금완료' : '송금요청'}
+        {frTranList.map(
+          (transaction: frTran, index: number) =>
+            // transacted 값이 필터값에 따라 일치하는 경우에만 거래 내역을 표시합니다.
+            (billtype === '10' ||
+              (billtype === '20' && !transaction.transacted) ||
+              (billtype === '30' && transaction.transacted)) && (
+              <div key={index} className={styles.accountcontent}>
+                <div className={styles.date}>
+                  {new Date(transaction.createTime).toLocaleDateString(
+                    'ko-KR',
+                    {
+                      month: 'long',
+                      day: 'numeric',
+                      weekday: 'long', // 요일 표시
+                      hour: '2-digit', // 2자리 숫자로 시간 표시
+                      minute: '2-digit', // 2자리 숫자로 분 표시
+                      second: '2-digit', // 2자리 숫자로 초 표시
+                      hour12: false, // 24시 형식
+                    }
+                  )}
                 </div>
-                <div className={styles.sub1text2}>{transaction.name}님</div>
-              </div>
-              {transaction.transacted === false ? (
-                <div className={styles.subdetail2}>
-                  <div className={styles.sub2text1}>
-                    {Number(transaction.balance).toLocaleString()}원
+                <div className={styles.detail}>
+                  <img
+                    src={transaction.transacted ? complete : request}
+                    alt="Transaction Type"
+                    style={{ width: '65px', height: '65px' }}
+                  />
+                  <div className={styles.subdetail1}>
+                    <div className={styles.sub1text1}>
+                      {transaction.transacted ? '송금완료' : '송금요청'}
+                    </div>
+                    <div className={styles.sub1text2}>{transaction.name}님</div>
                   </div>
                   {transaction.transacted === false ? (
-                    <div
-                      onClick={() => sendClick(transaction)}
-                      className={styles.sub2text2}
-                    >
-                      송금하기
+                    <div className={styles.subdetail2}>
+                      <div className={styles.sub2text1}>
+                        {Number(transaction.balance).toLocaleString()}원
+                      </div>
+                      {transaction.transacted === false && (
+                        <div
+                          onClick={() => sendClick(transaction)}
+                          className={styles.sub2text2}
+                        >
+                          송금하기
+                        </div>
+                      )}
                     </div>
-                  ) : null}
-                </div>
-              ) : (
-                <div className={styles.subdetail2}>
-                  <div className={styles.sub2text1}>
-                    -{Number(transaction.balance).toLocaleString()}원
-                  </div>
-                  {transaction.balance && (
-                    <div className={styles.sub2text3}>
-                      {Number(transaction.balance).toLocaleString()}원
+                  ) : (
+                    <div className={styles.subdetail2}>
+                      <div className={styles.sub2text1}>
+                        -{Number(transaction.balance).toLocaleString()}원
+                      </div>
+                      {transaction.balance && (
+                        <div className={styles.sub2text3}>
+                          잔액{' '}
+                          {calculateCompletedBalance(
+                            frTranList,
+                            index,
+                            balance
+                          ).toLocaleString()}
+                          원
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
-              )}
-            </div>
-          </div>
-        ))}
+              </div>
+            )
+        )}
       </div>
     </div>
   )

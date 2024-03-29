@@ -1,15 +1,18 @@
 import React, { useState, startTransition } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
 import styles from './QuizStart.module.css'
-
+import { useRecoilState } from "recoil";
+import { countrydetailState } from "@/state/StageSubjectAtoms"
+import { stageSubjectState } from '@/state/StageSubjectAtoms'
 
 const QuizStart:React.FC= () => {
-  // 해당 스테이지의 번호 >> int로??
-  const [stageNum, setStageNum] = useState<string>('1');
-
-  const characterImage = require('@/assets/fairy_usa.png')
-
-
+    const [countryId, setCountryId] = useRecoilState(countrydetailState);
+    const [stageId, setStageId] = useRecoilState(stageSubjectState);
+    const characterImages = [require('@/assets/fairy_usa.png'), 
+                             require('@/assets/fairy_japan.png'), 
+                             require('@/assets/fairy_italy.png'),
+                             require('@/assets/fairy_china.png')];
+    const characterImage = characterImages[countryId - 1];
 
   // 퀴즈 시작하기 버튼
   const navigate = useNavigate();
@@ -25,7 +28,7 @@ const QuizStart:React.FC= () => {
   return (
     // 화면 정 가운데 div
     <div className={styles.mainContainer}>            
-        <h1 className={styles.title}>Stage {stageNum}</h1>
+        <h1 className={styles.title}>Stage {stageId}</h1>
         <div>
             <h1 className={styles.topic}>이제 문제를 풀어볼까요?</h1>
         </div>

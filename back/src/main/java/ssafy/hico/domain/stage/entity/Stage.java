@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import ssafy.hico.domain.book.entity.BookPage;
+import ssafy.hico.domain.history.entity.History;
 import ssafy.hico.domain.quiz.entity.Quiz;
 import ssafy.hico.global.entity.BaseTimeEntity;
 import ssafy.hico.domain.country.entity.Country;
@@ -42,6 +43,9 @@ public class Stage extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "stage")
     private List<Quiz> quizzes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "stage")
+    private List<History> histories = new ArrayList<>();
 
 }
 

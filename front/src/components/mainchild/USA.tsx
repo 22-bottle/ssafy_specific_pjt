@@ -9,11 +9,11 @@ import styles from './USA.module.css'
 
 const USA: React.FC = () => {
   const [stageId, setStageId] = useRecoilState(stageSubjectState)
-  const [stageOneAns, setStageOneAns] = useState('');
-  const [stageTwoAns, setStageTwoAns] = useState('');
-  const [stageThreeAns, setStageThreeAns] = useState('');
-  const [stageFourAns, setStageFourAns] = useState('');
-  const [stageFiveAns, setStageFiveAns] = useState('');
+  const [stageOneAns, setStageOneAns] = useState(0);
+  const [stageTwoAns, setStageTwoAns] = useState(0);
+  const [stageThreeAns, setStageThreeAns] = useState(0);
+  const [stageFourAns, setStageFourAns] = useState(0);
+  const [stageFiveAns, setStageFiveAns] = useState(0);
   // 물음표 아이콘 클릭
   const [showDescription, setShowDescription] = useState(false)
 
@@ -56,22 +56,37 @@ const USA: React.FC = () => {
       <div className={styles.backgroundIMG}></div>
       <div className={styles.usamap}></div>
       <div onClick={() => stageStart(1)} className={styles.stage1}>{stageOneAns}/10</div>
-      {/* stage가 개방되었는지 확인하고 css 다르게 적용 기능 추가해야함 */}
       <div
         onClick={() => stageStart(2)}
-        className={styles.unactive_stage2}
+        className={
+          stageOneAns >= 7
+            ? styles.active_stage2
+            : styles.unactive_stage2
+        }
       >{stageTwoAns}/10</div>
       <div
         onClick={() => stageStart(3)}
-        className={styles.unactive_stage3}
+        className={
+          stageTwoAns >= 7
+            ? styles.active_stage3
+            : styles.unactive_stage3
+        }
       >{stageThreeAns}/10</div>
       <div
         onClick={() => stageStart(4)}
-        className={styles.unactive_stage4}
+        className={
+          stageThreeAns >= 7
+            ? styles.active_stage4
+            : styles.unactive_stage4
+        }
       >{stageFourAns}/10</div>
       <div
         onClick={() => stageStart(5)}
-        className={styles.unactive_stage5}
+        className={
+          stageFourAns >= 7
+            ? styles.active_stage5
+            : styles.unactive_stage5
+        }
       >{stageFiveAns}/10</div>
 
       <div className={styles.fairyContainer}>
