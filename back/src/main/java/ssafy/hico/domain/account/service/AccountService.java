@@ -3,10 +3,12 @@ package ssafy.hico.domain.account.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import ssafy.hico.domain.account.dto.request.InquireAccountTransactionRequest;
 import ssafy.hico.domain.account.dto.request.MakeAccountRequest;
 import ssafy.hico.domain.account.dto.request.OpenAccountRequest;
 import ssafy.hico.domain.account.dto.request.RegistrationAccountRequest;
 import ssafy.hico.domain.account.dto.response.AccountListResponse;
+import ssafy.hico.domain.account.dto.response.InquireAccountTransactionResponse;
 import ssafy.hico.domain.account.dto.response.OpenAccountResponse;
 import ssafy.hico.domain.account.entity.Account;
 import ssafy.hico.domain.account.repository.AccountRepository;
@@ -21,6 +23,9 @@ import ssafy.hico.global.bank.dto.request.Header;
 import ssafy.hico.global.bank.dto.request.HeaderRequest;
 import ssafy.hico.global.response.error.ErrorCode;
 import ssafy.hico.global.response.error.exception.CustomException;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Service
 @RequiredArgsConstructor
@@ -98,5 +103,21 @@ public class AccountService {
 
     public Account findByMemberId(Long memberId) {
         return accountRepository.findByMemberId(memberId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_ACCOUNT));
+    }
+
+    public InquireAccountTransactionResponse getAccountWithdraw(Long memberId) {
+        Account account = findByMemberId(memberId);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
+        String today = LocalDate.now().format(formatter);
+        String oneWeekAgo = LocalDate.now().minusWeeks(5).format(formatter);
+        System.out.println(today + " " + oneWeekAgo);
+        Header header = bankApiClient.makeHeader(BankApi.INQUIRE_ACCOUNT_TRANSACTION_HISTORY.getApiName(), account.getMember().getUserKey());
+        InquireAccountTransactionRequest request = InquireAccountTransactionRequest.builder().Header(header)
+                .bankCode(bankProperties.getBankCode()).accountNo(account.getAccountNo()).startDate(oneWeekAgo).endDate(today)
+                .transactionType("D").orderByType("DESC").build();
+
+        String response = bankApiClient.getResponse(BankApi.INQUIRE_ACCOUNT_TRANSACTION_HISTORY.getUrl(), request);
+
+        return bankApiClient.getDtoFromResponse(response, InquireAccountTransactionResponse.class);
     }
 }
