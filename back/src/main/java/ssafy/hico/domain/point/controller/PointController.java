@@ -4,10 +4,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ssafy.hico.domain.history.dto.response.HistoryFindResponse;
 import ssafy.hico.domain.point.dto.ChildApplyTranRequest;
 import ssafy.hico.domain.point.service.PointService;
 import ssafy.hico.global.annotation.LoginOnly;
 import ssafy.hico.global.response.success.SuccessCode;
+
+import java.util.List;
 
 import static ssafy.hico.global.response.success.CommonResponseEntity.getResponseEntity;
 
@@ -31,6 +34,13 @@ public class PointController {
         Long memberId = (Long) httpServletRequest.getAttribute("memberId");
         pointService.addFrTransaction(memberId, request);
         return getResponseEntity(SuccessCode.CREATED);
+    }
+
+    @GetMapping("/history/{frPointId}")
+    @LoginOnly(level = LoginOnly.Level.CHILD)
+    public ResponseEntity<?> pointHistoryList(@PathVariable long frPointId) {
+        HistoryFindResponse historyFindResponse = pointService.findHistoryList(frPointId);
+        return getResponseEntity(SuccessCode.OK, historyFindResponse);
     }
 
 

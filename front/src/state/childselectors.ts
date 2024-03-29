@@ -21,6 +21,7 @@ export const quizList = selector({
         const response = await quiz(stageId + (countryId - 1) * 5);
         const increase = response.data.data.increase;
         const quizDataList = response.data.data.quizList;
+        quizDataList.push({quizId: 0, quizQuestion: "", quizAnswer: "", quizType: "", quizLevel: "", quizPrice: 0, isCorrect: false });
         return {
             increase,
             quizDataList,

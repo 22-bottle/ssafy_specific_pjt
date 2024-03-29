@@ -4,11 +4,14 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import ssafy.hico.domain.history.entity.History;
 import ssafy.hico.domain.wallet.entity.FrWallet;
 import ssafy.hico.global.entity.BaseTimeEntity;
 import ssafy.hico.domain.country.entity.Country;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import static jakarta.persistence.FetchType.LAZY;
 
@@ -30,6 +33,9 @@ public class FrPoint extends BaseTimeEntity {
     private FrWallet frWallet;
 
     private BigDecimal balance;
+
+    @OneToMany(mappedBy = "frPoint")
+    private List<History> histories = new ArrayList<>();
 
     @Builder
     public FrPoint(Country country, FrWallet frWallet, BigDecimal balance){

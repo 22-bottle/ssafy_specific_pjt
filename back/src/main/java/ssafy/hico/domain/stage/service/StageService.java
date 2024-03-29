@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import ssafy.hico.domain.book.entity.BookPage;
 import ssafy.hico.domain.country.entity.Country;
 import ssafy.hico.domain.country.repository.CountryRepository;
+import ssafy.hico.domain.history.entity.History;
+import ssafy.hico.domain.history.repository.HistoryRepository;
 import ssafy.hico.domain.member.entity.Member;
 import ssafy.hico.domain.member.repository.MemberRepository;
 import ssafy.hico.domain.point.entity.FrPoint;
@@ -44,6 +46,7 @@ public class StageService {
     private final QuizRepository quizRepository;
     private final QuizStatusRepository quizStatusRepository;
     private final FrPointRepository frPointRepository;
+    private final HistoryRepository historyRepository;
 
     private final static int COUNTRY_NUM = 4;
 
@@ -135,6 +138,7 @@ public class StageService {
         FrPoint frPoint = frPointRepository.findByFrWalletAndCountry(child.getFrWallet(), stage.getCountry())
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_POINT));
         BigDecimal balance = frPoint.getBalance().add(stageQuizSaveRequest.getPrice());
+        if (!balance.equals(BigDecimal.valueOf(0.0))) historyRepository.save(History.createHistory(frPoint, stage, balance));
         frPointRepository.updatePoint(frPoint.getFrPointId(), balance);
         for (QuizResult quizResult : stageQuizSaveRequest.getQuizResultList()) {
             Quiz quiz = quizRepository.findById(quizResult.getQuizId())

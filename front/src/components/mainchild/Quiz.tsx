@@ -1,4 +1,4 @@
-import React, { startTransition, useState } from "react";
+import React, { startTransition, useState, useEffect } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
 import styles from './Quiz.module.css'
 import { Container } from "react-bootstrap";
@@ -19,6 +19,22 @@ const Quiz:React.FC = () => {
     const { increase, quizDataList } = useRecoilValue(quizList) || [];
     const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
     const [price, setPrice] = useState(0);
+    useEffect(() => {
+        if (currentQuizIndex >= 10) {
+            saveAnswer(stageId, price, quizResultList)
+                    .then((response) => {
+                        if (response.data.statusCode === 200) {
+                            alert('제출되었습니다.');
+                        } else {
+                            alert('제출에 실패하였습니다.')
+                        }
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        alert('오류');
+                    });
+        }
+    }, [currentQuizIndex]);
     interface quizResult {
         quizId: number,
         correct: boolean
@@ -29,12 +45,12 @@ const Quiz:React.FC = () => {
         if (answer === quizDataList[currentQuizIndex].quizAnswer) {
             quizResultList.push({ quizId: quizDataList[currentQuizIndex].quizId, correct: true });
             if (!quizDataList[currentQuizIndex].correct) {
-                setPrice((prev) => prev += (quizDataList[currentQuizIndex].quizPrice + increase));
+                setPrice(price => price += (quizDataList[currentQuizIndex].quizPrice + increase));
             }
         } else {
             quizResultList.push({ quizId: quizDataList[currentQuizIndex].quizId, correct: false });
         }
-        setCurrentQuizIndex((prev) => (prev < 9 ? prev + 1 : prev));
+        setCurrentQuizIndex((prev) => (prev += 1));
     }
     const goSaToNextQuiz = () => {
         if (answer === quizDataList[currentQuizIndex].quizAnswer) {
@@ -46,22 +62,7 @@ const Quiz:React.FC = () => {
             quizResultList.push({ quizId: quizDataList[currentQuizIndex].quizId, correct: false })
         }
         setSaText('');
-        if (currentQuizIndex < 9) {
-            setCurrentQuizIndex((prev) => (prev += 1));
-        } else {
-            saveAnswer(stageId, price, quizResultList)
-                .then((response) => {
-                    if (response.data.statusCode === 200) {
-                        alert('제출되었습니다.');
-                    } else {
-                        alert('제출에 실패하였습니다.')
-                    }
-                })
-                .catch((error) => {
-                    console.error(error);
-                    alert('오류');
-                });
-        }
+        setCurrentQuizIndex((prev) => (prev += 1));
     }
 
     // 객관식 선택지 자체를 버튼으로 >> 수정 필요!!!!!!!!!
