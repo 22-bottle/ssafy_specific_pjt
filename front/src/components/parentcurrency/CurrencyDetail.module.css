@@ -23,7 +23,22 @@
 
 .chart {
   padding: 20px;
-  width: 70%;
-  height: auto;
+  width: 60%;
+  height: 80%;
   background-color: #fafafa;
+  margin-bottom: 20px;
+}
+
+.modalbutton {
+  margin-left: auto;
+}
+button {
+  margin-top: 10px;
+  margin-right: 10px;
+  width: 50px;
+  height: 22px;
+  font-size: 17px;
+  background-color: '#0064FF';
+  border-radius: 3;
+  font-weight: 600;
 }

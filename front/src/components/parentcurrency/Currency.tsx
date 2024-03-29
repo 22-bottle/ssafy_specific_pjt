@@ -61,8 +61,8 @@ const Currency: React.FC = () => {
   const navigatToDetail = (Id: number) => {
     // 상태 업데이트 함수를 사용하여 countryId 상태를 변경
     setCountryId(Id)
+    // 모달 오픈
     setOpen(true)
-    // navigate('/currency/detail')
   }
 
   const shouldShowNavbar = location.pathname === '/currency'
@@ -189,15 +189,28 @@ const Currency: React.FC = () => {
         </div>
       </div>
       {/* world map으로 이동 모달 */}
-      <div>
+      <div className={styles.modal}>
         <Modal
           open={open}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
         >
-          <Box>
-            <button onClick={() => setOpen(false)}>닫기</button>
-            <CurrencyDetail />
+          <Box
+            sx={{
+              width: '80%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            {/* 모달 닫기 버튼 */}
+            <CurrencyDetail open={open} setOpen={setOpen} />{' '}
+            {/* open 상태와 모달 닫는 함수 전달 */}
           </Box>
         </Modal>
       </div>

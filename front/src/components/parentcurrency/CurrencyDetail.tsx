@@ -6,8 +6,13 @@ import styles from './CurrencyDetail.module.css'
 import { currencydetailState } from '@/state/currencyatoms'
 import up from '../../assets/up.png'
 import down from '../../assets/down.png'
+import Button from '@mui/material/Button'
 
-const CurrencyDetail: React.FC = () => {
+interface CurrencyDetailProps {
+  open: boolean // 모달 오픈 상태
+  setOpen: React.Dispatch<React.SetStateAction<boolean>> // 모달 오픈 상태를 변경하는 함수
+}
+const CurrencyDetail: React.FC<CurrencyDetailProps> = ({ open, setOpen }) => {
   const currencyData = useRecoilValue(currencydataList) || []
   const chartRef = useRef<HTMLDivElement | null>(null)
   const todayAmountData = useRecoilValue(todaydataList) || {}
@@ -60,11 +65,11 @@ const CurrencyDetail: React.FC = () => {
                 ],
                 shortDays: ['일', '월', '화', '수', '목', '금', '토'],
                 toolbar: {
-                  exportToSVG: 'SVG 다운로드',
-                  exportToPNG: 'PNG 다운로드',
-                  exportToCSV: 'CSV 다운로드',
-                  selection: '선택',
-                  selectionZoom: '선택영역 확대',
+                  // exportToSVG: 'SVG 다운로드',
+                  // exportToPNG: 'PNG 다운로드',
+                  // exportToCSV: 'CSV 다운로드',
+                  // selection: '선택',
+                  // selectionZoom: '선택영역 확대',
                   zoomIn: '확대',
                   zoomOut: '축소',
                   pan: '패닝',
@@ -122,6 +127,25 @@ const CurrencyDetail: React.FC = () => {
   }, [])
   return (
     <div className={styles.container}>
+      <div className={styles.modalbutton}>
+        <Button
+          onClick={() => setOpen(false)}
+          sx={{
+            marginRight: 3,
+            marginTop: 1.2,
+            width: 110,
+            height: '42px',
+            fontSize: '17px',
+            backgroundColor: '#0064FF',
+            borderRadius: 3,
+            color: 'white',
+            fontWeight: 600,
+          }}
+        >
+          닫기
+        </Button>
+      </div>
+
       <div className={styles.header}>{countries[contryId]}</div>
       <div>
         {/* 실시간 환율 {usaBasicRate}원 어제보다 {usaAmount}원{' '} */}
