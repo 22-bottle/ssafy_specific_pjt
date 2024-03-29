@@ -148,7 +148,7 @@ const Myaccount: React.FC = () => {
                     <div className={styles.sub1text1}>
                       {transaction.transacted ? '환전완료' : '환전요청'}
                     </div>
-                    <div className={styles.sub1text2}>{transaction.name}님</div>
+                    <div className={styles.sub1text2}>부모님</div>
                   </div>
                   {transaction.transacted === false ? (
                     <div className={styles.subdetail2}>
