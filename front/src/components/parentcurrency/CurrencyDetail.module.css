@@ -19,6 +19,11 @@
   font-size: 1.5em;
   font-weight: bold;
   border-bottom: 1px solid #eaeaea;
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 60%; /* Ensure the div takes up full width of its parent */
 }
 
 .chart {

@@ -7,6 +7,11 @@ import { currencydetailState } from '@/state/currencyatoms'
 import up from '../../assets/up.png'
 import down from '../../assets/down.png'
 import Button from '@mui/material/Button'
+import Lottie from 'lottie-react'
+import usa from '../../assets/lottie/america.json'
+import japan from '../../assets/lottie/japan.json'
+import europe from '../../assets/lottie/europe.json'
+import china from '../../assets/lottie/china.json'
 
 interface CurrencyDetailProps {
   open: boolean // 모달 오픈 상태
@@ -146,7 +151,27 @@ const CurrencyDetail: React.FC<CurrencyDetailProps> = ({ open, setOpen }) => {
         </Button>
       </div>
 
-      <div className={styles.header}>{countries[contryId]}</div>
+      <div className={styles.header}>
+        <Lottie
+          animationData={
+            contryId === 1
+              ? usa
+              : contryId === 2
+                ? japan
+                : contryId === 3
+                  ? europe
+                  : contryId === 4
+                    ? china
+                    : null // 기본값 혹은 일치하는 코드가 없을 경우
+          }
+          style={{
+            width: '4.5vw',
+            height: '4.5vw',
+            marginRight: '6px',
+          }}
+        />
+        {countries[contryId]}
+      </div>
       <div className={styles.subtitle}>
         {/* The subtitle container itself is left-aligned thanks to `align-items: flex-start;` in .subtitle */}
         실시간 환율
