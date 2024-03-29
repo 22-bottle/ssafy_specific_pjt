@@ -1,26 +1,26 @@
-import React, { startTransition, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-// import Box from '@mui/material/Box'
-// import Card from '@mui/material/Card'
-// import CardActions from '@mui/material/CardActions'
-// import Button from '@mui/material/Button'
-// import Typography from '@mui/material/Typography'
 import up from '../../assets/up.png'
 import down from '../../assets/down.png'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
-import usa from '../../assets/flag_usa.png'
-import japan from '../../assets/flag_japan.png'
-import europe from '../../assets/flag_europe.png'
-import china from '../../assets/flag_china.png'
+import Lottie from 'lottie-react'
+import usa from '../../assets/lottie/america.json'
+import japan from '../../assets/lottie/japan.json'
+import europe from '../../assets/lottie/europe.json'
+import china from '../../assets/lottie/china.json'
 import styles from './Currency.module.css'
 import { useRecoilState } from 'recoil'
 import { currencydetailState } from '@/state/currencyatoms'
 import { today } from '@/api/currency'
 import updown from '../../assets/updow.png'
 import Navbar from '@/pages/mainparent/navbar'
+import Typography from '@mui/material/Typography'
+import Modal from '@mui/material/Modal'
+import Box from '@mui/material/Box'
+import CurrencyDetail from './CurrencyDetail'
 
 interface CurrencyData {
   amount: number
@@ -33,8 +33,9 @@ interface CurrencyData {
 const Currency: React.FC = () => {
   const [countryId, setCountryId] = useRecoilState(currencydetailState)
   const [currencyData, setCurrencyData] = useState<CurrencyData[]>([])
-  const navigate = useNavigate()
-
+  // const navigate = useNavigate()
+  // 모달 오픈
+  const [open, setOpen] = useState(false)
   useEffect(() => {
     const fetchTodayCurrency = async () => {
       try {
@@ -60,7 +61,8 @@ const Currency: React.FC = () => {
   const navigatToDetail = (Id: number) => {
     // 상태 업데이트 함수를 사용하여 countryId 상태를 변경
     setCountryId(Id)
-    navigate('/currency/detail')
+    // 모달 오픈
+    setOpen(true)
   }
 
   const shouldShowNavbar = location.pathname === '/currency'
@@ -105,85 +107,74 @@ const Currency: React.FC = () => {
                   <div className={styles.col1}>
                     <div className={styles.countryInfo}>
                       {/* 나라 플래그 이미지 */}
-                      {currency.frType === '미국 달러' && (
-                        <img
-                          src={usa}
-                          alt="usa flag"
-                          style={{ height: '4.5vw', marginRight: '20px' }}
-                        />
-                      )}
-                      {currency.frType === '일본 옌' && (
-                        <img
-                          src={japan}
-                          alt="japan flag"
-                          style={{ height: '4.5vw', marginRight: '20px' }}
-                        />
-                      )}
-                      {currency.frType === '유로' && (
-                        <img
-                          src={europe}
-                          alt="europe flag"
-                          style={{ height: '6vw', marginRight: '10px' }}
-                        />
-                      )}
-                      {currency.frType === '위안화' && (
-                        <img
-                          src={china}
-                          alt="china flag"
-                          style={{ height: '4.4vw', marginRight: '20px' }}
-                        />
-                      )}
+                      <Lottie
+                        animationData={
+                          currency.frType === '미국 달러'
+                            ? usa
+                            : currency.frType === '일본 옌'
+                              ? japan
+                              : currency.frType === '유로'
+                                ? europe
+                                : currency.frType === '위안화'
+                                  ? china
+                                  : null // 기본값 혹은 일치하는 코드가 없을 경우
+                        }
+                        style={{
+                          width: '4.5vw',
+                          height: '4.5vw',
+                          marginRight: '6px',
+                        }}
+                      />
                       {/* 나라 이름 */}
                       <div className={styles.row0}>
-                        {currency.frType === 'USA' && '미국달러'}
+                        {currency.frType === '미국 달러' && '미국 달러 USD'}
                       </div>
                       <div className={styles.row0}>
-                        {currency.frType === 'JPN' && '일본엔'}
+                        {currency.frType === '일본 옌' && '일본 옌 JPN'}
                       </div>
                       <div className={styles.row0}>
-                        {currency.frType === 'EUR' && '유럽유로'}
+                        {currency.frType === '유로' && '유럽 유로 EUR'}
                       </div>
                       <div className={styles.row0}>
-                        {currency.frType === 'CHN' && '중국위안'}
+                        {currency.frType === '위안화' && '중국 위안 CHN'}
                       </div>
                     </div>
                     <div className={styles.rightContainer}>
                       <div className={styles.col2}>
                         {/* 기본 환율 */}
                         <div className={styles.row1}>
-                          {currency.basicRate}원
-                        </div>
-                        {/* 실시간 환율 */}
-                        <div
-                          className={
-                            currency.riseStatus === 'DECREASE'
-                              ? styles.row2blue
-                              : styles.row2red
-                          }
-                        >
-                          {currency.amount}원
-                          {currency.riseStatus === 'DECREASE' && (
-                            <img
-                              src={down}
-                              alt="down"
-                              style={{
-                                height: '1.6vw',
-                                marginLeft: '4px',
-                                marginTop: '2px',
-                              }}
-                            />
-                          )}
-                          {currency.riseStatus === 'INCREASE' && (
-                            <img
-                              src={up}
-                              alt="up"
-                              style={{
-                                height: '1.6vw',
-                                marginLeft: '4px',
-                                marginTop: '2px',
-                              }}
-                            />
-                          )}
+                          {currency.basicRate}원{/* 실시간 환율 */}
+                          <div
+                            className={
+                              currency.riseStatus === 'DECREASE'
+                                ? styles.row2blue
+                                : styles.row2red
+                            }
+                          >
+                            {currency.amount}원
+                            {currency.riseStatus === 'DECREASE' && (
+                              <img
+                                src={down}
+                                alt="down"
+                                style={{
+                                  height: '1.6vw',
+                                  marginLeft: '4px',
+                                  marginTop: '2px',
+                                }}
+                              />
+                            )}
+                            {currency.riseStatus === 'INCREASE' && (
+                              <img
+                                src={up}
+                                alt="up"
+                                style={{
+                                  height: '1.6vw',
+                                  marginLeft: '4px',
+                                  marginTop: '2px',
+                                }}
+                              />
+                            )}
+                          </div>
                         </div>
                       </div>
                       <ArrowForwardIosRoundedIcon
@@ -196,6 +187,32 @@ const Currency: React.FC = () => {
             ))}
           </List>
         </div>
+      </div>
+      {/* world map으로 이동 모달 */}
+      <div className={styles.modal}>
+        <Modal
+          open={open}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Box
+            sx={{
+              width: '80%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            {/* 모달 닫기 버튼 */}
+            <CurrencyDetail open={open} setOpen={setOpen} />{' '}
+            {/* open 상태와 모달 닫는 함수 전달 */}
+          </Box>
+        </Modal>
       </div>
     </div>
   )

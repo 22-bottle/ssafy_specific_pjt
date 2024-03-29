@@ -40,4 +40,11 @@ public class AccountController {
         accountService.registrationAccount(memberId, request);
         return getResponseEntity(SuccessCode.OK);
     }
+
+    @GetMapping("/withdraw")
+    @LoginOnly(level = LoginOnly.Level.ALL)
+    public ResponseEntity<?> registrationAccount(HttpServletRequest httpServletRequest){
+        Long memberId = (Long)httpServletRequest.getAttribute("memberId");
+        return getResponseEntity(SuccessCode.OK, accountService.getAccountWithdraw(memberId));
+    }
 }

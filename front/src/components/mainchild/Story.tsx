@@ -209,6 +209,17 @@ const Story: React.FC = () => {
       // 에러 처리 코드 작성
     }
   }
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  }
 
   return (
     <div className={styles.storyContainer}>
@@ -254,16 +265,36 @@ const Story: React.FC = () => {
           open={open}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
         >
-          <Box>
+          <Box sx={style}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              HICO를 얻으러 가볼까요?
+              연료를 얻으러 가볼까요?
             </Typography>
             <Typography
               id="modal-modal-description"
               sx={{ mt: 2 }}
             ></Typography>
-            <button onClick={goToworldmap}>Hico 시작</button>
+            <Button
+              sx={{
+                marginRight: 3,
+                marginTop: 1.2,
+                width: 110,
+                height: '42px',
+                fontSize: '17px',
+                backgroundColor: '#0064FF',
+                borderRadius: 3,
+                color: 'white',
+                fontWeight: 600,
+              }}
+              onClick={goToworldmap}
+            >
+              Hico 시작
+            </Button>
           </Box>
         </Modal>
       </div>

@@ -10,8 +10,8 @@ const api = {
   point: `/parent/main/point`,
   // 부모 계좌, 송금 내역
   getAccount: '/parent/wallet',
-  // 아이의 환전 요청 리스트
-  getTrans: '/parent/wallet/tran',
+  // 아이에게 송금하기
+  postBalance: '/parent/wallet/tran',
 }
 
 async function code() {
@@ -30,7 +30,15 @@ async function point(id: number) {
 async function getAccount() {
   return await http.get(api.getAccount)
 }
-async function getTrans() {
-  return await http.get(api.getTrans)
+async function postBalance(frTranId: number, password: string) {
+  try {
+    const response = await http.post(api.postBalance, {
+      frTranId: frTranId,
+      password: password,
+    })
+    return response.data
+  } catch (error) {
+    throw error
+  }
 }
-export { code, getChild, study, point, getAccount, getTrans }
+export { code, getChild, study, point, getAccount, postBalance }

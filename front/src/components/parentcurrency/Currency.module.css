@@ -122,3 +122,7 @@
   align-items: center;
   margin-left: 35px;
 }
+.modal {
+  display: flex;
+  align-items: center;
+}

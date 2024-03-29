@@ -1,55 +1,75 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from './sending.module.css'
 import Button from '@mui/material/Button'
 import CircleIcon from '@mui/icons-material/Circle'
 import KeyboardBackspaceRoundedIcon from '@mui/icons-material/KeyboardBackspaceRounded'
 // import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { startTransition } from 'react'
+import { useRecoilState } from 'recoil'
+import { postBalance } from '@/api/parent'
+
+// interface AccountData {
+//   frTranList: frTran[]
+// }
+
+interface frTran {
+  frTranId: number
+  balance: number
+  countryId: number
+  frBalance: number
+  code: string
+  createTime: string
+  childId: number
+  name: string
+  transacted: boolean
+}
 
 const Sending: React.FC = () => {
   // 입력된 비밀번호 길이를 추적하는 상태
-  const [passwordLength, setPasswordLength] = useState(0)
+  const [password, setPassword] = useState<string>('')
+  const location = useLocation()
+  const { transaction }: { transaction?: frTran } = location.state || {}
+  const navigate = useNavigate()
 
   // 비밀번호 입력 핸들러
   const handlePasswordInput = (number: number) => {
     // 비밀번호 길이가 4 이하일 때만 업데이트
-    if (passwordLength < 4) {
-      setPasswordLength(passwordLength + 1)
+    if (password.length < 4) {
+      setPassword(password + number.toString())
     }
   }
 
   // 비밀번호 삭제 핸들러
   const handleDelete = () => {
-    if (passwordLength > 0) {
-      setPasswordLength(passwordLength - 1)
+    if (password.length > 0) {
+      setPassword(password.slice(0, -1))
     }
   }
 
-  // const navigate = useNavigate()
-  // const handleButtonClick = () => {
-  //   navigate('/parentwallet/complete')
-  // }
-  // const styleObj = {
-  //   border: '1px solid black',
-  //   padding: '10px',
-  //   margin: '10px',
-  // }
-  // const [pin, setPin] = useState<string>('') // State to store the pin
+  // 송금하기
+  const transferMoney = async () => {
+    try {
+      await postBalance(transaction?.frTranId || 0, password)
+      // 송금 성공 시 처리
+      console.log('송금이 완료되었습니다.')
+      // 송금 완료 화면으로 정보 넘김
+      startTransition(() => {
+        navigate('/parentwallet/complete', { state: { transaction } })
+      })
+    } catch (error) {
+      console.error('송금 중 오류 발생:', error)
+      alert('비밀번호가 올바르지 않습니다.')
+    }
+  }
 
-  // const handleKeyPress = (number: string) => {
-  //   if (pin.length < 4) {
-  //     setPin(pin + number)
-  //   }
-  // }
-
-  // const handleDelete = () => {
-  //   setPin(pin.slice(0, -1)) // Remove the last digit
-  // }
-
-  // const keypadStyle = {
-  //   display: 'grid',
-  //   gridTemplateColumns: 'repeat(3, 1fr)',
-  //   gap: '10px',
-  // }
+  // 비밀번호 4자리 누르자마자 자동 송금
+  useEffect(() => {
+    // 비밀번호가 4글자가 되면 자동으로 송금 함수 호출
+    if (password.length === 4) {
+      transferMoney()
+    }
+  }, [password])
 
   return (
     <div className={styles.container}>
@@ -100,8 +120,10 @@ const Sending: React.FC = () => {
       {/* 메인 */}
       <div className={styles.materialContainer}>
         <div className={styles.text}>
-          <div className={styles.main1}>내 아이 '이승재'님 에게</div>
-          <div className={styles.main2}>3,000원을 송금할까요?</div>
+          <div className={styles.main1}>{transaction?.name}님 에게</div>
+          <div className={styles.main2}>
+            {Number(transaction?.balance).toLocaleString()}원을 송금할까요?
+          </div>
           <div className={styles.sub}>비밀번호를 입력해 주세요.</div>
         </div>
 
@@ -112,7 +134,7 @@ const Sending: React.FC = () => {
               key={index}
               sx={{
                 fontSize: '30px',
-                color: index < passwordLength ? '#fff' : '#6C6C7D',
+                color: index < password.length ? '#fff' : '#6C6C7D',
                 marginLeft: index > 0 ? '50px' : '0px',
               }}
             />
@@ -156,36 +178,6 @@ const Sending: React.FC = () => {
         </div>
       </div>
     </div>
-    // <div style={styleObj}>
-    //   <div style={styleObj}>
-    //     <p>내 아이에게 3,000원을 송금할까요?</p>
-    //     <p>비밀번호를 입력해주세요.</p>
-    //     <p>PIN: {pin}</p> {/* Display the entered pin here */}
-    //   </div>
-    //   <div className="pin-inputs" style={styleObj}>
-    //     {/* Replace this with your actual pin inputs, or display pin */}
-    //     {Array.from({ length: 4 }).map((_, index) => (
-    //       <span key={index}>{pin[index] || '*'}</span> // This will display the pin or a placeholder
-    //     ))}
-    //   </div>
-    //   <div className="keypad" style={keypadStyle}>
-    //     {[1, 2, 3, 4, 5, 6, 7, 8, 9, 'delete', 0].map((number) =>
-    //       number === 'delete' ? (
-    //         <button key={number} onClick={handleDelete}>
-    //           ←
-    //         </button>
-    //       ) : (
-    //         <button
-    //           key={number}
-    //           onClick={() => handleKeyPress(number.toString())}
-    //         >
-    //           {number}
-    //         </button>
-    //       )
-    //     )}
-    //   </div>
-    //   <button onClick={handleButtonClick}>송금하기</button>
-    // </div>
   )
 }
 
