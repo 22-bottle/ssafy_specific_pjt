@@ -89,6 +89,7 @@ function ResponsiveAppBar() {
                   fontWeight: 'bold',
                   mx: '3.5vw',
                   fontSize: '1.65vw',
+                  width: '100%',
                 }}
               >
                 {page}
