@@ -10,7 +10,7 @@ services:
       MYSQL_ROOT_PASSWORD: hicohico52
       MYSQL_DATABASE: hico
     ports:
-      - "127.0.0.1:3306:3306"
+      - "118.42.100.142:3306:3306"
   #    volumes:
   #      - ./mariadb/data:/var/lib/mysql
   #      - ./mariadb/conf.d:/etc/mysql/conf.d
@@ -26,7 +26,7 @@ services:
     #      SPRING_DATASOURCE_USERNAME: root
     #      SPRING_DATASOURCE_PASSWORD: 3025
     ports:
-      - "127.0.0.1:8081:8081"
+      - "118.42.100.142:8081:8081"
     environment:
       TZ: Asia/Seoul
 #      profile: ${PROFILE}
@@ -41,7 +41,7 @@ services:
       dockerfile: Dockerfile
     restart: always
     ports:
-      - "127.0.0.1:3000:3000"
+      - "118.42.100.142:3000:3000"
     depends_on:
       - backend
 networks:
