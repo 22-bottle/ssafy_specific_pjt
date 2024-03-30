@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
 import { useNavigate } from 'react-router-dom'
 import { tutorial } from '@/api/child'
+import timeMachine from '@/assets/storytimemachine.png'
 const storyBackgroundLab = require('@/assets/lab.png')
 const storyspaceship = require('@/assets/spaceship.png')
 const storyworldmap = require('@/assets/globe.PNG')
@@ -238,8 +239,15 @@ const Story: React.FC = () => {
         )}
       </div>
       <div>
-        {currentStoryIndex < 8 && <div className={styles.timemachine} />}
-        {currentStoryIndex === 8 && <div className={styles.timemachinemove} />}
+        {currentStoryIndex < 8 ? (
+          <div className={styles.timemachine}>
+            <img src={timeMachine} alt="time machine" />
+          </div>
+        ) : (
+          <div className={`${styles.timemachine} ${styles.animateup}`}>
+            <img src={timeMachine} alt="time machine" />
+          </div>
+        )}
       </div>
       <div className={styles.storyNavigation}>
         <button
