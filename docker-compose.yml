@@ -13,27 +13,16 @@ services:
       MYSQL_PASSWORD : hicohico52
     ports:
       - "127.0.0.1:3306:3306"
-  #    volumes:
-  #      - ./mariadb/data:/var/lib/mysql
-  #      - ./mariadb/conf.d:/etc/mysql/conf.d
-  #      - ./mariadb/db/initdb.d:/docker-entrypoint-initdb.d
   backend:
     container_name: backend
     build:
       context: ./back
       dockerfile: Dockerfile
     restart: always
-    #    environment:
-    #      SPRING_DATASOURCE_URL: jdbc:mysql://database:3306/test?useSSL=false&allowPublicKeyRetrieval=true
-    #      SPRING_DATASOURCE_USERNAME: root
-    #      SPRING_DATASOURCE_PASSWORD: 3025
     ports:
       - "127.0.0.1:8081:8081"
     environment:
       TZ: Asia/Seoul
-#      profile: ${PROFILE}
-#      MYSQL_DATABASE_USERNAME: ${PROD_DATABASE_USERNAME}
-#      MYSQL_DATABASE_PASSWORD: ${PROD_DATABASE_PASSWORD}
     depends_on:
       - database
   frontend:
