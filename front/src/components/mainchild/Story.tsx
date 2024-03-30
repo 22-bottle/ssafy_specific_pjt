@@ -216,8 +216,8 @@ const Story: React.FC = () => {
     transform: 'translate(-50%, -50%)',
     width: 400,
     bgcolor: 'background.paper',
-    border: '2px solid #000',
     boxShadow: 24,
+    borderRadius: '10px',
     p: 4,
   }
 
@@ -272,29 +272,39 @@ const Story: React.FC = () => {
           }}
         >
           <Box sx={style}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
+            <Typography
+              id="modal-modal-title"
+              variant="h6"
+              component="h2"
+              align="center"
+            >
               연료를 얻으러 가볼까요?
             </Typography>
-            <Typography
-              id="modal-modal-description"
-              sx={{ mt: 2 }}
-            ></Typography>
-            <Button
+            {/* Removed the Typography that was not being used */}
+            <Box
               sx={{
-                marginRight: 3,
-                marginTop: 1.2,
-                width: 110,
-                height: '42px',
-                fontSize: '17px',
-                backgroundColor: '#0064FF',
-                borderRadius: 3,
-                color: 'white',
-                fontWeight: 600,
+                display: 'flex',
+                justifyContent: 'center', // This centers the button horizontally
+                mt: 2, // Adds margin-top for spacing
               }}
-              onClick={goToworldmap}
             >
-              Hico 시작
-            </Button>
+              <Button
+                sx={{
+                  marginRight: 3,
+                  marginTop: 1.2,
+                  width: 110,
+                  height: '42px',
+                  fontSize: '17px',
+                  backgroundColor: '#0064FF',
+                  borderRadius: 3,
+                  color: 'white',
+                  fontWeight: 600,
+                }}
+                onClick={goToworldmap}
+              >
+                이동하기
+              </Button>
+            </Box>
           </Box>
         </Modal>
       </div>
