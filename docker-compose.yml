@@ -9,6 +9,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: hicohico52
       MYSQL_DATABASE: hico
+      MYSQL_USER : hico
     ports:
       - "127.0.0.1:3306:3306"
   #    volumes:
