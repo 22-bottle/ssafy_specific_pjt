@@ -6,9 +6,9 @@ import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
 import { useNavigate } from 'react-router-dom'
 import { tutorial } from '@/api/child'
-const storyBackgroundLab = require('@/assets/storylab.png')
-const storyspaceship = require('@/assets/storyspaceship.png')
-const storyworldmap = require('@/assets/worldmap.jpg')
+const storyBackgroundLab = require('@/assets/lab.png')
+const storyspaceship = require('@/assets/spaceship.png')
+const storyworldmap = require('@/assets/globe.PNG')
 
 type Storyline = {
   id: number
@@ -34,14 +34,14 @@ const stories: Storyline[] = [
   },
   {
     id: 2,
-    text: '할아버지 저도 보고 싶었어요! 할아버지 저건 뭐예요?',
+    text: '할아버지 저도 보고 싶었어요! <br> 할아버지 저건 뭐예요?',
     image: storyBackgroundLab,
     isgrandpa: 1,
     isgrandchild: 1,
   },
   {
     id: 3,
-    text: '아 저거? 저건 내가 요즘 개발중인 타임머신이란다. 아직 완성된게 아니니 절대 함부로 만지면 안된단다',
+    text: '아 저거? 저건 내가 요즘 개발중인 타임머신이란다. <br> 아직 완성된게 아니니 절대 함부로 만지면 안된단다',
     image: storyBackgroundLab,
     isgrandpa: 1,
     isgrandchild: 1,
@@ -55,7 +55,7 @@ const stories: Storyline[] = [
   },
   {
     id: 5,
-    text: '우와 멋지다... 그냥 잠깐 구경하는건 괜찮겠지? 오 여기로 들어가는 건가?',
+    text: '우와 멋지다... 그냥 잠깐 구경하는건 괜찮겠지? <br> 오 여기로 들어가는 건가?',
     image: storyBackgroundLab,
     isgrandpa: 0,
     isgrandchild: 1,
@@ -69,14 +69,14 @@ const stories: Storyline[] = [
   },
   {
     id: 7,
-    text: '할아버지!! 빨리 와보세요!! 이상한 소리가 나요!!',
+    text: '할아버지 빨리 와보세요! <br> 이상한 소리가 나요!!',
     image: storyBackgroundLab,
     isgrandpa: 0,
     isgrandchild: 1,
   },
   {
     id: 8,
-    text: '안돼 !! 아가 !!',
+    text: '안돼 !<br> 아가 !',
     image: storyBackgroundLab,
     isgrandpa: 1,
     isgrandchild: 1,
@@ -90,14 +90,14 @@ const stories: Storyline[] = [
   },
   {
     id: 10,
-    text: '죄송해요 할아버지 잠깐 구경하는건 괜찮을 줄 알았어요',
+    text: '죄송해요 할아버지 <br>잠깐 구경하는건 괜찮을 줄 알았어요',
     image: storyspaceship,
     isgrandpa: 1,
     isgrandchild: 1,
   },
   {
     id: 11,
-    text: '아휴 넌 어릴때부터 나를 닮아 아주 호기심이 많았지 이렇게 될 수 있다고 생각했단다',
+    text: '아휴 넌 어릴때부터 나를 닮아 아주 호기심이 많았지 <br> 이렇게 될 수 있다고 생각했단다',
     image: storyspaceship,
     isgrandpa: 1,
     isgrandchild: 1,
@@ -125,14 +125,14 @@ const stories: Storyline[] = [
   },
   {
     id: 15,
-    text: '지금 예쁜게 중요한게 아니란다 아가... 우리는 여기서 연료를 얻어서 집으로 돌아가야 해',
+    text: '지금 예쁜게 중요한게 아니란다 아가... <br> 우리는 여기서 연료를 얻어서 집으로 돌아가야 해',
     image: storyworldmap,
     isgrandpa: 1,
     isgrandchild: 1,
   },
   {
     id: 16,
-    text: '연료요? 연료를 어디서 얻을 수 있어요?',
+    text: '연료요? <br> 연료를 어디서 얻을 수 있어요?',
     image: storyworldmap,
     isgrandpa: 1,
     isgrandchild: 1,
@@ -153,7 +153,7 @@ const stories: Storyline[] = [
   },
   {
     id: 19,
-    text: '우리처럼 타임머신을 타고 와서 역사를 바꾸려고 하는 사람들 때문에 요정들이 시간을 지키게 되었단다.',
+    text: '우리처럼 타임머신을 타고 와서 역사를 바꾸려고 하는 사람들 때문에 <br> 시간의 요정들이 과거 시간을 지키게 되었단다.',
     image: storyworldmap,
     isgrandpa: 1,
     isgrandchild: 1,
@@ -216,8 +216,8 @@ const Story: React.FC = () => {
     transform: 'translate(-50%, -50%)',
     width: 400,
     bgcolor: 'background.paper',
-    border: '2px solid #000',
     boxShadow: 24,
+    borderRadius: '10px',
     p: 4,
   }
 
@@ -238,7 +238,8 @@ const Story: React.FC = () => {
         )}
       </div>
       <div>
-        {currentStoryIndex <= 8 && <div className={styles.timemachine} />}
+        {currentStoryIndex < 8 && <div className={styles.timemachine} />}
+        {currentStoryIndex === 8 && <div className={styles.timemachinemove} />}
       </div>
       <div className={styles.storyNavigation}>
         <button
@@ -246,17 +247,30 @@ const Story: React.FC = () => {
           onClick={goToPreviousStory}
           disabled={currentStoryIndex === 0}
         >
-          Previous
+          ←
         </button>
         <div className={styles.textfield}>
-          <p>{stories[currentStoryIndex].text}</p>
+          <p>
+            {stories[currentStoryIndex].text
+              .split('<br>')
+              .map((line, index, array) =>
+                index < array.length - 1 ? (
+                  <span key={index}>
+                    {line}
+                    <br />
+                  </span>
+                ) : (
+                  <span key={index}>{line}</span>
+                )
+              )}
+          </p>
         </div>
         <button
           className={styles.button}
           onClick={goToNextStory}
           disabled={currentStoryIndex === stories.length - 1}
         >
-          Next
+          →
         </button>
       </div>
       {/* world map으로 이동 모달 */}
@@ -272,29 +286,39 @@ const Story: React.FC = () => {
           }}
         >
           <Box sx={style}>
-            <Typography id="modal-modal-title" variant="h6" component="h2">
+            <Typography
+              id="modal-modal-title"
+              variant="h6"
+              component="h2"
+              align="center"
+            >
               연료를 얻으러 가볼까요?
             </Typography>
-            <Typography
-              id="modal-modal-description"
-              sx={{ mt: 2 }}
-            ></Typography>
-            <Button
+            {/* Removed the Typography that was not being used */}
+            <Box
               sx={{
-                marginRight: 3,
-                marginTop: 1.2,
-                width: 110,
-                height: '42px',
-                fontSize: '17px',
-                backgroundColor: '#0064FF',
-                borderRadius: 3,
-                color: 'white',
-                fontWeight: 600,
+                display: 'flex',
+                justifyContent: 'center', // This centers the button horizontally
+                mt: 2, // Adds margin-top for spacing
               }}
-              onClick={goToworldmap}
             >
-              Hico 시작
-            </Button>
+              <Button
+                sx={{
+                  marginRight: 3,
+                  marginTop: 1.2,
+                  width: 110,
+                  height: '42px',
+                  fontSize: '17px',
+                  backgroundColor: '#0064FF',
+                  borderRadius: 3,
+                  color: 'white',
+                  fontWeight: 600,
+                }}
+                onClick={goToworldmap}
+              >
+                이동하기
+              </Button>
+            </Box>
           </Box>
         </Modal>
       </div>
