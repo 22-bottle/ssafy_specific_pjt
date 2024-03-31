@@ -5,6 +5,8 @@ import { stageSubjectState } from '@/state/StageSubjectAtoms'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faQuestion, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { country } from '@/api/child'
+import quizlottie from '../../assets/lottie/quiz.json'
+import Lottie from 'lottie-react'
 import styles from './USA.module.css'
 
 const USA: React.FC = () => {
@@ -99,8 +101,9 @@ const USA: React.FC = () => {
       <div className={styles.fairyContainer}>
         <div className={styles.fairy}>
           {!showDescription && (
-            <FontAwesomeIcon
-              icon={faQuestion}
+            <Lottie
+              animationData={quizlottie}
+              loop={true}
               className={styles.questionIcon}
               onClick={toggleDescription}
             />
