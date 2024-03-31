@@ -198,7 +198,7 @@
 
 .fairyContainer {
   position: relative;
-  bottom: 100px;
+  bottom: 40px;
 }
 .fairy {
   background-image: url('../../assets/fairy_china.png'); /* 이미지 경로를 정확하게 지정하세요 */
