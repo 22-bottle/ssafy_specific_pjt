@@ -111,11 +111,12 @@ const USA: React.FC = () => {
             <button className={styles.closeButton} onClick={closeDescription}>
               <FontAwesomeIcon icon={faTimes} />
             </button>
-            <p>
+            <div className={styles.fontcol1}>
               연료를 가져가고 싶다면 내가 내는 문제를 맞혀야만 해!
-              <br />
+            </div>
+            <div className={styles.fontcol2}>
               하지만 너무 걱정하지 마! 만화를 잘 보면 쉽게 풀 수 있어!
-            </p>
+            </div>
           </div>
         )}
       </div>
