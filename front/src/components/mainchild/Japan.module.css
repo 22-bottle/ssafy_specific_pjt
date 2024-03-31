@@ -1,3 +1,36 @@
+.fontcol1,
+.fontcol2,
+.fontcol3 {
+  color: #3c3c43;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.navbar {
+  position: absolute;
+  top: -100vh; /* Adjust as needed */
+  left: 85vw; /* Center horizontally */
+  z-index: 1000; /* 다른 요소들 위에 렌더링되도록 z-index 값을 높게 설정 */
+}
+
+.fontcol1 {
+  padding-top: 30px;
+  margin-bottom: 3px;
+}
+
+.fontcol3 {
+  margin-bottom: 3px;
+}
+
+.fontcol2 {
+  padding-bottom: 30px;
+}
+
+.back {
+  height: 100vh; /* 전체 화면 높이 */
+  overflow: hidden; /* 컨텐츠가 넘쳐도 스크롤바가 생기지 않도록 함 */
+}
+
 .backgroundIMG {
   background-image: url('../../assets/skybasic.jpg');
   filter: blur(5px);
@@ -7,36 +40,23 @@
   height: 100vh;
   position: relative;
 }
-/* 작은 화면 (모바일) */
-@media (max-width: 600px) {
-  .backgroundIMG {
-    height: 50vh; /* 모바일에서는 높이를 줄입니다. */
-  }
-}
-
-/* 중간 크기 화면 (태블릿) */
-@media (min-width: 601px) and (max-width: 900px) {
-  .backgroundIMG {
-    height: 75vh; /* 태블릿에서는 높이를 조금 더 줍니다. */
-  }
-}
 
 .title {
   position: absolute;
-  top: 20px; /* Adjust as needed */
+  top: 50px; /* Adjust as needed */
   left: 50%; /* Center horizontally */
   transform: translateX(-50%);
   z-index: 999;
   text-align: center;
-  font-size: 40px;
+  font-size: 44px;
   color: white;
 }
 
 .japanmap {
   background-image: url('../../assets/japanmap.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
-  top: 15%;
-  left: 30%;
+  top: 22vh;
+  left: 30vw;
   width: 689px;
   height: 594px;
   background-size: cover; /* 이미지가 버튼 크기에 맞게 조정됩니다 */
@@ -48,8 +68,8 @@
 .stage1 {
   background-image: url('../../assets/activated_1.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
-  top: 22%;
-  left: 58%;
+  top: 25vh;
+  left: 63vw;
   width: 130px;
   height: 100px;
   background-size: cover; /* 이미지가 버튼 크기에 맞게 조정됩니다 */
@@ -61,8 +81,8 @@
 .unactive_stage2 {
   background-image: url('../../assets/unactivated_2.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
-  top: 42%;
-  left: 55.5%;
+  top: 42vh;
+  left: 59.4vw;
   width: 103px;
   height: 104px;
   background-size: cover; /* 이미지가 버튼 크기에 맞게 조정됩니다 */
@@ -74,8 +94,8 @@
 .unactive_stage3 {
   background-image: url('../../assets/unactivated_3.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
-  top: 54.5%;
-  left: 52%;
+  top: 56.5vh;
+  left: 54vw;
   width: 107px;
   height: 105px;
   background-size: cover; /* 이미지가 버튼 크기에 맞게 조정됩니다 */
@@ -87,8 +107,8 @@
 .unactive_stage4 {
   background-image: url('../../assets/unactivated_4.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
-  top: 62%;
-  left: 41%;
+  top: 62vh;
+  left: 41vw;
   width: 135px;
   height: 103px;
   background-size: cover; /* 이미지가 버튼 크기에 맞게 조정됩니다 */
@@ -100,8 +120,8 @@
 .unactive_stage5 {
   background-image: url('../../assets/unactivated_5.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
-  top: 72%;
-  left: 31.5%;
+  top: 72vh;
+  left: 31.5vw;
   width: 109px;
   height: 93px;
   background-size: cover; /* 이미지가 버튼 크기에 맞게 조정됩니다 */
@@ -114,7 +134,7 @@
   background-image: url('../../assets/activated_2.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
   top: 42%;
-  left: 55.5%;
+  left: 59.4%;
   width: 103px;
   height: 104px;
   background-size: cover; /* 이미지가 버튼 크기에 맞게 조정됩니다 */
@@ -126,8 +146,8 @@
 .active_stage3 {
   background-image: url('../../assets/activated_3.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
-  top: 54.5%;
-  left: 52%;
+  top: 56.5%;
+  left: 54%;
   width: 107px;
   height: 105px;
   background-size: cover; /* 이미지가 버튼 크기에 맞게 조정됩니다 */
@@ -164,7 +184,7 @@
 }
 .fairyContainer {
   position: relative;
-  bottom: 30px;
+  bottom: 100px;
 }
 .fairy {
   background-image: url('../../assets/fairy_japan.png'); /* 이미지 경로를 정확하게 지정하세요 */
@@ -181,8 +201,8 @@
 }
 .questionIcon {
   position: absolute;
-  top: -75px; /* fairy의 머리 위에 위치하도록 조정 */
-  left: 50%; /* fairy 이미지의 가운데에 위치하도록 조정 */
+  top: -70px; /* fairy의 머리 위에 위치하도록 조정 */
+  left: 52%; /* fairy 이미지의 가운데에 위치하도록 조정 */
   transform: translateX(-50%); /* 가운데 정렬을 위해 사용 */
   width: 80px;
   height: auto;
@@ -217,10 +237,11 @@
   background: none;
   cursor: pointer;
   padding: 0;
-  font-size: 25px;
+  font-size: 30px;
   position: absolute;
-  top: 10px;
-  right: 15px;
+  top: 20px;
+  right: 25px;
+  color: #3c3c43;
 }
 .rating {
   /* background-color: rgba(255, 255, 255, 0.8); */
