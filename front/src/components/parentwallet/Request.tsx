@@ -9,7 +9,7 @@ import { SvgIconProps } from '@mui/material/SvgIcon'
 import request from '../../assets/moneysending.png'
 import complete from '../../assets/moneycomplete.png'
 import { useNavigate } from 'react-router-dom'
-import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { useRecoilValue } from 'recoil'
 import { accountSelector } from '@/state/AccountSelectors'
 
 interface AccountData {
@@ -127,8 +127,8 @@ const Request: React.FC = () => {
               }}
             >
               <MenuItem value={'10'}>전체</MenuItem>
-              <MenuItem value={'20'}>송금 요청</MenuItem>
-              <MenuItem value={'30'}>송금 완료</MenuItem>
+              <MenuItem value={'20'}>송금요청</MenuItem>
+              <MenuItem value={'30'}>송금완료</MenuItem>
             </Select>
           </FormControl>
         </div>

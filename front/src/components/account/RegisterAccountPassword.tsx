@@ -4,51 +4,53 @@ import Button from '@mui/material/Button'
 import CircleIcon from '@mui/icons-material/Circle'
 import KeyboardBackspaceRoundedIcon from '@mui/icons-material/KeyboardBackspaceRounded'
 // import { useNavigate } from 'react-router-dom'
-import {accountState} from './RegisterAccount'
-import { useRecoilValue } from 'recoil';
-import { useNavigate } from 'react-router-dom';
-import {register} from '@/api/account'
+import { accountState } from './RegisterAccount'
+import { useRecoilValue } from 'recoil'
+import { useNavigate } from 'react-router-dom'
+import { register } from '@/api/account'
 
 const RegisterAccountPassword: React.FC = () => {
+  const userName = localStorage.getItem('userName')
+
   // 입력된 비밀번호 길이를 추적하는 상태
-    const navigate = useNavigate();
-    const [password, setPassword] = useState('');
-    const accountValue = useRecoilValue(accountState);
+  const navigate = useNavigate()
+  const [password, setPassword] = useState('')
+  const accountValue = useRecoilValue(accountState)
 
-    const handlePasswordInput = (number: number) => {
-        if (password.length < 4) {
-            const newPassword = password + number.toString();
-            setPassword(newPassword);
+  const handlePasswordInput = (number: number) => {
+    if (password.length < 4) {
+      const newPassword = password + number.toString()
+      setPassword(newPassword)
 
-            if (newPassword.length === 4) {
-                register(accountValue.accountNo, newPassword)
-                    .then((response) => {
-                        if (response.data.statusCode === 200) {
-                            alert('정상적으로 등록되었습니다.');
-                            console.log(localStorage.getItem('userRole'));
-                            if(localStorage.getItem('userRole') === 'CHILD'){
-                                navigate('/mainchild');
-                            }else if(localStorage.getItem('userRole') === 'PARENT'){
-                                navigate('/mainparent');
-                            }
-                        } else {
-                            alert('등록에 실패하였습니다.');
-                        }
-                    })
-                    .catch((error) => {
-                        console.error('Registration failed', error);
-                        alert('등록 과정에서 오류가 발생하였습니다.');
-                    });
+      if (newPassword.length === 4) {
+        register(accountValue.accountNo, newPassword)
+          .then((response) => {
+            if (response.data.statusCode === 200) {
+              alert('정상적으로 등록되었습니다.')
+              console.log(localStorage.getItem('userRole'))
+              if (localStorage.getItem('userRole') === 'CHILD') {
+                navigate('/mainchild')
+              } else if (localStorage.getItem('userRole') === 'PARENT') {
+                navigate('/mainparent')
+              }
+            } else {
+              alert('등록에 실패하였습니다.')
             }
-        }
-    };
+          })
+          .catch((error) => {
+            console.error('Registration failed', error)
+            alert('등록 과정에서 오류가 발생하였습니다.')
+          })
+      }
+    }
+  }
 
-    const handleDelete = () => {
-        if (password.length > 0) {
-            const newPassword = password.slice(0, -1);
-            setPassword(newPassword);
-        }
-    };
+  const handleDelete = () => {
+    if (password.length > 0) {
+      const newPassword = password.slice(0, -1)
+      setPassword(newPassword)
+    }
+  }
 
   // const navigate = useNavigate()
   // const handleButtonClick = () => {
@@ -126,7 +128,7 @@ const RegisterAccountPassword: React.FC = () => {
       {/* 메인 */}
       <div className={styles.materialContainer}>
         <div className={styles.text}>
-          <div className={styles.main1}>이채은님,한국은행 계좌를</div>
+          <div className={styles.main1}>{userName}님,한국은행 계좌를</div>
           <div className={styles.main2}>원클릭으로 만들 수 있어요!</div>
           <div className={styles.sub}>계좌 비밀번호를 입력해 주세요.</div>
         </div>

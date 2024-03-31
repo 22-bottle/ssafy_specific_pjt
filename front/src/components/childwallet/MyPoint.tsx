@@ -25,7 +25,8 @@ import AskComplete from './AskComplete'
 import { useNavigate } from 'react-router-dom'
 import { point } from '@/api/childPoint'
 import Currency from '@/components/parentcurrency/Currency'
-import { atom, useSetRecoilState } from 'recoil'
+import { atom, useSetRecoilState, useRecoilValue } from 'recoil'
+import { childAccountSelector } from '@/state/AccountSelectors'
 
 export const exchangeAmountState = atom({
   key: 'exchangeAmountState', // 고유한 키
@@ -47,6 +48,8 @@ interface CurrencyData {
 }
 
 const Mypoint: React.FC = () => {
+  const userName = localStorage.getItem('userName')
+
   const navigate = useNavigate()
 
   const [open, setOpen] = useState(false)
@@ -129,7 +132,9 @@ const Mypoint: React.FC = () => {
       <div className={styles.pointtitle}>획득 포인트</div>
       <div className={styles.main}>
         <div className={styles.horizontal}>
-          <div className={styles.possibletext}>이승재님의 환전 가능 금액 </div>
+          <div className={styles.possibletext}>
+            {userName}님의 환전 가능 금액
+          </div>
           <div className={styles.possiblemoney}>
             총 {totalAmount.toLocaleString('ko-KR')}원
           </div>
