@@ -238,16 +238,16 @@ const Story: React.FC = () => {
           <div className={styles.boy} />
         )}
       </div>
-      <div>
+      <div className={styles.doughnut}>
         {currentStoryIndex < 8 ? (
           <div className={styles.timemachine}>
             <img src={timeMachine} alt="time machine" />
           </div>
-        ) : (
+        ) : currentStoryIndex === 8 ? (
           <div className={`${styles.timemachine} ${styles.animateup}`}>
             <img src={timeMachine} alt="time machine" />
           </div>
-        )}
+        ) : null}
       </div>
       <div className={styles.storyNavigation}>
         <button

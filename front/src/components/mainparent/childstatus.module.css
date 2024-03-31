@@ -23,12 +23,13 @@
 .materialContainer {
   width: 100%;
   max-width: 520px;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: white;
   border-radius: 10px;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
 }
 
 .profileimage {
@@ -160,8 +161,8 @@
   align-items: center;
   background-color: white;
   border-radius: 10px;
-  margin-top: 15px;
-  margin-bottom: 25px;
+  margin-top: 10px;
+  margin-bottom: 2px;
 }
 
 .countryname {
@@ -171,7 +172,7 @@
 }
 
 .countrylayout {
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 .eachcountry {
@@ -183,13 +184,13 @@
 .countrymoney {
   text-align: left;
   font-size: 19px;
-  padding-bottom: 8px;
+  padding-bottom: 5px;
   color: #585865;
 }
 
 .countrynum {
   font-size: 28px;
-  padding-bottom: 13px;
+  padding-bottom: 5px;
   font-weight: bold;
   color: #585865;
 }
@@ -204,4 +205,9 @@
 .countryname {
   flex-shrink: 0;
   width: 200px;
+}
+
+.doughnut {
+  width: 250px;
+  height: 250px;
 }

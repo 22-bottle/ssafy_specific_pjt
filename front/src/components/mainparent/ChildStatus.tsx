@@ -286,20 +286,25 @@ const Childstatus: React.FC = () => {
         {/* 진행률 차트 */}
         {currentData && (
           <div>
-            <Doughnut
-              data={{
-                labels: ['Progress', 'Remaining'],
-                datasets: currentData.datasets,
-              }}
-              options={{
-                responsive: true,
-                plugins: {
-                  legend: {
-                    display: false,
+            {/* <div> 사이즈 설정 */}
+            <div>
+              <Doughnut
+                data={{
+                  labels: ['Progress', 'Remaining'],
+                  datasets: currentData.datasets,
+                }}
+                options={{
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  plugins: {
+                    legend: {
+                      display: false,
+                    },
                   },
-                },
-              }}
-            />
+                }}
+              />
+            </div>
+
             <div className={styles.progresslayout}>
               <div className={styles.title1}>학습진행률</div>
               <div className={styles.subtitle1}>{currentData.progress}%</div>
