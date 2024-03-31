@@ -8,6 +8,9 @@ import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded'
 import { SvgIconProps } from '@mui/material/SvgIcon'
 import request from '../../assets/moneysending.png'
 import complete from '../../assets/moneycomplete.png'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
+
 import { useNavigate } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
 import { accountSelector } from '@/state/AccountSelectors'
@@ -114,7 +117,7 @@ const Request: React.FC = () => {
               IconComponent={CustomExpandIcon}
               sx={{
                 '.MuiSelect-select': {
-                  fontSize: '20px',
+                  fontSize: '15px',
                   fontWeight: 500,
                   color: '#585865',
                   paddingLeft: '30px',

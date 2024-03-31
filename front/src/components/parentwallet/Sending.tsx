@@ -31,6 +31,12 @@ const Sending: React.FC = () => {
   const { transaction }: { transaction?: frTran } = location.state || {}
   const navigate = useNavigate()
 
+  const myWallet = () => {
+    startTransition(() => {
+      navigate('/parentwallet/request')
+    })
+  }
+
   // 비밀번호 입력 핸들러
   const handlePasswordInput = (number: number) => {
     // 비밀번호 길이가 4 이하일 때만 업데이트
@@ -91,7 +97,9 @@ const Sending: React.FC = () => {
               paddingRight: '10px',
             }}
           />
-          <div className={styles.navigatetext}>마이 지갑</div>
+          <div onClick={myWallet} className={styles.navigatetext}>
+            마이 지갑
+          </div>
         </Button>
       </div>
       <div className={styles.walletTitle2}>

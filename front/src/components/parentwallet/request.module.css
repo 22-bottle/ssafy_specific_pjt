@@ -146,12 +146,16 @@
 
 .sub2text2 {
   color: #585865;
-  font-size: 15px;
+  font-size: 17px;
+  font-weight: bold;
+  color: blue;
+  cursor: pointer;
 }
 
-.sub2text2:hover {
+.sendButton {
+  text-align: right;
   cursor: pointer;
-  color: blue; /* 파란색으로 변경 */
+  color: blue;
 }
 
 .sub2text3 {
