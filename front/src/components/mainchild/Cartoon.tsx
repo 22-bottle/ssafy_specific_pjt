@@ -19,6 +19,12 @@ const Cartoon: React.FC = () => {
     const [isPlaying, setIsPlaying] = useState(false); // TTS 재생 상태를 추적하는 상태
     const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
 
+    const [animation, setAnimation] = useState('');
+
+    useEffect(() => {
+        setAnimation('fadeIn');
+    }, [currentCartoonIndex]);
+
     useEffect(() => {
         const setVoicesList = () => {
             const allVoices = speechSynthesis.getVoices();
@@ -57,25 +63,38 @@ const Cartoon: React.FC = () => {
     }, [isPlaying]);
 
 
+    // 이전 페이지로 가는 함수
     const goToPreviousCartoon = () => {
         if (isPlaying) {
             speechSynthesis.cancel();
             setIsPlaying(false);
         }
-        setCurrentCartoonIndex((prev) => (prev > 0 ? prev - 1 : prev));
+        const prevIndex = currentCartoonIndex > 0 ? currentCartoonIndex - 1 : 0;
+        changePage(prevIndex);
     };
 
+// 다음 페이지로 가는 함수
     const goToNextCartoon = () => {
         if (isPlaying) {
             speechSynthesis.cancel();
             setIsPlaying(false);
         }
-        if (currentCartoonIndex === 4) {
-            setOpen(true);
-        } else {
-            setCurrentCartoonIndex((prev) => (prev + 1));
+        const nextIndex = currentCartoonIndex < cartoonList.length - 1 ? currentCartoonIndex + 1 : currentCartoonIndex;
+        changePage(nextIndex);
+        if (nextIndex === cartoonList.length - 1) {
+            setOpen(true); // 마지막 페이지에 도달했을 때 모달 열기
         }
     };
+
+    const changePage = (newIndex: number) => {
+        setAnimation('fadeOut');
+
+        setTimeout(() => {
+            setCurrentCartoonIndex(newIndex);
+            setAnimation('fadeIn');
+        }, 200); // 0.2초 후에 새 페이지 인덱스 설정 및 페이드인 애니메이션 적용
+    };
+
 
     const goToQuiz = () => {
         navigate('/mainchild/stage/quiz/start');
@@ -95,12 +114,16 @@ const Cartoon: React.FC = () => {
 
     return (
         <div className={styles.mainContainer}>
-            <div className={styles.cartoonContainer}>
+            <div className={`${styles.cartoonContainer} ${styles[animation]}`} style={{ position: 'relative' }}>
                 <img src={cartoonList[currentCartoonIndex].pageImg} alt="만화" />
+
+                {/* 재생/중지 버튼 */}
                 <button onClick={playTTS} className={styles.audioButton}>
                     <img src={isPlaying ? stop : play} alt={isPlaying ? "중지" : "재생"} />
-                </button> {/* TTS 재생/중지 버튼에 이미지 적용 */}
+                </button>
             </div>
+
+            {/* 이전/다음 페이지 버튼 */}
             <div className={styles.buttonContainer}>
                 <button className={styles.backButton} onClick={goToPreviousCartoon}></button>
                 <button className={styles.frontButton} onClick={goToNextCartoon}></button>
