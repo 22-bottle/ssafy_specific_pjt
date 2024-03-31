@@ -2,9 +2,9 @@ import React, { startTransition, useState, useEffect } from 'react'
 import { useRecoilState } from 'recoil'
 import { stageSubjectState } from '@/state/StageSubjectAtoms'
 import { useNavigate } from 'react-router-dom'
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faQuestion, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import question from '@/assets/questionmark.png'
 import { country } from '@/api/child'
 import styles from './Japan.module.css'
 
@@ -62,7 +62,7 @@ const Japan: React.FC = () => {
       <div className={styles.backgroundIMG}></div>
       <div className={styles.japanmap}></div>
       <div onClick={() => stageStart(1, 0)} className={styles.stage1}>
-        {stageOneAns}/10
+        <div className={styles.rating}>{stageOneAns}/10</div>
       </div>
       <div
         onClick={() => stageStart(2, 0)}
@@ -70,7 +70,7 @@ const Japan: React.FC = () => {
           stageOneAns >= 7 ? styles.active_stage2 : styles.unactive_stage2
         }
       >
-        {stageTwoAns}/10
+        <div className={styles.rating}>{stageTwoAns}/10</div>
       </div>
       <div
         onClick={() => stageStart(3, 0)}
@@ -78,7 +78,7 @@ const Japan: React.FC = () => {
           stageTwoAns >= 7 ? styles.active_stage3 : styles.unactive_stage3
         }
       >
-        {stageThreeAns}/10
+        <div className={styles.rating}>{stageThreeAns}/10</div>
       </div>
       <div
         onClick={() => stageStart(4, 0)}
@@ -86,7 +86,7 @@ const Japan: React.FC = () => {
           stageThreeAns >= 7 ? styles.active_stage4 : styles.unactive_stage4
         }
       >
-        {stageFourAns}/10
+        <div className={styles.rating}>{stageFourAns}/10</div>
       </div>
       <div
         onClick={() => stageStart(5, 0)}
@@ -94,14 +94,15 @@ const Japan: React.FC = () => {
           stageFourAns >= 7 ? styles.active_stage5 : styles.unactive_stage5
         }
       >
-        {stageFiveAns}/10
+        <div className={styles.rating}>{stageFiveAns}/10</div>
       </div>
 
       <div className={styles.fairyContainer}>
         <div className={styles.fairy}>
           {!showDescription && (
-            <FontAwesomeIcon
-              icon={faQuestion}
+            <img
+              src={question}
+              alt="question"
               className={styles.questionIcon}
               onClick={toggleDescription}
             />
