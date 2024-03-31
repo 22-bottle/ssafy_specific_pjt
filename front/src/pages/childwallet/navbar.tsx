@@ -59,7 +59,7 @@ function ResponsiveAppBar() {
           {/* 큰 화면 로고 */}
           <Box sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>
             <Link
-              to="/mainparent"
+              to="/mainchild/worldmap"
               style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -89,6 +89,7 @@ function ResponsiveAppBar() {
                   fontWeight: 'bold',
                   mx: '3.5vw',
                   fontSize: '1.65vw',
+                  width: '100%',
                 }}
               >
                 {page}

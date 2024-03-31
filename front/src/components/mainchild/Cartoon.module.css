@@ -14,7 +14,7 @@ body {
 }
 
 .cartoonContainer {
-  border: 1px solid black;     
+  border: none;
   margin: 100px 200px 100px 200px;
   flex-grow: 1; /* 나머지 공간을 모두 차지함 */
   display: flex; /* 이미지 중앙 정렬을 위해 필요한 경우 */
@@ -52,4 +52,39 @@ body {
   background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black" width="24px" height="24px"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M9.29 6.71c-.39-.39-1.02-.39-1.41 0s-.39 1.02 0 1.41L10.17 12 7.88 14.29c-.39.39-.39 1.03 0 1.42.39.39 1.02.39 1.41 0l3.59-3.59c.39-.39.39-1.02 0-1.42L9.29 6.71z"/></svg>');
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.audioButton {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.3s ease; /* 부드러운 전환 효과 */
+}
+
+.audioButton:hover {
+  transform: scale(1.05); /* 마우스를 올렸을 때 버튼의 크기를 약간 키움 */
+}
+
+.audioButton img {
+  width: 50px; /* 원하는 너비로 설정 */
+  height: 50px; /* 원하는 높이로 설정 */
+  object-fit: contain; /* 이미지 비율을 유지하면서, 지정한 너비와 높이에 맞춤 */
+}
+
+.fadeIn {
+  animation: fadeInAnimation 1s;
+}
+
+.fadeOut {
+  animation: fadeOutAnimation 1s;
+}
+
+@keyframes fadeInAnimation {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOutAnimation {
+  from { opacity: 1; }
+  to { opacity: 0; }
 }

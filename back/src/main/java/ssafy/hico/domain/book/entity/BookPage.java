@@ -20,15 +20,19 @@ public class BookPage extends BaseTimeEntity {
     private int bookPageNum;
     private String bookPageImg;
 
+    @Column(length = 1000)
+    private String tts;
+
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "stage_id")
     private Stage stage;
 
     @Builder
-    public BookPage(int bookPageNum, String bookPageImg, Stage stage) {
+    public BookPage(int bookPageNum, String bookPageImg, Stage stage, String tts) {
         this.bookPageNum = bookPageNum;
         this.bookPageImg = bookPageImg;
         this.stage = stage;
+        this.tts = tts;
     }
 
 }

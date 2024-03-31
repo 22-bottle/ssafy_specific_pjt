@@ -4,7 +4,7 @@ import Button from '@mui/material/Button'
 import CircleIcon from '@mui/icons-material/Circle'
 import KeyboardBackspaceRoundedIcon from '@mui/icons-material/KeyboardBackspaceRounded'
 import {make} from "@/api/account";
- import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 const CreateAccount: React.FC = () => {
     const navigate = useNavigate();

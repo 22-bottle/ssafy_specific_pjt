@@ -15,11 +15,13 @@ public class Page {
     private long pageId;
     private String pageImg;
     private int pageNum;
+    private String tts;
 
     public Page(BookPage bookPage) {
         this.pageId = bookPage.getBookPageId();
         this.pageImg = bookPage.getBookPageImg();
         this.pageNum = bookPage.getBookPageNum();
+        this.tts = bookPage.getTts();
     }
 
 }

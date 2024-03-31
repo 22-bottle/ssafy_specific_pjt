@@ -61,11 +61,11 @@ const Worldmap:React.FC= () => {
     }
     return (
         <div className={styles.backgroundIMG}>
-            <div className={styles.usapin} onClick={ navigatToUSA }>{usaProgressRate}</div>
-            <div className={styles.italypin} onClick={navigatToItaly}>{euProgressRate}</div>
-            <div className={styles.japanpin} onClick={navigatToJapn}>{japanProgressRate}</div>
-            <div className={styles.chinapin} onClick={navigatToChina}>{chinaProgressRate}</div>
-            <div className={styles.fuel}>{fuel}</div>
+            <div className={styles.usapin} onClick={ navigatToUSA }>{usaProgressRate}% 미국</div>
+            <div className={styles.italypin} onClick={navigatToItaly}>{euProgressRate}% 이탈리아</div>
+            <div className={styles.japanpin} onClick={navigatToJapn}>{japanProgressRate}% 일본</div>
+            <div className={styles.chinapin} onClick={navigatToChina}>{chinaProgressRate}% 중국</div>
+            <div className={styles.fuel}>연료 {fuel}%</div>
             <div className={styles.timemachine}></div>
        </div>
     );

@@ -85,4 +85,6 @@ public class Member extends BaseTimeEntity {
         this.isTutorial = true;
     }
 
+    public void modifyFuel() { this.fuel += 5; }
+
 }
