@@ -9,6 +9,7 @@ export const bookList = selector({
         const countryId = get(countrydetailState);
         const response = await book(stageId + (countryId - 1) * 5);
         const bookList = response.data.data.pageList;
+        bookList.push(bookList[4]);
         return bookList;
     }
 })
@@ -21,7 +22,7 @@ export const quizList = selector({
         const response = await quiz(stageId + (countryId - 1) * 5);
         const increase = response.data.data.increase;
         const quizDataList = response.data.data.quizList;
-        quizDataList.push({quizId: 0, quizQuestion: "", quizAnswer: "", quizType: "", quizLevel: "", quizPrice: 0, isCorrect: false });
+        quizDataList.push({ quizId: 0, quizQuestion: "", quizAnswer: "", quizType: "", quizLevel: "", quizPrice: 0, isCorrect: false });
         return {
             increase,
             quizDataList,

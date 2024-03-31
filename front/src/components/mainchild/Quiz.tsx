@@ -7,6 +7,9 @@ import { useRecoilValue, useRecoilState } from "recoil";
 import { countrydetailState } from "@/state/StageSubjectAtoms"
 import { saveAnswer } from "@/api/child";
 import { stageSubjectState } from '@/state/StageSubjectAtoms'
+import Modal from '@mui/material/Modal'
+import Box from '@mui/material/Box'
+import QuizResult from './Result';
 
 const Quiz:React.FC = () => {
     const [countryId, setCountryId] = useRecoilState(countrydetailState);
@@ -19,12 +22,14 @@ const Quiz:React.FC = () => {
     const { increase, quizDataList } = useRecoilValue(quizList) || [];
     const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
     const [price, setPrice] = useState(0);
+    const [open, setOpen] = useState(false);
+    const [count, setCount] = useState(0);
     useEffect(() => {
         if (currentQuizIndex >= 10) {
             saveAnswer(stageId, price, quizResultList)
                     .then((response) => {
                         if (response.data.statusCode === 200) {
-                            alert('제출되었습니다.');
+                            setOpen(true);
                         } else {
                             alert('제출에 실패하였습니다.')
                         }
@@ -44,6 +49,7 @@ const Quiz:React.FC = () => {
     const goOxToNextQuiz = () => {
         if (answer === quizDataList[currentQuizIndex].quizAnswer) {
             quizResultList.push({ quizId: quizDataList[currentQuizIndex].quizId, correct: true });
+            setCount(prev => prev += 1);
             if (!quizDataList[currentQuizIndex].correct) {
                 setPrice(price => price += (quizDataList[currentQuizIndex].quizPrice + increase));
             }
@@ -55,6 +61,7 @@ const Quiz:React.FC = () => {
     const goSaToNextQuiz = () => {
         if (answer === quizDataList[currentQuizIndex].quizAnswer) {
             quizResultList.push({ quizId: quizDataList[currentQuizIndex].quizId, correct: true })
+            setCount(prev => prev += 1);
             if (!quizDataList[currentQuizIndex].correct) {
                 setPrice((prev) => prev += (quizDataList[currentQuizIndex].quizPrice + increase));
             }
@@ -133,7 +140,35 @@ const Quiz:React.FC = () => {
                 </div>
             )
         default:
-            return null;
+            return (
+                <div>
+                    <div className={styles.modal}>
+                        <Modal
+                        open={open}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                        }}
+                        >
+                            <Box
+                                sx={{
+                                width: '80%',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                }}
+                            >
+                                {/* 모달 닫기 버튼 */}
+                                <QuizResult open={open} setOpen={setOpen} count={count} price={price}/>{' '}
+                                {/* open 상태와 모달 닫는 함수 전달 */}
+                            </Box>
+                        </Modal>
+                    </div>
+                </div>
+            )
     };
 };
 

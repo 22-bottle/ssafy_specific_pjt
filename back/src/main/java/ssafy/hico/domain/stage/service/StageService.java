@@ -158,11 +158,15 @@ public class StageService {
         if (stageStatus.isEmpty()) {
             if (answerCnt >= 7) {
                 stageStatus = Optional.of(StageStatus.createStageStatus(stage, child, true));
+                child.modifyFuel();
             }
             else stageStatus = Optional.of(StageStatus.createStageStatus(stage, child, false));
             stageStatusRepository.save(stageStatus.get());
         } else {
-            if (answerCnt >= 7) stageStatus.get().modifyStageStatus();
+            if (answerCnt >= 7) {
+                stageStatus.get().modifyStageStatus();
+                child.modifyFuel();
+            }
         }
     }
 
