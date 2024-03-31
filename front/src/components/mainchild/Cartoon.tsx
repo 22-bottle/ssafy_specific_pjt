@@ -44,20 +44,42 @@ const Cartoon: React.FC = () => {
             speechSynthesis.cancel(); // 이미 재생 중인 TTS가 있다면 중지
             setIsPlaying(false);
         } else {
-            const utterance = new SpeechSynthesisUtterance(cartoonList[currentCartoonIndex].tts);
-            if (voices.length > 1) { // 한국어 목소리가 최소 2개 이상 있어야 함
-                utterance.voice = voices[1]; // 두 번째 한국어 목소리 선택
-            }
-            utterance.onend = () => setIsPlaying(false); // TTS 재생이 끝났을 때
-            speechSynthesis.speak(utterance);
-            setIsPlaying(true);
+            // 텍스트를 부분적으로 나누어 처리
+            const textParts = splitText(cartoonList[currentCartoonIndex].tts);
+
+            // 첫 번째 텍스트 부분으로 시작
+            speakTextPart(0, textParts);
+            console.log(textParts);
         }
+    };
+
+    const splitText = (text: string): string[] => {
+        const parts: string[] = text.split('.').filter(part => part.trim().length > 0).map(part => part.trim() + '.');
+        return parts;
+    };
+
+    const speakTextPart = (index: number, textParts: string[]): void => {
+        if (index >= textParts.length) {
+            setIsPlaying(false); // 모든 텍스트 부분이 말해진 후
+            return;
+        }
+
+        const utterance: SpeechSynthesisUtterance = new SpeechSynthesisUtterance(textParts[index]);
+        if (voices.length > 1) {
+            utterance.voice = voices[1]; // 두 번째 한국어 목소리 선택
+        }
+        utterance.onend = () => {
+            speakTextPart(index + 1, textParts); // 다음 텍스트 부분으로 이동
+        };
+        speechSynthesis.speak(utterance);
+        setIsPlaying(true);
     };
 
     useEffect(() => {
         return () => {
             if (isPlaying) {
                 speechSynthesis.cancel();
+                setIsPlaying(false);
             }
         };
     }, [isPlaying]);
@@ -67,7 +89,6 @@ const Cartoon: React.FC = () => {
     const goToPreviousCartoon = () => {
         if (isPlaying) {
             speechSynthesis.cancel();
-            setIsPlaying(false);
         }
         const prevIndex = currentCartoonIndex > 0 ? currentCartoonIndex - 1 : 0;
         changePage(prevIndex);
