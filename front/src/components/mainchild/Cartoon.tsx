@@ -240,7 +240,7 @@ const Cartoon: React.FC = () => {
             alignItems: 'center', // 가로축 기준 중앙 정렬
             justifyContent: 'center', // 세로축 기준 중앙 정렬
             textAlign: 'center', // 텍스트 중앙 정렬
-            width: '330px',
+            width: '380px',
           }}
         >
           <Typography
@@ -249,7 +249,7 @@ const Cartoon: React.FC = () => {
               fontSize: '24px',
               fontWeight: 'bold',
               color: '#585865',
-              marginBottom: '40px',
+              marginBottom: '70px',
               marginTop: '10px',
             }}
           >
@@ -271,7 +271,7 @@ const Cartoon: React.FC = () => {
                 backgroundColor: '#0064FF',
                 borderRadius: 3,
                 color: 'white',
-                marginBottom: '10px',
+                marginBottom: '5px',
                 fontWeight: 600,
                 ':hover': {
                   backgroundColor: '#0056e3', // 호버 효과 추가
