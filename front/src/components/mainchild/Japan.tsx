@@ -112,7 +112,7 @@ const Japan: React.FC = () => {
       >
         <div className={styles.rating}>{stageFiveAns}/10</div>
       </div>
-      {/* 모달 버튼 */}
+      {/* navbar 버튼 */}
       <IconButton
         onClick={handleDrawerOpen}
         className={styles.navbar}
