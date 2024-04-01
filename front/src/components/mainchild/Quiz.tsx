@@ -10,8 +10,11 @@ import { stageSubjectState } from '@/state/StageSubjectAtoms'
 import Modal from '@mui/material/Modal'
 import Box from '@mui/material/Box'
 import QuizResult from './Result'
-import goToprevious from '../../assets/goToprevious.png'
-import goTonext from '../../assets/goTonext.png'
+import previous from '../../assets/preview.png'
+import next from '../../assets/next.png'
+import { Drawer, IconButton } from '@mui/material'
+import NavbarDrawer from './navbar'
+import KeyboardDoubleArrowDownRoundedIcon from '@mui/icons-material/KeyboardDoubleArrowDownRounded'
 
 const Quiz: React.FC = () => {
   const [countryId, setCountryId] = useRecoilState(countrydetailState)
@@ -118,10 +121,44 @@ const Quiz: React.FC = () => {
     setAnswer(event.target.value)
   }
 
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+
+  // navbar open
+  const handleDrawerOpen = () => {
+    setIsDrawerOpen(true)
+  }
+
+  // navbar close
+  const handleDrawerClose = () => {
+    setIsDrawerOpen(false)
+  }
+
   switch (quizDataList[currentQuizIndex].quizType) {
     case 'OX':
       return (
-        <div>
+        <div className={styles.main}>
+          {/* navbar 버튼 */}
+          <IconButton
+            onClick={handleDrawerOpen}
+            sx={{
+              position: 'fixed', // 요소를 뷰포트에 대해 고정
+              top: 0, // 상단에서 20px 떨어진 위치
+              right: 165, // 오른쪽에서 20px 떨어진 위치
+              backgroundColor: 'rgba(255, 164, 58, 0.95)',
+              borderRadius: '0 0 40px 40px', // 아래쪽 모서리에만 border-radius 적용
+              '&:hover': {
+                backgroundColor: '#FF8D09', // 호버 배경색
+              },
+              zIndex: 1200, // 다른 요소들 위에 오도록 z-index 설정
+            }}
+          >
+            <KeyboardDoubleArrowDownRoundedIcon
+              sx={{ fontSize: '50px', color: 'white' }}
+            />
+          </IconButton>
+          <Drawer anchor="top" open={isDrawerOpen} onClose={handleDrawerClose}>
+            <NavbarDrawer onClose={handleDrawerClose} />
+          </Drawer>
           <div className={styles.mainContainer}>
             <img
               src={characterImage}
@@ -155,26 +192,56 @@ const Quiz: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className={styles.buttonContainer}>
-            <button
-              className={styles.backButton}
-              onClick={() => alert('이전 문제로 돌아갈 수 없어요!')}
-            >
-              <img
-                style={{ width: '150px' }}
-                src={goToprevious}
-                alt="previous"
-              />
-            </button>
-            <button className={styles.frontButton} onClick={goOxToNextQuiz}>
-              <img style={{ width: '150px' }} src={goTonext} alt="next" />
-            </button>
-          </div>
+          <button
+            onClick={() => alert('이전 문제로 돌아갈 수 없어요!')}
+            className={styles.previousButtonContainer}
+          >
+            <img
+              src={previous}
+              alt="이전"
+              className={styles.imgsize}
+              draggable="false"
+            />
+          </button>
+
+          <button
+            onClick={goOxToNextQuiz}
+            className={styles.nextButtonContainer}
+          >
+            <img
+              src={next}
+              alt="다음"
+              draggable="false"
+              className={styles.imgsize}
+            />
+          </button>
         </div>
       )
     case 'SHORT_ANSWER':
       return (
         <div>
+          {/* navbar 버튼 */}
+          <IconButton
+            onClick={handleDrawerOpen}
+            sx={{
+              position: 'fixed', // 요소를 뷰포트에 대해 고정
+              top: 0, // 상단에서 20px 떨어진 위치
+              right: 165, // 오른쪽에서 20px 떨어진 위치
+              backgroundColor: 'rgba(255, 164, 58, 0.95)',
+              borderRadius: '0 0 40px 40px', // 아래쪽 모서리에만 border-radius 적용
+              '&:hover': {
+                backgroundColor: '#FF8D09', // 호버 배경색
+              },
+              zIndex: 1200, // 다른 요소들 위에 오도록 z-index 설정
+            }}
+          >
+            <KeyboardDoubleArrowDownRoundedIcon
+              sx={{ fontSize: '50px', color: 'white' }}
+            />
+          </IconButton>
+          <Drawer anchor="top" open={isDrawerOpen} onClose={handleDrawerClose}>
+            <NavbarDrawer onClose={handleDrawerClose} />
+          </Drawer>
           <div className={styles.mainContainer}>
             <img
               src={characterImage}
@@ -203,21 +270,29 @@ const Quiz: React.FC = () => {
               />
             </div>
           </div>
-          <div className={styles.buttonContainer}>
-            <button
-              className={styles.backButton}
-              onClick={() => alert('이전 문제로 돌아갈 수 없어요!')}
-            >
-              <img
-                style={{ width: '150px' }}
-                src={goToprevious}
-                alt="previous"
-              />
-            </button>
-            <button className={styles.frontButton} onClick={goOxToNextQuiz}>
-              <img style={{ width: '150px' }} src={goTonext} alt="next" />
-            </button>
-          </div>
+          <button
+            onClick={() => alert('이전 문제로 돌아갈 수 없어요!')}
+            className={styles.previousButtonContainer}
+          >
+            <img
+              src={previous}
+              alt="이전"
+              className={styles.imgsize}
+              draggable="false"
+            />
+          </button>
+
+          <button
+            onClick={goOxToNextQuiz}
+            className={styles.nextButtonContainer}
+          >
+            <img
+              src={next}
+              alt="다음"
+              draggable="false"
+              className={styles.imgsize}
+            />
+          </button>
         </div>
       )
     default:

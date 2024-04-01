@@ -15,6 +15,11 @@ body {
   margin: 0;
 }
 
+.main {
+  display: flex; /* Flexbox 레이아웃 사용 */
+  justify-content: center; /* 수평 방향 가운데 정렬 */
+}
+
 .mainContainer {
   /* border: 1px solid black;  */
   position: relative;
@@ -22,7 +27,7 @@ body {
 }
 
 .characterImage {
-  width: 170px;
+  width: 220px;
   height: auto;
   position: absolute;
   top: -95px;
@@ -33,36 +38,39 @@ body {
 
 .questionBackground {
   position: relative;
-  background-color: lightblue;
+  background-color: #b0ebff;
   border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .questionContainer {
-  background-color: rgb(210, 230, 236);
+  background-color: #f4fcff;
   border-radius: 10px;
-  padding: 20px;
-  margin-top: 30px;
-  margin-bottom: 20px;
+  padding: 10px;
+  margin-top: 40px;
+  margin-bottom: 40px;
   text-align: center;
-  width: 90%;
+  width: 85%;
 }
 
 .question {
   text-align: center;
   font-size: 40px;
   font-weight: bold;
+  color: #404049;
 }
 
 .point {
   text-align: right;
-  font-family: 'Just Me Again Down Here';
+  /* font-family: 'Just Me Again Down Here'; */
   font-size: 30px;
   font-weight: bold;
   margin: 0;
   padding-right: 10px;
+  color: #d6d6dd;
 }
 
 /* OX 스타일 */
@@ -97,12 +105,15 @@ body {
 .falseButton {
   background-repeat: no-repeat;
   background-position: center;
-  font-size: 50px;
+  font-size: 90px;
+  padding-bottom: 5px;
+  font-weight: bold;
 }
 
 /* 추가된 스타일 */
 .selected {
-  background-color: #4caf50; /* 선택된 버튼의 새 배경색 */
+  background-color: #fb88b4; /* 선택된 버튼의 새 배경색 */
+  color: white !important;
 }
 /* 객관식 스타일 */
 
@@ -201,4 +212,47 @@ body {
   width: 50%;
   height: 50px;
   font-size: 20px;
+}
+
+/* 이전 버튼 스타일 */
+.previousButtonContainer {
+  position: fixed; /* 고정 위치 */
+  left: 0; /* 화면 왼쪽 */
+  bottom: 0; /* 화면 하단 */
+  border-radius: 0% 50% 0% 0%;
+}
+
+/* 다음 버튼 스타일 */
+.nextButtonContainer {
+  position: fixed; /* 고정 위치 */
+  right: 0; /* 화면 오른쪽 */
+  bottom: 0; /* 화면 하단 */
+  border-radius: 50% 0% 0% 0%;
+}
+
+.previousButtonContainer,
+.nextButtonContainer {
+  cursor: pointer; /* 항상 손 모양 커서를 사용 */
+  transition: transform 0.3s ease; /* 부드러운 변환 효과 */
+}
+
+/* 이미지 사이즈 조절을 위한 기본 스타일 */
+.imgsize {
+  width: 16vh;
+  transition: transform 0.3s ease; /* 호버 시 부드러운 확대 효과 */
+}
+
+/* 호버 효과 */
+.previousButtonContainer:hover .imgsize,
+.nextButtonContainer:hover .imgsize {
+  transform: scale(1.1); /* 이미지를 10% 확대 */
+}
+
+/* 비활성화 상태일 때 커서와 호버 효과 조정 */
+.disabledButton {
+  cursor: default !important; /* 비활성화 상태에서는 기본 커서 사용 */
+}
+
+.disabledButton .imgsize {
+  transform: none !important; /* 비활성화 상태에서는 이미지 확대 제거 */
 }

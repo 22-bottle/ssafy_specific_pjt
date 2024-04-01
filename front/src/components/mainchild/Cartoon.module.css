@@ -24,9 +24,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 70%;
-  height: 80%;
-  margin-bottom: 20px;
+  width: 80%;
+  height: 68%;
 }
 
 .cartoonImage {
@@ -92,15 +91,15 @@ body {
 .ttsContainer {
   background-color: white;
   border-radius: 10px;
-  padding: 2.4vh 10px;
+  padding: 1.9vh 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 68%;
-  margin-top: -4.7vh; /* Moves the ttsContainer up, closer to the cartoonContainer */
+  width: 120vh;
   position: relative;
   z-index: 2;
   display: flex;
   justify-content: start;
   align-items: center;
+  margin-top: 3vh;
 }
 
 .audioButton,
