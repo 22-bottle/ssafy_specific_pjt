@@ -56,7 +56,8 @@ const Mypoint: React.FC = () => {
   const [modalContent, setModalContent] = useState('ask')
   const [totalAmount, setTotalAmount] = useState(0)
   const [currencyData, setCurrencyData] = useState<CurrencyData[]>([])
-
+  // history open
+  const [historyOpen, sethistoryOpen] = useState(false)
   const setExchangeAmount = useSetRecoilState(exchangeAmountState)
 
   useEffect(() => {
@@ -99,6 +100,9 @@ const Mypoint: React.FC = () => {
     setOpen(false)
     setModalContent('ask') // 모달을 닫을 때 항상 'ask' 상태로 리셋
   }
+  const handleHistoryClose = () => {
+    sethistoryOpen(false)
+  }
 
   const handleComplete = () => {
     setModalContent('complete')
@@ -124,6 +128,9 @@ const Mypoint: React.FC = () => {
     if (anchorElement) {
       anchorElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
     }
+  }
+  function OpenModal(countryId: number) {
+    sethistoryOpen(true)
   }
 
   return (
@@ -161,12 +168,17 @@ const Mypoint: React.FC = () => {
                 }
                 style={{ width: '4.5vw', height: '4.5vw', marginRight: '6px' }}
               />
-              {currency.frType}
+              <button
+                className={styles.historybutton}
+                onClick={() => OpenModal(currency.countryId)}
+              >
+                <span className={styles.text}>coin history 보러가기</span>
+                {currency.frType}
+              </button>
             </div>
             <div className={styles.horizontal1}>
               <div className={styles.context}>
-                보유 {currency.point}
-                {currency.code}
+                보유 {currency.point} {currency.code}
               </div>
               <div className={styles.money}>
                 {' '}
@@ -207,6 +219,7 @@ const Mypoint: React.FC = () => {
                 환전 요청
               </Button>
             </div>
+            {/* 환전요청 모달 */}
             <Modal
               open={open}
               onClose={handleClose}
@@ -241,6 +254,16 @@ const Mypoint: React.FC = () => {
       <div className={styles.main2}>
         <Currency />
       </div>
+
+      {/* 히스토리 확인 모달 */}
+      <Modal
+        open={historyOpen}
+        onClose={handleHistoryClose}
+        aria-labelledby="ask-won-modal-title"
+        aria-describedby="ask-won-modal-description"
+      >
+        <Box sx={style}>history modal</Box>
+      </Modal>
     </div>
   )
 }
