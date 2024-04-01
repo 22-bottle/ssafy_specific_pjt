@@ -58,7 +58,9 @@ body {
   background-color: transparent;
   border: none;
   cursor: pointer;
-  transition: transform 0.3s ease, opacity 0.3s ease; /* 부드러운 전환 효과 */
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease; /* 부드러운 전환 효과 */
 }
 
 .audioButton:hover {
@@ -80,11 +82,19 @@ body {
 }
 
 @keyframes fadeInAnimation {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes fadeOutAnimation {
-  from { opacity: 1; }
-  to { opacity: 0; }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
