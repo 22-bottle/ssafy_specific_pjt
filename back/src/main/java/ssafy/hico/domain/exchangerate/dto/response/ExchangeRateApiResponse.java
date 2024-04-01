@@ -35,4 +35,14 @@ public class ExchangeRateApiResponse {
                 .build();
     }
 
+    public ExchangeRate createExchangeRate(Country country, Variation riseStatus, double amount, LocalDate today) {
+        return ExchangeRate.builder()
+                .country(country)
+                .basicRate(Double.valueOf(this.dealBasR.replace(",", "")))
+                .riseStatus(riseStatus)
+                .amount(amount)
+                .todayDate(today)
+                .build();
+    }
+
 }

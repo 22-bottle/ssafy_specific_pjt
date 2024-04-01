@@ -27,6 +27,7 @@ import { point } from '@/api/childPoint'
 import Currency from '@/components/parentcurrency/Currency'
 import { atom, useSetRecoilState, useRecoilValue } from 'recoil'
 import { childAccountSelector } from '@/state/AccountSelectors'
+import HistoryDetail from './HistoryDetail'
 
 export const exchangeAmountState = atom({
   key: 'exchangeAmountState', // 고유한 키
@@ -129,7 +130,9 @@ const Mypoint: React.FC = () => {
       anchorElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
     }
   }
+  const [countryId, setCountryId] = useState(0);
   function OpenModal(countryId: number) {
+    setCountryId(countryId);
     sethistoryOpen(true)
   }
 
@@ -262,7 +265,9 @@ const Mypoint: React.FC = () => {
         aria-labelledby="ask-won-modal-title"
         aria-describedby="ask-won-modal-description"
       >
-        <Box sx={style}>history modal</Box>
+        <Box sx={style}>
+          <HistoryDetail open={open} setOpen={setOpen} countryId={countryId}/>{' '}
+        </Box>
       </Modal>
     </div>
   )

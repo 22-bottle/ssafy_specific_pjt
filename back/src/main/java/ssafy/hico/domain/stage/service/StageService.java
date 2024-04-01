@@ -130,7 +130,7 @@ public class StageService {
 
     @Transactional
     public void saveStageQuiz(StageQuizSaveRequest stageQuizSaveRequest, long memberId) {
-        int answerCnt = 0;
+        if (stageQuizSaveRequest.getCount() < 7) return;
         Member child = memberRepository.findById(memberId)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
         Stage stage = stageRepository.findById(stageQuizSaveRequest.getStageId())
@@ -138,13 +138,14 @@ public class StageService {
         FrPoint frPoint = frPointRepository.findByFrWalletAndCountry(child.getFrWallet(), stage.getCountry())
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_POINT));
         BigDecimal balance = frPoint.getBalance().add(stageQuizSaveRequest.getPrice());
-        if (!balance.equals(BigDecimal.valueOf(0.0))) historyRepository.save(History.createHistory(frPoint, stage, balance));
-        frPointRepository.updatePoint(frPoint.getFrPointId(), balance);
+        if (!stageQuizSaveRequest.getPrice().equals(BigDecimal.valueOf(0))) {
+            historyRepository.save(History.createHistory(frPoint, stage, stageQuizSaveRequest.getPrice()));
+            frPointRepository.updatePoint(frPoint.getFrPointId(), balance);
+        }
         for (QuizResult quizResult : stageQuizSaveRequest.getQuizResultList()) {
             Quiz quiz = quizRepository.findById(quizResult.getQuizId())
                     .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_QUIZ));
             Optional<QuizStatus> quizStatus= quizStatusRepository.findByMemberIdAndQuizId(memberId, quiz.getId());
-            if (quizResult.isCorrect()) answerCnt++;
             if (quizStatus.isEmpty()) {
                 quizStatus = Optional.of(QuizStatus.createQuizStatus(child, quiz, quizResult.isCorrect()));
                 quizStatusRepository.save(quizStatus.get());
@@ -156,17 +157,12 @@ public class StageService {
         }
         Optional<StageStatus> stageStatus = stageStatusRepository.findByMemberAndStage(child, stage);
         if (stageStatus.isEmpty()) {
-            if (answerCnt >= 7) {
-                stageStatus = Optional.of(StageStatus.createStageStatus(stage, child, true));
-                child.modifyFuel();
-            }
-            else stageStatus = Optional.of(StageStatus.createStageStatus(stage, child, false));
+            stageStatus = Optional.of(StageStatus.createStageStatus(stage, child, true));
+            child.modifyFuel();
             stageStatusRepository.save(stageStatus.get());
         } else {
-            if (answerCnt >= 7) {
-                stageStatus.get().modifyStageStatus();
-                child.modifyFuel();
-            }
+            if (!stageStatus.get().isPassed()) child.modifyFuel();
+            stageStatus.get().modifyStageStatus();
         }
     }
 

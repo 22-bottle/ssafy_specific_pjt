@@ -19,13 +19,13 @@ import java.time.LocalDate;
 public class HistoryRec {
 
     private long historyId;
-    private long stageId;
+    private String stageId;
     private BigDecimal price;
     private LocalDate date;
 
     public HistoryRec(History history) {
         this.historyId = history.getHistoryId();
-        this.stageId = history.getStage().getStageId();
+        this.stageId = history.getStage().getStageTitle();
         this.price = history.getPrice();
         this.date = history.getDate();
     }

@@ -192,29 +192,21 @@ const Quiz: React.FC = () => {
               </div>
             </div>
           </div>
-          <button
-            onClick={() => alert('이전 문제로 돌아갈 수 없어요!')}
-            className={styles.previousButtonContainer}
-          >
-            <img
-              src={previous}
-              alt="이전"
-              className={styles.imgsize}
-              draggable="false"
-            />
-          </button>
-
-          <button
-            onClick={goOxToNextQuiz}
-            className={styles.nextButtonContainer}
-          >
-            <img
-              src={next}
-              alt="다음"
-              draggable="false"
-              className={styles.imgsize}
-            />
-          </button>
+          <div className={styles.buttonContainer}>
+            <button
+              className={styles.backButton}
+              onClick={() => alert('이전 문제로 돌아갈 수 없어요!')}
+            >
+              <img
+                style={{ width: '150px' }}
+                src={goToprevious}
+                alt="previous"
+              />
+            </button>
+            <button className={styles.frontButton} onClick={goOxToNextQuiz}>
+              <img style={{ width: '150px' }} src={goTonext} alt="next" />
+            </button>
+          </div>
         </div>
       )
     case 'SHORT_ANSWER':
@@ -270,29 +262,21 @@ const Quiz: React.FC = () => {
               />
             </div>
           </div>
-          <button
-            onClick={() => alert('이전 문제로 돌아갈 수 없어요!')}
-            className={styles.previousButtonContainer}
-          >
-            <img
-              src={previous}
-              alt="이전"
-              className={styles.imgsize}
-              draggable="false"
-            />
-          </button>
-
-          <button
-            onClick={goOxToNextQuiz}
-            className={styles.nextButtonContainer}
-          >
-            <img
-              src={next}
-              alt="다음"
-              draggable="false"
-              className={styles.imgsize}
-            />
-          </button>
+          <div className={styles.buttonContainer}>
+            <button
+              className={styles.backButton}
+              onClick={() => alert('이전 문제로 돌아갈 수 없어요!')}
+            >
+              <img
+                style={{ width: '150px' }}
+                src={goToprevious}
+                alt="previous"
+              />
+            </button>
+            <button className={styles.frontButton} onClick={goOxToNextQuiz}>
+              <img style={{ width: '150px' }} src={goTonext} alt="next" />
+            </button>
+          </div>
         </div>
       )
     default:
@@ -334,40 +318,3 @@ const Quiz: React.FC = () => {
 }
 
 export default Quiz
-
-// 객관식
-// <div>
-//     <div className={styles.mainContainer}>
-//         <img src={ characterImage } alt="캐릭터" className={styles.characterImage}/>
-//         <div className={styles.questionBackground}>
-//             <div className={styles.questionContainer}>
-//                 {/* 여기가 문제 자리 */}
-//                 <p className={styles.question}>{ quizzes[currentQuizIndex].quizQuestion }</p>
-//                 <p className={styles.point}>{ quizzes[currentQuizIndex].quizPrice }</p>
-//                 <p className={styles.point}>{ increase }</p>
-//             </div>
-//         </div>
-//         <div className={styles.answerContainer}>
-//             <button onClick={() => answerClick()} className={styles.choiceButton}>
-//                 <span className={styles.choiceNumber}>1</span>
-//                 <span className={styles.choiceText}>{choices[0]}</span>
-//             </button>
-//             <button onClick={() => answerClick()} className={styles.choiceButton}>
-//                 <span className={styles.choiceNumber}>2</span>
-//                 <span className={styles.choiceText}>{choices[1]}</span>
-//             </button>
-//             <button onClick={() => answerClick()} className={styles.choiceButton}>
-//                 <span className={styles.choiceNumber}>3</span>
-//                 <span className={styles.choiceText}>{choices[2]}</span>
-//             </button>
-//             <button onClick={() => answerClick()} className={styles.choiceButton}>
-//                 <span className={styles.choiceNumber}>4</span>
-//                 <span className={styles.choiceText}>{choices[3]}</span>
-//             </button>
-//         </div>
-//     </div>
-//     <div className={styles.buttonContainer}>
-//         <button className={styles.backButton}></button>
-//         <button className={styles.frontButton} onClick={goToNextQuiz}></button>
-//     </div>
-// </div>

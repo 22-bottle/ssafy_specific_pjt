@@ -3,12 +3,16 @@ package ssafy.hico.domain.point.service;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ssafy.hico.domain.country.entity.Country;
+import ssafy.hico.domain.country.repository.CountryRepository;
 import ssafy.hico.domain.exchangerate.entity.ExchangeRate;
 import ssafy.hico.domain.exchangerate.repository.ExchangeRateRepository;
 import ssafy.hico.domain.history.dto.response.HistoryFindResponse;
 import ssafy.hico.domain.history.dto.response.HistoryRec;
 import ssafy.hico.domain.history.entity.History;
 import ssafy.hico.domain.history.repository.HistoryRepository;
+import ssafy.hico.domain.member.entity.Member;
+import ssafy.hico.domain.member.repository.MemberRepository;
 import ssafy.hico.domain.point.dto.ChildApplyTranRequest;
 import ssafy.hico.domain.point.dto.response.MyPointResponse;
 import ssafy.hico.domain.point.entity.FrPoint;
@@ -38,6 +42,8 @@ public class PointService {
     private final FrWalletRepository frWalletRepository;
     private final FrPointRepository frPointRepository;
     private final HistoryRepository historyRepository;
+    private final CountryRepository countryRepository;
+    private final MemberRepository memberRepository;
 
     @Transactional
     public void addFrTransaction(Long memberId, ChildApplyTranRequest request) {
@@ -100,8 +106,12 @@ public class PointService {
         }
     }
 
-    public HistoryFindResponse findHistoryList(long frPointId) {
-        FrPoint frPoint = frPointRepository.findById(frPointId)
+    public HistoryFindResponse findHistoryList(long memberId, long countryId) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+        Country country = countryRepository.findById(countryId)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_COUNTRY));
+        FrPoint frPoint = frPointRepository.findByFrWalletAndCountry(member.getFrWallet(), country)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_POINT));
         List<History> histories = historyRepository.findAllByFrPointOrderByDateDesc(frPoint);
         List<HistoryRec> historyList = new ArrayList<>();
