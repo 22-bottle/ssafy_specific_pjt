@@ -197,14 +197,10 @@ const Quiz: React.FC = () => {
               className={styles.backButton}
               onClick={() => alert('이전 문제로 돌아갈 수 없어요!')}
             >
-              <img
-                style={{ width: '150px' }}
-                src={goToprevious}
-                alt="previous"
-              />
+              <img style={{ width: '150px' }} src={previous} alt="previous" />
             </button>
             <button className={styles.frontButton} onClick={goOxToNextQuiz}>
-              <img style={{ width: '150px' }} src={goTonext} alt="next" />
+              <img style={{ width: '150px' }} src={next} alt="next" />
             </button>
           </div>
         </div>
@@ -267,14 +263,10 @@ const Quiz: React.FC = () => {
               className={styles.backButton}
               onClick={() => alert('이전 문제로 돌아갈 수 없어요!')}
             >
-              <img
-                style={{ width: '150px' }}
-                src={goToprevious}
-                alt="previous"
-              />
+              <img style={{ width: '150px' }} src={previous} alt="previous" />
             </button>
             <button className={styles.frontButton} onClick={goOxToNextQuiz}>
-              <img style={{ width: '150px' }} src={goTonext} alt="next" />
+              <img style={{ width: '150px' }} src={next} alt="next" />
             </button>
           </div>
         </div>
