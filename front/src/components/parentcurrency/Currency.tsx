@@ -140,43 +140,62 @@ const Currency: React.FC = () => {
                       </div>
                     </div>
                     <div className={styles.rightContainer}>
-                      <div className={styles.col2}>
-                        {/* 기본 환율 */}
-                        <div className={styles.row1}>
-                          {currency.basicRate}원{/* 실시간 환율 */}
-                          <div
-                            className={
-                              currency.riseStatus === 'DECREASE'
-                                ? styles.row2blue
-                                : styles.row2red
-                            }
-                          >
-                            {currency.amount}원
-                            {currency.riseStatus === 'DECREASE' && (
-                              <img
-                                src={down}
-                                alt="down"
-                                style={{
-                                  height: '1.6vw',
-                                  marginLeft: '4px',
-                                  marginTop: '2px',
-                                }}
-                              />
-                            )}
-                            {currency.riseStatus === 'INCREASE' && (
-                              <img
-                                src={up}
-                                alt="up"
-                                style={{
-                                  height: '1.6vw',
-                                  marginLeft: '4px',
-                                  marginTop: '2px',
-                                }}
-                              />
-                            )}
-                          </div>
+                      {/*<div className={styles.col2}>*/}
+                      {/*  /!* 기본 환율 *!/*/}
+                      {/*  <div className={styles.row1}>*/}
+                      {/*    {currency.basicRate}원/!* 실시간 환율 *!/*/}
+                      {/*    <div*/}
+                      {/*      className={*/}
+                      {/*        currency.riseStatus === 'DECREASE'*/}
+                      {/*          ? styles.row2blue*/}
+                      {/*          : styles.row2red*/}
+                      {/*      }*/}
+                      {/*    >*/}
+                      {/*      {currency.amount}원*/}
+                      {/*      {currency.riseStatus === 'DECREASE' && (*/}
+                      {/*        <img*/}
+                      {/*          src={down}*/}
+                      {/*          alt="down"*/}
+                      {/*          style={{*/}
+                      {/*            height: '1.6vw',*/}
+                      {/*            marginLeft: '4px',*/}
+                      {/*            marginTop: '2px',*/}
+                      {/*          }}*/}
+                      {/*        />*/}
+                      {/*      )}*/}
+                      {/*      {currency.riseStatus === 'INCREASE' && (*/}
+                      {/*        <img*/}
+                      {/*          src={up}*/}
+                      {/*          alt="up"*/}
+                      {/*          style={{*/}
+                      {/*            height: '1.6vw',*/}
+                      {/*            marginLeft: '4px',*/}
+                      {/*            marginTop: '2px',*/}
+                      {/*          }}*/}
+                      {/*        />*/}
+                      {/*      )}*/}
+                      {/*    </div>*/}
+                      {/*  </div>*/}
+                      {/*</div>*/}
+
+                        <div className={styles.col2}>
+                            {/* 기본 환율 */}
+                            <div className={styles.row1}>
+                                {currency.basicRate}원
+                            </div>
+                            {/* 실시간 환율을 위한 새로운 div 추가 */}
+                            <div className={styles.rightAlignContainer}>
+                                <div className={currency.riseStatus === 'DECREASE' ? styles.row2blue : styles.row2red}>
+                                    {currency.amount}원
+                                    {currency.riseStatus === 'DECREASE' && (
+                                        <img src={down} alt="down" style={{height: '1.6vw', marginLeft: '4px', marginTop: '2px'}} />
+                                    )}
+                                    {currency.riseStatus === 'INCREASE' && (
+                                        <img src={up} alt="up" style={{height: '1.6vw', marginLeft: '4px', marginTop: '2px'}} />
+                                    )}
+                                </div>
+                            </div>
                         </div>
-                      </div>
                       <ArrowForwardIosRoundedIcon
                         sx={{ fontSize: '35px', color: '#C2C2C9' }}
                       />
