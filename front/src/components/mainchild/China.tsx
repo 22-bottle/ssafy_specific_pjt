@@ -7,6 +7,9 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import question from '@/assets/questionmark.png'
 import { country } from '@/api/child'
 import styles from './China.module.css'
+import NavbarDrawer from './navbar'
+import { Drawer, IconButton } from '@mui/material'
+import KeyboardDoubleArrowDownRoundedIcon from '@mui/icons-material/KeyboardDoubleArrowDownRounded'
 
 const China: React.FC = () => {
   const [stageId, setStageId] = useRecoilState(stageSubjectState)
@@ -56,11 +59,24 @@ const China: React.FC = () => {
     }
   }
 
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+
+  // navbar open
+  const handleDrawerOpen = () => {
+    setIsDrawerOpen(true)
+  }
+
+  // navbar close
+  const handleDrawerClose = () => {
+    setIsDrawerOpen(false)
+  }
+
   return (
-    <div>
+    <div className={styles.back}>
       <h1 className={styles.title}>Stage를 클릭해서 퀴즈를 시작하세요!</h1>
       <div className={styles.backgroundIMG}></div>
       <div className={styles.chinamap}></div>
+
       <div onClick={() => stageStart(1, 0)} className={styles.stage1}>
         <div className={styles.rating}>{stageOneAns}/10</div>
       </div>
@@ -96,7 +112,25 @@ const China: React.FC = () => {
       >
         <div className={styles.rating}>{stageFiveAns}/10</div>
       </div>
-
+      {/* navbar 버튼 */}
+      <IconButton
+        onClick={handleDrawerOpen}
+        className={styles.navbar}
+        sx={{
+          backgroundColor: 'rgba(255, 164, 58, 0.95)',
+          borderRadius: '0 0 40px 40px', // 아래쪽 모서리에만 border-radius 적용
+          '&:hover': {
+            backgroundColor: '#FF8D09', // 호버 배경색
+          },
+        }}
+      >
+        <KeyboardDoubleArrowDownRoundedIcon
+          sx={{ fontSize: '50px', color: 'white' }}
+        />
+      </IconButton>
+      <Drawer anchor="top" open={isDrawerOpen} onClose={handleDrawerClose}>
+        <NavbarDrawer onClose={handleDrawerClose} />
+      </Drawer>
       <div className={styles.fairyContainer}>
         <div className={styles.fairy}>
           {!showDescription && (
@@ -113,13 +147,12 @@ const China: React.FC = () => {
             <button className={styles.closeButton} onClick={closeDescription}>
               <FontAwesomeIcon icon={faTimes} />
             </button>
-            <p>
-              중국에 온 걸 환영해!
-              <br />
-              연료가 필요하다고? 내가 도와줄게!
-              <br />
+            <div className={styles.fontcol1}>
+              중국에 온 걸 환영해!연료가 필요하다고? 내가 도와줄게!
+            </div>
+            <div className={styles.fontcol2}>
               간단해. 내가 낸 문제를 맞히면 돼! 어때 쉽지?
-            </p>
+            </div>
           </div>
         )}
       </div>

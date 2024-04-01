@@ -7,6 +7,9 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import question from '@/assets/questionmark.png'
 import { country } from '@/api/child'
 import styles from './Italy.module.css'
+import { Drawer, IconButton } from '@mui/material'
+import NavbarDrawer from './navbar'
+import KeyboardDoubleArrowDownRoundedIcon from '@mui/icons-material/KeyboardDoubleArrowDownRounded'
 
 const Italy: React.FC = () => {
   const [stageId, setStageId] = useRecoilState(stageSubjectState)
@@ -56,8 +59,20 @@ const Italy: React.FC = () => {
     }
   }
 
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+
+  // navbar open
+  const handleDrawerOpen = () => {
+    setIsDrawerOpen(true)
+  }
+
+  // navbar close
+  const handleDrawerClose = () => {
+    setIsDrawerOpen(false)
+  }
+
   return (
-    <div>
+    <div className={styles.back}>
       <h1 className={styles.title}>Stage를 클릭해서 퀴즈를 시작하세요!</h1>
       <div className={styles.backgroundIMG}></div>
       <div className={styles.italymap}></div>
@@ -97,6 +112,26 @@ const Italy: React.FC = () => {
         <div className={styles.rating}>{stageFiveAns}/10</div>
       </div>
 
+      {/* navbar 버튼 */}
+      <IconButton
+        onClick={handleDrawerOpen}
+        className={styles.navbar}
+        sx={{
+          backgroundColor: 'rgba(255, 164, 58, 0.95)',
+          borderRadius: '0 0 40px 40px', // 아래쪽 모서리에만 border-radius 적용
+          '&:hover': {
+            backgroundColor: '#FF8D09', // 호버 배경색
+          },
+        }}
+      >
+        <KeyboardDoubleArrowDownRoundedIcon
+          sx={{ fontSize: '50px', color: 'white' }}
+        />
+      </IconButton>
+      <Drawer anchor="top" open={isDrawerOpen} onClose={handleDrawerClose}>
+        <NavbarDrawer onClose={handleDrawerClose} />
+      </Drawer>
+
       <div className={styles.fairyContainer}>
         <div className={styles.fairy}>
           {!showDescription && (
@@ -108,16 +143,18 @@ const Italy: React.FC = () => {
             />
           )}
         </div>
+
         {showDescription && (
           <div className={styles.description}>
             <button className={styles.closeButton} onClick={closeDescription}>
               <FontAwesomeIcon icon={faTimes} />
             </button>
-            <p>
+            <div className={styles.fontcol1}>
               뭐? 연료를 달라고? 로마에선 로마법을 따라야지!
-              <br />
+            </div>
+            <div className={styles.fontcol2}>
               로마에 공짜는 없어! 문제를 맞춘다면 생각해볼게.
-            </p>
+            </div>
           </div>
         )}
       </div>

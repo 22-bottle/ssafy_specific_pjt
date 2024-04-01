@@ -7,6 +7,9 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import question from '@/assets/questionmark.png'
 import { country } from '@/api/child'
 import styles from './Japan.module.css'
+import { Drawer, IconButton } from '@mui/material'
+import NavbarDrawer from './navbar'
+import KeyboardDoubleArrowDownRoundedIcon from '@mui/icons-material/KeyboardDoubleArrowDownRounded'
 
 const Japan: React.FC = () => {
   const [stageId, setStageId] = useRecoilState(stageSubjectState)
@@ -56,10 +59,23 @@ const Japan: React.FC = () => {
     }
   }
 
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+
+  // navbar open
+  const handleDrawerOpen = () => {
+    setIsDrawerOpen(true)
+  }
+
+  // navbar close
+  const handleDrawerClose = () => {
+    setIsDrawerOpen(false)
+  }
+
   return (
-    <div>
+    <div className={styles.back}>
       <h1 className={styles.title}>Stage를 클릭해서 퀴즈를 시작하세요!</h1>
       <div className={styles.backgroundIMG}></div>
+
       <div className={styles.japanmap}></div>
       <div onClick={() => stageStart(1, 0)} className={styles.stage1}>
         <div className={styles.rating}>{stageOneAns}/10</div>
@@ -96,6 +112,25 @@ const Japan: React.FC = () => {
       >
         <div className={styles.rating}>{stageFiveAns}/10</div>
       </div>
+      {/* navbar 버튼 */}
+      <IconButton
+        onClick={handleDrawerOpen}
+        className={styles.navbar}
+        sx={{
+          backgroundColor: 'rgba(255, 164, 58, 0.95)',
+          borderRadius: '0 0 40px 40px', // 아래쪽 모서리에만 border-radius 적용
+          '&:hover': {
+            backgroundColor: '#FF8D09', // 호버 배경색
+          },
+        }}
+      >
+        <KeyboardDoubleArrowDownRoundedIcon
+          sx={{ fontSize: '50px', color: 'white' }}
+        />
+      </IconButton>
+      <Drawer anchor="top" open={isDrawerOpen} onClose={handleDrawerClose}>
+        <NavbarDrawer onClose={handleDrawerClose} />
+      </Drawer>
 
       <div className={styles.fairyContainer}>
         <div className={styles.fairy}>
@@ -113,13 +148,15 @@ const Japan: React.FC = () => {
             <button className={styles.closeButton} onClick={closeDescription}>
               <FontAwesomeIcon icon={faTimes} />
             </button>
-            <p>
+            <div className={styles.fontcol1}>
               안녕! 뭐? 타임머신을 타고 왔다고?
-              <br />
+            </div>
+            <div className={styles.fontcol3}>
               만나서 반갑지만...연료는 줄 수 없어.
-              <br />
+            </div>
+            <div className={styles.fontcol2}>
               하지만 내가 낸 문제를 맞힌다면 생각해볼게!
-            </p>
+            </div>
           </div>
         )}
       </div>

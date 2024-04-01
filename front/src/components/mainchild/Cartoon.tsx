@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
 import play from '../../assets/play.png'
 import stop from '../../assets/stop.png'
+import arrow from '../../assets/arrow.png'
 
 const Cartoon: React.FC = () => {
     const navigate = useNavigate()
@@ -18,6 +19,7 @@ const Cartoon: React.FC = () => {
     const [open, setOpen] = useState(false);
     const [isPlaying, setIsPlaying] = useState(false); // TTS 재생 상태를 추적하는 상태
     const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
+    const [currentText, setCurrentText] = useState("TTS 재생하여 설명을 들을 수 있어요 :)");
 
     const [animation, setAnimation] = useState('');
 
@@ -60,9 +62,12 @@ const Cartoon: React.FC = () => {
 
     const speakTextPart = (index: number, textParts: string[]): void => {
         if (index >= textParts.length) {
-            setIsPlaying(false); // 모든 텍스트 부분이 말해진 후
+            setIsPlaying(false);
+            setCurrentText(""); // Clear the text when finished
             return;
         }
+
+        setCurrentText(textParts[index]); // Update the currently speaking text
 
         const utterance: SpeechSynthesisUtterance = new SpeechSynthesisUtterance(textParts[index]);
         if (voices.length > 1) {
@@ -94,7 +99,7 @@ const Cartoon: React.FC = () => {
         changePage(prevIndex);
     };
 
-// 다음 페이지로 가는 함수
+    // 다음 페이지로 가는 함수
     const goToNextCartoon = () => {
         if (isPlaying) {
             speechSynthesis.cancel();
@@ -128,26 +133,29 @@ const Cartoon: React.FC = () => {
         transform: 'translate(-50%, -50%)',
         width: 400,
         bgcolor: 'background.paper',
-        border: '2px solid #000',
+        border: 'none',
         boxShadow: 24,
+        "border-radius": '10px',
         p: 4,
     };
 
     return (
         <div className={styles.mainContainer}>
-            <div className={`${styles.cartoonContainer} ${styles[animation]}`} style={{ position: 'relative' }}>
-                <img src={cartoonList[currentCartoonIndex].pageImg} alt="만화" />
-
-                {/* 재생/중지 버튼 */}
-                <button onClick={playTTS} className={styles.audioButton}>
-                    <img src={isPlaying ? stop : play} alt={isPlaying ? "중지" : "재생"} />
-                </button>
+            <div className={`${styles.cartoonContainer} ${styles[animation]}`}>
+                <img src={cartoonList[currentCartoonIndex].pageImg} alt="만화" className={styles.cartoonImage} />
             </div>
 
             {/* 이전/다음 페이지 버튼 */}
             <div className={styles.buttonContainer}>
-                <button className={styles.backButton} onClick={goToPreviousCartoon}></button>
-                <button className={styles.frontButton} onClick={goToNextCartoon}></button>
+                <button className={styles.backButton} onClick={goToPreviousCartoon}><img src={arrow}/></button>
+                <button className={styles.frontButton} onClick={goToNextCartoon}><img src={arrow} /></button>
+            </div>
+            {/* 재생/중지 버튼 */}
+            <div className={styles.ttsContainer}>
+                <button onClick={playTTS} className={styles.audioButton}>
+                    <img src={isPlaying ? stop : play} alt={isPlaying ? "중지" : "재생"} />
+                </button>
+                <div className={styles.ttsText}>{currentText}</div>
             </div>
 
             <Modal
@@ -164,22 +172,23 @@ const Cartoon: React.FC = () => {
                     <Typography id="modal-modal-title" variant="h6" component="h2">
                         퀴즈를 풀러 가볼까요?
                     </Typography>
-                    <Button
-                        sx={{
-                            marginRight: 3,
-                            marginTop: 1.2,
-                            width: 110,
-                            height: '42px',
-                            fontSize: '17px',
-                            backgroundColor: '#0064FF',
-                            borderRadius: 3,
-                            color: 'white',
-                            fontWeight: 600,
-                        }}
-                        onClick={goToQuiz}
-                    >
-                        퀴즈 풀기
-                    </Button>
+                    <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
+                        <Button
+                            sx={{
+                                marginTop: 1.2,
+                                width: 110,
+                                height: '42px',
+                                fontSize: '17px',
+                                backgroundColor: '#0064FF',
+                                borderRadius: 3,
+                                color: 'white',
+                                fontWeight: 600,
+                            }}
+                            onClick={goToQuiz}
+                        >
+                            퀴즈 풀기
+                        </Button>
+                    </Box>
                 </Box>
             </Modal>
         </div>

@@ -1,3 +1,36 @@
+.fontcol1,
+.fontcol2,
+.fontcol3 {
+  color: #3c3c43;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.fontcol1 {
+  padding-top: 35px;
+  margin-bottom: 6px;
+}
+
+.fontcol2 {
+  padding-bottom: 35px;
+}
+
+.fontcol3 {
+  margin-bottom: 6px;
+}
+
+.navbar {
+  position: relative;
+  top: -100vh; /* Adjust as needed */
+  left: 85vw; /* Center horizontally */
+  z-index: 1000; /* 다른 요소들 위에 렌더링되도록 z-index 값을 높게 설정 */
+}
+
+.back {
+  height: 100vh; /* 전체 화면 높이 */
+  overflow: hidden; /* 컨텐츠가 넘쳐도 스크롤바가 생기지 않도록 함 */
+}
+
 .backgroundIMG {
   background-image: url('../../assets/skybasic.jpg');
   filter: blur(5px);
@@ -23,19 +56,19 @@
 
 .title {
   position: absolute;
-  top: 20px; /* Adjust as needed */
+  top: 50px; /* Adjust as needed */
   left: 50%; /* Center horizontally */
   transform: translateX(-50%);
   z-index: 999;
   text-align: center;
-  font-size: 40px;
+  font-size: 44px;
   color: white;
 }
 
 .chinamap {
   background-image: url('../../assets/chinamap.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
-  top: 16%;
+  top: 22%;
   left: 20%;
   width: 972px;
   height: 601px;
@@ -48,7 +81,7 @@
 .stage1 {
   background-image: url('../../assets/activated_1.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
-  top: 35%;
+  top: 40%;
   left: 27%;
   width: 130px;
   height: 100px;
@@ -61,7 +94,7 @@
 .unactive_stage2 {
   background-image: url('../../assets/unactivated_2.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
-  top: 50%;
+  top: 55%;
   left: 34%;
   width: 103px;
   height: 104px;
@@ -74,7 +107,7 @@
 .unactive_stage3 {
   background-image: url('../../assets/unactivated_3.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
-  top: 44%;
+  top: 46%;
   left: 48%;
   width: 107px;
   height: 105px;
@@ -88,7 +121,7 @@
   background-image: url('../../assets/unactivated_4.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
   top: 65%;
-  left: 52%;
+  left: 55%;
   width: 135px;
   height: 103px;
   background-size: cover; /* 이미지가 버튼 크기에 맞게 조정됩니다 */
@@ -100,8 +133,8 @@
 .unactive_stage5 {
   background-image: url('../../assets/unactivated_5.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
-  top: 28%;
-  left: 63%;
+  top: 33%;
+  left: 68%;
   width: 109px;
   height: 93px;
   background-size: cover; /* 이미지가 버튼 크기에 맞게 조정됩니다 */
@@ -113,7 +146,7 @@
 .active_stage2 {
   background-image: url('../../assets/activated_2.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
-  top: 50%;
+  top: 55%;
   left: 34%;
   width: 103px;
   height: 104px;
@@ -126,7 +159,7 @@
 .active_stage3 {
   background-image: url('../../assets/activated_3.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
-  top: 44%;
+  top: 46%;
   left: 48%;
   width: 107px;
   height: 105px;
@@ -140,7 +173,7 @@
   background-image: url('../../assets/activated_4.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
   top: 65%;
-  left: 52%;
+  left: 55%;
   width: 135px;
   height: 103px;
   background-size: cover; /* 이미지가 버튼 크기에 맞게 조정됩니다 */
@@ -152,8 +185,8 @@
 .active_stage5 {
   background-image: url('../../assets/activated_5.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
-  top: 28%;
-  left: 63%;
+  top: 33%;
+  left: 68%;
   width: 109px;
   height: 93px;
   background-size: cover; /* 이미지가 버튼 크기에 맞게 조정됩니다 */
@@ -165,7 +198,7 @@
 
 .fairyContainer {
   position: relative;
-  bottom: 30px;
+  bottom: 100px;
 }
 .fairy {
   background-image: url('../../assets/fairy_china.png'); /* 이미지 경로를 정확하게 지정하세요 */
@@ -183,7 +216,7 @@
 .questionIcon {
   position: absolute;
   top: -75px; /* fairy의 머리 위에 위치하도록 조정 */
-  left: 50%; /* fairy 이미지의 가운데에 위치하도록 조정 */
+  left: 54%; /* fairy 이미지의 가운데에 위치하도록 조정 */
   transform: translateX(-50%); /* 가운데 정렬을 위해 사용 */
   width: 80px;
   height: auto;
@@ -208,7 +241,7 @@
   transform: translateX(-50%); /* 가운데 정렬을 위해 사용 */
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 10px;
-  width: 1000px;
+  width: 950px;
   height: auto;
   font-size: 25px;
   text-align: center;
@@ -218,11 +251,13 @@
   background: none;
   cursor: pointer;
   padding: 0;
-  font-size: 25px;
+  font-size: 30px;
   position: absolute;
-  top: 10px;
-  right: 15px;
+  top: 20px;
+  right: 25px;
+  color: #3c3c43;
 }
+
 .rating {
   /* background-color: rgba(255, 255, 255, 0.8); */
   border-radius: 10px;

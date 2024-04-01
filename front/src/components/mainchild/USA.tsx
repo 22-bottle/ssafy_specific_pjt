@@ -7,6 +7,9 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import question from '@/assets/questionmark.png'
 import { country } from '@/api/child'
 import styles from './USA.module.css'
+import { Drawer, IconButton } from '@mui/material'
+import NavbarDrawer from './navbar'
+import KeyboardDoubleArrowDownRoundedIcon from '@mui/icons-material/KeyboardDoubleArrowDownRounded'
 
 const USA: React.FC = () => {
   const [stageId, setStageId] = useRecoilState(stageSubjectState)
@@ -55,9 +58,20 @@ const USA: React.FC = () => {
       alert('접근할 수 없습니다. 이전 스테이지를 완료해주세요!')
     }
   }
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+
+  // navbar open
+  const handleDrawerOpen = () => {
+    setIsDrawerOpen(true)
+  }
+
+  // navbar close
+  const handleDrawerClose = () => {
+    setIsDrawerOpen(false)
+  }
 
   return (
-    <div>
+    <div className={styles.back}>
       <h1 className={styles.title}>Stage를 클릭해서 퀴즈를 시작하세요!</h1>
       <div className={styles.backgroundIMG}></div>
       <div className={styles.usamap}></div>
@@ -97,6 +111,26 @@ const USA: React.FC = () => {
         <div className={styles.rating}>{stageFiveAns}/10</div>
       </div>
 
+      {/* navbar 버튼 */}
+      <IconButton
+        onClick={handleDrawerOpen}
+        className={styles.navbar}
+        sx={{
+          backgroundColor: 'rgba(255, 164, 58, 0.95)',
+          borderRadius: '0 0 40px 40px', // 아래쪽 모서리에만 border-radius 적용
+          '&:hover': {
+            backgroundColor: '#FF8D09', // 호버 배경색
+          },
+        }}
+      >
+        <KeyboardDoubleArrowDownRoundedIcon
+          sx={{ fontSize: '50px', color: 'white' }}
+        />
+      </IconButton>
+      <Drawer anchor="top" open={isDrawerOpen} onClose={handleDrawerClose}>
+        <NavbarDrawer onClose={handleDrawerClose} />
+      </Drawer>
+
       <div className={styles.fairyContainer}>
         <div className={styles.fairy}>
           {!showDescription && (
@@ -113,11 +147,12 @@ const USA: React.FC = () => {
             <button className={styles.closeButton} onClick={closeDescription}>
               <FontAwesomeIcon icon={faTimes} />
             </button>
-            <p>
+            <div className={styles.fontcol1}>
               연료를 가져가고 싶다면 내가 내는 문제를 맞혀야만 해!
-              <br />
+            </div>
+            <div className={styles.fontcol2}>
               하지만 너무 걱정하지 마! 만화를 잘 보면 쉽게 풀 수 있어!
-            </p>
+            </div>
           </div>
         )}
       </div>
