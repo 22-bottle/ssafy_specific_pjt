@@ -133,8 +133,9 @@ const Cartoon: React.FC = () => {
         transform: 'translate(-50%, -50%)',
         width: 400,
         bgcolor: 'background.paper',
-        border: '2px solid #000',
+        border: 'none',
         boxShadow: 24,
+        "border-radius": '10px',
         p: 4,
     };
 
@@ -171,22 +172,23 @@ const Cartoon: React.FC = () => {
                     <Typography id="modal-modal-title" variant="h6" component="h2">
                         퀴즈를 풀러 가볼까요?
                     </Typography>
-                    <Button
-                        sx={{
-                            marginRight: 3,
-                            marginTop: 1.2,
-                            width: 110,
-                            height: '42px',
-                            fontSize: '17px',
-                            backgroundColor: '#0064FF',
-                            borderRadius: 3,
-                            color: 'white',
-                            fontWeight: 600,
-                        }}
-                        onClick={goToQuiz}
-                    >
-                        퀴즈 풀기
-                    </Button>
+                    <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
+                        <Button
+                            sx={{
+                                marginTop: 1.2,
+                                width: 110,
+                                height: '42px',
+                                fontSize: '17px',
+                                backgroundColor: '#0064FF',
+                                borderRadius: 3,
+                                color: 'white',
+                                fontWeight: 600,
+                            }}
+                            onClick={goToQuiz}
+                        >
+                            퀴즈 풀기
+                        </Button>
+                    </Box>
                 </Box>
             </Modal>
         </div>
