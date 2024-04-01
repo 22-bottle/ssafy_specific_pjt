@@ -1,5 +1,6 @@
 body {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('src/assets/forest.jpg');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url('src/assets/forest.jpg');
   background-position: center;
   background-size: 100% 100%;
   background-repeat: no-repeat;
@@ -73,12 +74,14 @@ body {
   transform: translate(-250%, -50%);
 }
 
-.backButton img, .frontButton img {
+.backButton img,
+.frontButton img {
   transition: transform 0.3s ease;
   transform-origin: center;
 }
 
-.backButton img:hover, .frontButton img:hover {
+.backButton img:hover,
+.frontButton img:hover {
   transform: scaleX(-1) scale(1.1);
 }
 
@@ -89,10 +92,10 @@ body {
 .ttsContainer {
   background-color: white;
   border-radius: 10px;
-  padding: 20px 10px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 2.4vh 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: 68%;
-  margin-top: -40px; /* Moves the ttsContainer up, closer to the cartoonContainer */
+  margin-top: -4.7vh; /* Moves the ttsContainer up, closer to the cartoonContainer */
   position: relative;
   z-index: 2;
   display: flex;
@@ -100,12 +103,13 @@ body {
   align-items: center;
 }
 
-.audioButton, .ttsText {
+.audioButton,
+.ttsText {
   margin-right: 10px;
 }
 
 .ttsText {
-  font-size: x-large;
+  font-size: 2.8vh;
   font-weight: bold;
   flex-grow: 1;
   text-align: center;
@@ -127,7 +131,7 @@ body {
 
 .audioButton img {
   width: 50px; /* 원하는 너비로 설정 */
-  height: 50px; /* 원하는 높이로 설정 */
+  height: 6vh; /* 원하는 높이로 설정 */
   object-fit: contain; /* 이미지 비율을 유지하면서, 지정한 너비와 높이에 맞춤 */
 }
 
@@ -155,4 +159,13 @@ body {
   to {
     opacity: 0;
   }
+}
+
+.disabledButton {
+  opacity: 0.5; /* 비활성화 버튼의 투명도 조정 */
+  cursor: default; /* 마우스 커서를 '금지' 아이콘으로 변경 */
+}
+
+.disabledButton img:hover {
+  transform: scaleX(-1) scale(1);
 }
