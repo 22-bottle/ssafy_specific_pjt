@@ -6,11 +6,11 @@ services:
     container_name: mysql-hico
     restart: always
     command: --default-authentication-plugin=mysql_native_password
-    # 환경 변수 파일. `.env` 파일에 정의된 정보를 가져온다
-    env_file: .env
-    # 환경 변수
     environment:
-      - TZ=Asia/Seoul
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
       - "127.0.0.1:3306:3306"
   backend:
