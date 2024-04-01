@@ -7,14 +7,9 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import question from '@/assets/questionmark.png'
 import { country } from '@/api/child'
 import styles from './China.module.css'
-import Drawer from '@mui/material/Drawer'
-import Button from '@mui/material/Button'
-import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
-import Box from '@mui/material/Box'
-import IconButton from '@mui/material/IconButton'
+import NavbarDrawer from './navbar'
+import { Drawer, IconButton } from '@mui/material'
 import KeyboardDoubleArrowDownRoundedIcon from '@mui/icons-material/KeyboardDoubleArrowDownRounded'
-import logoImage from '../../assets/logo.png'
 
 const China: React.FC = () => {
   const [stageId, setStageId] = useRecoilState(stageSubjectState)
@@ -76,127 +71,12 @@ const China: React.FC = () => {
     setIsDrawerOpen(false)
   }
 
-  // navbar Drawer
-  const DrawerContent = () => (
-    <Box
-      sx={{ width: 'auto' }}
-      role="presentation"
-      onClick={handleDrawerClose}
-      onKeyDown={handleDrawerClose}
-    >
-      <List
-        sx={{
-          display: 'flex',
-          paddingTop: '5px',
-        }}
-      >
-        <ListItem>
-          <img
-            src={logoImage}
-            alt="Logo"
-            style={{ height: '60px', marginTop: '-10px', marginLeft: '40px' }}
-          />
-        </ListItem>
-        <ListItem
-          sx={{
-            paddingTop: '10px',
-            paddingBottom: '0px',
-            width: '70%',
-            paddingLeft: '180px',
-          }}
-        >
-          <Button
-            onClick={() => {
-              /* 월드맵 이동 로직 */
-            }}
-            sx={{
-              fontSize: '20px',
-              color: '#585865',
-              fontWeight: 'bold',
-            }}
-          >
-            월드맵
-          </Button>
-        </ListItem>
-        <ListItem
-          sx={{ paddingTop: '10px', paddingBottom: '0px', width: '95%' }}
-        >
-          <Button
-            onClick={() => {
-              /* 포인트/실시간 환율 이동 로직 */
-            }}
-            sx={{
-              fontSize: '20px',
-              color: '#585865',
-              fontWeight: 'bold',
-            }}
-          >
-            포인트/실시간 환율
-          </Button>
-        </ListItem>
-        <ListItem sx={{ paddingTop: '10px', paddingBottom: '0px' }}>
-          <Button
-            onClick={() => {
-              /* 내 지갑 이동 로직 */
-            }}
-            sx={{
-              fontSize: '20px',
-              color: '#585865',
-              fontWeight: 'bold',
-            }}
-          >
-            내 지갑
-          </Button>
-        </ListItem>
-        <ListItem sx={{ paddingTop: '10px', paddingBottom: '0px' }}>
-          <Button
-            onClick={() => {
-              /* 로그아웃 로직 */
-            }}
-            sx={{
-              width: '120px', // 버튼의 가로 길이
-              height: '45px', // 버튼의 세로 길이
-              fontSize: '18px', // 폰트 사이즈
-              backgroundColor: '#585865',
-              color: 'white', // 기본 폰트 색상
-              borderRadius: '10px',
-              fontWeight: 'bold',
-              '&:hover': {
-                backgroundColor: '#202632', // 호버 상태에서의 배경색 변경
-              },
-            }}
-          >
-            로그아웃
-          </Button>
-        </ListItem>
-      </List>
-    </Box>
-  )
-
   return (
     <div className={styles.back}>
       <h1 className={styles.title}>Stage를 클릭해서 퀴즈를 시작하세요!</h1>
       <div className={styles.backgroundIMG}></div>
       <div className={styles.chinamap}></div>
-      {/* 모달 버튼 */}
-      <IconButton
-        onClick={handleDrawerOpen}
-        className={styles.navbar}
-        sx={{
-          backgroundColor: 'rgba(255, 164, 58, 0.95)',
-          borderRadius: '0 0 40px 40px', // 아래쪽 모서리에만 border-radius 적용
-          '&:hover': {
-            backgroundColor: '#FF8D09', // 호버 배경색
-          },
-        }}
-      >
-        <KeyboardDoubleArrowDownRoundedIcon
-          sx={{ fontSize: '50px', color: 'white' }}
-        />
-      </IconButton>
-      <Drawer anchor="top" open={isDrawerOpen} onClose={handleDrawerClose}>
-        {DrawerContent()}
-      </Drawer>
+
       <div onClick={() => stageStart(1, 0)} className={styles.stage1}>
         <div className={styles.rating}>{stageOneAns}/10</div>
       </div>
@@ -232,7 +112,25 @@ const China: React.FC = () => {
       >
         <div className={styles.rating}>{stageFiveAns}/10</div>
       </div>
-
+      {/* navbar 버튼 */}
+      <IconButton
+        onClick={handleDrawerOpen}
+        className={styles.navbar}
+        sx={{
+          backgroundColor: 'rgba(255, 164, 58, 0.95)',
+          borderRadius: '0 0 40px 40px', // 아래쪽 모서리에만 border-radius 적용
+          '&:hover': {
+            backgroundColor: '#FF8D09', // 호버 배경색
+          },
+        }}
+      >
+        <KeyboardDoubleArrowDownRoundedIcon
+          sx={{ fontSize: '50px', color: 'white' }}
+        />
+      </IconButton>
+      <Drawer anchor="top" open={isDrawerOpen} onClose={handleDrawerClose}>
+        <NavbarDrawer onClose={handleDrawerClose} />
+      </Drawer>
       <div className={styles.fairyContainer}>
         <div className={styles.fairy}>
           {!showDescription && (

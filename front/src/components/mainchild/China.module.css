@@ -20,7 +20,7 @@
 }
 
 .navbar {
-  position: absolute;
+  position: relative;
   top: -100vh; /* Adjust as needed */
   left: 85vw; /* Center horizontally */
   z-index: 1000; /* 다른 요소들 위에 렌더링되도록 z-index 값을 높게 설정 */
@@ -198,7 +198,7 @@
 
 .fairyContainer {
   position: relative;
-  bottom: 40px;
+  bottom: 100px;
 }
 .fairy {
   background-image: url('../../assets/fairy_china.png'); /* 이미지 경로를 정확하게 지정하세요 */
