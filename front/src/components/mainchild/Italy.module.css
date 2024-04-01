@@ -75,10 +75,10 @@
 .stage1 {
   background-image: url('../../assets/activated_1.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
-  top: 24%;
+  top: 25%;
   left: 43%;
-  width: 130px;
-  height: 100px;
+  width: 88px;
+  height: 80px;
   background-size: cover; /* 이미지가 버튼 크기에 맞게 조정됩니다 */
   background-position: center; /* 이미지가 버튼의 중앙에 위치하도록 조정됩니다 */
   border: none; /* 표준 버튼 테두리 제거 */
@@ -88,10 +88,10 @@
 .unactive_stage2 {
   background-image: url('../../assets/unactivated_2.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
-  top: 29%;
+  top: 31%;
   left: 32%;
-  width: 103px;
-  height: 104px;
+  width: 88px;
+  height: 80px;
   background-size: cover; /* 이미지가 버튼 크기에 맞게 조정됩니다 */
   background-position: center; /* 이미지가 버튼의 중앙에 위치하도록 조정됩니다 */
   border: none; /* 표준 버튼 테두리 제거 */
@@ -101,10 +101,10 @@
 .unactive_stage3 {
   background-image: url('../../assets/unactivated_3.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
-  top: 42%;
-  left: 45%;
-  width: 107px;
-  height: 105px;
+  top: 43%;
+  left: 47%;
+  width: 88px;
+  height: 80px;
   background-size: cover; /* 이미지가 버튼 크기에 맞게 조정됩니다 */
   background-position: center; /* 이미지가 버튼의 중앙에 위치하도록 조정됩니다 */
   border: none; /* 표준 버튼 테두리 제거 */
@@ -114,10 +114,10 @@
 .unactive_stage4 {
   background-image: url('../../assets/unactivated_4.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
-  top: 53%;
-  left: 54%;
-  width: 135px;
-  height: 103px;
+  top: 57.5%;
+  left: 59%;
+  width: 88px;
+  height: 80px;
   background-size: cover; /* 이미지가 버튼 크기에 맞게 조정됩니다 */
   background-position: center; /* 이미지가 버튼의 중앙에 위치하도록 조정됩니다 */
   border: none; /* 표준 버튼 테두리 제거 */
@@ -127,10 +127,10 @@
 .unactive_stage5 {
   background-image: url('../../assets/unactivated_5.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
-  top: 60%;
-  left: 33%;
-  width: 109px;
-  height: 93px;
+  top: 59.5%;
+  left: 33.6%;
+  width: 88px;
+  height: 80px;
   background-size: cover; /* 이미지가 버튼 크기에 맞게 조정됩니다 */
   background-position: center; /* 이미지가 버튼의 중앙에 위치하도록 조정됩니다 */
   border: none; /* 표준 버튼 테두리 제거 */
@@ -140,10 +140,10 @@
 .active_stage2 {
   background-image: url('../../assets/activated_2.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
-  top: 29%;
+  top: 31%;
   left: 32%;
-  width: 103px;
-  height: 104px;
+  width: 88px;
+  height: 80px;
   background-size: cover; /* 이미지가 버튼 크기에 맞게 조정됩니다 */
   background-position: center; /* 이미지가 버튼의 중앙에 위치하도록 조정됩니다 */
   border: none; /* 표준 버튼 테두리 제거 */
@@ -153,10 +153,10 @@
 .active_stage3 {
   background-image: url('../../assets/activated_3.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
-  top: 42%;
-  left: 45%;
-  width: 107px;
-  height: 105px;
+  top: 43%;
+  left: 47%;
+  width: 88px;
+  height: 80px;
   background-size: cover; /* 이미지가 버튼 크기에 맞게 조정됩니다 */
   background-position: center; /* 이미지가 버튼의 중앙에 위치하도록 조정됩니다 */
   border: none; /* 표준 버튼 테두리 제거 */
@@ -166,10 +166,10 @@
 .active_stage4 {
   background-image: url('../../assets/activated_4.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
-  top: 53%;
-  left: 54%;
-  width: 135px;
-  height: 103px;
+  top: 57.5%;
+  left: 59%;
+  width: 88px;
+  height: 80px;
   background-size: cover; /* 이미지가 버튼 크기에 맞게 조정됩니다 */
   background-position: center; /* 이미지가 버튼의 중앙에 위치하도록 조정됩니다 */
   border: none; /* 표준 버튼 테두리 제거 */
@@ -179,10 +179,10 @@
 .active_stage5 {
   background-image: url('../../assets/activated_5.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
-  top: 60%;
-  left: 33%;
-  width: 109px;
-  height: 93px;
+  top: 59.5%;
+  left: 33.6%;
+  width: 88px;
+  height: 80px;
   background-size: cover; /* 이미지가 버튼 크기에 맞게 조정됩니다 */
   background-position: center; /* 이미지가 버튼의 중앙에 위치하도록 조정됩니다 */
   border: none; /* 표준 버튼 테두리 제거 */
@@ -253,11 +253,13 @@
 }
 
 .rating {
-  /* background-color: rgba(255, 255, 255, 0.8); */
-  border-radius: 10px;
+  position: absolute;
+  bottom: -40px;
+  right: 33px;
   height: auto;
   width: 50px;
-  font-size: 20px;
+  font-size: 35px;
+  font-weight: bold;
   text-align: center;
-  color: white;
+  color: #3e4147;
 }

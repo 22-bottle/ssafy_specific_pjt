@@ -67,10 +67,10 @@
 .stage1 {
   background-image: url('../../assets/activated_1.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
-  top: 25vh;
-  left: 63vw;
-  width: 130px;
-  height: 100px;
+  top: 25.5vh;
+  left: 64vw;
+  width: 88px;
+  height: 80px;
   background-size: cover; /* 이미지가 버튼 크기에 맞게 조정됩니다 */
   background-position: center; /* 이미지가 버튼의 중앙에 위치하도록 조정됩니다 */
   border: none; /* 표준 버튼 테두리 제거 */
@@ -81,9 +81,9 @@
   background-image: url('../../assets/unactivated_2.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
   top: 42vh;
-  left: 59.4vw;
-  width: 103px;
-  height: 104px;
+  left: 60vw;
+  width: 88px;
+  height: 80px;
   background-size: cover; /* 이미지가 버튼 크기에 맞게 조정됩니다 */
   background-position: center; /* 이미지가 버튼의 중앙에 위치하도록 조정됩니다 */
   border: none; /* 표준 버튼 테두리 제거 */
@@ -93,10 +93,10 @@
 .unactive_stage3 {
   background-image: url('../../assets/unactivated_3.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
-  top: 56.5vh;
-  left: 54vw;
-  width: 107px;
-  height: 105px;
+  top: 57vh;
+  left: 55vw;
+  width: 88px;
+  height: 80px;
   background-size: cover; /* 이미지가 버튼 크기에 맞게 조정됩니다 */
   background-position: center; /* 이미지가 버튼의 중앙에 위치하도록 조정됩니다 */
   border: none; /* 표준 버튼 테두리 제거 */
@@ -106,10 +106,10 @@
 .unactive_stage4 {
   background-image: url('../../assets/unactivated_4.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
-  top: 62vh;
+  top: 62.5vh;
   left: 41vw;
-  width: 135px;
-  height: 103px;
+  width: 88px;
+  height: 80px;
   background-size: cover; /* 이미지가 버튼 크기에 맞게 조정됩니다 */
   background-position: center; /* 이미지가 버튼의 중앙에 위치하도록 조정됩니다 */
   border: none; /* 표준 버튼 테두리 제거 */
@@ -119,10 +119,10 @@
 .unactive_stage5 {
   background-image: url('../../assets/unactivated_5.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
-  top: 72vh;
-  left: 31.5vw;
-  width: 109px;
-  height: 93px;
+  top: 73vh;
+  left: 32.5vw;
+  width: 88px;
+  height: 80px;
   background-size: cover; /* 이미지가 버튼 크기에 맞게 조정됩니다 */
   background-position: center; /* 이미지가 버튼의 중앙에 위치하도록 조정됩니다 */
   border: none; /* 표준 버튼 테두리 제거 */
@@ -132,10 +132,10 @@
 .active_stage2 {
   background-image: url('../../assets/activated_2.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
-  top: 42%;
-  left: 59.4%;
-  width: 103px;
-  height: 104px;
+  top: 42vh;
+  left: 60vw;
+  width: 88px;
+  height: 80px;
   background-size: cover; /* 이미지가 버튼 크기에 맞게 조정됩니다 */
   background-position: center; /* 이미지가 버튼의 중앙에 위치하도록 조정됩니다 */
   border: none; /* 표준 버튼 테두리 제거 */
@@ -145,10 +145,10 @@
 .active_stage3 {
   background-image: url('../../assets/activated_3.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
-  top: 56.5%;
-  left: 54%;
-  width: 107px;
-  height: 105px;
+  top: 57vh;
+  left: 55vw;
+  width: 88px;
+  height: 80px;
   background-size: cover; /* 이미지가 버튼 크기에 맞게 조정됩니다 */
   background-position: center; /* 이미지가 버튼의 중앙에 위치하도록 조정됩니다 */
   border: none; /* 표준 버튼 테두리 제거 */
@@ -158,10 +158,10 @@
 .active_stage4 {
   background-image: url('../../assets/activated_4.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
-  top: 62%;
-  left: 41%;
-  width: 135px;
-  height: 103px;
+  top: 62.5vh;
+  left: 41vw;
+  width: 88px;
+  height: 80px;
   background-size: cover; /* 이미지가 버튼 크기에 맞게 조정됩니다 */
   background-position: center; /* 이미지가 버튼의 중앙에 위치하도록 조정됩니다 */
   border: none; /* 표준 버튼 테두리 제거 */
@@ -171,10 +171,10 @@
 .active_stage5 {
   background-image: url('../../assets/activated_5.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
-  top: 72%;
-  left: 31.5%;
-  width: 109px;
-  height: 93px;
+  top: 73vh;
+  left: 32.5vw;
+  width: 88px;
+  height: 80px;
   background-size: cover; /* 이미지가 버튼 크기에 맞게 조정됩니다 */
   background-position: center; /* 이미지가 버튼의 중앙에 위치하도록 조정됩니다 */
   border: none; /* 표준 버튼 테두리 제거 */
@@ -243,11 +243,13 @@
   color: #3c3c43;
 }
 .rating {
-  /* background-color: rgba(255, 255, 255, 0.8); */
-  border-radius: 10px;
+  position: absolute;
+  bottom: -40px;
+  right: 33px;
   height: auto;
   width: 50px;
-  font-size: 20px;
+  font-size: 35px;
+  font-weight: bold;
   text-align: center;
-  color: white;
+  color: #3e4147;
 }
