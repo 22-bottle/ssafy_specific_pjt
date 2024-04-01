@@ -14,7 +14,11 @@ import logoImage from '../../assets/logo.png'
 import { logout } from '@/api/member'
 import { useNavigate } from 'react-router-dom'
 
-const pages = ['월드맵', '포인트/실시간 환율', '내 지갑']
+const pages = [
+  { label: '월드맵', link: '/mainchild/worldmap' },
+  { label: '포인트/실시간 환율', link: '/childwallet/point' },
+  { label: '내 지갑', link: '/childwallet/account' },
+]
 
 function ResponsiveAppBar() {
   const navigate = useNavigate()
@@ -80,7 +84,9 @@ function ResponsiveAppBar() {
           >
             {pages.map((page) => (
               <Button
-                key={page}
+                key={page.label}
+                component={Link}
+                to={page.link}
                 onClick={handleCloseNavMenu}
                 sx={{
                   marginTop: '25px',
@@ -92,7 +98,7 @@ function ResponsiveAppBar() {
                   width: '100%',
                 }}
               >
-                {page}
+                {page.label}
               </Button>
             ))}
           </Box>
@@ -130,9 +136,14 @@ function ResponsiveAppBar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+                <MenuItem
+                  key={page.label}
+                  component={Link}
+                  to={page.link}
+                  onClick={handleCloseNavMenu}
+                >
                   <Typography textAlign="center" sx={{ color: '#585865' }}>
-                    {page}
+                    {page.label}
                   </Typography>
                 </MenuItem>
               ))}
