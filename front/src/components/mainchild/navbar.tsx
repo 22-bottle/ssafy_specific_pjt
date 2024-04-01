@@ -1,12 +1,27 @@
 import React from 'react'
 import { Box, List, ListItem, Button } from '@mui/material'
 import logoImage from '../../assets/logo.png'
+import { useNavigate } from 'react-router-dom'
+import { logout } from '@/api/member'
 
 interface NavbarDrawerProps {
   onClose: () => void
 }
 
 const NavbarDrawer: React.FC<NavbarDrawerProps> = ({ onClose }) => {
+  const navigate = useNavigate()
+  // Logout function
+  const handleLogout = () => {
+    logout()
+      .then(() => {
+        localStorage.clear()
+        navigate('/')
+      })
+      .catch((error) => {
+        console.error('Logout failed:', error)
+        // Handle logout error here
+      })
+  }
   return (
     <Box
       sx={{ width: 'auto' }}
@@ -31,13 +46,12 @@ const NavbarDrawer: React.FC<NavbarDrawerProps> = ({ onClose }) => {
           }}
         >
           <Button
-            onClick={() => {
-              /* 월드맵 이동 로직 */
-            }}
+            onClick={() => navigate('/mainchild/worldmap')}
             sx={{
               fontSize: '20px',
               color: '#585865',
               fontWeight: 'bold',
+              width: '100%',
             }}
           >
             월드맵
@@ -47,13 +61,15 @@ const NavbarDrawer: React.FC<NavbarDrawerProps> = ({ onClose }) => {
           sx={{ paddingTop: '10px', paddingBottom: '0px', width: '95%' }}
         >
           <Button
-            onClick={() => {
+            onClick={
+              () => navigate('/childwallet/point')
               /* 포인트/실시간 환율 이동 로직 */
-            }}
+            }
             sx={{
               fontSize: '20px',
               color: '#585865',
               fontWeight: 'bold',
+              width: '100%',
             }}
           >
             포인트/실시간 환율
@@ -61,13 +77,15 @@ const NavbarDrawer: React.FC<NavbarDrawerProps> = ({ onClose }) => {
         </ListItem>
         <ListItem sx={{ paddingTop: '10px', paddingBottom: '0px' }}>
           <Button
-            onClick={() => {
+            onClick={
+              () => navigate('/childwallet/account')
               /* 내 지갑 이동 로직 */
-            }}
+            }
             sx={{
               fontSize: '20px',
               color: '#585865',
               fontWeight: 'bold',
+              width: '100%',
             }}
           >
             내 지갑
@@ -75,9 +93,7 @@ const NavbarDrawer: React.FC<NavbarDrawerProps> = ({ onClose }) => {
         </ListItem>
         <ListItem sx={{ paddingTop: '10px', paddingBottom: '0px' }}>
           <Button
-            onClick={() => {
-              /* 로그아웃 로직 */
-            }}
+            onClick={handleLogout}
             sx={{
               width: '120px', // 버튼의 가로 길이
               height: '45px', // 버튼의 세로 길이
