@@ -6,6 +6,16 @@
   margin-top: 50px !important;
 }
 
+.logoContainer {
+  margin-top: 50px !important;
+  margin-left: 70px !important;
+}
+
+.logoContainer img {
+  width: 150px;
+  height: auto;
+}
+
 .box {
   position: relative;
   top: 0;
