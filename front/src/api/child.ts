@@ -30,11 +30,13 @@ async function quiz(stageId: number) {
 async function saveAnswer(
   stageId: number,
   price: number,
+  count: number,
   quizzes: Array<object>
 ) {
   const requestBody = {
     stageId: stageId,
     price: price,
+    count: count,
     quizResultList: quizzes,
   }
   return await http.post(`${api.quiz}`, requestBody)

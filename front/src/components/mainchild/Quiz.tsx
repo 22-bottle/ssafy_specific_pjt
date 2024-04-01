@@ -26,7 +26,7 @@ const Quiz:React.FC = () => {
     const [count, setCount] = useState(0);
     useEffect(() => {
         if (currentQuizIndex >= 10) {
-            saveAnswer(stageId, price, quizResultList)
+            saveAnswer(stageId, price, count, quizResultList)
                     .then((response) => {
                         if (response.data.statusCode === 200) {
                             setOpen(true);

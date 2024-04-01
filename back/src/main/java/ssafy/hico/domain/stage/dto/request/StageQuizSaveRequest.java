@@ -18,6 +18,7 @@ public class StageQuizSaveRequest {
 
     private long stageId;
     private BigDecimal price;
+    private int count;
     private List<QuizResult> quizResultList;
 
 }
