@@ -222,3 +222,29 @@
   align-items: center;
   margin-left: 35px;
 }
+.historybutton {
+  position: relative;
+  background-color: transparent; /* 배경색 투명 */
+  border: none; /* 테두리 없음 */
+  cursor: pointer; /* 마우스 오버 시 커서 모양 변경 */
+  padding: 0 0; /* 버튼 내부 여백 */
+  font-size: 16px; /* 텍스트 크기 */
+  width: 150px;
+}
+.historybutton:hover {
+  color: rgb(248, 248, 252); /* 마우스 오버 시 텍스트 색상 */
+  background-color: #4d12e2; /* 마우스 오버 시 배경색 변경 (옵션) */
+}
+.text {
+  position: absolute; /* 텍스트를 절대 위치로 설정 */
+  bottom: 145%; /* 버튼의 상단에 텍스트를 위치 */
+  left: 0%; /* 컨테이너의 가운데에 텍스트를 위치 */
+  display: none; /*기본 상태에서 텍스트 숨김 */
+  color: black; /* 텍스트 색상 설정, 필요에 따라 변경 가능 */
+  width: 300px;
+  margin-left: -57px;
+}
+
+.historybutton:hover .text {
+  display: block; /* 마우스 오버 시 텍스트 보여줌 */
+}
