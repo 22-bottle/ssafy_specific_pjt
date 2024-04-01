@@ -150,7 +150,7 @@ const Request: React.FC = () => {
                     {
                       month: 'long',
                       day: 'numeric',
-                      weekday: 'long', // 요일 표시
+                      weekday: 'short', // 요일 표시
                       hour: '2-digit', // 2자리 숫자로 시간 표시
                       minute: '2-digit', // 2자리 숫자로 분 표시
                       second: '2-digit', // 2자리 숫자로 초 표시
