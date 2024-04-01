@@ -164,8 +164,8 @@ public class StageService {
             stageStatusRepository.save(stageStatus.get());
         } else {
             if (answerCnt >= 7) {
+                if (!stageStatus.get().isPassed()) child.modifyFuel();
                 stageStatus.get().modifyStageStatus();
-                child.modifyFuel();
             }
         }
     }

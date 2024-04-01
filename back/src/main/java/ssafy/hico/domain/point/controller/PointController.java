@@ -36,10 +36,11 @@ public class PointController {
         return getResponseEntity(SuccessCode.CREATED);
     }
 
-    @GetMapping("/history/{frPointId}")
+    @GetMapping("/history/{countryId}")
     @LoginOnly(level = LoginOnly.Level.CHILD)
-    public ResponseEntity<?> pointHistoryList(@PathVariable long frPointId) {
-        HistoryFindResponse historyFindResponse = pointService.findHistoryList(frPointId);
+    public ResponseEntity<?> pointHistoryList(@PathVariable long countryId, HttpServletRequest httpServletRequest) {
+        Long memberId = (Long) httpServletRequest.getAttribute("memberId");
+        HistoryFindResponse historyFindResponse = pointService.findHistoryList(memberId, countryId);
         return getResponseEntity(SuccessCode.OK, historyFindResponse);
     }
 

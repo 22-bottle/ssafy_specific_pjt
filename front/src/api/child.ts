@@ -6,6 +6,7 @@ const api = {
   book: '/stage/book',
   quiz: 'stage/quiz',
   tutorial: '/stage/tutorial',
+  history: '/point/history',
   // 아이 계좌 조회
   getChildAccount: '/child/wallet',
 }
@@ -45,4 +46,8 @@ async function getChildAccount() {
   return await http.get(api.getChildAccount)
 }
 
-export { progress, country, book, tutorial, quiz, saveAnswer, getChildAccount }
+async function history(countryId: number) {
+  return await http.get(`${api.history}/${countryId}`)
+}
+
+export { progress, country, book, tutorial, quiz, saveAnswer, getChildAccount, history }

@@ -46,7 +46,14 @@ const Quiz:React.FC = () => {
     }
     const [saText, setSaText] = useState('');
     const [quizResultList, setQuizResultList] = useState(new Array<quizResult>());
-    const goOxToNextQuiz = () => {
+    const [answer, setAnswer] = useState('');
+    const setOanswer = () => { setAnswer('O'); }
+    const setXanswer = () => { setAnswer('X'); }
+    const setSaAnswer = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSaText(event.target.value);
+        setAnswer(event.target.value);
+    };
+    const goToNextQuiz = () => {
         if (answer === quizDataList[currentQuizIndex].quizAnswer) {
             quizResultList.push({ quizId: quizDataList[currentQuizIndex].quizId, correct: true });
             setCount(prev => prev += 1);
@@ -56,36 +63,10 @@ const Quiz:React.FC = () => {
         } else {
             quizResultList.push({ quizId: quizDataList[currentQuizIndex].quizId, correct: false });
         }
-        setCurrentQuizIndex((prev) => (prev += 1));
-    }
-    const goSaToNextQuiz = () => {
-        if (answer === quizDataList[currentQuizIndex].quizAnswer) {
-            quizResultList.push({ quizId: quizDataList[currentQuizIndex].quizId, correct: true })
-            setCount(prev => prev += 1);
-            if (!quizDataList[currentQuizIndex].correct) {
-                setPrice((prev) => prev += (quizDataList[currentQuizIndex].quizPrice + increase));
-            }
-        } else {
-            quizResultList.push({ quizId: quizDataList[currentQuizIndex].quizId, correct: false })
-        }
+        setAnswer('');
         setSaText('');
         setCurrentQuizIndex((prev) => (prev += 1));
     }
-
-    // 객관식 선택지 자체를 버튼으로 >> 수정 필요!!!!!!!!!
-    // const answerClick = () => {
-    //     startTransition(() => {
-    //         console.log(`선택된 선택지`)
-    //     })
-    // }
-
-    const [answer, setAnswer] = useState('');
-    const setOanswer = () => { setAnswer('O'); }
-    const setXanswer = () => { setAnswer('X'); }
-    const setSaAnswer = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSaText(event.target.value);
-        setAnswer(event.target.value);
-    };
 
     switch (quizDataList[currentQuizIndex].quizType) {
         case 'OX':
@@ -112,7 +93,7 @@ const Quiz:React.FC = () => {
                     </div>
                     <div className={styles.buttonContainer}>
                         <button className={styles.backButton}></button>
-                        <button className={styles.frontButton} onClick={goOxToNextQuiz}></button>                
+                        <button className={styles.frontButton} onClick={goToNextQuiz}></button>                
                     </div>
                 </div>
             )
@@ -135,7 +116,7 @@ const Quiz:React.FC = () => {
                     </div>
                     <div className={styles.buttonContainer}>
                         <button className={styles.backButton}></button>
-                        <button className={styles.frontButton} onClick={goSaToNextQuiz}></button>                
+                        <button className={styles.frontButton} onClick={goToNextQuiz}></button>                
                     </div>
                 </div>
             )
@@ -161,54 +142,13 @@ const Quiz:React.FC = () => {
                                 justifyContent: 'center',
                                 }}
                             >
-                                {/* 모달 닫기 버튼 */}
                                 <QuizResult open={open} setOpen={setOpen} count={count} price={price}/>{' '}
-                                {/* open 상태와 모달 닫는 함수 전달 */}
                             </Box>
                         </Modal>
                     </div>
                 </div>
             )
-    };
-};
+    }
+}
 
-export default Quiz;
-
-
-
-        // 객관식
-        // <div>
-        //     <div className={styles.mainContainer}>
-        //         <img src={ characterImage } alt="캐릭터" className={styles.characterImage}/>
-        //         <div className={styles.questionBackground}>
-        //             <div className={styles.questionContainer}>
-        //                 {/* 여기가 문제 자리 */}
-        //                 <p className={styles.question}>{ quizzes[currentQuizIndex].quizQuestion }</p>
-        //                 <p className={styles.point}>{ quizzes[currentQuizIndex].quizPrice }</p>
-        //                 <p className={styles.point}>{ increase }</p>
-        //             </div>
-        //         </div>
-        //         <div className={styles.answerContainer}>
-        //             <button onClick={() => answerClick()} className={styles.choiceButton}>
-        //                 <span className={styles.choiceNumber}>1</span>
-        //                 <span className={styles.choiceText}>{choices[0]}</span>
-        //             </button>
-        //             <button onClick={() => answerClick()} className={styles.choiceButton}>
-        //                 <span className={styles.choiceNumber}>2</span>
-        //                 <span className={styles.choiceText}>{choices[1]}</span>
-        //             </button>
-        //             <button onClick={() => answerClick()} className={styles.choiceButton}>
-        //                 <span className={styles.choiceNumber}>3</span>
-        //                 <span className={styles.choiceText}>{choices[2]}</span>
-        //             </button>
-        //             <button onClick={() => answerClick()} className={styles.choiceButton}>
-        //                 <span className={styles.choiceNumber}>4</span>
-        //                 <span className={styles.choiceText}>{choices[3]}</span>
-        //             </button>
-        //         </div>
-        //     </div>
-        //     <div className={styles.buttonContainer}>
-        //         <button className={styles.backButton}></button>
-        //         <button className={styles.frontButton} onClick={goToNextQuiz}></button>                
-        //     </div>
-        // </div>
+export default Quiz
