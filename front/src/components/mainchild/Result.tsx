@@ -37,11 +37,12 @@ const Result: React.FC<QuizResultProps> = ({ open, setOpen, count, price }) => {
     navigate('/mainchild/' + path[countryId]);
   }
 
-  let result, fuel, next;
+  let result, fuel, next, coin;
   if (count >= 7) {
     result = <div>성공</div>
     fuel = <div>연료 5% 충전</div>
     next = <button className={styles.button} onClick={nextStage}>다음 스테이지</button>
+    coin = <div>코인 + {price} {money[countryId]}</div>
   } else {
     result = <div>실패</div>
     next = <button className={styles.button} onClick={retry}>재도전</button>
@@ -61,7 +62,7 @@ const Result: React.FC<QuizResultProps> = ({ open, setOpen, count, price }) => {
       <div className={styles.info}>
         {result}
         {fuel}
-        <div>코인 + {price} {money[countryId]}</div>
+        {coin}
       </div>
       {next}
     </div>

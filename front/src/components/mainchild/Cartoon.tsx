@@ -63,7 +63,7 @@ const Cartoon: React.FC = () => {
     const speakTextPart = (index: number, textParts: string[]): void => {
         if (index >= textParts.length) {
             setIsPlaying(false);
-            setCurrentText(""); // Clear the text when finished
+            setCurrentText("TTS 재생하여 설명을 들을 수 있어요 :)"); // Clear the text when finished
             return;
         }
 
@@ -85,6 +85,7 @@ const Cartoon: React.FC = () => {
             if (isPlaying) {
                 speechSynthesis.cancel();
                 setIsPlaying(false);
+                setCurrentText("TTS 재생하여 설명을 들을 수 있어요 :)");
             }
         };
     }, [isPlaying]);
@@ -94,6 +95,7 @@ const Cartoon: React.FC = () => {
     const goToPreviousCartoon = () => {
         if (isPlaying) {
             speechSynthesis.cancel();
+            setCurrentText("TTS 재생하여 설명을 들을 수 있어요 :)");
         }
         const prevIndex = currentCartoonIndex > 0 ? currentCartoonIndex - 1 : 0;
         changePage(prevIndex);
@@ -104,6 +106,7 @@ const Cartoon: React.FC = () => {
         if (isPlaying) {
             speechSynthesis.cancel();
             setIsPlaying(false);
+            setCurrentText("TTS 재생하여 설명을 들을 수 있어요 :)");
         }
         const nextIndex = currentCartoonIndex < cartoonList.length - 1 ? currentCartoonIndex + 1 : currentCartoonIndex;
         changePage(nextIndex);
