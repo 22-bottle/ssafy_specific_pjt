@@ -10,57 +10,52 @@ body {
 }
 
 .mainContainer {
-  position: fixed; /* 화면 상단에 고정 */
-  top: 50%; /* 화면의 상단에서 50% 지점에 위치하도록 설정 */
-  left: 50%; /* 화면의 왼쪽에서 50% 지점에 위치하도록 설정 */
-  transform: translate(-50%, -50%); /* 컨테이너를 정확한 중앙에 위치시키기 위해 사용 */
-
-  background-color: rgba(211, 211, 211, 0.5);
-  border-radius: 20px;
-
   display: flex;
   justify-content: center; /* 수평 가운데 정렬 */
   align-items: center; /* 수직 가운데 정렬 */
-  flex-direction: column; 
-  width: 600px; 
-  height: 700px;
+  flex-direction: column; /* 자식 요소를 수직 방향으로 배치 */
+  height: 100vh; /* 화면 전체 높이 */
+  overflow: hidden;
 }
 
 /* 화면 전체 */
 .title {
-  font-family: 'Just Me Again Down Here';
-  font-size: 80px;
+  /* font-family: 'Just Me Again Down Here'; */
+  font-size: 6.5vh;
   font-weight: bold;
   margin: 0;
-  padding-bottom: 50px;
+  padding-bottom: 4.8vh;
+  color: #484854;
 }
 
 .topic {
-  margin: 0;
-  padding-bottom: 50px;
+  padding-bottom: 1.5vh;
+  color: #202632;
+  font-size: 4vh;
+  font-weight: bold;
 }
 
 .characterImage {
-  width: 170px;
+  width: 28vh;
   height: auto;
-
-  padding-bottom: 50px;
+  padding-bottom: 7.8vh;
 }
 
-.startButton{
-  width: 200px; /* 적당한 너비 설정 */
-  height: 50px; /* 적당한 높이 설정 */
-  line-height: 50px; /* 텍스트 수직 가운데 정렬 */
-  background-color: blue; /* 파란색 배경색 설정 */
-  border: none; /* 테두리 없음 */
-  font-weight: bold; /* 폰트 굵기 설정 */
-  font-size: 18px; /* 폰트 크기 설정 */
-  color: white; /* 흰색 글씨색 설정 */
-  cursor: pointer; /* 마우스 커서를 포인터로 변경하여 클릭 가능하게 함 */
-  border-radius: 10px; /* 버튼 모서리를 둥글게 만듦 */
-  transition: background-color 0.3s, color 0.3s, opacity 0.3s; /* 배경색과 글씨색 변화에 애니메이션 효과 적용 */
+/* 구름 스타일 추가 */
+.cloudContainer {
+  position: absolute;
+  bottom: 50; /* 하단에 배치 */
+  left: 50;
+  width: 62vh;
+  height: 78vh;
+  overflow: hidden; /* 내부 요소가 범위를 넘어갈 경우 숨김 */
 }
 
-.startButton:hover {
-  opacity: 0.7x; /* 마우스 호버 시 투명도 조절 */
+.cloud {
+  position: relative;
+  min-width: 100%; /* 구름이 화면 너비보다 넓게 설정 */
+  height: 100%;
+  background: #ffffffd7;
+  border-radius: 10%;
+  z-index: -1;
 }
