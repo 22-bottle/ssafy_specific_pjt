@@ -36,9 +36,9 @@ const HistoryDetail: React.FC<HistoryDetailProps> = ({ open, setOpen, countryId 
             <div>{historyData.length}건</div>
             <div>{historyData.map((his, index) => (
                 <div key={index}>
-                    스테이지: {his.stageId}
-                    금액: {his.price}
-                    날짜: {his.date}
+                    <div>스테이지: {his.stageId}</div>
+                    <div>금액: {his.price}</div>
+                    <div>날짜: {his.date}</div>
                 </div>
               ))}</div>
         </div>

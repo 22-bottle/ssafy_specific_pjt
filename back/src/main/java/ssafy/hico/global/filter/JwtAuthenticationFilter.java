@@ -29,6 +29,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         whiteList.add("/api/member/join");
         whiteList.add("/api/member/token");
         whiteList.add("/api/member/login");
+        whiteList.add("/api/rate/start");
+        whiteList.add("/api/book/start");
     }
 
     @Override

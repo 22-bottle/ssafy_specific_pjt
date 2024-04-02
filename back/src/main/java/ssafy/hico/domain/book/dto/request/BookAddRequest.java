@@ -24,4 +24,13 @@ public class BookAddRequest {
                 .build();
     }
 
+    public BookPage createBook(String fileName, Stage stage, String tts) {
+        return BookPage.builder()
+                .bookPageNum(this.pageNum)
+                .bookPageImg(fileName)
+                .stage(stage)
+                .tts(tts)
+                .build();
+    }
+
 }

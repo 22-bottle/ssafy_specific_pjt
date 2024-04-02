@@ -24,9 +24,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 70%;
-  height: 80%;
-  margin-bottom: 20px;
+  width: 80%;
+  height: 68%;
 }
 
 .cartoonImage {
@@ -92,15 +91,15 @@ body {
 .ttsContainer {
   background-color: white;
   border-radius: 10px;
-  padding: 2.4vh 10px;
+  padding: 1.9vh 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 68%;
-  margin-top: -4.7vh; /* Moves the ttsContainer up, closer to the cartoonContainer */
+  width: 120vh;
   position: relative;
   z-index: 2;
   display: flex;
   justify-content: start;
   align-items: center;
+  margin-top: 3vh;
 }
 
 .audioButton,
@@ -161,11 +160,45 @@ body {
   }
 }
 
-.disabledButton {
-  opacity: 0.5; /* 비활성화 버튼의 투명도 조정 */
-  cursor: default; /* 마우스 커서를 '금지' 아이콘으로 변경 */
+/* 이전 버튼 스타일 */
+.previousButtonContainer {
+  position: fixed; /* 고정 위치 */
+  left: 0; /* 화면 왼쪽 */
+  bottom: 0; /* 화면 하단 */
+  border-radius: 0% 50% 0% 0%;
 }
 
-.disabledButton img:hover {
-  transform: scaleX(-1) scale(1);
+/* 다음 버튼 스타일 */
+.nextButtonContainer {
+  position: fixed; /* 고정 위치 */
+  right: 0; /* 화면 오른쪽 */
+  bottom: 0; /* 화면 하단 */
+  border-radius: 50% 0% 0% 0%;
+}
+
+.previousButtonContainer,
+.nextButtonContainer {
+  cursor: pointer; /* 항상 손 모양 커서를 사용 */
+  transition: transform 0.3s ease; /* 부드러운 변환 효과 */
+}
+
+/* 이미지 사이즈 조절을 위한 기본 스타일 */
+.imgsize {
+  width: 16vh;
+  transition: transform 0.3s ease; /* 호버 시 부드러운 확대 효과 */
+}
+
+/* 호버 효과 */
+.previousButtonContainer:hover .imgsize,
+.nextButtonContainer:hover .imgsize {
+  transform: scale(1.1); /* 이미지를 10% 확대 */
+}
+
+/* 비활성화 상태일 때 커서와 호버 효과 조정 */
+.disabledButton {
+  cursor: default !important; /* 비활성화 상태에서는 기본 커서 사용 */
+}
+
+.disabledButton .imgsize {
+  transform: none !important; /* 비활성화 상태에서는 이미지 확대 제거 */
 }

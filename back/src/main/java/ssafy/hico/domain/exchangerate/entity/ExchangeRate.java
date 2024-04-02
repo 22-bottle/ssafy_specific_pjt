@@ -41,4 +41,14 @@ public class ExchangeRate extends BaseTimeEntity {
         this.todayDate = todayDate;
     }
 
+    public static ExchangeRate createExchangeRate(ExchangeRate exchangeRate, LocalDate date) {
+        ExchangeRate newEx = new ExchangeRate();
+        newEx.setTodayDate(date);
+        newEx.setBasicRate(exchangeRate.getBasicRate());
+        newEx.setAmount(exchangeRate.getAmount());
+        newEx.setRiseStatus(exchangeRate.getRiseStatus());
+        newEx.setCountry(exchangeRate.getCountry());
+        return newEx;
+    }
+
 }
