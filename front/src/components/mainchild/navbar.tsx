@@ -49,9 +49,10 @@ const NavbarDrawer: React.FC<NavbarDrawerProps> = ({ onClose }) => {
             onClick={() => navigate('/mainchild/worldmap')}
             sx={{
               fontSize: '20px',
-              color: '#585865',
+              color: '#40404A',
               fontWeight: 'bold',
               width: '100%',
+              marginRight: '70px',
             }}
           >
             월드맵
@@ -67,7 +68,7 @@ const NavbarDrawer: React.FC<NavbarDrawerProps> = ({ onClose }) => {
             }
             sx={{
               fontSize: '20px',
-              color: '#585865',
+              color: '#40404A',
               fontWeight: 'bold',
               width: '100%',
             }}
@@ -83,9 +84,10 @@ const NavbarDrawer: React.FC<NavbarDrawerProps> = ({ onClose }) => {
             }
             sx={{
               fontSize: '20px',
-              color: '#585865',
+              color: '#40404A',
               fontWeight: 'bold',
               width: '100%',
+              marginRight: '50px',
             }}
           >
             내 지갑
@@ -100,6 +102,7 @@ const NavbarDrawer: React.FC<NavbarDrawerProps> = ({ onClose }) => {
               fontSize: '18px', // 폰트 사이즈
               backgroundColor: '#585865',
               color: 'white', // 기본 폰트 색상
+              marginLeft: '100px',
               borderRadius: '10px',
               fontWeight: 'bold',
               '&:hover': {
