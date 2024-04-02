@@ -1,31 +1,26 @@
 import React, { useEffect, useState } from 'react'
-import ChildStatus from './ChildStatus'
-import NoChild from './NoChild'
 import { useRecoilValue, useRecoilState } from 'recoil'
 import { childrenListState } from '@/state/Parentselectors'
 import { childIdState } from '@/state/Parentatoms'
+import { useNavigate } from 'react-router-dom'
 
 const MainParent: React.FC = () => {
   const ChildrenList = useRecoilValue(childrenListState)
   const [childId, setChildId] = useRecoilState(childIdState)
-  const [isChildIdSet, setIsChildIdSet] = useState(false) // childId가 설정되었는지 추적하는 상태
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (ChildrenList.length > 0) {
-      setChildId(ChildrenList[0].id) // 첫 번째 자녀의 ID로 childId 설정
-      setIsChildIdSet(true) // childId가 설정되었다고 표시
+      setChildId(ChildrenList[0].id)
+      navigate('/mainparent/childstatus') // 자녀가 있으면 ChildStatus 페이지로 리디렉션
     } else {
-      setIsChildIdSet(false) // 자녀가 없으면 false로 설정
+      setChildId(0)
+      navigate('/mainparent/nochild') // 자녀가 없으면 NoChild 페이지로 리디렉션
     }
-  }, [ChildrenList]) // ChildrenList가 바뀔 때마다 실행
+  }, [ChildrenList, setChildId, navigate])
 
-  if (!isChildIdSet) {
-    // childId가 설정되지 않았다면 로딩 메시지나 컴포넌트 표시
-    return <div>Loading...</div>
-  }
-
-  // childId가 설정된 후에 컴포넌트 렌더링
-  return <div>{ChildrenList.length === 0 ? <NoChild /> : <ChildStatus />}</div>
+  // 페이지 리디렉션만 수행하므로, 추가적인 UI 렌더링은 필요하지 않습니다.
+  return null
 }
 
 export default MainParent

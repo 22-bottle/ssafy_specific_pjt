@@ -13,6 +13,8 @@ import MenuItem from '@mui/material/MenuItem'
 import logoImage from '../../assets/logo.png'
 import { logout } from '@/api/member'
 import { useNavigate } from 'react-router-dom'
+import { childIdState } from '@/state/Parentatoms'
+import { useRecoilState } from 'recoil'
 
 const pages = [
   { label: '자녀학습 현황', link: '/mainparent/childstatus' },
@@ -21,29 +23,30 @@ const pages = [
 ]
 
 function ResponsiveAppBar() {
-    const navigate = useNavigate();
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+  const navigate = useNavigate()
+  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
+  const [childId, setChildId] = useRecoilState(childIdState)
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget)
   }
 
   const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+    setAnchorElNav(null)
+  }
 
-    const handleLogout = () => {
-        logout()
-            .then(() => {
-                localStorage.clear()
-                navigate('/');
-            })
-            .catch((error) => {
-                console.error('Logout failed:', error);
-                // Handle logout error here
-            });
-    };
-
+  const handleLogout = () => {
+    logout()
+      .then(() => {
+        localStorage.clear()
+        setChildId(0)
+        navigate('/')
+      })
+      .catch((error) => {
+        console.error('Logout failed:', error)
+        // Handle logout error here
+      })
+  }
 
   return (
     <AppBar position="relative" sx={{ height: 70, backgroundColor: 'white' }}>
@@ -56,7 +59,6 @@ function ResponsiveAppBar() {
             paddingRight: { md: '160px', xs: 0 },
           }}
         >
-
           {/* 큰 화면 로고 */}
           <Box sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>
             <Link
@@ -150,8 +152,6 @@ function ResponsiveAppBar() {
             </Menu>
           </Box>
 
-
-
           {/* 작은 화면 로고 */}
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <Link
@@ -173,9 +173,9 @@ function ResponsiveAppBar() {
           {/* 로그아웃 버튼 */}
           <Box sx={{ flexGrow: 0 }}>
             <Button
-                variant="contained"
-                disableElevation
-                onClick={handleLogout}
+              variant="contained"
+              disableElevation
+              onClick={handleLogout}
               sx={{
                 marginLeft: 3,
                 marginTop: 1.2,

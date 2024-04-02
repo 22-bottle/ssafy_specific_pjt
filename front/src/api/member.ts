@@ -1,11 +1,12 @@
 import axios, { AxiosError } from 'axios'
+
 const { REACT_APP_SERVER_URI } = process.env
 
 const api = {
   join: `${REACT_APP_SERVER_URI}/member/join`,
   login: `${REACT_APP_SERVER_URI}/member/login`,
   token: `${REACT_APP_SERVER_URI}/member/token`,
-  logout : `${REACT_APP_SERVER_URI}/member/logout`,
+  logout: `${REACT_APP_SERVER_URI}/member/logout`,
 }
 function join(
   email: string,
@@ -45,9 +46,9 @@ function token() {
 function logout() {
   const accessToken = localStorage.getItem('accessToken')
   return axios.post(
-      api.logout,
-      {},
-      { headers: { Authorization: `Bearer ${accessToken}` } }
+    api.logout,
+    {},
+    { headers: { Authorization: `Bearer ${accessToken}` } }
   )
 }
 
