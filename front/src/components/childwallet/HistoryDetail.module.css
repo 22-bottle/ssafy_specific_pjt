@@ -1,0 +1,9 @@
+.stageDiv {
+    width: 100%;
+    text-align: center;
+}
+
+.priceDiv {
+    display: flex;
+    justify-content: space-around;
+}

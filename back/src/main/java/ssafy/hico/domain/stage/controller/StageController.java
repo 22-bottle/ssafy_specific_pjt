@@ -68,6 +68,7 @@ public class StageController {
     @PostMapping("/quiz")
     @LoginOnly(level = LoginOnly.Level.CHILD)
     public ResponseEntity<?> stageQuizSave(@RequestBody StageQuizSaveRequest stageQuizSaveRequest, HttpServletRequest httpServletRequest) {
+        System.out.println(stageQuizSaveRequest.toString());
         Long memberId = (Long) httpServletRequest.getAttribute("memberId");
         stageService.saveStageQuiz(stageQuizSaveRequest, memberId);
         return getResponseEntity(SuccessCode.OK);

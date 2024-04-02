@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { history } from "@/api/child"
+import styles from "./HistoryDetail.module.css";
 
 interface HistoryDetailProps {
     open: boolean
@@ -32,13 +33,17 @@ const HistoryDetail: React.FC<HistoryDetailProps> = ({ open, setOpen, countryId 
     }, [])
 
     return (
-        <div>
+        <div className={styles.container}>
             <div>{historyData.length}건</div>
             <div>{historyData.map((his, index) => (
-                <div key={index}>
-                    <div>스테이지: {his.stageId}</div>
-                    <div>금액: {his.price}</div>
-                    <div>날짜: {his.date}</div>
+                <div>
+                    <hr/>
+                    <div>{index + 1}.</div>
+                    <div className={styles.stageDiv}>{his.stageId}</div>
+                    <div className={styles.priceDiv}>
+                        <span>금액: {his.price}</span>
+                        <span>날짜: {his.date}</span>
+                    </div>
                 </div>
               ))}</div>
         </div>

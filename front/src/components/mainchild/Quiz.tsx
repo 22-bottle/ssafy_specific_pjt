@@ -29,6 +29,10 @@ const Quiz: React.FC = () => {
   const [price, setPrice] = useState(0)
   const [open, setOpen] = useState(false)
   const [count, setCount] = useState(0)
+  const [saText, setSaText] = useState('')
+  const [quizResultList, setQuizResultList] = useState(new Array<quizResult>())
+  const [answer, setAnswer] = useState('')
+  const [selected, setSelected] = useState('')
   useEffect(() => {
     if (currentQuizIndex >= 10) {
       saveAnswer(stageId, price, count, quizResultList)
@@ -49,10 +53,8 @@ const Quiz: React.FC = () => {
     quizId: number
     correct: boolean
   }
-  const [saText, setSaText] = useState('')
-  const [quizResultList, setQuizResultList] = useState(new Array<quizResult>())
-  const goOxToNextQuiz = () => {
-    if (answer === quizDataList[currentQuizIndex].quizAnswer) {
+  const goOxToNextQuiz = (aa: string) => {
+    if (aa === quizDataList[currentQuizIndex].quizAnswer) {
       quizResultList.push({
         quizId: quizDataList[currentQuizIndex].quizId,
         correct: true,
@@ -93,6 +95,7 @@ const Quiz: React.FC = () => {
       })
     }
     setSaText('')
+    setAnswer('')
     setCurrentQuizIndex((prev) => (prev += 1))
     setSelected('')
   }
@@ -103,26 +106,15 @@ const Quiz: React.FC = () => {
     goSaToNextQuiz() // 답변 제출 로직 실행
   }
 
-  // 객관식 선택지 자체를 버튼으로 >> 수정 필요!!!!!!!!!
-  // const answerClick = () => {
-  //     startTransition(() => {
-  //         console.log(`선택된 선택지`)
-  //     })
-  // }
-
-  const [answer, setAnswer] = useState('')
-  const [selected, setSelected] = useState('')
   const setOanswer = () => {
-    setAnswer('O')
     setSelected('true')
     // O를 선택하고 바로 다음 퀴즈로 넘어감
-    goOxToNextQuiz()
+    goOxToNextQuiz('O')
   }
   const setXanswer = () => {
-    setAnswer('X')
     setSelected('false')
     // X를 선택하고 바로 다음 퀴즈로 넘어감
-    goOxToNextQuiz()
+    goOxToNextQuiz('X')
   }
   const setSaAnswer = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSaText(event.target.value)
