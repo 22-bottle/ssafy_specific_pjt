@@ -8,10 +8,10 @@ interface AskCompleteProps {
 }
 
 const AskComplete: React.FC<AskCompleteProps> = ({ onClose }) => {
-    const handleConfirm = () => {
-        onClose();
-        window.location.reload();
-    };
+  const handleConfirm = () => {
+    onClose()
+    window.location.reload()
+  }
 
   return (
     <div className={styles.container}>
@@ -23,7 +23,7 @@ const AskComplete: React.FC<AskCompleteProps> = ({ onClose }) => {
         </div>
         {/* 글씨 */}
         <div className={styles.text}>
-          <div className={styles.maintext1}>이채은님에게</div>
+          <div className={styles.maintext1}>부모님에게</div>
           <div className={styles.maintext3}>환전을 요청했어요!</div>
           <div className={styles.subtext1}>환전이 완료되면 알려드릴게요!</div>
         </div>
