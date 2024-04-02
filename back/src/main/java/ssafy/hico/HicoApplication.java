@@ -10,8 +10,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 public class HicoApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(HicoApplication.class, args);
-	}
+	public static void main(String[] args) { SpringApplication.run(HicoApplication.class, args); }
 
 }

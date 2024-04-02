@@ -48,15 +48,19 @@ public class ExchangeRateService {
                 .build();
     }
 
+    public ExchangeRateApiResponse[] getExchangeRateApiResponse(LocalDate date) {
+        WebClient webClient = getBaseUrl(URL + APIKEY + SEARCHDATE + date + DATA);
+        Mono<ExchangeRateApiResponse[]> response = webClient.get()
+                .retrieve()
+                .bodyToMono(ExchangeRateApiResponse[].class).log();
+        return response.block();
+    }
+
     @Scheduled(cron = "0 10 11 * * *")
     public void getTodayExchangeRate() {
         LocalDate today = LocalDate.now();
         LocalDate yesterday = today.minusDays(1);
-        WebClient webClient = getBaseUrl(URL + APIKEY + SEARCHDATE + today + DATA);
-        Mono<ExchangeRateApiResponse[]> response = webClient.get()
-                .retrieve()
-                .bodyToMono(ExchangeRateApiResponse[].class).log();
-        ExchangeRateApiResponse[] exchangeRateDtos = response.block();
+        ExchangeRateApiResponse[] exchangeRateDtos = getExchangeRateApiResponse(today);
         for (ExchangeRateApiResponse dto : exchangeRateDtos) {
             Country country = countryRepository.findByCode(dto.getCurUnit().substring(0, 3))
                     .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_COUNTRY));
@@ -78,13 +82,7 @@ public class ExchangeRateService {
             List<ExchangeRate> ers = exchangeRateRepository.findAllByTodayDateOrderByCountry(yesterday)
                     .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_COUNTRY));;
             for (ExchangeRate er : ers) {
-                ExchangeRate newEx = new ExchangeRate();
-                newEx.setTodayDate(today);
-                newEx.setBasicRate(er.getBasicRate());
-                newEx.setAmount(er.getAmount());
-                newEx.setRiseStatus(er.getRiseStatus());
-                newEx.setCountry(er.getCountry());
-                exchangeRateRepository.save(newEx);
+                exchangeRateRepository.save(ExchangeRate.createExchangeRate(er, today));
             }
         }
     }
@@ -113,6 +111,54 @@ public class ExchangeRateService {
             exchangeRateList.add(new ExchangeRateFindResponse(exchangeRate));
         }
         return exchangeRateList;
+    }
+
+    public void getMonthExchangeRate() {
+        LocalDate today = LocalDate.now();
+        LocalDate date = today.minusDays(30);
+        LocalDate tomorrow = today.plusDays(1);
+        ExchangeRateApiResponse[] exchangeRateDtos = null;
+        while (true) {
+            exchangeRateDtos = getExchangeRateApiResponse(date);
+            for (ExchangeRateApiResponse dto : exchangeRateDtos) {
+                Country country = countryRepository.findByCode(dto.getCurUnit().substring(0, 3))
+                        .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_COUNTRY));
+                ExchangeRate todayExchangeRate = dto.createExchangeRate(country, null, 0, date);
+                exchangeRateRepository.save(todayExchangeRate);
+            }
+            if (exchangeRateDtos.length ==0) date = date.minusDays(1);
+            else break;
+        }
+        date = date.plusDays(1);
+        while (date.compareTo(tomorrow) != 0) {
+            LocalDate yesterday = date.minusDays(1);
+            exchangeRateDtos = getExchangeRateApiResponse(date);
+            for (ExchangeRateApiResponse dto : exchangeRateDtos) {
+                Country country = countryRepository.findByCode(dto.getCurUnit().substring(0, 3))
+                        .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_COUNTRY));
+                ExchangeRate todayExchangeRate = null;
+                try {
+                    ExchangeRate yesterdayExchangeRate = exchangeRateRepository.findByCountryAndTodayDate(country, yesterday)
+                            .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_EXCHANGE_RATE));
+                    double amount = yesterdayExchangeRate.getBasicRate() - Double.valueOf(dto.getDealBasR().replace(",", ""));
+                    if (amount > 0) todayExchangeRate = dto.createExchangeRate(country, Variation.INCREASE, amount, date);
+                    else if (amount < 0) todayExchangeRate = dto.createExchangeRate(country, Variation.DECREASE, -amount, date);
+                    else todayExchangeRate = dto.createExchangeRate(country, Variation.EQUAL, amount, date);
+                } catch (NullPointerException e) {
+                    todayExchangeRate = dto.createExchangeRate(country, null, 0, date);
+                } finally {
+                    exchangeRateRepository.save(todayExchangeRate);
+                }
+            }
+            if (exchangeRateDtos.length == 0) {
+                List<ExchangeRate> ers = exchangeRateRepository.findAllByTodayDateOrderByCountry(yesterday)
+                        .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_COUNTRY));;
+                for (ExchangeRate er : ers) {
+                    exchangeRateRepository.save(ExchangeRate.createExchangeRate(er, date));
+                }
+            }
+            date = date.plusDays(1);
+        }
     }
 
 }
