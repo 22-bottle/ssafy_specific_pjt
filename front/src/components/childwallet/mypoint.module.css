@@ -6,6 +6,8 @@
   align-items: center;
   gap: 10px;
   padding-top: 35px;
+  height: 90.2vh; /* 뷰포트 높이에 해당하는 값으로 설정 */
+  overflow-y: scroll;
 }
 
 .main {
