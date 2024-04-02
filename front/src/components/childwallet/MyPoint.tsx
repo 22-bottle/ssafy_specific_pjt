@@ -130,9 +130,9 @@ const Mypoint: React.FC = () => {
       anchorElement.scrollIntoView({ behavior: 'smooth', block: 'center' })
     }
   }
-  const [countryId, setCountryId] = useState(0);
+  const [countryId, setCountryId] = useState(0)
   function OpenModal(countryId: number) {
-    setCountryId(countryId);
+    setCountryId(countryId)
     sethistoryOpen(true)
   }
 
@@ -243,7 +243,7 @@ const Mypoint: React.FC = () => {
 
       <div className={`${styles.main} ${styles.help}`}>
         <Link
-          onClick={() => scrollToAnchor('my-anchor')}
+          onClick={() => scrollToAnchor('currency')}
           className="link-pointer"
           sx={{
             color: '#bdc6d7;',
@@ -254,7 +254,7 @@ const Mypoint: React.FC = () => {
         </Link>
       </div>
 
-      <div className={styles.main2}>
+      <div id="currency" className={styles.main2}>
         <Currency />
       </div>
 
@@ -266,7 +266,7 @@ const Mypoint: React.FC = () => {
         aria-describedby="ask-won-modal-description"
       >
         <Box sx={style}>
-          <HistoryDetail open={open} setOpen={setOpen} countryId={countryId}/>{' '}
+          <HistoryDetail open={open} setOpen={setOpen} countryId={countryId} />{' '}
         </Box>
       </Modal>
     </div>
