@@ -9,7 +9,8 @@ import Typography from '@mui/material/Typography'
 import Modal from '@mui/material/Modal'
 import play from '../../assets/play.png'
 import stop from '../../assets/stop.png'
-import arrow from '../../assets/arrow.png'
+import previous from '../../assets/preview.png'
+import next from '../../assets/next.png'
 import { Drawer, IconButton } from '@mui/material'
 import NavbarDrawer from './navbar'
 import KeyboardDoubleArrowDownRoundedIcon from '@mui/icons-material/KeyboardDoubleArrowDownRounded'
@@ -199,18 +200,28 @@ const Cartoon: React.FC = () => {
       </div>
 
       {/* 이전/다음 페이지 버튼 */}
-      <div className={styles.buttonContainer}>
-        <button
-          className={`${styles.backButton} ${currentCartoonIndex === 0 ? styles.disabledButton : ''}`}
-          onClick={goToPreviousCartoon}
-          disabled={currentCartoonIndex === 0}
-        >
-          <img src={arrow} alt="이전" draggable="false" />
-        </button>
-        <button className={styles.frontButton} onClick={goToNextCartoon}>
-          <img src={arrow} alt="다음" draggable="false" />
-        </button>
-      </div>
+      <button
+        onClick={goToPreviousCartoon}
+        disabled={currentCartoonIndex === 0}
+        className={`${styles.previousButtonContainer} ${currentCartoonIndex === 0 ? styles.disabledButton : ''}`}
+      >
+        <img
+          src={previous}
+          alt="이전"
+          className={styles.imgsize}
+          draggable="false"
+        />
+      </button>
+
+      <button onClick={goToNextCartoon} className={styles.nextButtonContainer}>
+        <img
+          src={next}
+          alt="다음"
+          draggable="false"
+          className={styles.imgsize}
+        />
+      </button>
+
       {/* 재생/중지 버튼 */}
       <div className={styles.ttsContainer}>
         <button onClick={playTTS} className={styles.audioButton}>
@@ -240,7 +251,7 @@ const Cartoon: React.FC = () => {
             alignItems: 'center', // 가로축 기준 중앙 정렬
             justifyContent: 'center', // 세로축 기준 중앙 정렬
             textAlign: 'center', // 텍스트 중앙 정렬
-            width: '330px',
+            width: '380px',
           }}
         >
           <Typography
@@ -249,7 +260,7 @@ const Cartoon: React.FC = () => {
               fontSize: '24px',
               fontWeight: 'bold',
               color: '#585865',
-              marginBottom: '40px',
+              marginBottom: '70px',
               marginTop: '10px',
             }}
           >
@@ -271,7 +282,7 @@ const Cartoon: React.FC = () => {
                 backgroundColor: '#0064FF',
                 borderRadius: 3,
                 color: 'white',
-                marginBottom: '10px',
+                marginBottom: '5px',
                 fontWeight: 600,
                 ':hover': {
                   backgroundColor: '#0056e3', // 호버 효과 추가
