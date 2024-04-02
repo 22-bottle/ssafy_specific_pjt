@@ -69,7 +69,7 @@ const Askwon: React.FC<AskWonProps> = ({ onClose, onConfirm }) => {
           <div className={styles.maintext1}>부모님에게</div>
           <div className={styles.maintext2}>
             {exchangeAmount.point} {exchangeAmount.code} (
-            {exchangeAmount.calculatedAmount})
+            {exchangeAmount.calculatedAmount}원)
           </div>
           <div className={styles.maintext3}> 환전을 요청할까요?</div>
           <div className={styles.subtext1}>
