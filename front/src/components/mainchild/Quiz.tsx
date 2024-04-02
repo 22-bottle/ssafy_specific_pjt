@@ -1,7 +1,5 @@
-import React, { startTransition, useState, useEffect } from 'react'
-import { useNavigate, Outlet } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
 import styles from './Quiz.module.css'
-import { Container } from 'react-bootstrap'
 import { quizList } from '@/state/childselectors'
 import { useRecoilValue, useRecoilState } from 'recoil'
 import { countrydetailState } from '@/state/StageSubjectAtoms'
@@ -10,10 +8,10 @@ import { stageSubjectState } from '@/state/StageSubjectAtoms'
 import Modal from '@mui/material/Modal'
 import Box from '@mui/material/Box'
 import QuizResult from './Result'
-import previous from '../../assets/preview.png'
-import next from '../../assets/next.png'
 import { Drawer, IconButton } from '@mui/material'
 import NavbarDrawer from './navbar'
+import Lottie from 'lottie-react'
+import star from '../../assets/lottie/star.json'
 import KeyboardDoubleArrowDownRoundedIcon from '@mui/icons-material/KeyboardDoubleArrowDownRounded'
 
 const Quiz: React.FC = () => {
@@ -33,7 +31,7 @@ const Quiz: React.FC = () => {
   const [count, setCount] = useState(0)
   useEffect(() => {
     if (currentQuizIndex >= 10) {
-      saveAnswer(stageId, price, quizResultList)
+      saveAnswer(stageId, price, count, quizResultList)
         .then((response) => {
           if (response.data.statusCode === 200) {
             setOpen(true)
@@ -99,6 +97,12 @@ const Quiz: React.FC = () => {
     setSelected('')
   }
 
+  // 단답형 퀴즈를 제출하는 함수
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault() // 페이지 새로고침 방지
+    goSaToNextQuiz() // 답변 제출 로직 실행
+  }
+
   // 객관식 선택지 자체를 버튼으로 >> 수정 필요!!!!!!!!!
   // const answerClick = () => {
   //     startTransition(() => {
@@ -111,10 +115,14 @@ const Quiz: React.FC = () => {
   const setOanswer = () => {
     setAnswer('O')
     setSelected('true')
+    // O를 선택하고 바로 다음 퀴즈로 넘어감
+    goOxToNextQuiz()
   }
   const setXanswer = () => {
     setAnswer('X')
     setSelected('false')
+    // X를 선택하고 바로 다음 퀴즈로 넘어감
+    goOxToNextQuiz()
   }
   const setSaAnswer = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSaText(event.target.value)
@@ -159,6 +167,7 @@ const Quiz: React.FC = () => {
           <Drawer anchor="top" open={isDrawerOpen} onClose={handleDrawerClose}>
             <NavbarDrawer onClose={handleDrawerClose} />
           </Drawer>
+
           <div className={styles.mainContainer}>
             <img
               src={characterImage}
@@ -167,14 +176,28 @@ const Quiz: React.FC = () => {
             />
             <div className={styles.questionBackground}>
               <div className={styles.questionContainer}>
-                <p className={styles.point}>{currentQuizIndex + 1}/10</p>
+                <div className={styles.que}>
+                  <p className={styles.point}>{currentQuizIndex + 1}/10</p>
+                  <div className={styles.starContainer}>
+                    {Array.from(
+                      { length: quizDataList[currentQuizIndex].quizPrice },
+                      (_, index) => (
+                        <Lottie
+                          key={`${currentQuizIndex}-${index}`}
+                          loop={false}
+                          autoplay={true}
+                          animationData={star}
+                          style={{ width: 35, height: 35 }}
+                        />
+                      )
+                    )}
+                  </div>
+                </div>
                 <p className={styles.question}>
                   {quizDataList[currentQuizIndex].quizQuestion}
                 </p>
-                <p className={styles.point}>
-                  {quizDataList[currentQuizIndex].quizPrice}
-                </p>
-                <p className={styles.point}>{increase}</p>
+
+                <p className={styles.point}>{increase}포인트</p>
               </div>
             </div>
             <div className={styles.oxContainer}>
@@ -192,22 +215,11 @@ const Quiz: React.FC = () => {
               </div>
             </div>
           </div>
-          <div className={styles.buttonContainer}>
-            <button
-              className={styles.backButton}
-              onClick={() => alert('이전 문제로 돌아갈 수 없어요!')}
-            >
-              <img style={{ width: '150px' }} src={previous} alt="previous" />
-            </button>
-            <button className={styles.frontButton} onClick={goOxToNextQuiz}>
-              <img style={{ width: '150px' }} src={next} alt="next" />
-            </button>
-          </div>
         </div>
       )
     case 'SHORT_ANSWER':
       return (
-        <div>
+        <div className={styles.main}>
           {/* navbar 버튼 */}
           <IconButton
             onClick={handleDrawerOpen}
@@ -238,36 +250,45 @@ const Quiz: React.FC = () => {
             />
             <div className={styles.questionBackground}>
               <div className={styles.questionContainer}>
-                <p className={styles.point}>{currentQuizIndex + 1}/10</p>
+                <div className={styles.que}>
+                  <p className={styles.point}>{currentQuizIndex + 1}/10</p>
+                  <div className={styles.starContainer}>
+                    {Array.from(
+                      { length: quizDataList[currentQuizIndex].quizPrice },
+                      (_, index) => (
+                        <Lottie
+                          key={`${currentQuizIndex}-${index}`}
+                          loop={false}
+                          autoplay={true}
+                          animationData={star}
+                          style={{ width: 35, height: 35 }}
+                        />
+                      )
+                    )}
+                  </div>
+                </div>
                 <p className={styles.question}>
                   {quizDataList[currentQuizIndex].quizQuestion}
                 </p>
-                <p className={styles.point}>
-                  {quizDataList[currentQuizIndex].quizPrice}
-                </p>
-                <p className={styles.point}>{increase}</p>
+
+                <p className={styles.point}>{increase}포인트</p>
               </div>
             </div>
-            <div className={styles.textfield}>
-              <input
-                type="text"
-                value={saText}
-                onChange={setSaAnswer}
-                className={styles.inputfield}
-                placeholder="정답을 입력 해주세요"
-              />
-            </div>
-          </div>
-          <div className={styles.buttonContainer}>
-            <button
-              className={styles.backButton}
-              onClick={() => alert('이전 문제로 돌아갈 수 없어요!')}
-            >
-              <img style={{ width: '150px' }} src={previous} alt="previous" />
-            </button>
-            <button className={styles.frontButton} onClick={goOxToNextQuiz}>
-              <img style={{ width: '150px' }} src={next} alt="next" />
-            </button>
+            <form onSubmit={handleSubmit}>
+              {/* Form 추가 */}
+              <div className={styles.textfield}>
+                <input
+                  type="text"
+                  value={saText}
+                  onChange={setSaAnswer}
+                  className={styles.inputfield}
+                  placeholder="정답을 입력 해주세요"
+                />
+                <button type="submit" className={styles.submitButton}>
+                  제출
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )
