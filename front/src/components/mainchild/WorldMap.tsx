@@ -91,6 +91,12 @@ const Worldmap: React.FC = () => {
   }
   return (
     <div className={styles.backgroundIMG} style={{ backgroundImage }}>
+      <div className="preload-images" style={{ display: 'none' }}>
+        <img src={backUSA} alt="USA Preload" />
+        <img src={backJapan} alt="Japan Preload" />
+        <img src={backItaly} alt="Italy Preload" />
+        <img src={backChina} alt="China Preload" />
+      </div>
       <div className={styles.navbar}>
         <Navbar onClose={handleClose} />
       </div>
@@ -143,7 +149,8 @@ const Worldmap: React.FC = () => {
           style={{ width: '8vw', height: '8vw', marginRight: '6px' }}
         />
       </div>
-      <div className={styles.fuel}>연료 {fuel}%</div>
+      <div className={styles.fuel}></div>
+      <div className={styles.fueltext}>연료 {fuel}%</div>
       <div className={styles.timemachine}></div>
     </div>
   )

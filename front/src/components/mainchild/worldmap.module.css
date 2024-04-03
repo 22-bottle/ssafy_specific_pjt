@@ -7,6 +7,13 @@
   position: relative;
   overflow: hidden;
 }
+.preload-images {
+  display: none; /* 화면에 표시되지 않도록 설정 */
+}
+
+.preload-images img {
+  display: none; /* 이미지도 화면에 표시되지 않도록 설정 */
+}
 
 /* 작은 화면 (모바일) */
 @media (max-width: 600px) {
@@ -107,8 +114,8 @@
 .fuel {
   background-image: url('../../assets/fuel.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
-  bottom: 5%;
-  left: 6%;
+  bottom: 14%;
+  left: 4.8%;
   width: 130px;
   height: 151px;
   background-size: cover; /* 이미지가 버튼 크기에 맞게 조정됩니다 */
@@ -116,17 +123,28 @@
   border: none; /* 표준 버튼 테두리 제거 */
   cursor: pointer; /* 마우스 오버 시 커서 변경 */
   outline: none; /* 클릭 시 생기는 외곽선 제거 */
+  z-index: 5;
+}
+.fueltext {
+  position: absolute;
+  bottom: 15%;
+  left: 6.5%;
+  color: #202632c6;
+  font-size: 25px;
+  font-weight: bold;
+  z-index: 5;
 }
 .timemachine {
-  background-image: url('../../assets/timemachine.png'); /* 이미지 경로를 정확하게 지정하세요 */
+  background-image: url('../../assets/storytimemachine.png'); /* 이미지 경로를 정확하게 지정하세요 */
   position: absolute;
   bottom: 3%;
-  left: 15%;
-  width: 145px;
-  height: 211px;
+  left: 2%;
+  width: 217.5px; /* 원래 값의 약 1.5배 */
+  height: 316.5px; /* 원래 값의 약 1.5배 */
   background-size: cover; /* 이미지가 버튼 크기에 맞게 조정됩니다 */
   background-position: center; /* 이미지가 버튼의 중앙에 위치하도록 조정됩니다 */
   border: none; /* 표준 버튼 테두리 제거 */
   cursor: pointer; /* 마우스 오버 시 커서 변경 */
   outline: none; /* 클릭 시 생기는 외곽선 제거 */
+  z-index: 2;
 }

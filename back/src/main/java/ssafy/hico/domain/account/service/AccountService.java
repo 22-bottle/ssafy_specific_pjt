@@ -84,7 +84,7 @@ public class AccountService {
                 .member(member)
                 .accountNo(request.getAccountNo())
                 .bankName(bankProperties.getBankName())
-                .bankCode(bankProperties.getBankCode())
+                .bankCode(bankProperties.getCode())
                 .password(encryptPassword)
                 .build();
         System.out.println(account.toString());
@@ -113,7 +113,7 @@ public class AccountService {
         System.out.println(today + " " + oneWeekAgo);
         Header header = bankApiClient.makeHeader(BankApi.INQUIRE_ACCOUNT_TRANSACTION_HISTORY.getApiName(), account.getMember().getUserKey());
         InquireAccountTransactionRequest request = InquireAccountTransactionRequest.builder().Header(header)
-                .bankCode(bankProperties.getBankCode()).accountNo(account.getAccountNo()).startDate(oneWeekAgo).endDate(today)
+                .bankCode(bankProperties.getCode()).accountNo(account.getAccountNo()).startDate(oneWeekAgo).endDate(today)
                 .transactionType("D").orderByType("DESC").build();
 
         String response = bankApiClient.getResponse(BankApi.INQUIRE_ACCOUNT_TRANSACTION_HISTORY.getUrl(), request);
