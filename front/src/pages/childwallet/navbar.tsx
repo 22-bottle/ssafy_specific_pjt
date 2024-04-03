@@ -1,37 +1,11 @@
-import * as React from 'react'
-import { Link } from 'react-router-dom'
-import AppBar from '@mui/material/AppBar'
-import Box from '@mui/material/Box'
-import Toolbar from '@mui/material/Toolbar'
-import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import Menu from '@mui/material/Menu'
-import MenuIcon from '@mui/icons-material/Menu'
-import Container from '@mui/material/Container'
-import Button from '@mui/material/Button'
-import MenuItem from '@mui/material/MenuItem'
+import React from 'react'
+import { Box, List, ListItem, Button } from '@mui/material'
 import logoImage from '../../assets/logo.png'
-import { logout } from '@/api/member'
 import { useNavigate } from 'react-router-dom'
+import { logout } from '@/api/member'
 
-const pages = [
-  { label: '월드맵', link: '/mainchild/worldmap' },
-  { label: '포인트/실시간 환율', link: '/childwallet/point' },
-  { label: '내 지갑', link: '/childwallet/account' },
-]
-
-function ResponsiveAppBar() {
+const NavbarDrawer: React.FC = () => {
   const navigate = useNavigate()
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
-
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget)
-  }
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null)
-  }
-
   // Logout function
   const handleLogout = () => {
     logout()
@@ -44,150 +18,95 @@ function ResponsiveAppBar() {
         // Handle logout error here
       })
   }
-
   return (
-    <AppBar
-      position="fixed"
-      sx={{ height: 85, backgroundColor: 'white' }}
-      elevation={0}
-    >
-      <Container maxWidth="xl">
-        <Toolbar
-          disableGutters
+    <Box style={{ paddingTop: '10px' }}>
+      <List sx={{ display: 'flex', paddingTop: '5px' }}>
+        <ListItem>
+          <img
+            src={logoImage}
+            alt="Logo"
+            style={{ height: '60px', marginTop: '-10px', marginLeft: '40px' }}
+          />
+        </ListItem>
+        <ListItem
           sx={{
-            justifyContent: 'flex-start',
-            paddingLeft: { md: '40px', xs: 0 },
-            paddingRight: { md: '40px', xs: 0 },
+            paddingTop: '10px',
+            paddingBottom: '0px',
+            width: '70%',
+            paddingLeft: '180px',
           }}
         >
-          {/* 큰 화면 로고 */}
-          <Box sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>
-            <Link
-              to="/mainchild/worldmap"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                textDecoration: 'none',
-              }}
-            >
-              <img src={logoImage} alt="LOGO" style={{ height: '70px' }} />
-            </Link>
-          </Box>
-
-          {/* 큰 화면에서의 메뉴 버튼 */}
-          <Box
+          <Button
+            onClick={() => navigate('/mainchild/worldmap')}
             sx={{
-              flexGrow: 1,
-              display: { xs: 'none', md: 'flex' },
-              justifyContent: 'center',
+              fontSize: '20px',
+              color: '#40404A',
+              fontWeight: 'bold',
+              width: '100%',
+              marginRight: '70px',
             }}
           >
-            {pages.map((page) => (
-              <Button
-                key={page.label}
-                component={Link}
-                to={page.link}
-                onClick={handleCloseNavMenu}
-                sx={{
-                  marginTop: '25px',
-                  color: '#585865',
-                  display: 'block',
-                  fontWeight: 'bold',
-                  mx: '3.5vw',
-                  fontSize: '1.65vw',
-                  width: '100%',
-                }}
-              >
-                {page.label}
-              </Button>
-            ))}
-          </Box>
-
-          {/* 작은 화면 메뉴바 */}
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon
-                sx={{ color: '#585865', fontSize: 35, marginTop: 0.7 }}
-              />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem
-                  key={page.label}
-                  component={Link}
-                  to={page.link}
-                  onClick={handleCloseNavMenu}
-                >
-                  <Typography textAlign="center" sx={{ color: '#585865' }}>
-                    {page.label}
-                  </Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-
-          {/* 작은 화면 로고 */}
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <Link
-              to="/mainparent"
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                textDecoration: 'none',
-              }}
-            >
-              <img src={logoImage} alt="LOGO" style={{ height: '65px' }} />
-            </Link>
-          </Box>
-
-          {/* 로그아웃 버튼 */}
-          <Box sx={{ flexGrow: 0 }}>
-            <Button
-              variant="contained"
-              disableElevation
-              onClick={handleLogout}
-              sx={{
-                marginLeft: 3,
-                marginTop: '20px',
-                paddingTop: '10px',
-                width: 125,
-                height: '47px',
-                fontSize: '18px',
-                backgroundColor: '#0064FF',
-                borderRadius: 3,
-                fontWeight: 600,
-              }}
-            >
-              로그아웃
-            </Button>
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
+            월드맵
+          </Button>
+        </ListItem>
+        <ListItem
+          sx={{ paddingTop: '10px', paddingBottom: '0px', width: '95%' }}
+        >
+          <Button
+            onClick={
+              () => navigate('/childwallet/point')
+              /* 포인트/실시간 환율 이동 로직 */
+            }
+            sx={{
+              fontSize: '20px',
+              color: '#40404A',
+              fontWeight: 'bold',
+              width: '100%',
+            }}
+          >
+            포인트/실시간 환율
+          </Button>
+        </ListItem>
+        <ListItem sx={{ paddingTop: '10px', paddingBottom: '0px' }}>
+          <Button
+            onClick={
+              () => navigate('/childwallet/account')
+              /* 내 지갑 이동 로직 */
+            }
+            sx={{
+              fontSize: '20px',
+              color: '#40404A',
+              fontWeight: 'bold',
+              width: '100%',
+              marginRight: '50px',
+            }}
+          >
+            내 지갑
+          </Button>
+        </ListItem>
+        <ListItem sx={{ paddingTop: '10px', paddingBottom: '0px' }}>
+          <Button
+            onClick={handleLogout}
+            sx={{
+              width: '120px', // 버튼의 가로 길이
+              height: '45px', // 버튼의 세로 길이
+              fontSize: '18px', // 폰트 사이즈
+              backgroundColor: '#585865',
+              color: 'white', // 기본 폰트 색상
+              marginLeft: '100px',
+              borderRadius: '10px',
+              fontWeight: 'bold',
+              '&:hover': {
+                backgroundColor: '#202632', // 호버 상태에서의 배경색 변경
+              },
+            }}
+          >
+            로그아웃
+          </Button>
+        </ListItem>
+      </List>
+    </Box>
   )
 }
-export default ResponsiveAppBar
+
+export default NavbarDrawer
