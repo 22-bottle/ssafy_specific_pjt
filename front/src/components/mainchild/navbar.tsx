@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { startTransition } from 'react'
 import { Box, List, ListItem, Button } from '@mui/material'
 import logoImage from '../../assets/logo.png'
 import { useNavigate } from 'react-router-dom'
@@ -16,13 +16,20 @@ const NavbarDrawer: React.FC<NavbarDrawerProps> = ({ onClose }) => {
       .then(() => {
         localStorage.clear()
         navigate('/')
-          window.location.reload()
+        window.location.reload()
       })
       .catch((error) => {
         console.error('Logout failed:', error)
         // Handle logout error here
       })
   }
+
+  const logoClick = () => {
+    startTransition(() => {
+      navigate('/mainchild/worldmap')
+    })
+  }
+
   return (
     <Box
       sx={{ width: 'auto' }}
@@ -35,7 +42,13 @@ const NavbarDrawer: React.FC<NavbarDrawerProps> = ({ onClose }) => {
           <img
             src={logoImage}
             alt="Logo"
-            style={{ height: '60px', marginTop: '-10px', marginLeft: '40px' }}
+            style={{
+              height: '60px',
+              marginTop: '-10px',
+              marginLeft: '40px',
+              cursor: 'pointer',
+            }}
+            onClick={logoClick}
           />
         </ListItem>
         <ListItem
