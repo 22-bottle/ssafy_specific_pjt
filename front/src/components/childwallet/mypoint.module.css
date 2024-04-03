@@ -241,3 +241,17 @@
 .historybutton:hover .text {
   display: block; /* 마우스 오버 시 텍스트 보여줌 */
 }
+
+/* 컨테이너의 세로 스크롤바 스타일 */
+::-webkit-scrollbar {
+  width: 8px; /* 스크롤바 너비 */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ccc; /* 스크롤바 색상 */
+  border-radius: 4px; /* 스크롤바 둥글게 */
+}
+
+::-webkit-scrollbar-track {
+  background: #f0f0f0; /* 스크롤바 배경 색상 */
+}

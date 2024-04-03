@@ -197,6 +197,7 @@ const Mypoint: React.FC = () => {
               <Button
                 variant="contained"
                 disableElevation
+                disabled={currency.point === 0}
                 onClick={(event) => {
                   // Prevent the click event from bubbling up to the parent elements
                   event.stopPropagation();
@@ -206,9 +207,16 @@ const Mypoint: React.FC = () => {
                   width: 'clamp(100px, 15vw, 140px)',
                   height: 'clamp(35px, 6vw, 45px)',
                   fontSize: 'clamp(14px, 1.7vw, 17px)',
-                  backgroundColor: '#0064FF',
+                  backgroundColor: currency.point === 0 ? '#bdc6d7' : '#0064FF', // currency.point가 0일 때 회색, 아닐 때 파란색
                   borderRadius: 2,
                   fontWeight: 600,
+                  '&:hover': {
+                    backgroundColor: currency.point === 0 ? '#bdc6d7' : '#0056b3', // 호버 시 스타일 조정
+                  },
+                  '&.Mui-disabled': {
+                    backgroundColor: '#bdc6d7', // 비활성화 상태일 때의 배경색
+                    color: '#ffffff', // 비활성화 상태일 때의 글자색
+                  },
                 }}
               >
                 환전 요청
