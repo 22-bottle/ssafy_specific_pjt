@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Just+Me+Again+Down+Here&display=swap');
 
 body {
-  background-image: url('../../assets/forest.jpg');
+  /* background-image: url('../../assets/forest.jpg'); */
+  background-image: url('../../assets/back.png');
+
   background-position: center;
   background-size: 100% 100%;
   background-repeat: no-repeat;

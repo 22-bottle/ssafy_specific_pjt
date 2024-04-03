@@ -11,6 +11,7 @@ import play from '../../assets/play.png'
 import stop from '../../assets/stop.png'
 import previous from '../../assets/preview.png'
 import next from '../../assets/next.png'
+import arrow from '@/assets/arrow.png'
 import { Drawer, IconButton } from '@mui/material'
 import NavbarDrawer from './navbar'
 import KeyboardDoubleArrowDownRoundedIcon from '@mui/icons-material/KeyboardDoubleArrowDownRounded'
@@ -206,7 +207,7 @@ const Cartoon: React.FC = () => {
         className={`${styles.previousButtonContainer} ${currentCartoonIndex === 0 ? styles.disabledButton : ''}`}
       >
         <img
-          src={previous}
+          src={arrow}
           alt="이전"
           className={styles.imgsize}
           draggable="false"
@@ -215,7 +216,7 @@ const Cartoon: React.FC = () => {
 
       <button onClick={goToNextCartoon} className={styles.nextButtonContainer}>
         <img
-          src={next}
+          src={arrow}
           alt="다음"
           draggable="false"
           className={styles.imgsize}

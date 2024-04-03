@@ -31,7 +31,8 @@
 }
 
 .backgroundIMG {
-  background-image: url('../../assets/skybasic.jpg');
+  /* background-image: url('../../assets/skybasic.jpg'); */
+  background-image: url('../../assets/back.png');
   filter: blur(5px);
   background-size: 100%;
   background-position: center;

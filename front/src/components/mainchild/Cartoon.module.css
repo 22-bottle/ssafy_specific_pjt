@@ -1,6 +1,7 @@
 body {
   background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
     url('src/assets/forest.jpg');
+  /* background-color: rgba(86, 204, 213, 0.5); */
   background-position: center;
   background-size: 100% 100%;
   background-repeat: no-repeat;
@@ -164,16 +165,21 @@ body {
 .previousButtonContainer {
   position: fixed; /* 고정 위치 */
   left: 0; /* 화면 왼쪽 */
-  bottom: 0; /* 화면 하단 */
+  bottom: 40%; /* 화면 하단 */
   border-radius: 0% 50% 0% 0%;
+  background-color: transparent;
+  border: none;
+  transform: scaleX(-1);
 }
 
 /* 다음 버튼 스타일 */
 .nextButtonContainer {
   position: fixed; /* 고정 위치 */
   right: 0; /* 화면 오른쪽 */
-  bottom: 0; /* 화면 하단 */
+  bottom: 40%; /* 화면 하단 */
   border-radius: 50% 0% 0% 0%;
+  background-color: transparent;
+  border: none;
 }
 
 .previousButtonContainer,
@@ -184,7 +190,7 @@ body {
 
 /* 이미지 사이즈 조절을 위한 기본 스타일 */
 .imgsize {
-  width: 16vh;
+  width: 14vh;
   transition: transform 0.3s ease; /* 호버 시 부드러운 확대 효과 */
 }
 
