@@ -29,8 +29,11 @@ export const getChildStudyList = selector({
 export const getChildPointList = selector({
   key: 'getChildPointList',
   get: async ({ get }) => {
-    const childId = get(childIdState)
-    const response = await point(childId)
-    return response.data
+    const childId = get(childIdState);
+    if (childId === 0) {
+      return [];
+    }
+    const response = await point(childId);
+    return response.data;
   },
 })
