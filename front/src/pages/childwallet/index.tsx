@@ -5,7 +5,17 @@ import { Outlet } from 'react-router-dom'
 const ChildWallet: React.FC = () => {
   return (
     <div>
-      <Navbar />
+      <div
+        style={{
+          position: 'fixed',
+          top: 0,
+          width: '100%',
+          zIndex: 1000,
+          backgroundColor: 'white',
+        }}
+      >
+        <Navbar />
+      </div>
       {/* this is ChildWallet */}
       <div
         style={{

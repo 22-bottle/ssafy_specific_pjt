@@ -184,7 +184,6 @@ const Mypoint: React.FC = () => {
                 보유 {currency.point} {currency.code}
               </div>
               <div className={styles.money}>
-                {' '}
                 {Math.floor(currency.point * currency.basicRate).toLocaleString(
                   'ko-KR'
                 )}
