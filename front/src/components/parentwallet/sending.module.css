@@ -83,3 +83,16 @@
 .numberfourth {
   padding-bottom: 20px;
 }
+
+::-webkit-scrollbar {
+  width: 8px; /* 스크롤바 너비 */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ccc; /* 스크롤바 색상 */
+  border-radius: 4px; /* 스크롤바 둥글게 */
+}
+
+::-webkit-scrollbar-track {
+  background: #f0f0f0; /* 스크롤바 배경 색상 */
+}
