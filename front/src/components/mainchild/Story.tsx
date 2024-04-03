@@ -7,6 +7,8 @@ import Modal from '@mui/material/Modal'
 import { useNavigate } from 'react-router-dom'
 import { tutorial } from '@/api/child'
 import timeMachine from '@/assets/storytimemachine.png'
+import nextbtn from '@/assets/storynext.png'
+import prevbtn from '@/assets/storyprev.png'
 const storyBackgroundLab = require('@/assets/lab.png')
 const storyspaceship = require('@/assets/spaceship.png')
 const storyworldmap = require('@/assets/globe.PNG')
@@ -17,14 +19,16 @@ type Storyline = {
   image: string // 이미지 URL
   isgrandpa: number
   isgrandchild: number
+  speaker: number
 }
 const stories: Storyline[] = [
   {
     id: 0,
     text: '할아버지 저 왔어요 !',
     image: storyBackgroundLab,
-    isgrandpa: 1,
-    isgrandchild: 0,
+    isgrandpa: 0,
+    isgrandchild: 1,
+    speaker: 0,
   },
   {
     id: 1,
@@ -32,6 +36,7 @@ const stories: Storyline[] = [
     image: storyBackgroundLab,
     isgrandpa: 1,
     isgrandchild: 1,
+    speaker: 1,
   },
   {
     id: 2,
@@ -39,13 +44,15 @@ const stories: Storyline[] = [
     image: storyBackgroundLab,
     isgrandpa: 1,
     isgrandchild: 1,
+    speaker: 0,
   },
   {
     id: 3,
-    text: '아 저거? 저건 내가 요즘 개발중인 타임머신이란다. <br> 아직 완성된게 아니니 절대 함부로 만지면 안된단다',
+    text: '아 저거? 저건 내가 요즘 개발중인 타임머신이란다. <br> 아직 완성된게 아니니 절대 만지지 말거라.',
     image: storyBackgroundLab,
     isgrandpa: 1,
     isgrandchild: 1,
+    speaker: 1,
   },
   {
     id: 4,
@@ -53,6 +60,7 @@ const stories: Storyline[] = [
     image: storyBackgroundLab,
     isgrandpa: 1,
     isgrandchild: 1,
+    speaker: 1,
   },
   {
     id: 5,
@@ -60,6 +68,7 @@ const stories: Storyline[] = [
     image: storyBackgroundLab,
     isgrandpa: 0,
     isgrandchild: 1,
+    speaker: 0,
   },
   {
     id: 6,
@@ -67,6 +76,7 @@ const stories: Storyline[] = [
     image: storyBackgroundLab,
     isgrandpa: 0,
     isgrandchild: 1,
+    speaker: 2,
   },
   {
     id: 7,
@@ -74,6 +84,7 @@ const stories: Storyline[] = [
     image: storyBackgroundLab,
     isgrandpa: 0,
     isgrandchild: 1,
+    speaker: 0,
   },
   {
     id: 8,
@@ -81,6 +92,7 @@ const stories: Storyline[] = [
     image: storyBackgroundLab,
     isgrandpa: 1,
     isgrandchild: 1,
+    speaker: 1,
   },
   {
     id: 9,
@@ -88,6 +100,7 @@ const stories: Storyline[] = [
     image: storyspaceship,
     isgrandpa: 1,
     isgrandchild: 1,
+    speaker: 1,
   },
   {
     id: 10,
@@ -95,6 +108,7 @@ const stories: Storyline[] = [
     image: storyspaceship,
     isgrandpa: 1,
     isgrandchild: 1,
+    speaker: 0,
   },
   {
     id: 11,
@@ -102,6 +116,7 @@ const stories: Storyline[] = [
     image: storyspaceship,
     isgrandpa: 1,
     isgrandchild: 1,
+    speaker: 1,
   },
   {
     id: 12,
@@ -109,6 +124,7 @@ const stories: Storyline[] = [
     image: storyspaceship,
     isgrandpa: 1,
     isgrandchild: 1,
+    speaker: 0,
   },
   {
     id: 13,
@@ -116,6 +132,7 @@ const stories: Storyline[] = [
     image: storyspaceship,
     isgrandpa: 1,
     isgrandchild: 1,
+    speaker: 1,
   },
   {
     id: 14,
@@ -123,6 +140,7 @@ const stories: Storyline[] = [
     image: storyworldmap,
     isgrandpa: 1,
     isgrandchild: 1,
+    speaker: 0,
   },
   {
     id: 15,
@@ -130,6 +148,7 @@ const stories: Storyline[] = [
     image: storyworldmap,
     isgrandpa: 1,
     isgrandchild: 1,
+    speaker: 1,
   },
   {
     id: 16,
@@ -137,6 +156,7 @@ const stories: Storyline[] = [
     image: storyworldmap,
     isgrandpa: 1,
     isgrandchild: 1,
+    speaker: 0,
   },
   {
     id: 17,
@@ -144,6 +164,7 @@ const stories: Storyline[] = [
     image: storyworldmap,
     isgrandpa: 1,
     isgrandchild: 1,
+    speaker: 1,
   },
   {
     id: 18,
@@ -151,27 +172,39 @@ const stories: Storyline[] = [
     image: storyworldmap,
     isgrandpa: 1,
     isgrandchild: 1,
+    speaker: 0,
   },
   {
     id: 19,
-    text: '우리처럼 타임머신을 타고 와서 역사를 바꾸려고 하는 사람들 때문에 <br> 시간의 요정들이 과거 시간을 지키게 되었단다.',
+    text: '우리처럼 타임머신을 타고 와서 <br> 역사를 바꾸려고 하는 사람들이 있단다.',
     image: storyworldmap,
     isgrandpa: 1,
     isgrandchild: 1,
+    speaker: 1,
   },
   {
     id: 20,
-    text: '요정들이 내는 문제를 맞추고 연료를 받아서 집으로 돌아가자꾸나! ',
+    text: '그런 사람들을 막기위해 <br> 시간의 요정들이 과거 시간을 지키게 되었단다.',
     image: storyworldmap,
     isgrandpa: 1,
     isgrandchild: 1,
+    speaker: 1,
   },
   {
     id: 21,
+    text: '요정들이 내는 문제를 맞추고 연료를 받아서 <br> 집으로 돌아가자꾸나! ',
+    image: storyworldmap,
+    isgrandpa: 1,
+    isgrandchild: 1,
+    speaker: 1,
+  },
+  {
+    id: 22,
     text: '요정들이 내는 문제를 맞추고 연료를 받아서 집으로 돌아가자꾸나! ',
     image: storyworldmap,
     isgrandpa: 1,
     isgrandchild: 1,
+    speaker: 1,
   },
 ]
 const Story: React.FC = () => {
@@ -230,12 +263,16 @@ const Story: React.FC = () => {
       />
       <div>
         {stories[currentStoryIndex].isgrandpa === 1 && (
-          <div className={styles.grandpa} />
+          <div
+            className={`${styles.grandpa} ${stories[currentStoryIndex].speaker === 0 ? styles.grayscale : ''}`}
+          />
         )}
       </div>
       <div>
         {stories[currentStoryIndex].isgrandchild === 1 && (
-          <div className={styles.boy} />
+          <div
+            className={`${styles.boy} ${stories[currentStoryIndex].speaker === 1 ? styles.grayscale : ''}`}
+          />
         )}
       </div>
       <div className={styles.doughnut}>
@@ -249,37 +286,41 @@ const Story: React.FC = () => {
           </div>
         ) : null}
       </div>
+
       <div className={styles.storyNavigation}>
-        <button
-          className={styles.button}
-          onClick={goToPreviousStory}
-          disabled={currentStoryIndex === 0}
-        >
-          ←
-        </button>
         <div className={styles.textfield}>
-          <p>
-            {stories[currentStoryIndex].text
-              .split('<br>')
-              .map((line, index, array) =>
-                index < array.length - 1 ? (
-                  <span key={index}>
-                    {line}
-                    <br />
-                  </span>
-                ) : (
-                  <span key={index}>{line}</span>
-                )
-              )}
-          </p>
+          {stories[currentStoryIndex].text
+            .split('<br>')
+            .map((line, index, array) =>
+              index < array.length - 1 ? (
+                <span key={index}>
+                  {line}
+                  <br />
+                </span>
+              ) : (
+                <span key={index}>{line}</span>
+              )
+            )}
+          {currentStoryIndex !== 0 && (
+            <Button
+              onClick={goToPreviousStory}
+              className={styles.prevButton} // 왼쪽 하단 버튼 클래스 추가
+            >
+              <img
+                src={prevbtn}
+                alt="Previous"
+                className={styles.ButtonImage}
+              />
+            </Button>
+          )}
+          <Button
+            onClick={goToNextStory}
+            disabled={currentStoryIndex === stories.length - 1}
+            className={styles.nextButton} // 오른쪽 하단 버튼 클래스 추가
+          >
+            <img src={nextbtn} alt="Next" className={styles.ButtonImage} />
+          </Button>
         </div>
-        <button
-          className={styles.button}
-          onClick={goToNextStory}
-          disabled={currentStoryIndex === stories.length - 1}
-        >
-          →
-        </button>
       </div>
       {/* world map으로 이동 모달 */}
       <div>
