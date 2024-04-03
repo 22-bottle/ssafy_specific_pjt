@@ -25,6 +25,7 @@ const USAStage: React.FC = () => {
   const startClick = () => {
     startTransition(() => {
       navigate('/mainchild/stage/cartoon')
+        window.location.reload()
     })
   }
 

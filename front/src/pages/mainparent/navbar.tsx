@@ -47,6 +47,7 @@ function ResponsiveAppBar() {
         localStorage.clear()
         setChildId(0)
         navigate('/')
+          window.location.reload()
       })
       .catch((error) => {
         console.error('Logout failed:', error)
