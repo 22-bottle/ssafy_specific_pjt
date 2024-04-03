@@ -1,12 +1,27 @@
 body {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-    url('src/assets/forest.jpg');
+  /* background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url('../../assets/login_singup_background.png'); */
   /* background-color: rgba(86, 204, 213, 0.5); */
   background-position: center;
   background-size: 100% 100%;
   background-repeat: no-repeat;
   min-height: 100vh;
   margin: 0;
+}
+
+.mainContainer::after {
+  width: 100%;
+  height: 100%;
+  content: '';
+  background-image: linear-gradient(rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05)),
+    url('../../assets/login_singup_background.png');
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  opacity: 0.5;
+  filter: blur(2px);
 }
 
 .mainContainer {
@@ -90,9 +105,9 @@ body {
 }
 
 .ttsContainer {
-  background-color: white;
+  background-color: rgba(0, 0, 0, 0.6);
   border-radius: 10px;
-  padding: 1.9vh 10px;
+  padding: 0vh 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: 120vh;
   position: relative;
@@ -113,6 +128,7 @@ body {
   font-weight: bold;
   flex-grow: 1;
   text-align: center;
+  color: white;
 }
 
 .audioButton {
