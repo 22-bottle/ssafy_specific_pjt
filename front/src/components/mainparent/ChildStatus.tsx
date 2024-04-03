@@ -25,6 +25,7 @@ import { Doughnut } from 'react-chartjs-2'
 import 'chart.js/auto'
 import { useRecoilValue, useRecoilState } from 'recoil'
 import { childIdState } from '@/state/Parentatoms'
+import { useNavigate } from 'react-router-dom';
 import {
   childrenListState,
   getChildStudyList,
@@ -97,6 +98,7 @@ type Child = {
 }
 
 const Childstatus: React.FC = () => {
+  const navigate = useNavigate();
   // 자녀 아이디, 자녀 이름 불러오기
   const [childId, setChildId] = useRecoilState(childIdState)
   const [childName, setChildName] = useState('')
@@ -194,9 +196,12 @@ const Childstatus: React.FC = () => {
     borderRadius: '8px',
   }
   // 자녀 포인트 가져오기
-  const childPointList = useRecoilValue(getChildPointList)
+  const childPointList = useRecoilValue(getChildPointList);
   const [pointStatusList, setPointStatusList] = useState<ChildPoint[]>([])
   useEffect(() => {
+    if(childPointList.length === 0){
+      navigate('/mainparent/nochild');
+    }
     if (childPointList && Array.isArray(childPointList.data)) {
       setPointStatusList(childPointList.data)
     }

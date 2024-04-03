@@ -68,7 +68,7 @@ const QuizStart: React.FC = () => {
         <NavbarDrawer onClose={handleDrawerClose} />
       </Drawer>
 
-      <h1 className={styles.title}>Stage 2</h1>
+      <h1 className={styles.title}>Stage {stageId}</h1>
       <div>
         <h1 className={styles.topic}>이제 문제를 풀어볼까요?</h1>
       </div>
