@@ -87,7 +87,7 @@ public class AccountService {
                 .bankCode(bankProperties.getBankCode())
                 .password(encryptPassword)
                 .build();
-
+        System.out.println(account.toString());
         accountRepository.save(account);
     }
 
