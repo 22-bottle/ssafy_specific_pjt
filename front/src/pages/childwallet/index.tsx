@@ -9,7 +9,7 @@ const ChildWallet: React.FC = () => {
       {/* this is ChildWallet */}
       <div
         style={{
-          paddingTop: '85px',
+          // paddingTop: '85px',
           backgroundColor: '#F9FAFB',
           position: 'relative',
           minHeight: 'calc(100vh - 85px)',
