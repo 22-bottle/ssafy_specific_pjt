@@ -36,8 +36,12 @@
 
 
 ## 📋 API 명세서
+<div align="center">
+  <a href="https://documenter.getpostman.com/view/29635180/2sA358ckD5#ebc7ff68-4a43-4829-8412-b37731aeb995">
+    <img src="/uploads/6ef2480888286a0c8b95e82a062e26b9/Postman__software_.png">
+  </a>
+</div>
 
-[![Postman__software_](/uploads/6ef2480888286a0c8b95e82a062e26b9/Postman__software_.png)](https://documenter.getpostman.com/view/29635180/2sA358ckD5#ebc7ff68-4a43-4829-8412-b37731aeb995)
 
 ## **🧾 기능 소개**
 ### 부모
@@ -78,6 +82,9 @@
 
 **아이 만화**
 ![만화](/uploads/7d2018e02300e3f7a95220ae7f074a45/만화.gif)
+
+**아이 퀴즈**
+![퀴즈](/uploads/507c77015ad0c17c64e61b78cf3c451e/퀴즈.gif)
 
 **아이 포인트**
 ![아이포인트](/uploads/dabba718562925008cb4ea2e61e833e4/아이포인트.gif)
