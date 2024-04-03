@@ -90,7 +90,7 @@ const Askwon: React.FC<AskWonProps> = ({ onClose, onConfirm }) => {
               borderRadius: '10px',
             }}
           >
-            환전 요청 하기
+            환전 요청하기
           </Button>
         </div>
       </div>
