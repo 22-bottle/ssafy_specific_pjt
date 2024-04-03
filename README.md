@@ -67,6 +67,9 @@
 **로그인**
 ![아이로그인](/uploads/8deb84f3e63497edda61ece5e5fd538f/아이로그인.gif)
 
+**스토리**
+![스토리](/uploads/bb348e00e26ce3213430576de685ef8b/스토리.gif)
+
 **아이 월드맵**
 ![월드맵](/uploads/27162cc66f02ec7299f7fcd2a1934388/월드맵.gif)
 
