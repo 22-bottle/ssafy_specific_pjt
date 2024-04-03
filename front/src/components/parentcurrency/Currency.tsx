@@ -68,7 +68,7 @@ const Currency: React.FC = () => {
   const shouldShowNavbar = location.pathname === '/currency'
 
   return (
-    <div>
+    <div className={styles.main}>
       {shouldShowNavbar && <Navbar />}
       <div className={styles.currencycontainer}>
         <div className={styles.header}>실시간 환율</div>

@@ -35,6 +35,12 @@ function ResponsiveAppBar() {
     setAnchorElNav(null)
   }
 
+  const navigateToPage = (link: string) => {
+    navigate(link)
+    // 페이지 이동 후 새로고침
+    window.location.reload()
+  }
+
   const handleLogout = () => {
     logout()
       .then(() => {
@@ -44,6 +50,7 @@ function ResponsiveAppBar() {
       })
       .catch((error) => {
         console.error('Logout failed:', error)
+        window.location.reload()
         // Handle logout error here
       })
   }

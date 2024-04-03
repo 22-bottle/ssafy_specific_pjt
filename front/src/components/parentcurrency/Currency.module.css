@@ -1,3 +1,7 @@
+html,
+body {
+  overflow: hidden; /* 스크롤바를 숨깁니다. */
+}
 .card {
   display: 'flex';
   justify-content: 'space-between';
@@ -25,7 +29,7 @@
   padding-top: 50px;
   background-color: #f1f3f7;
   position: relative;
-  min-height: calc(100vh - 120px);
+  min-height: calc(100vh - 70px);
   display: flex;
   align-items: center;
   flex-direction: column;

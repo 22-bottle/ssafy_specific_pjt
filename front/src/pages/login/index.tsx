@@ -57,6 +57,7 @@ function Login() {
           } else if (userRole === 'CHILD') {
             startTransition(() => {
               navigate('/mainchild') // 경로 확인 필요!!
+              window.location.reload()
             })
           }
         }
