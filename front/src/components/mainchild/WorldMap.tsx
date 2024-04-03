@@ -107,7 +107,9 @@ const Worldmap: React.FC = () => {
         onMouseEnter={() => handleMouseEnter(backUSA)}
         onMouseLeave={handleMouseLeave}
       >
-        <div className={styles.tag}>미국 {usaProgressRate}%</div>
+        <div className={styles.tag}>
+          미국 <br /> {usaProgressRate}%
+        </div>
         <Lottie
           animationData={usa}
           style={{ width: '8vw', height: '8vw', marginRight: '6px' }}
@@ -119,7 +121,9 @@ const Worldmap: React.FC = () => {
         onMouseEnter={() => handleMouseEnter(backItaly)}
         onMouseLeave={handleMouseLeave}
       >
-        <div className={styles.tag1}>이탈리아 {euProgressRate}% </div>
+        <div className={styles.tag1}>
+          이탈리아 <br /> {euProgressRate}%{' '}
+        </div>
         <Lottie
           animationData={italy}
           style={{ width: '8vw', height: '8vw', marginRight: '6px' }}
@@ -131,7 +135,11 @@ const Worldmap: React.FC = () => {
         onMouseEnter={() => handleMouseEnter(backJapan)}
         onMouseLeave={handleMouseLeave}
       >
-        <div className={styles.tag}>일본 {japanProgressRate}%</div>
+        <div className={styles.tag}>
+          일본
+          <br />
+          {japanProgressRate}%
+        </div>
         <Lottie
           animationData={japan}
           style={{ width: '8vw', height: '8vw', marginRight: '6px' }}
@@ -143,7 +151,9 @@ const Worldmap: React.FC = () => {
         onMouseEnter={() => handleMouseEnter(backChina)}
         onMouseLeave={handleMouseLeave}
       >
-        <div className={styles.tag}>중국 {chinaProgressRate}%</div>
+        <div className={styles.tag}>
+          중국 <br /> {chinaProgressRate}%
+        </div>
         <Lottie
           animationData={china}
           style={{ width: '8vw', height: '8vw', marginRight: '6px' }}
