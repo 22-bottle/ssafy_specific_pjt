@@ -228,12 +228,13 @@ const Story: React.FC = () => {
   const goToworldmap = async () => {
     try {
       // API 호출
-      const response = await tutorial() // tutorial 함수는 API 호출하는 함수로 가정하고 작성되었다고 가정합니다.
+      const response = await tutorial() // tutorial 함수는 API 호출하는 함수로 가정
       console.log(response)
       // API 호출이 성공하면 페이지 이동
       if (response.data.statusCode === 200) {
-        // 성공일때
+        // 성공일 때
         navigate('/mainchild/worldmap') // 페이지 이동
+        window.location.reload() // 페이지 새로고침
       } else {
         // API 호출이 실패했을 때의 처리
       }
@@ -243,6 +244,7 @@ const Story: React.FC = () => {
       // 에러 처리 코드 작성
     }
   }
+
   const style = {
     position: 'absolute',
     top: '50%',
