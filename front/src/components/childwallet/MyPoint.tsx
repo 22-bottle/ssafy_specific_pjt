@@ -7,17 +7,6 @@ import chinalottie from '../../assets/lottie/china.json'
 import styles from './mypoint.module.css'
 import Button from '@mui/material/Button'
 import Link from '@mui/material/Link'
-import updown from '../../assets/updow.png'
-import up from '../../assets/up.png'
-import down from '../../assets/down.png'
-import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
-import ListItemButton from '@mui/material/ListItemButton'
-import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
-import usa from '../../assets/flag_usa.png'
-import japan from '../../assets/flag_japan.png'
-import europe from '../../assets/flag_europe.png'
-import china from '../../assets/flag_china.png'
 import Modal from '@mui/material/Modal'
 import Box from '@mui/material/Box'
 import AskWon from './AskWon'
@@ -28,6 +17,7 @@ import Currency from '@/components/parentcurrency/Currency'
 import { atom, useSetRecoilState, useRecoilValue } from 'recoil'
 import { childAccountSelector } from '@/state/AccountSelectors'
 import HistoryDetail from './HistoryDetail'
+import currency from "@/components/parentcurrency/Currency";
 
 export const exchangeAmountState = atom({
   key: 'exchangeAmountState', // 고유한 키
@@ -50,7 +40,8 @@ interface CurrencyData {
 
 const Mypoint: React.FC = () => {
   const userName = localStorage.getItem('userName')
-
+  const [frType, setFrType] = useState('');
+  const [frCode, setFrCode] = useState('');
   const navigate = useNavigate()
 
   const [open, setOpen] = useState(false)
@@ -84,6 +75,7 @@ const Mypoint: React.FC = () => {
 
   // 환전 요청 핸들러
   const handleExchangeRequest = (currency: CurrencyData) => {
+    sethistoryOpen(false)
     const calculatedAmount = Math.floor(
       currency.point * currency.basicRate
     ).toLocaleString('ko-KR')
@@ -131,9 +123,11 @@ const Mypoint: React.FC = () => {
     }
   }
   const [countryId, setCountryId] = useState(0)
-  function OpenModal(countryId: number) {
-    setCountryId(countryId)
-    sethistoryOpen(true)
+  function OpenModal(currency: CurrencyData) {
+    setCountryId(currency.countryId);
+    setFrType(currency.frType);
+    setFrCode(currency.code)
+    sethistoryOpen(true);
   }
 
   return (
@@ -141,7 +135,7 @@ const Mypoint: React.FC = () => {
       {/* 메인1 */}
       <div className={styles.pointtitle}>획득 포인트</div>
       <div className={styles.main}>
-        <div className={styles.horizontal}>
+        <div className={styles.horizontal} >
           <div className={styles.possibletext}>
             {userName}님의 환전 가능 금액
           </div>
@@ -155,6 +149,7 @@ const Mypoint: React.FC = () => {
         {/* 환율 정보를 동적으로 렌더링 */}
         {currencyData.map((currency) => (
           <div key={currency.countryId} className={styles.horizontal2}>
+            <div onClick={() => OpenModal(currency)} className={styles.box}>
             <div className={styles.country}>
               {/* 국가 Lottie */}
               <Lottie
@@ -169,15 +164,9 @@ const Mypoint: React.FC = () => {
                           ? chinalottie
                           : null // 기본값 혹은 일치하는 코드가 없을 경우
                 }
-                style={{ width: '4.5vw', height: '4.5vw', marginRight: '6px' }}
+                style={{ width: '4.5vw', height: '4.5vw', marginRight: '5px' }}
               />
-              <button
-                className={styles.historybutton}
-                onClick={() => OpenModal(currency.countryId)}
-              >
-                <span className={styles.text}>coin history 보러가기</span>
-                {currency.frType}
-              </button>
+              {currency.frType}
             </div>
             <div className={styles.horizontal1}>
               <div className={styles.context}>
@@ -203,19 +192,31 @@ const Mypoint: React.FC = () => {
                 원
               </div>
             </div>
+            </div>
             <div className={styles.button}>
               <Button
                 variant="contained"
                 disableElevation
-                onClick={() => handleExchangeRequest(currency)}
+                disabled={currency.point === 0}
+                onClick={(event) => {
+                  // Prevent the click event from bubbling up to the parent elements
+                  event.stopPropagation();
+                  handleExchangeRequest(currency);
+                }}
                 sx={{
                   width: 'clamp(100px, 15vw, 140px)',
                   height: 'clamp(35px, 6vw, 45px)',
                   fontSize: 'clamp(14px, 1.7vw, 17px)',
-                  marginTop: '27px',
-                  backgroundColor: '#0064FF',
+                  backgroundColor: currency.point === 0 ? '#bdc6d7' : '#0064FF', // currency.point가 0일 때 회색, 아닐 때 파란색
                   borderRadius: 2,
                   fontWeight: 600,
+                  '&:hover': {
+                    backgroundColor: currency.point === 0 ? '#bdc6d7' : '#0056b3', // 호버 시 스타일 조정
+                  },
+                  '&.Mui-disabled': {
+                    backgroundColor: '#bdc6d7', // 비활성화 상태일 때의 배경색
+                    color: '#ffffff', // 비활성화 상태일 때의 글자색
+                  },
                 }}
               >
                 환전 요청
@@ -265,7 +266,7 @@ const Mypoint: React.FC = () => {
         aria-describedby="ask-won-modal-description"
       >
         <Box sx={style}>
-          <HistoryDetail open={open} setOpen={setOpen} countryId={countryId} />{' '}
+          <HistoryDetail open={open} setOpen={setOpen} countryId={countryId} frCode={frCode} frType={frType}/>{' '}
         </Box>
       </Modal>
     </div>
