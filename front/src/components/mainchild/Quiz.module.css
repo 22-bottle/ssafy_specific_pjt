@@ -111,11 +111,13 @@ body {
 
 .trueContainer:hover{
   background-color: #0064ff; /* 마우스 호버 시 배경색 */
+  color: white;
 
 }
 
 .falseContainer:hover{
   background-color: #ff4343; /* 마우스 호버 시 배경색 */
+  color: white;
 }
 
 .trueButton,
