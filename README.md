@@ -72,7 +72,7 @@
 ![아이로그인](/uploads/8deb84f3e63497edda61ece5e5fd538f/아이로그인.gif)
 
 **스토리**
-![스토리](/uploads/bb348e00e26ce3213430576de685ef8b/스토리.gif)
+![스토리](/uploads/599458408b695ccf45669228223ee60d/스토리.gif)
 
 **아이 월드맵**
 ![월드맵](/uploads/27162cc66f02ec7299f7fcd2a1934388/월드맵.gif)
@@ -84,7 +84,7 @@
 ![만화](/uploads/7d2018e02300e3f7a95220ae7f074a45/만화.gif)
 
 **아이 퀴즈**
-![퀴즈](/uploads/507c77015ad0c17c64e61b78cf3c451e/퀴즈.gif)
+![퀴즈](/uploads/221a399764787e69016e3096b97e999c/퀴즈.gif)
 
 **아이 포인트**
 ![아이포인트](/uploads/dabba718562925008cb4ea2e61e833e4/아이포인트.gif)
