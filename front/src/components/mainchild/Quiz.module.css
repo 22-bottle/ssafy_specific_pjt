@@ -109,6 +109,15 @@ body {
   cursor: pointer;
 }
 
+.trueContainer:hover{
+  background-color: #0064ff; /* 마우스 호버 시 배경색 */
+
+}
+
+.falseContainer:hover{
+  background-color: #ff4343; /* 마우스 호버 시 배경색 */
+}
+
 .trueButton,
 .falseButton {
   background-repeat: no-repeat;
@@ -116,6 +125,15 @@ body {
   font-size: 90px;
   padding-bottom: 5px;
   font-weight: bold;
+}
+
+.trueButton:hover{
+  color: white;
+}
+
+
+.falseButton:hover{
+  color: white;
 }
 
 /* 추가된 스타일 */
