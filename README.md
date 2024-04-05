@@ -17,6 +17,14 @@
 ## **💑 멤버 소개**
 ![제목을-입력해주세요_-004](/uploads/5f979f4773a18e97468186ae5a57ac25/제목을-입력해주세요_-004.jpg)
 
+## 📃 기획 의도 
+![Untitled](/uploads/16576e5f186b00c25b9c500974cea10a/Untitled.png)
+![Untitled2](/uploads/3542c5a10fbf703c526265daf6c85521/Untitled2.png)
+![Untitled3](/uploads/c1f6ca9ab46673f1290d1791144b3b17/Untitled3.png)
+![Untitled4](/uploads/4fb9b25350e389fc18b196309cdda29e/Untitled4.png)
+![Untitled5](/uploads/35aff3235035598c1b55f0c606cb89e5/Untitled5.png)
+![Untitled6](/uploads/72f73787a69c139cba1209652e46c190/Untitled6.png)
+
 ## **⚙️ 기술 스택**
 
 | | |
@@ -97,6 +105,10 @@
 
 **환율**
 ![환율](/uploads/c278ecbdac3c22566c466495c3cdaaae/환율.gif)
+
+
+## ☑️ 기대 효과
+![Untitled10](/uploads/43ee02c9560620bee16ba18685f105ef/Untitled10.png)
 
 
 ## 📂 프로젝트 디렉토리 구조
