@@ -2,10 +2,14 @@
 
 #### **삼성 청년 SW아카데미(SSAFY) 10th 특화 핀테크 프로젝트**
 
+<br/>
+
+
 ## **📅 프로젝트 진행 기간**
 
-
 ### **2024.02.19 ~ 2024.04.04(7주)**
+
+<br/>
 
 ## **🔎 프로젝트 소개**
 
@@ -14,16 +18,23 @@
 > ‘**Hico**’ 는 세계사 이야기와 환율 변동의 흥미진진한 결합을 통해 초등학생들에게 금융 기초를 쉽고 재미있게 가르치는 창의적인 **핀테크 교육 플랫폼**입니다.
 > 
 
+<br/>
+
 ## **💑 멤버 소개**
-![제목을-입력해주세요_-004](/uploads/5f979f4773a18e97468186ae5a57ac25/제목을-입력해주세요_-004.jpg)
+![멤버소개](https://github.com/juhyun-99/Algorithm/assets/72910402/f4f1755c-5e72-480f-bb5c-4ed71c1ff77c)
+
+<br/>
 
 ## 📃 기획 의도 
-![Untitled](/uploads/16576e5f186b00c25b9c500974cea10a/Untitled.png)
-![Untitled2](/uploads/3542c5a10fbf703c526265daf6c85521/Untitled2.png)
-![Untitled3](/uploads/c1f6ca9ab46673f1290d1791144b3b17/Untitled3.png)
-![Untitled4](/uploads/4fb9b25350e389fc18b196309cdda29e/Untitled4.png)
-![Untitled5](/uploads/35aff3235035598c1b55f0c606cb89e5/Untitled5.png)
-![Untitled6](/uploads/72f73787a69c139cba1209652e46c190/Untitled6.png)
+![금융교육의필요성](https://github.com/juhyun-99/Algorithm/assets/72910402/75c3c16c-7769-4afa-876f-c4b99f2f8976)
+![자녀금융교육의어려움](https://github.com/juhyun-99/Algorithm/assets/72910402/9fc4e949-c484-4987-b4d7-5ed1df03dbe1)
+![왜세계사](https://github.com/juhyun-99/Algorithm/assets/72910402/b1049ebe-a550-495d-92b3-81811c80c3bc)
+![국제교류의영향1](https://github.com/juhyun-99/Algorithm/assets/72910402/ef5f8eb5-4198-44a9-b433-d6c5e7f655b2)
+![국제교류의영향2](https://github.com/juhyun-99/Algorithm/assets/72910402/5fd5db76-812e-46e2-bb5f-59517ae417e5)
+![외화환율에대한교육서비스부족](https://github.com/juhyun-99/Algorithm/assets/72910402/f9ae2fc8-e70c-4664-839c-1c5527bba0f0)
+
+<br/>
+
 
 ## **⚙️ 기술 스택**
 
@@ -34,82 +45,95 @@
 | Infra | <img src="https://img.shields.io/badge/AWS-232F3E?style=flat-square&logo=amazonaws&logoColor=white"/> <img src="https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white"/> <img src="https://img.shields.io/badge/Jenkins-D24939?style=flat-square&logo=jenkins&logoColor=white"/> <img src="https://img.shields.io/badge/NGINX-009639?style=flat-square&logo=nginx&logoColor=white"/> |
 | Tools | <img src="https://img.shields.io/badge/Notion-000000?style=flat-square&logo=notion&logoColor=white"/> <img src="https://img.shields.io/badge/GitLab-FC6D26?style=flat-square&logo=gitlab&logoColor=white"/> <img src="https://img.shields.io/badge/Jira-0052CC?style=flat-square&logo=jirasoftware&logoColor=white"/> <img src="https://img.shields.io/badge/Mattermost-0058CC?style=flat-square&logo=mattermost&logoColor=white"/> |
 
-## 🛠️ 서비스 아키텍처
-![Untitled](/uploads/5c536b676ae5eb951531734120dde791/Untitled.png)
+<br/>
 
+
+## 🛠️ 서비스 아키텍처
+![시스템아키텍처](https://github.com/juhyun-99/Algorithm/assets/72910402/20026948-7cfd-4fe1-8d9e-6e6b63aaa8be)
+
+<br/>
 
 
 ## 📈 ERD
-![hicoERD](/uploads/c8cfc0b9757b9bbfbd9b2972ed9c2132/hicoERD.png)
+![hicoERD](https://github.com/juhyun-99/Algorithm/assets/72910402/ae48b4f0-0340-45bf-a085-b88c619f8140)
 
+<br/>
 
 ## 📋 API 명세서
 <div align="center">
   <a href="https://documenter.getpostman.com/view/29635180/2sA358ckD5#ebc7ff68-4a43-4829-8412-b37731aeb995">
-    <img src="/uploads/6ef2480888286a0c8b95e82a062e26b9/Postman__software_.png">
+    <img src="https://github.com/juhyun-99/Algorithm/assets/72910402/2ea82c82-f3df-4479-86f9-d1adbfaeba42">
   </a>
 </div>
+
+<br/>
 
 
 ## **🧾 기능 소개**
 ### 부모
 
 **부모 회원가입**
-![부모회원가입](/uploads/e3357d2fc907d902566ed6c9102c741a/부모회원가입.gif)
+![부모회원가입](https://github.com/juhyun-99/Algorithm/assets/72910402/0aadd4a5-d96d-448d-bcf6-20cfae5258db)
 
 **계좌등록**
-![계좌등록](/uploads/1605696189ff70d541cd540a57b3e93f/계좌등록.gif)
+![계좌등록](https://github.com/juhyun-99/Algorithm/assets/72910402/e718cb8f-fe48-4608-bdad-70355551546f)
 
 **아이 초대 코드**
-![초대코드](/uploads/fde755ff0f2933cd7f91fdaf5e1c9e5a/초대코드.gif)
+![초대코드](https://github.com/juhyun-99/Algorithm/assets/72910402/fcbafb8a-6dcc-4b5c-97c1-26648ead62cf)
 
 **아이 학습 현황**
-![자녀학습현황](/uploads/9ad79cf77cb4c776d393f023c8f31039/자녀학습현황.gif)
+![자녀학습현황](https://github.com/juhyun-99/Algorithm/assets/72910402/ca0db588-2d9c-4010-9462-fe17e24a33b0)
 
 **부모 지갑**
-![부모지갑](/uploads/3a2f8c708a4dcfccf7fa9630b03cc322/부모지갑.gif)
+![부모지갑](https://github.com/juhyun-99/Algorithm/assets/72910402/2652c643-7be0-460e-896a-f313131dca54)
+
 
 **송금**
-![송금](/uploads/7233c706f17263c950343d8dcc74af3a/송금.gif)
+![송금](https://github.com/juhyun-99/Algorithm/assets/72910402/eb484adf-332a-4f9b-aad9-a049f6ff00b4)
 
 ### 아이
 **아이 회원가입**
-![아이회원가입](/uploads/80dcbd7422b9cdfcd2755756a0c6ada8/아이회원가입.gif)
+![아이회원가입](https://github.com/juhyun-99/Algorithm/assets/72910402/2e880fef-4d56-4a2f-871a-b9e81ecc506e)
+
 
 **로그인**
-![아이로그인](/uploads/8deb84f3e63497edda61ece5e5fd538f/아이로그인.gif)
+![아이로그인](https://github.com/juhyun-99/Algorithm/assets/72910402/d3e3691d-ad54-42aa-b331-e95c100299e4)
 
 **스토리**
-![스토리](/uploads/599458408b695ccf45669228223ee60d/스토리.gif)
+![스토리1](https://github.com/juhyun-99/Algorithm/assets/72910402/04b3e133-93ed-4b3c-917e-7b88fc7de5ff)
+![스토리2](https://github.com/juhyun-99/Algorithm/assets/72910402/38c00d66-e31d-44bb-a9b7-41a98dfa3b7a)
+![스토리3](https://github.com/juhyun-99/Algorithm/assets/72910402/9522baef-ffcf-48b0-8235-714d2548adf1)
 
 **아이 월드맵**
-![월드맵](/uploads/27162cc66f02ec7299f7fcd2a1934388/월드맵.gif)
+![월드맵_1](https://github.com/juhyun-99/Algorithm/assets/72910402/b8ccd334-eee6-4c42-8dac-2d6c2eee3d97)
+![월드맵_2](https://github.com/juhyun-99/Algorithm/assets/72910402/f57fdc96-3511-4b66-949e-50a418ff66c8)
+![월드맵_3](https://github.com/juhyun-99/Algorithm/assets/72910402/5e320811-7d21-4581-a3b6-8d5cdf567e0b)
+
 
 **아이 스테이지**
-![스테이지](/uploads/f12ed63f8463451252549cb2c022a05a/스테이지.gif)
+![스테이지](https://github.com/juhyun-99/Algorithm/assets/72910402/1c31adef-0f48-4246-8f66-615568ce6659)
 
 **아이 만화**
-![만화](/uploads/7d2018e02300e3f7a95220ae7f074a45/만화.gif)
+![만화1 (1)](https://github.com/juhyun-99/Algorithm/assets/72910402/b018e46c-bc03-4756-9c38-2f47e816e215)
 
 **아이 퀴즈**
-![퀴즈](/uploads/221a399764787e69016e3096b97e999c/퀴즈.gif)
+![퀴즈](https://github.com/juhyun-99/Algorithm/assets/72910402/b05043ee-5b27-4d50-a589-2ad58f17402a)
 
 **아이 포인트**
-![아이포인트](/uploads/dabba718562925008cb4ea2e61e833e4/아이포인트.gif)
+![아이포인트](https://github.com/juhyun-99/Algorithm/assets/72910402/629920f0-0dc0-48bb-8f00-59b55463e707)
 
 **아이 환전 요청**
-![환전요청](/uploads/6e93c2906ab581f4ef7efb8dc92cfa69/환전요청.gif)
+![환전요청](https://github.com/juhyun-99/Algorithm/assets/72910402/57c07022-6184-4835-80bb-765a9aaf8740)
 
 **아이 지갑**
-![내지갑](/uploads/d4177b82966cc1dcc5d78dbcda997db9/내지갑.gif)
+![내지갑](https://github.com/juhyun-99/Algorithm/assets/72910402/33343853-604e-47b9-be46-4d1e95ef29ee)
 
 **환율**
-![환율](/uploads/c278ecbdac3c22566c466495c3cdaaae/환율.gif)
+![환율](https://github.com/juhyun-99/Algorithm/assets/72910402/d153a4d5-0660-4a7b-9a7b-95001bec8281)
 
 
 ## ☑️ 기대 효과
-![Untitled10](/uploads/43ee02c9560620bee16ba18685f105ef/Untitled10.png)
-
+![기대효과](https://github.com/juhyun-99/Algorithm/assets/72910402/080e458c-e860-44ae-bd6c-849bdc59aea1)
 
 ## 📂 프로젝트 디렉토리 구조
 <details>
